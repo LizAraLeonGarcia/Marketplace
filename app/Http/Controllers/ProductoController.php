@@ -19,7 +19,9 @@ class ProductoController extends Controller
     }
     // Guardar un nuevo producto en la base de datos
     public function store(Request $request)
-    {   // Validar el formulario
+    {   
+        $this->authorize('create', Producto::class);
+        // Validar el formulario
         $request->validate([
             'nombre' => 'required',
             'descripcion' => 'nullable',
@@ -43,7 +45,9 @@ class ProductoController extends Controller
     }
     // Actualizar el producto en la base de datos
     public function update(Request $request, Producto $producto)
-    {   // Validar el formulario
+    {   
+        $this->authorize('update', $producto);
+        // Validar el formulario
         $request->validate([
             'nombre' => 'required',
             'descripcion' => 'nullable',
@@ -58,6 +62,8 @@ class ProductoController extends Controller
     // Eliminar un producto de la base de datos
     public function destroy(Producto $producto)
     {
+        $this->authorize('delete', $producto);
+
         $producto->delete();
 
         return redirect()->route('productos.index')->with('success', 'Producto eliminado exitosamente.');
