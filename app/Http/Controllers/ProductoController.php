@@ -9,7 +9,8 @@ class ProductoController extends Controller
 {   // ----------------------------------------------------------------------------------------------------------- Listar todos los productos
     public function index()
     {
-        $productos = Producto::all();  // Obtener todos los productos
+        // Cambia all() por paginate(10) para paginar los productos
+        $productos = Producto::paginate(10);  // Obtener productos paginados
         return view('productos.index', compact('productos'));  // Pasar los productos a la vista
     }
     // ---------------------------------------------------------------------------------------------------- Mostrar el formulario de creación
@@ -19,22 +20,34 @@ class ProductoController extends Controller
     }
     // ---------------------------------------------------------------------------------------- Guardar un nuevo producto en la base de datos
     public function store(Request $request)
-    {   
-        $this->authorize('create', Producto::class);
-        // Validar el formulario
+    {
         $request->validate
         ([
-            'id' => 'required|numeric',
+            'id' => 'required',
             'nombre' => 'required',
-            'descripcion' => 'nullable',
+            'descripcion' => 'required',
             'precio' => 'required|numeric',
             'cantidad' => 'required|integer',
-            'vendedor_id' => 'required|numeric',
+            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'vendedor_id' => 'required|integer',
         ]);
-        // Crear el nuevo producto
-        Producto::create($request->all());
-
-        return redirect()->route('productos.index')->with('success', 'Producto creado exitosamente.');
+        // Manejo de la imagen
+        if ($request->hasFile('imagen'))
+        {
+            $imagenPath = $request->file('imagen')->store('imagenes_productos', 'public');
+        }
+        // Crear el producto
+        Producto::create
+        ([
+            'id' => $request->id,
+            'nombre' => $request->nombre,
+            'descripcion' => $request->descripcion,
+            'precio' => $request->precio,
+            'stock' => $request->cantidad,
+            'imagen' => $imagenPath ?? null,
+            'vendedor_id' => $request->vendedor_id,
+        ]);
+        return redirect()->route('productos.index')->with('success', 'Producto creado con éxito.');
     }
     // --------------------------------------------------------------------------------------- Mostrar los detalles de un producto específico
     public function show(Producto $producto)
@@ -47,23 +60,41 @@ class ProductoController extends Controller
         return view('productos.edit', compact('producto'));
     }
     // ------------------------------------------------------------------------------------------- Actualizar el producto en la base de datos
-    public function update(Request $request, Producto $producto)
-    {   
-        $this->authorize('update', $producto);
-        // Validar el formulario
+    public function update(Request $request, $id)
+    {
         $request->validate
         ([
-            'id' => 'required|numeric',
+            'id' => 'required',
             'nombre' => 'required',
-            'descripcion' => 'nullable',
+            'descripcion' => 'required',
             'precio' => 'required|numeric',
             'cantidad' => 'required|integer',
-            'vendedor_id' => 'required|numeric',
+            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'vendedor_id' => 'required|integer',
         ]);
-        // Actualizar el producto
-        $producto->update($request->all());
 
-        return redirect()->route('productos.index')->with('success', 'Producto actualizado exitosamente.');
+        $producto = Producto::findOrFail($id);
+        // Manejo de la imagen
+        if ($request->hasFile('imagen')) 
+        {
+            // Eliminar la imagen anterior si existe
+            if ($producto->imagen) 
+            {
+                Storage::disk('public')->delete($producto->imagen);
+            }
+            $imagenPath = $request->file('imagen')->store('imagenes_productos', 'public');
+            $producto->imagen = $imagenPath; // Actualiza el campo imagen
+        }
+        // Actualizar el producto
+        $producto->id = $request->id;
+        $producto->nombre = $request->nombre;
+        $producto->descripcion = $request->descripcion;
+        $producto->precio = $request->precio;
+        $producto->stock = $request->cantidad;
+        $producto->vendedor_id = $request->vendedor_id;
+        $producto->save();
+
+        return redirect()->route('productos.index')->with('success', 'Producto actualizado con éxito.');
     }
     // --------------------------------------------------------------------------------------------- Eliminar un producto de la base de datos
     public function destroy(Producto $producto)

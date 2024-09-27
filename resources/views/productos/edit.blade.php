@@ -1,29 +1,65 @@
 @extends('layouts.app')
 
+@section('title', 'Editar Producto')
+
 @section('content')
-    <h2>Editar Producto</h2>
+    <div class="container">
+        <h2 class="mb-4">Editar Producto</h2>
 
-    <form action="{{ route('productos.update', $producto->id) }}" method="POST">
-        @csrf
-        @method('PUT')
-        <label>ID:</label>
-        <input type="number" name="id" value="{{ $producto->id }}">
+        <!-- Mensaje de error de validación -->
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
-        <label>Nombre:</label>
-        <input type="text" name="nombre" value="{{ $producto->nombre }}">
-        
-        <label>Descripción:</label>
-        <textarea name="descripcion">{{ $producto->descripcion }}</textarea>
-        
-        <label>Precio:</label>
-        <input type="number" name="precio" value="{{ $producto->precio }}" step="0.01">
-        
-        <label>Cantidad:</label>
-        <input type="number" name="cantidad" value="{{ $producto->cantidad }}">
+        <!-- Formulario para editar producto -->
+        <form action="{{ route('productos.update', $producto->id) }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
 
-        <label>Vendedor ID:</label>
-        <input type="number" name="vendedor_id" value="{{ $producto->vendedor_id }}">
-        
-        <button type="submit">Actualizar</button>
-    </form>
+            <div class="mb-3">
+                <label for="id" class="form-label">ID</label>
+                <input type="number" name="id" class="form-control" id="id" value="{{ old('id', $producto->id) }}" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input type="text" name="nombre" class="form-control" id="nombre" value="{{ old('nombre', $producto->nombre) }}" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="descripcion" class="form-label">Descripción</label>
+                <textarea name="descripcion" class="form-control" id="descripcion" rows="3" required>{{ old('descripcion', $producto->descripcion) }}</textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="precio" class="form-label">Precio</label>
+                <input type="number" name="precio" class="form-control" id="precio" step="0.01" value="{{ old('precio', $producto->precio) }}" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="cantidad" class="form-label">Cantidad</label>
+                <input type="number" name="cantidad" class="form-control" id="cantidad" value="{{ old('cantidad', $producto->cantidad) }}" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="imagen" class="form-label">Imagen del Producto (opcional)</label>
+                <input type="file" name="imagen" class="form-control" id="imagen">
+                <small class="form-text text-muted">La imagen actual es: {{ $producto->imagen }}</small>
+            </div>
+
+            <div class="mb-3">
+                <label for="vendedor_id" class="form-label">ID del Vendedor</label>
+                <input type="number" name="vendedor_id" class="form-control" id="vendedor_id" value="{{ old('vendedor_id', $producto->vendedor_id) }}" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Actualizar</button>
+            <a href="{{ route('productos.index') }}" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
 @endsection
