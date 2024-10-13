@@ -82,37 +82,40 @@
 
         <!-- SOPORTE -->
         <section id="soporte" class="soporte">
-        <div class="row align-items-center">
-            <!-- Columna para el texto -->
-            <div class="col-md-6">
-                <h1 class="display-4 font-weight-bold">Si necesitas soporte, ¡contáctanos!</h1>
-                <p>Aquí tienes todas las formas en que puedes ponerte en contacto con nosotros para solicitar soporte técnico.</p>
-                <ol>
-                    <li><i class="fas fa-check-circle"></i> Correo: vaquitamarketplace@gmail.com</li>
-                    <li><i class="fas fa-check-circle"></i> Facebook: Vaquita Marketplace</li>
-                    <li><i class="fas fa-check-circle"></i> WhatsApp: +52 1 33 2324 2223</li>
-                    <li><i class="fas fa-check-circle"></i> Twitter / X: Vaquita Marketplace</li>
-                    <li><i class="fas fa-check-circle"></i> Instagram: Vaquita Marketplace</li>
-                </ol>
+            <div class="row align-items-center">
+                <!-- Columna para el texto -->
+                <div class="col-md-6">
+                    <h1 class="display-4 font-weight-bold">Si necesitas soporte, ¡contáctanos!</h1>
+                    <p>Aquí tienes todas las formas en que puedes ponerte en contacto con nosotros para solicitar soporte técnico.</p>
+                    <ol>
+                        <li>
+                            <i class="fas fa-envelope"></i> Correo: <a href="mailto:vaquitamarketplace@gmail.com">vaquitamarketplace@gmail.com</a>
+                        </li>
+                        <li>
+                            <i class="fab fa-facebook-f"></i> Facebook: 
+                            <a href="https://www.facebook.com/VaquitaMarketplace" target="_blank">Vaquita Marketplace</a>
+                        </li>
+                        <li>
+                            <i class="fab fa-whatsapp"></i> WhatsApp: 
+                            <a href="https://wa.me/523323242223" target="_blank">+52 1 33 2324 2223</a>
+                        </li>
+                        <li>
+                            <i class="fab fa-twitter"></i> Twitter / X: 
+                            <a href="https://twitter.com/VaquitaMarketplace" target="_blank">Vaquita Marketplace</a>
+                        </li>
+                        <li>
+                            <i class="fab fa-instagram"></i> Instagram: 
+                            <a href="https://www.instagram.com/VaquitaMarketplace" target="_blank">Vaquita Marketplace</a>
+                        </li>
+                    </ol>
                     <div class="mt-5">
                         <h5>¡No tardaremos en ayudarte!, por favor, ¡sé paciente!</h5>
                     </div>
-                    <!-- Redes Sociales -->
-                    <div class="social-media mt-4">
-                        <a href="https://www.facebook.com/VaquitaMarketplace" target="_blank" class="social-icon">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="https://wa.me/523323242223" target="_blank" class="social-icon">
-                            <i class="fab fa-whatsapp"></i>
-                        </a>
-                        <a href="https://twitter.com/VaquitaMarketplace" target="_blank" class="social-icon">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="https://www.instagram.com/VaquitaMarketplace" target="_blank" class="social-icon">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                    </div>
                 </div>
+                <!-- Columna para la imagen -->
+                <div class="col-md-6">
+                    <img src="{{ asset('img/soporte.jpg') }}" class="img-fluid mt-4 rounded shadow" alt="Ilustración de soporte" style="max-width: 80%; height: auto;">
+                </div>            
             </div>
         </section>
 

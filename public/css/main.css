@@ -230,13 +230,15 @@ footer {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra */
 }
 
-.social-media {
-  display: flex; /* Usa flexbox para alinear los íconos en línea */
-  gap: 15px; /* Espacio entre los íconos */
+ol li {
+  display: flex; /* Utiliza flexbox para alinear los elementos en línea */
+  align-items: center; /* Centra verticalmente */
+  margin-bottom: 10px; /* Espacio entre los elementos de la lista */
 }
 
 .social-icon {
-  font-size: 24px; /* Tamaño del ícono */
+  font-size: 18px; /* Tamaño del ícono */
+  margin-left: 10px; /* Espacio a la izquierda del ícono */
   color: #1c5f02; /* Color del ícono */
   transition: color 0.3s; /* Transición suave al cambiar de color */
 }
