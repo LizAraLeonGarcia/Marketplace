@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Marketplace - Liz Ara León García</title>
     <link href="{{ asset('css/main.css') }}" rel="stylesheet"> <!-- Ruta de tu CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
     <!-- Navbar -->
@@ -15,7 +17,7 @@
                 <ul class="nav-links">
                     <li><a href="#inicio">Inicio</a></li>
                     <li>
-                        <a href="#productos">Productos</a>
+                        <a href="#">Productos</a>
                         <ul class="submenu">
                             <li><a href="#todos-productos">Todos los Productos</a></li>
                             <li><a href="#por-categoria">Por categoría</a></li>
@@ -35,23 +37,32 @@
         </nav>
     </header>
 
-    <!-- -------------------------------------------------------------- INICIO -------------------------------------------------------------- -->
-    <main>
-        <section id="inicio" class="inicio">
-            <div class="container">
-                <!-- Título principal y descripción -->
-                <h1 class="display-4 font-weight-bold">Bienvenido a Marketplace</h1>
-                <p class="lead">Aquí podrá comprar y vender sus productos con total comodidad y confianza.</p>
-                <!-- Imagen de fondo o ilustración -->
-                <img src="ruta/a/tu/imagen.jpg" alt="Ilustración de Marketplace" class="img-fluid mt-4">
-                <!-- Sección de estadísticas o testimonios -->
-                <div class="mt-5">
-                    <h5 class="font-weight-bold">Muchos productos disponibles y de diversas categorías aguardan.</h5>
+    <section id="inicio" class="inicio">
+        <div class="container">
+            <div class="row align-items-center">
+                <!-- Columna para el texto -->
+                <div class="col-md-6">
+                    <h1 class="display-4 font-weight-bold">¡Bienvenido a Marketplace!</h1>
+                    <p>Aquí podrá comprar y vender sus productos con total comodidad y confianza. Una página hecha especialmente para aquellos que desean:</p>
+                    <ol>
+                        <li><i class="fas fa-check-circle"></i> Productos a excelentes precios y en maravillosas condiciones</li>
+                        <li><i class="fas fa-check-circle"></i> Tener opciones de sobra</li>
+                        <li><i class="fas fa-check-circle"></i> Una interfaz que manejar de forma rápida y fácil</li>
+                    </ol>
+                    <div class="mt-5">
+                        <h5>Muchos productos disponibles y de diversas categorías aguardan. ¡Regístrese ahora y comience a explorar un mundo de productos!</h5>
+                        <a href="{{ route('register') }}" class="btn btn-primary">Regístrate ahora</a>
+                    </div>
+                </div>
+                <!-- Columna para la imagen -->
+                <div class="col-md-6">
+                    <img src="{{ asset('img/inicio.jpeg') }}" class="img-fluid mt-4 rounded shadow" alt="Ilustración de Marketplace">
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- ------------------------------------------------------------ PRODUCTOS ------------------------------------------------------------ -->
+        <!-- PRODUCTOS -->
         <section id="productos" class="productos">
             <h2>Productos</h2>
             <p>Aquí puedes ver todos los productos disponibles.</p>
@@ -64,43 +75,58 @@
             </ul>
         </section>
 
-        <!-- -------------------------------------------------------------- VENDER -------------------------------------------------------------- -->
+        <!-- VENDER -->
         <section id="vender" class="vender">
             <h2>Vender</h2>
             <p>Aquí puedes aprender cómo vender tus productos.</p>
         </section>
 
-        <!-- ------------------------------------------------------------ MI CUENTA ------------------------------------------------------------ -->
+        <!-- MI CUENTA -->
         <section id="mi-cuenta" class="mi-cuenta">
             <h2>Mi Cuenta</h2>
             <p>Accede a tu perfil y ajusta la configuración de tu cuenta.</p>
         </section>
 
-        <!-- ------------------------------------------------------------- SOPORTE ------------------------------------------------------------- -->
+        <!-- SOPORTE -->
         <section id="soporte" class="soporte">
             <h2>Soporte</h2>
             <p>Contáctanos si necesitas ayuda o soporte técnico.</p>
         </section>
 
-        <!-- --------------------------------------------- About Section --------------------------------------------- -->
+        <!-- ABOUT -->
         <section id="about" class="about">
             <div class="container">
-                <h2>Acerca de Nosotros</h2>
-                <p>Información sobre tu proyecto o empresa.</p>
+                <div class="row align-items-center">
+                    <!-- Columna para el texto -->
+                    <div class="col-md-6">
+                        <h1 class="display-4 font-weight-bold">¡Bienvenido a Marketplace!</h1>
+                        <p>Aquí podrá comprar y vender sus productos con total comodidad y confianza. Una página hecha especialmente para aquellos que desean:</p>
+                        <ol>
+                            <li><i class="fas fa-check-circle"></i> Productos a excelentes precios y en maravillosas condiciones</li>
+                            <li><i class="fas fa-check-circle"></i> Tener opciones de sobra</li>
+                            <li><i class="fas fa-check-circle"></i> Una interfaz que manejar de forma rápida y fácil</li>
+                        </ol>
+                        <div class="mt-5">
+                            <h5>Muchos productos disponibles y de diversas categorías aguardan. ¡Regístrese ahora y comience a explorar un mundo de productos!</h5>
+                            <a href="{{ route('register') }}" class="btn btn-primary">Regístrate ahora</a>
+                        </div>
+                    </div>
+                    <!-- Columna para la imagen -->
+                    <div class="col-md-6">
+                        <img src="{{ asset('img/inicio.jpeg') }}" class="img-fluid mt-4 rounded shadow" alt="Ilustración de Marketplace">
+                    </div>
+                </div>
             </div>
         </section>
     </main>
-    <!-- -------------------------------------------------- Footer -------------------------------------------------- -->
+
+    <!-- FOOTER -->
     <footer class="bg-dark text-white text-center py-3">
         <div class="container">
             <p>&copy; 2024 Lizbeth León. Todos los derechos reservados.</p>
-            <ul class="list-inline">
-                <li class="list-inline-item"><a href="#soporte" class="text-white">Soporte</a></li>
-                <li class="list-inline-item"><a href="#about" class="text-white">Acerca de</a></li>
-            </ul>
         </div>
     </footer>
 
-    <script src="{{ asset('js/main.js') }}"></script> <!-- Ruta de tu JS, si lo tienes -->
+    <script src="{{ asset('js/main.js') }}"></script>
 </body>
 </html>

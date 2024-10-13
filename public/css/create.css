@@ -1,0 +1,22 @@
+/* Estilos específicos para la página de creación de productos */
+body {
+    background-color: #f8f9fa; /* Cambia el color de fondo */
+}
+
+.container {
+    margin-top: 50px; /* Espacio superior adicional */
+}
+
+h1 {
+    color: #007bff; /* Cambia el color del título */
+    margin-bottom: 30px; /* Espacio inferior para el título */
+}
+
+.form-group {
+    margin-bottom: 20px; /* Espacio entre los campos del formulario */
+}
+
+/* Estilos para botones */
+.btn-primary {
+    background-color: #28a745; /* Cambia el color del botón */
+}
