@@ -3,6 +3,7 @@
 @section('title', 'Lista de Productos')
 
 @section('content')
+<div class="container">
     <h2>Productos</h2>
 
     <!-- Mensaje de éxito -->
@@ -29,7 +30,7 @@
         <a href="{{ route('productos.create') }}" class="btn btn-primary mb-3">Crear Producto</a>
 
         <!-- Muestra la lista de productos aquí -->
-        <table class="table table-striped">
+        <table class="table table-striped table-responsive">
             <thead>
                 <tr>
                     <th scope="col">ID</th>
@@ -41,18 +42,24 @@
             </thead>
             <tbody>
                 @foreach ($productos as $producto)
-                    <tr>
+                    <tr class="table-hover">
                         <th scope="row">{{ $producto->id }}</th>
                         <td>{{ $producto->nombre }}</td>
                         <td>{{ $producto->descripcion }}</td>
-                        <td>{{ $producto->precio }}</td>
+                        <td>${{ number_format($producto->precio, 2) }}</td>
                         <td>
-                            <a href="{{ route('productos.show', $producto->id) }}" class="btn btn-info btn-sm">Ver</a>
-                            <a href="{{ route('productos.edit', $producto->id) }}" class="btn btn-warning btn-sm">Editar</a>
+                            <a href="{{ route('productos.show', $producto->id) }}" class="btn btn-info btn-sm" title="Ver detalles del producto">
+                                <i class="fas fa-eye"></i> Ver
+                            </a>
+                            <a href="{{ route('productos.edit', $producto->id) }}" class="btn btn-warning btn-sm" title="Editar producto">
+                                <i class="fas fa-edit"></i> Editar
+                            </a>
                             <form action="{{ route('productos.destroy', $producto->id) }}" method="POST" class="d-inline-block">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                                <button type="submit" class="btn btn-danger btn-sm" title="Eliminar producto" onclick="return confirm('¿Estás seguro de que quieres eliminar este producto?');">
+                                    <i class="fas fa-trash-alt"></i> Eliminar
+                                </button>
                             </form>
                         </td>
                     </tr>
@@ -64,4 +71,5 @@
     @else
         <h1>Por favor, inicia sesión para ver los productos.</h1>
     @endif
+</div>
 @endsection

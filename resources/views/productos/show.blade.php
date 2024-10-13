@@ -7,7 +7,7 @@
         <h2 class="mb-4">Detalles del Producto</h2>
 
         <div class="card">
-            <div class="card-header">
+            <div class="card-header text-center">
                 <h3>{{ $producto->nombre }}</h3>
             </div>
             <div class="card-body">
@@ -19,14 +19,22 @@
 
                 @if ($producto->imagen)
                     <div class="mb-3">
-                        <img src="{{ asset('storage/' . $producto->imagen) }}" alt="{{ $producto->nombre }}" class="img-fluid">
+                        <img src="{{ asset('storage/' . $producto->imagen) }}" alt="{{ $producto->nombre }}" class="img-fluid rounded shadow">
                     </div>
                 @endif
 
-                <a href="{{ route('productos.index') }}" class="btn btn-secondary">Volver a la lista</a>
-                <a href="{{ route('productos.edit', $producto->id) }}" class="btn btn-primary">Editar Producto</a>
+                <div class="d-flex justify-content-between">
+                    <a href="{{ route('productos.index') }}" class="btn btn-secondary">Volver a la lista</a>
+                    <a href="{{ route('productos.edit', $producto->id) }}" class="btn btn-primary">Editar Producto</a>
+
+                    <!-- Botón para eliminar (si es apropiado) -->
+                    <form action="{{ route('productos.destroy', $producto->id) }}" method="POST" class="d-inline-block">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este producto?');">Eliminar Producto</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 @endsection
-
