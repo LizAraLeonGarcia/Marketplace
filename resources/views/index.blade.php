@@ -89,31 +89,50 @@
 
         <!-- SOPORTE -->
         <section id="soporte" class="soporte">
-            <h2>Soporte</h2>
-            <p>Contáctanos si necesitas ayuda o soporte técnico.</p>
+        <div class="row align-items-center">
+                <!-- Columna para el texto -->
+                <div class="col-md-6">
+                    <h1 class="display-4 font-weight-bold">Si necesitas soporte, ¡contactanos!</h1>
+                    <p>Aquí tienes todas las formas en que puedes ponerte en contacto con nosotros para solicitar soporte técnico.</p>
+                    <ol>
+                        <li><i class="fas fa-check-circle"></i> Correo: vaquitamarketplace@gmail.com</li>
+                        <li><i class="fas fa-check-circle"></i> Facebook: Vaquita Marketplace</li>
+                        <li><i class="fas fa-check-circle"></i> WhatsApp: 33 2324 2223</li>
+                        <li><i class="fas fa-check-circle"></i> Twitter / X: Vaquita Marketplace</li>
+                        <li><i class="fas fa-check-circle"></i> Instagram: Vaquita Marketplace</li>
+                    </ol>
+                    <div class="mt-5">
+                        <h5>¡No tardaremos en ayudarte!, por favor, ¡sé paciente!</h5>
+                    </div>
+                </div>
+                <!-- Columna para la imagen -->
+                <div class="col-md-6">
+                    <img src="{{ asset('img/soporte.jpg') }}" class="img-fluid mt-4 rounded shadow" alt="Ilustración de Marketplace">
+                </div>
+            </div>
         </section>
 
         <!-- ABOUT -->
         <section id="about" class="about">
             <div class="container">
                 <div class="row align-items-center">
-                    <!-- Columna para el texto -->
-                    <div class="col-md-6">
-                        <h1 class="display-4 font-weight-bold">¡Bienvenido a Marketplace!</h1>
-                        <p>Aquí podrá comprar y vender sus productos con total comodidad y confianza. Una página hecha especialmente para aquellos que desean:</p>
-                        <ol>
-                            <li><i class="fas fa-check-circle"></i> Productos a excelentes precios y en maravillosas condiciones</li>
-                            <li><i class="fas fa-check-circle"></i> Tener opciones de sobra</li>
-                            <li><i class="fas fa-check-circle"></i> Una interfaz que manejar de forma rápida y fácil</li>
-                        </ol>
-                        <div class="mt-5">
-                            <h5>Muchos productos disponibles y de diversas categorías aguardan. ¡Regístrese ahora y comience a explorar un mundo de productos!</h5>
-                            <a href="{{ route('register') }}" class="btn btn-primary">Regístrate ahora</a>
-                        </div>
-                    </div>
                     <!-- Columna para la imagen -->
                     <div class="col-md-6">
-                        <img src="{{ asset('img/inicio.jpeg') }}" class="img-fluid mt-4 rounded shadow" alt="Ilustración de Marketplace">
+                        <img src="{{ asset('img/acerca-de.jpg') }}" class="img-fluid mt-4 rounded shadow" alt="Ilustración de Marketplace">
+                    </div>
+                    <!-- Columna para el texto -->
+                    <div class="col-md-6">
+                        <h1 class="display-4 font-weight-bold">¿Por qué existo?</h1>
+                        <p>¿Qué hace diferente a está página de todo el montón que ya existe con la misma finalldad? Pues esta página esta hecha con especial cuidado, cuidado tanto para el comprador como para el vendedor. Ambos pueden sentirse cómodos aquí y hacer tratos sin miedo a la estafa.</p>
+                        <ol>
+                            <li><i class="fas fa-check-circle"></i>Para una segura transacción se toman varias medidas de seguridad.</li>
+                            <li><i class="fas fa-check-circle"></i>Sólo aquellos registrados pueden acceder por completo al cátalogo de productos disponibles para comprar.</li>
+                            <li><i class="fas fa-check-circle"></i>Si no estas registrado tendrás un acceso restringido.</li>
+                        </ol>
+                        <div class="mt-5">
+                            <h5>No lo pienses más, esta pagina es una gran opcion para comprar y vender. ¡Regístrese ahora y comience a explorar un mundo de productos!</h5>
+                            <a href="{{ route('register') }}" class="btn btn-primary">Regístrate ahora</a>
+                        </div>
                     </div>
                 </div>
             </div>
