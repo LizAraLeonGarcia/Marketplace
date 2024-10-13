@@ -230,6 +230,21 @@ footer {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra */
 }
 
+.social-media {
+  display: flex; /* Usa flexbox para alinear los íconos en línea */
+  gap: 15px; /* Espacio entre los íconos */
+}
+
+.social-icon {
+  font-size: 24px; /* Tamaño del ícono */
+  color: #1c5f02; /* Color del ícono */
+  transition: color 0.3s; /* Transición suave al cambiar de color */
+}
+
+.social-icon:hover {
+  color: #16bff3; /* Color al pasar el ratón */
+}
+
 /* Mostrar solo la sección que es objetivo */
 section {
   display: none; /* Oculta todas las secciones */

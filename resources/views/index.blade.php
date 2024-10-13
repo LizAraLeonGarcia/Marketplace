@@ -7,6 +7,7 @@
     <link href="{{ asset('css/main.css') }}" rel="stylesheet"> <!-- Ruta de tu CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
     <!-- Navbar -->
@@ -26,7 +27,6 @@
                             <li><a href="#nuevos-productos">Nuevos productos</a></li>
                         </ul>
                     </li>
-                    <li><a href="#vender">Vender</a></li>
                     <li><a href="#mi-cuenta">Mi cuenta</a></li>
                     <li><a href="#soporte">Soporte</a></li>
                     <li><a href="#about">Acerca de</a></li>
@@ -74,13 +74,6 @@
                 <li id="nuevos-productos"><h3>Nuevos Productos</h3></li>
             </ul>
         </section>
-
-        <!-- VENDER -->
-        <section id="vender" class="vender">
-            <h2>Vender</h2>
-            <p>Aquí puedes aprender cómo vender tus productos.</p>
-        </section>
-
         <!-- MI CUENTA -->
         <section id="mi-cuenta" class="mi-cuenta">
             <h2>Mi Cuenta</h2>
@@ -90,24 +83,35 @@
         <!-- SOPORTE -->
         <section id="soporte" class="soporte">
         <div class="row align-items-center">
-                <!-- Columna para el texto -->
-                <div class="col-md-6">
-                    <h1 class="display-4 font-weight-bold">Si necesitas soporte, ¡contactanos!</h1>
-                    <p>Aquí tienes todas las formas en que puedes ponerte en contacto con nosotros para solicitar soporte técnico.</p>
-                    <ol>
-                        <li><i class="fas fa-check-circle"></i> Correo: vaquitamarketplace@gmail.com</li>
-                        <li><i class="fas fa-check-circle"></i> Facebook: Vaquita Marketplace</li>
-                        <li><i class="fas fa-check-circle"></i> WhatsApp: 33 2324 2223</li>
-                        <li><i class="fas fa-check-circle"></i> Twitter / X: Vaquita Marketplace</li>
-                        <li><i class="fas fa-check-circle"></i> Instagram: Vaquita Marketplace</li>
-                    </ol>
+            <!-- Columna para el texto -->
+            <div class="col-md-6">
+                <h1 class="display-4 font-weight-bold">Si necesitas soporte, ¡contáctanos!</h1>
+                <p>Aquí tienes todas las formas en que puedes ponerte en contacto con nosotros para solicitar soporte técnico.</p>
+                <ol>
+                    <li><i class="fas fa-check-circle"></i> Correo: vaquitamarketplace@gmail.com</li>
+                    <li><i class="fas fa-check-circle"></i> Facebook: Vaquita Marketplace</li>
+                    <li><i class="fas fa-check-circle"></i> WhatsApp: +52 1 33 2324 2223</li>
+                    <li><i class="fas fa-check-circle"></i> Twitter / X: Vaquita Marketplace</li>
+                    <li><i class="fas fa-check-circle"></i> Instagram: Vaquita Marketplace</li>
+                </ol>
                     <div class="mt-5">
                         <h5>¡No tardaremos en ayudarte!, por favor, ¡sé paciente!</h5>
                     </div>
-                </div>
-                <!-- Columna para la imagen -->
-                <div class="col-md-6">
-                    <img src="{{ asset('img/soporte.jpg') }}" class="img-fluid mt-4 rounded shadow" alt="Ilustración de Marketplace">
+                    <!-- Redes Sociales -->
+                    <div class="social-media mt-4">
+                        <a href="https://www.facebook.com/VaquitaMarketplace" target="_blank" class="social-icon">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://wa.me/523323242223" target="_blank" class="social-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="https://twitter.com/VaquitaMarketplace" target="_blank" class="social-icon">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://www.instagram.com/VaquitaMarketplace" target="_blank" class="social-icon">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -125,9 +129,9 @@
                         <h1 class="display-4 font-weight-bold">¿Por qué existo?</h1>
                         <p>¿Qué hace diferente a está página de todo el montón que ya existe con la misma finalldad? Pues esta página esta hecha con especial cuidado, cuidado tanto para el comprador como para el vendedor. Ambos pueden sentirse cómodos aquí y hacer tratos sin miedo a la estafa.</p>
                         <ol>
-                            <li><i class="fas fa-check-circle"></i>Para una segura transacción se toman varias medidas de seguridad.</li>
-                            <li><i class="fas fa-check-circle"></i>Sólo aquellos registrados pueden acceder por completo al cátalogo de productos disponibles para comprar.</li>
-                            <li><i class="fas fa-check-circle"></i>Si no estas registrado tendrás un acceso restringido.</li>
+                            <li><i></i>Para una segura transacción se toman varias medidas de seguridad.</li>
+                            <li><i></i>Sólo aquellos registrados pueden acceder por completo al cátalogo de productos disponibles para comprar.</li>
+                            <li><i></i>Si no estas registrado tendrás un acceso restringido.</li>
                         </ol>
                         <div class="mt-5">
                             <h5>No lo pienses más, esta pagina es una gran opcion para comprar y vender. ¡Regístrese ahora y comience a explorar un mundo de productos!</h5>
