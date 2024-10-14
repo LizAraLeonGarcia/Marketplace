@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('index');
 });
-
 // Rutas de registro
 Route::get('/register', [RegisteredUserController::class, 'create'])
     ->middleware('guest')
@@ -19,13 +18,16 @@ Route::post('/register', [RegisteredUserController::class, 'store'])
     ->middleware('guest');
 
 // Rutas de login
-Route::get('login', [AuthenticatedSessionController::class, 'create'])
+Route::get('/login', [AuthenticatedSessionController::class, 'create'])
     ->middleware('guest')
     ->name('login');
 
-Route::post('login', [AuthenticatedSessionController::class, 'store'])
+Route::post('/login', [AuthenticatedSessionController::class, 'store'])
     ->middleware('guest');
-
+// Ruta para cerrar sesión
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
+    ->middleware('auth')
+    ->name('logout');
 // Ruta para acceder a la lista de productos (pública)
 Route::get('/productos', [ProductoController::class, 'index'])->name('productos.index');
 
@@ -36,10 +38,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/productos/{producto}/edit', [ProductoController::class, 'edit'])->name('productos.edit');
     Route::put('/productos/{producto}', [ProductoController::class, 'update'])->name('productos.update');
     Route::delete('/productos/{producto}', [ProductoController::class, 'destroy'])->name('productos.destroy');
-
-    // Opción "Mi cuenta"
     Route::get('/mi-cuenta', function () {
-        // Aquí podrías tener una vista para gestionar la cuenta del usuario
         return view('mi-cuenta');
     })->name('mi-cuenta');
 });

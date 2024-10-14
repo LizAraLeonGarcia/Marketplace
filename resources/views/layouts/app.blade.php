@@ -14,6 +14,7 @@
 <body>
 
     <div class="container">
+        @include('layouts.navigation') <!-- Incluir la barra de navegación -->
         @yield('content') <!-- Sección donde se cargan las vistas específicas -->
     </div>
 

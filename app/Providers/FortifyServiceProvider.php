@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Providers;
 
 use App\Actions\Fortify\CreateNewUser;
@@ -42,5 +41,13 @@ class FortifyServiceProvider extends ServiceProvider
         RateLimiter::for('two-factor', function (Request $request) {
             return Limit::perMinute(5)->by($request->session()->get('login.id'));
         });
+
+        // Redirige al usuario a la página de 'Mi cuenta' después de autenticarse
+        //Fortify::redirects([
+            //'login' => route('/mi-cuenta'),    // Redirigir a /mi-cuenta después del login
+            //'login' => route('dashboard'), // Redirigir a la página de inicio (dashboard) después del login
+            //'register' => route('login'),   // Redirigir a login después del registro
+            //'password-reset' => route('login'), // Redirigir a login después de resetear la contraseña
+        //]);
     }
 }
