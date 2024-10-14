@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container">
-    <h2>Productos</h2>
+    <h2 class="mb-4">Lista de Productos</h2>
 
     <!-- Mensaje de éxito -->
     @if (session('success'))
@@ -25,7 +25,7 @@
     @endif
 
     @if(auth()->check())
-        <h1>Bienvenido, {{ auth()->user()->name }}</h1>
+        <h1 class="mb-4">Bienvenido, {{ auth()->user()->name }}</h1>
         
         <a href="{{ route('productos.create') }}" class="btn btn-primary mb-3">Crear Producto</a>
 

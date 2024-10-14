@@ -247,11 +247,90 @@ ol li {
   color: #16bff3; /* Color al pasar el ratón */
 }
 
-/* Mostrar solo la sección que es objetivo */
-section {
-  display: none; /* Oculta todas las secciones */
+/* Ajustes generales de espaciado para todo el contenido */
+body {
+  padding: 20px; /* Añade un margen global para que nada quede al ras */
+  margin: 0;
+  background-color: #f8f9fa;
 }
 
+/* Navbar */
+nav {
+  padding: 10px 20px; /* Espaciado interno del menú de navegación */
+  background: #ffffff;
+  color: #000000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+/* Espacio para que no quede pegado al borde */
+nav img {
+  margin-left: 10px;
+  margin-right: 20px;
+}
+
+.nav-links a {
+  padding: 10px 20px; /* Mayor espaciado entre los enlaces */
+}
+
+header h1 {
+  margin-bottom: 20px;
+}
+
+/* Espaciado para la sección de inicio */
+.inicio {
+  padding: 80px 20px; /* Espaciado adicional en la parte superior e inferior */
+  background: linear-gradient(to right, #f8f9fa, #e9ecef);
+}
+
+.inicio h1 {
+  margin-bottom: 30px; /* Mayor separación debajo del título */
+}
+
+/* Espaciado para las listas y sus íconos */
+.inicio ol {
+  padding-left: 0;
+}
+
+.inicio li {
+  padding-left: 40px; /* Mayor espacio para el ícono */
+  margin-bottom: 15px; /* Espacio entre los elementos de la lista */
+}
+
+/* Imagenes */
+.inicio img {
+  margin: 20px 0; /* Espaciado alrededor de las imágenes */
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Footer */
+footer {
+  background: #333;
+  color: #fff;
+  text-align: center;
+  padding: 40px 0; /* Mayor espacio en el footer */
+}
+
+/* Espaciado entre redes sociales y texto */
+.social-icon {
+  margin-left: 15px; /* Espacio más amplio a la izquierda del ícono */
+  margin-right: 10px; /* Espacio antes del texto de la red social */
+}
+
+
+/* Espaciado global y otros ajustes, ocultando las secciones por defecto */
+section {
+  display: none; /* Oculta todas las secciones */
+  padding: 60px 40px; /* Añade espacio en los lados y en la parte superior e inferior */
+  margin: 20px 0; /* Espacio entre las secciones */
+  border-bottom: 1px solid #ccc;
+}
+
+/* Mostrar solo la sección que es objetivo */
 section:target {
   display: block; /* Muestra solo la sección que es objetivo */
 }

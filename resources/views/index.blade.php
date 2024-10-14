@@ -18,7 +18,7 @@
                 <ul class="nav-links">
                     <li><a href="#inicio">Inicio</a></li>
                     <li>
-                        <a href="#">Productos</a>
+                        <a href="{{ route('productos.index') }}">Productos</a>
                         <ul class="submenu">
                             <li><a href="#todos-productos">Todos los Productos</a></li>
                             <li><a href="#por-categoria">Por categoría</a></li>
@@ -27,7 +27,6 @@
                             <li><a href="#nuevos-productos">Nuevos productos</a></li>
                         </ul>
                     </li>
-                    <li><a href="#mi-cuenta">Mi cuenta</a></li>
                     <li><a href="#soporte">Soporte</a></li>
                     <li><a href="#about">Acerca de</a></li>
                     <li><a href="{{ route('login') }}">Iniciar sesión</a></li>
@@ -75,37 +74,33 @@
             </ul>
         </section>
         <!-- MI CUENTA -->
-        <section id="mi-cuenta" class="mi-cuenta">
-            <h2>Mi Cuenta</h2>
-            <p>Accede a tu perfil y ajusta la configuración de tu cuenta.</p>
-        </section>
 
         <!-- SOPORTE -->
         <section id="soporte" class="soporte">
             <div class="row align-items-center">
                 <!-- Columna para el texto -->
                 <div class="col-md-6">
-                    <h1 class="display-4 font-weight-bold">Si necesitas soporte, ¡contáctanos!</h1>
+                    <h1 class="display-4 font-weight-bold">Si necesitas ayuda técnica, ¡contáctanos!</h1>
                     <p>Aquí tienes todas las formas en que puedes ponerte en contacto con nosotros para solicitar soporte técnico.</p>
                     <ol>
                         <li>
-                            <i class="fas fa-envelope"></i> Correo: <a href="mailto:vaquitamarketplace@gmail.com">vaquitamarketplace@gmail.com</a>
+                            <i class="fas fa-envelope"></i> Correo: <a href="mailto:vaquitamarketplace@gmail.com"> vaquitamarketplace@gmail.com</a>
                         </li>
                         <li>
                             <i class="fab fa-facebook-f"></i> Facebook: 
-                            <a href="https://www.facebook.com/VaquitaMarketplace" target="_blank">Vaquita Marketplace</a>
+                            <a href="https://www.facebook.com/VaquitaMarketplace" target="_blank"> Vaquita Marketplace</a>
                         </li>
                         <li>
                             <i class="fab fa-whatsapp"></i> WhatsApp: 
-                            <a href="https://wa.me/523323242223" target="_blank">+52 1 33 2324 2223</a>
+                            <a href="https://wa.me/523323242223" target="_blank"> +52 1 33 2324 2223</a>
                         </li>
                         <li>
                             <i class="fab fa-twitter"></i> Twitter / X: 
-                            <a href="https://twitter.com/VaquitaMarketplace" target="_blank">Vaquita Marketplace</a>
+                            <a href="https://twitter.com/VaquitaMarketplace" target="_blank"> Vaquita Marketplace</a>
                         </li>
                         <li>
                             <i class="fab fa-instagram"></i> Instagram: 
-                            <a href="https://www.instagram.com/VaquitaMarketplace" target="_blank">Vaquita Marketplace</a>
+                            <a href="https://www.instagram.com/VaquitaMarketplace" target="_blank"> Vaquita Marketplace</a>
                         </li>
                     </ol>
                     <div class="mt-5">
@@ -129,15 +124,18 @@
                     </div>
                     <!-- Columna para el texto -->
                     <div class="col-md-6">
-                        <h1 class="display-4 font-weight-bold">¿Por qué existo?</h1>
-                        <p>¿Qué hace diferente a está página de todo el montón que ya existe con la misma finalldad? Pues esta página esta hecha con especial cuidado, cuidado tanto para el comprador como para el vendedor. Ambos pueden sentirse cómodos aquí y hacer tratos sin miedo a la estafa.</p>
+                        <h1 class="display-4 font-weight-bold">¿Por qué existimos?</h1>
+                        <p>¿Qué hace diferente a está página de todo el montón que ya existe y, encima, con la misma finalldad?. La respuesta es en realidad sencilla, ésta página está hecha con especial cuidado, cuidado tanto para el comprador como para el vendedor. Se busca que ambos puedan sentirse cómodos y hacer tratos sin miedo a la estafa, pero seguramente ahora vienen a tu mente páginas como Amazon, Mercado Libre e inclusive Aliexpress, entonces, quizás ya te preguntaste lo siguiente: ¿por qué nosotros somos más seguros que el propio Amazon siendo una compañía mundialmente conocida?; bueno, aquí la respuesta es:</p>
                         <ol>
-                            <li><i></i>Para una segura transacción se toman varias medidas de seguridad.</li>
-                            <li><i></i>Sólo aquellos registrados pueden acceder por completo al cátalogo de productos disponibles para comprar.</li>
-                            <li><i></i>Si no estas registrado tendrás un acceso restringido.</li>
+                            <li><i></i>Sólo aquellos registrados pueden acceder para comprar.</li>
+                            <li><i></i>Por otra parte, si no estas registrado, tendrás un acceso restringido donde sólo puedes revisar los productos.</li>
+                            <li><i></i>Las reseñas de los productos se publican por igual, beneficie o no al vendedor.</li>
+                            <li><i></i>Tanto vendedor como comprador se pueden calificar y, dicha calficación es visible para cualquier usuario registrado.</li>
+                            <li><i></i>No obtendrás spam en tu correo ni se te llenará de nofiticaciones tu cuenta con mil sugerencias de productos.</li>
+                            <li><i></i>Para una segura transacción, se toman varias medidas de seguridad antes de realizar el pago.</li>
                         </ol>
                         <div class="mt-5">
-                            <h5>No lo pienses más, esta pagina es una gran opcion para comprar y vender. ¡Regístrese ahora y comience a explorar un mundo de productos!</h5>
+                            <h5>No lo pienses más, ésta pagina es una gran opcion para comprar y vender. ¡Regístrate ahora y comienza a explorar un mundo de productos!</h5>
                             <a href="{{ route('register') }}" class="btn btn-primary">Regístrate ahora</a>
                         </div>
                     </div>
@@ -149,7 +147,7 @@
     <!-- FOOTER -->
     <footer class="bg-dark text-white text-center py-3">
         <div class="container">
-            <p>&copy; 2024 Lizbeth León. Todos los derechos reservados.</p>
+            <p>&copy; 2024 Liz Cheli León García. Todos los derechos reservados.</p>
         </div>
     </footer>
 

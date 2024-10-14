@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="container">
-        <h2 class="mb-4">Detalles del Producto</h2>
+        <h2 class="text-center mb-4">Detalles del Producto</h2>
 
         <div class="card">
             <div class="card-header text-center">
@@ -17,13 +17,16 @@
                 <p><strong>Cantidad:</strong> {{ $producto->cantidad }}</p>
                 <p><strong>Vendedor ID:</strong> {{ $producto->vendedor_id }}</p>
 
+                <!-- Muestra la imagen del producto -->
                 @if ($producto->imagen)
                     <div class="mb-3">
                         <img src="{{ asset('storage/' . $producto->imagen) }}" alt="{{ $producto->nombre }}" class="img-fluid rounded shadow">
                     </div>
+                @else
+                    <div class="alert alert-warning">No hay imagen disponible para este producto.</div>
                 @endif
 
-                <div class="d-flex justify-content-between">
+                <div class="d-flex justify-content-between mt-4">
                     <a href="{{ route('productos.index') }}" class="btn btn-secondary">Volver a la lista</a>
                     <a href="{{ route('productos.edit', $producto->id) }}" class="btn btn-primary">Editar Producto</a>
 

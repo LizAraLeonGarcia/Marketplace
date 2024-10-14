@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\ProductoController;
+use Illuminate\Support\Facades\Route;
 
 // Ruta de inicio (index.blade.php)
 Route::get('/', function () {
@@ -25,12 +26,20 @@ Route::get('/login', [AuthenticatedSessionController::class, 'create'])
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])
     ->middleware('guest');
 
+// Ruta para acceder a la lista de productos (pública)
+Route::get('/productos', [ProductoController::class, 'index'])->name('productos.index');
+
 // Rutas del CRUD de productos (solo accesibles para usuarios autenticados)
 Route::middleware(['auth'])->group(function () {
-    Route::get('/productos', [ProductoController::class, 'index'])->name('productos.index');
     Route::get('/productos/create', [ProductoController::class, 'create'])->name('productos.create');
     Route::post('/productos', [ProductoController::class, 'store'])->name('productos.store');
     Route::get('/productos/{producto}/edit', [ProductoController::class, 'edit'])->name('productos.edit');
     Route::put('/productos/{producto}', [ProductoController::class, 'update'])->name('productos.update');
     Route::delete('/productos/{producto}', [ProductoController::class, 'destroy'])->name('productos.destroy');
+
+    // Opción "Mi cuenta"
+    Route::get('/mi-cuenta', function () {
+        // Aquí podrías tener una vista para gestionar la cuenta del usuario
+        return view('mi-cuenta');
+    })->name('mi-cuenta');
 });

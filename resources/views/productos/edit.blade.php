@@ -4,55 +4,71 @@
 
 @section('content')
     <div class="container">
-        <h2 class="mb-4">Editar Producto</h2>
-
-        <!-- Mensaje de error de validación -->
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+        <h2 class="text-center">Editar Producto</h2>
 
         <!-- Formulario para editar producto -->
         <form action="{{ route('productos.update', $producto->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
-            <div class="mb-3">
-                <label for="nombre" class="form-label">Nombre</label>
-                <input type="text" name="nombre" class="form-control" id="nombre" placeholder="Nombre del producto" value="{{ old('nombre', $producto->nombre) }}" required>
+            <!-- Nombre del Producto -->
+            <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input type="text" name="nombre" id="nombre" class="form-control @error('nombre') is-invalid @enderror" value="{{ old('nombre', $producto->nombre) }}" required>
+                @error('nombre')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
             </div>
 
-            <div class="mb-3">
-                <label for="descripcion" class="form-label">Descripción</label>
-                <textarea name="descripcion" class="form-control" id="descripcion" rows="3" placeholder="Descripción del producto" required>{{ old('descripcion', $producto->descripcion) }}</textarea>
+            <!-- Descripción del Producto -->
+            <div class="form-group">
+                <label for="descripcion">Descripción</label>
+                <textarea name="descripcion" id="descripcion" class="form-control @error('descripcion') is-invalid @enderror" required>{{ old('descripcion', $producto->descripcion) }}</textarea>
+                @error('descripcion')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
             </div>
 
-            <div class="mb-3">
-                <label for="precio" class="form-label">Precio ($)</label>
-                <input type="number" name="precio" class="form-control" id="precio" placeholder="0.00" step="0.01" value="{{ old('precio', $producto->precio) }}" required>
+            <!-- Precio del Producto -->
+            <div class="form-group">
+                <label for="precio">Precio ($)</label>
+                <input type="number" name="precio" id="precio" class="form-control @error('precio') is-invalid @enderror" value="{{ old('precio', $producto->precio) }}" step="0.01" required>
+                @error('precio')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
             </div>
 
-            <div class="mb-3">
-                <label for="cantidad" class="form-label">Cantidad</label>
-                <input type="number" name="cantidad" class="form-control" id="cantidad" placeholder="Cantidad disponible" value="{{ old('cantidad', $producto->cantidad) }}" required>
+            <!-- Cantidad del Producto -->
+            <div class="form-group">
+                <label for="cantidad">Cantidad</label>
+                <input type="number" name="cantidad" id="cantidad" class="form-control @error('cantidad') is-invalid @enderror" value="{{ old('cantidad', $producto->cantidad) }}" required>
+                @error('cantidad')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
             </div>
 
-            <div class="mb-3">
-                <label for="imagen" class="form-label">Imagen del Producto (opcional)</label>
-                <input type="file" name="imagen" class="form-control" id="imagen">
-                <small class="form-text text-muted">La imagen actual es: {{ $producto->imagen }}</small>
+            <!-- Imagen del Producto -->
+            <div class="form-group">
+                <label for="imagen">Imagen del Producto (opcional)</label>
+                <input type="file" name="imagen" id="imagen" class="form-control @error('imagen') is-invalid @enderror" accept="image/*">
+                <small class="form-text text-muted">Imagen actual: 
+                    <img src="{{ asset('storage/' . $producto->imagen) }}" alt="Imagen del producto" style="max-width: 150px; max-height: 150px;">
+                </small>
+                @error('imagen')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
             </div>
 
-            <div class="mb-3">
-                <label for="vendedor_id" class="form-label">ID del Vendedor</label>
-                <input type="number" name="vendedor_id" class="form-control" id="vendedor_id" value="{{ old('vendedor_id', $producto->vendedor_id) }}" required>
+            <!-- ID del Vendedor -->
+            <div class="form-group">
+                <label for="vendedor_id">ID del Vendedor</label>
+                <input type="number" name="vendedor_id" id="vendedor_id" class="form-control @error('vendedor_id') is-invalid @enderror" value="{{ old('vendedor_id', $producto->vendedor_id) }}" required>
+                @error('vendedor_id')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
             </div>
 
+            <!-- Botón de Actualizar -->
             <button type="submit" class="btn btn-primary">Actualizar</button>
             <a href="{{ route('productos.index') }}" class="btn btn-secondary">Cancelar</a>
         </form>
