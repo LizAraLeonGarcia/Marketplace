@@ -19,11 +19,11 @@ Route::post('/register', [RegisteredUserController::class, 'store'])
     ->middleware('guest');
 
 // Rutas de login
-Route::get('/login', [AuthenticatedSessionController::class, 'create'])
+Route::get('login', [AuthenticatedSessionController::class, 'create'])
     ->middleware('guest')
     ->name('login');
 
-Route::post('/login', [AuthenticatedSessionController::class, 'store'])
+Route::post('login', [AuthenticatedSessionController::class, 'store'])
     ->middleware('guest');
 
 // Ruta para acceder a la lista de productos (pública)

@@ -19,13 +19,6 @@
                     <li><a href="#inicio">Inicio</a></li>
                     <li>
                         <a href="{{ route('productos.index') }}">Productos</a>
-                        <ul class="submenu">
-                            <li><a href="#todos-productos">Todos los Productos</a></li>
-                            <li><a href="#por-categoria">Por categoría</a></li>
-                            <li><a href="#por-precio">Por precio</a></li>
-                            <li><a href="#mas-vendidos">Más vendidos</a></li>
-                            <li><a href="#nuevos-productos">Nuevos productos</a></li>
-                        </ul>
                     </li>
                     <li><a href="#soporte">Soporte</a></li>
                     <li><a href="#about">Acerca de</a></li>
@@ -35,6 +28,13 @@
             </div>
         </nav>
     </header>
+    <!-- Menú lateral -->
+    <!-- <a href="#todos-productos">Todos los Productos</a>
+        <a href="#por-categoria">Por categoría</a>
+        <a href="#por-precio">Por precio</a>
+        <a href="#mas-vendidos">Más vendidos</a>
+        <a href="#nuevos-productos">Nuevos productos</a>
+    -->
 
     <section id="inicio" class="inicio">
         <div class="container">
