@@ -103,12 +103,11 @@ class ProductoController extends Controller
         return redirect()->route('productos.index')->with('success', 'Producto eliminado exitosamente.');
     }
     
-    public function miCuenta()
+    public function dashboard()
     {
         // Obtener solo los productos del usuario autenticado
-        $productos = Producto::where('vendedor_id', Auth::id())->get();
+        $productos = Producto::where('vendedor_id', auth()->id())->paginate(10); // Cambia según tu lógica de negocio
+        return view('dashboard', compact('productos'));
 
-        // Retornar la vista 'mi-cuenta' con los productos del usuario
-        return view('mi-cuenta', compact('productos'));
     }
 }

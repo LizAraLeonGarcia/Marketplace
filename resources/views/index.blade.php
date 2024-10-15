@@ -22,8 +22,8 @@
                     </li>
                     <li><a href="#soporte">Soporte</a></li>
                     <li><a href="#about">Acerca de</a></li>
-                    <li><a href="{{ route('login') }}">Iniciar sesión</a></li>
-                    <li><a href="{{ route('register') }}">Registrarse</a></li>
+                    <!--<li><a href="{{ route('login') }}">Iniciar sesión</a></li>
+                    <li><a href="{{ route('register') }}">Registrarse</a></li>-->
                 </ul>
             </div>
         </nav>
@@ -51,6 +51,7 @@
                     <div class="mt-5">
                         <h5>Muchos productos disponibles y de diversas categorías aguardan. ¡Regístrese ahora y comience a explorar un mundo de productos!</h5>
                         <a href="{{ route('register') }}" class="btn btn-primary">Regístrate ahora</a>
+                        <a href="{{ route('login') }}" class="btn btn-primary">Iniciar sesión</a>
                     </div>
                 </div>
                 <!-- Columna para la imagen -->
