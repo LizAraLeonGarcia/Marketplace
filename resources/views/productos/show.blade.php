@@ -14,9 +14,8 @@
                 <h5>ID: {{ $producto->id }}</h5>
                 <p><strong>Descripción:</strong> {{ $producto->descripcion }}</p>
                 <p><strong>Precio:</strong> ${{ number_format($producto->precio, 2) }}</p>
-                <p><strong>Cantidad:</strong> {{ $producto->cantidad }}</p>
-                <p><strong>Vendedor ID:</strong> {{ $producto->vendedor_id }}</p>
-
+                <p><strong>Cantidad:</strong> {{ $producto->stock }}</p>
+                <p><strong>Categoría:</strong> {{ $producto->categoria->nombre }}</p> <!-- Mostrar la categoría -->
                 <!-- Muestra la imagen del producto -->
                 @if ($producto->imagen)
                     <div class="mb-3">

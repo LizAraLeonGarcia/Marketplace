@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Producto;
+use App\Models\Categoria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -12,53 +13,54 @@ class ProductoController extends Controller
     public function index()
     {
         $productos = Producto::paginate(10);
-        return view('productos.index', compact('productos'));
+        $categorias = Categoria::all();
+        return view('productos.index', compact('productos','categorias' ));
     }
-
     // Mostrar el formulario de creación
     public function create()
     {
-        return view('productos.create');
+        $categorias = Categoria::all();
+        return view('productos.create', compact('categorias'));
     }
-
     // Guardar un nuevo producto en la base de datos
     public function store(Request $request)
     {
         $request->validate([
-            'nombre' => 'required',
-            'descripcion' => 'required',
+            'nombre' => 'required|string|max:255',
+            'descripcion' => 'required|string',
             'precio' => 'required|numeric',
-            'cantidad' => 'required|integer',
-            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'vendedor_id' => 'required|integer',
+            'stock' => 'required|integer',
+            'categoria_id' => 'required|exists:categorias,id', // Nueva regla para categoría
+            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validación de la imagen
         ]);
-
-        $imagenPath = $request->hasFile('imagen') ? $request->file('imagen')->store('imagenes_productos', 'public') : null;
-
+        // Comprobar si se ha subido una imagen
+        if ($request->hasFile('imagen')) {
+            $imagenPath = $request->file('imagen')->store('imagenes_productos', 'public'); // Guardar la imagen
+        } else {
+            $imagenPath = null; // Si no hay imagen, asignar null
+        }
+    
         Producto::create([
             'nombre' => $request->nombre,
             'descripcion' => $request->descripcion,
             'precio' => $request->precio,
-            'stock' => $request->cantidad,
+            'stock' => $request->stock,
+            'categoria_id' => $request->categoria_id,
             'imagen' => $imagenPath,
-            'vendedor_id' => $request->vendedor_id,
         ]);
-
+    
         return redirect()->route('productos.index')->with('success', 'Producto creado con éxito.');
     }
-
     // Mostrar los detalles de un producto específico
     public function show(Producto $producto)
     {
         return view('productos.show', compact('producto'));
     }
-
     // Mostrar el formulario de edición de un producto
     public function edit(Producto $producto)
     {
         return view('productos.edit', compact('producto'));
     }
-
     // Actualizar el producto en la base de datos
     public function update(Request $request, Producto $producto)
     {
@@ -66,9 +68,9 @@ class ProductoController extends Controller
             'nombre' => 'required',
             'descripcion' => 'required',
             'precio' => 'required|numeric',
-            'cantidad' => 'required|integer',
+            'stock' => 'required|integer',
+            'categoria' => 'required|string', // Asegúrate de validar la categoría
             'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'vendedor_id' => 'required|integer',
         ]);
 
         if ($request->hasFile('imagen')) {
@@ -78,18 +80,16 @@ class ProductoController extends Controller
             }
             $producto->imagen = $request->file('imagen')->store('imagenes_productos', 'public');
         }
-
-        // Actualizar el resto de los campos
+        // Actualizar el resto de los campos, incluyendo la categoría
         $producto->nombre = $request->nombre;
         $producto->descripcion = $request->descripcion;
         $producto->precio = $request->precio;
         $producto->stock = $request->cantidad;
-        $producto->vendedor_id = $request->vendedor_id;
+        $producto->categoria = $request->categoria; // Asegúrate de actualizar la categoría
         $producto->save();
 
         return redirect()->route('productos.index')->with('success', 'Producto actualizado con éxito.');
     }
-
     // Eliminar un producto de la base de datos
     public function destroy(Producto $producto)
     {
@@ -103,11 +103,19 @@ class ProductoController extends Controller
         return redirect()->route('productos.index')->with('success', 'Producto eliminado exitosamente.');
     }
     
+    public function categoria($categoria)
+    {
+        dd($categoria); // Esto imprimirá el valor de la categoría
+        $productos = Producto::where('categoria', $categoria)->paginate(10);
+        return view('productos.categoria', compact('productos', 'categoria'));
+    }
+
     public function dashboard()
     {
-        // Obtener solo los productos del usuario autenticado
-        $productos = Producto::where('vendedor_id', auth()->id())->paginate(10); // Cambia según tu lógica de negocio
-        return view('dashboard', compact('productos'));
+        // Obtener todos los productos
+        $productos = Producto::paginate(10);
 
+        return view('dashboard', compact('productos'));
     }
+
 }

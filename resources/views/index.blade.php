@@ -28,13 +28,6 @@
             </div>
         </nav>
     </header>
-    <!-- Menú lateral -->
-    <!-- <a href="#todos-productos">Todos los Productos</a>
-        <a href="#por-categoria">Por categoría</a>
-        <a href="#por-precio">Por precio</a>
-        <a href="#mas-vendidos">Más vendidos</a>
-        <a href="#nuevos-productos">Nuevos productos</a>
-    -->
 
     <section id="inicio" class="inicio">
         <div class="container">
@@ -62,20 +55,42 @@
         </div>
     </section>
 
-        <!-- PRODUCTOS -->
-        <section id="productos" class="productos">
-            <h2>Productos</h2>
-            <p>Aquí puedes ver todos los productos disponibles.</p>
-            <ul class="submenu">
-                <li id="todos-productos"><h3>Todos los Productos</h3></li>
-                <li id="por-categoria"><h3>Por Categoría</h3></li>
-                <li id="por-precio"><h3>Por Precio</h3></li>
-                <li id="mas-vendidos"><h3>Más Vendidos</h3></li>
-                <li id="nuevos-productos"><h3>Nuevos Productos</h3></li>
-            </ul>
-        </section>
-        <!-- MI CUENTA -->
+    <!-- PRODUCTOS -->
+    <section id="productos" class="productos">
+        <div class="container">
+            <div class="row">
+                <!-- Menú lateral (visible para usuarios no autenticados) -->
+                <div class="col-md-3">
+                    @guest
+                    <nav class="menu-lateral">
+                        <ul>
+                            <li><a href="#todos-productos">Todos los Productos</a></li>
+                            <li><a href="{{ route('productos.categoria', ['categoria' => 'accesorios']) }}">Accesorios</a></li>
+                            <li><a href="{{ route('productos.categoria', ['categoria' => 'calzado']) }}">Calzado</a></li>
+                            <li><a href="{{ route('productos.categoria', ['categoria' => 'cocina']) }}">Cocina</a></li>
+                            <li><a href="{{ route('productos.categoria', ['categoria' => 'coleccionables']) }}">Coleccionables</a></li>
+                            <li><a href="{{ route('productos.categoria', ['categoria' => 'escolar']) }}">Escolar</a></li>
+                            <li><a href="{{ route('productos.categoria', ['categoria' => 'hogar']) }}">Hogar</a></li>
+                            <li><a href="{{ route('productos.categoria', ['categoria' => 'oficina']) }}">Oficina</a></li>
+                            <li><a href="{{ route('productos.categoria', ['categoria' => 'ropa']) }}">Ropa</a></li>
+                            <li><a href="{{ route('productos.categoria', ['categoria' => 'videojuegos']) }}">Videojuegos</a></li>
+                            <li><a href="#por-precio">Por precio</a></li>
+                            <li><a href="#mas-vendidos">Más vendidos</a></li>
+                            <li><a href="#nuevos-productos">Nuevos productos</a></li>
+                        </ul>
+                    </nav>
+                    @endguest
+                </div>
 
+                <!-- Sección principal donde se listan los productos -->
+                <div class="col-md-9">
+                    <h2>Productos</h2>
+                    <p>Aquí puedes ver todos los productos disponibles.</p>
+                    <!-- Aquí puedes colocar la lista de productos -->
+                </div>
+            </div>
+        </div>
+    </section>
         <!-- SOPORTE -->
         <section id="soporte" class="soporte">
             <div class="row align-items-center">

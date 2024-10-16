@@ -5,12 +5,10 @@
 @section('content')
     <div class="container">
         <h2 class="text-center">Editar Producto</h2>
-
         <!-- Formulario para editar producto -->
         <form action="{{ route('productos.update', $producto->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
-
             <!-- Nombre del Producto -->
             <div class="form-group">
                 <label for="nombre">Nombre</label>
@@ -19,7 +17,6 @@
                     <small class="text-danger">{{ $message }}</small>
                 @enderror
             </div>
-
             <!-- Descripción del Producto -->
             <div class="form-group">
                 <label for="descripcion">Descripción</label>
@@ -28,7 +25,6 @@
                     <small class="text-danger">{{ $message }}</small>
                 @enderror
             </div>
-
             <!-- Precio del Producto -->
             <div class="form-group">
                 <label for="precio">Precio ($)</label>
@@ -37,16 +33,14 @@
                     <small class="text-danger">{{ $message }}</small>
                 @enderror
             </div>
-
             <!-- Cantidad del Producto -->
             <div class="form-group">
-                <label for="cantidad">Cantidad</label>
-                <input type="number" name="cantidad" id="cantidad" class="form-control @error('cantidad') is-invalid @enderror" value="{{ old('cantidad', $producto->cantidad) }}" required>
-                @error('cantidad')
+                <label for="stock">Stock</label>
+                <input type="number" name="stock" id="stock" class="form-control @error('stock') is-invalid @enderror" value="{{ old('stock', $producto->stock) }}" required>
+                @error('stock')
                     <small class="text-danger">{{ $message }}</small>
                 @enderror
             </div>
-
             <!-- Imagen del Producto -->
             <div class="form-group">
                 <label for="imagen">Imagen del Producto (opcional)</label>
@@ -58,16 +52,6 @@
                     <small class="text-danger">{{ $message }}</small>
                 @enderror
             </div>
-
-            <!-- ID del Vendedor -->
-            <div class="form-group">
-                <label for="vendedor_id">ID del Vendedor</label>
-                <input type="number" name="vendedor_id" id="vendedor_id" class="form-control @error('vendedor_id') is-invalid @enderror" value="{{ old('vendedor_id', $producto->vendedor_id) }}" required>
-                @error('vendedor_id')
-                    <small class="text-danger">{{ $message }}</small>
-                @enderror
-            </div>
-
             <!-- Botón de Actualizar -->
             <button type="submit" class="btn btn-primary">Actualizar</button>
             <a href="{{ route('productos.index') }}" class="btn btn-secondary">Cancelar</a>

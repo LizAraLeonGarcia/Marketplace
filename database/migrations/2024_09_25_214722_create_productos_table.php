@@ -15,10 +15,9 @@ return new class extends Migration
             $table->string('nombre');
             $table->text('descripcion')->nullable();
             $table->decimal('precio', 8, 2);
-            $table->integer('cantidad');
+            $table->integer('stock');
+            $table->string('categoria')->nullable();
             $table->string('imagen')->nullable();
-            $table->unsignedBigInteger('vendedor_id'); // Llave foránea al usuario vendedor
-            $table->foreign('vendedor_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

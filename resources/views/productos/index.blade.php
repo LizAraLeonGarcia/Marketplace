@@ -6,6 +6,29 @@
 <div class="container">
     <h2 class="mb-4">Lista de Productos</h2>
 
+    <!-- Navegación específica de productos -->
+    <nav>
+            <ul class="nav nav-pills mb-4">
+            <li class="nav-item">
+                <a class="nav-link active" href="{{ route('productos.index') }}">Todos los Productos</a>
+            </li>
+            @foreach($categorias as $categoria)
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('productos.categoria', $categoria->id) }}">{{ $categoria->nombre }}</a>
+                </li>
+            @endforeach
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('productos.precio') }}">Por precio</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('productos.mas-vendidos') }}">Más vendidos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('productos.nuevos') }}">Nuevos productos</a>
+            </li>
+        </ul>
+    </nav>
+
     <!-- Mensaje de éxito -->
     @if (session('success'))
         <div class="alert alert-success">
