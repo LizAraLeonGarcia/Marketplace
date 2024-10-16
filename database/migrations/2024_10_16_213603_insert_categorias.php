@@ -1,14 +1,13 @@
 <?php
 
-namespace Database\Seeders;
-
-use Illuminate\Database\Seeder;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
-use App\Models\Categoria;
 
-class CategoriaSeeder extends Seeder
+class InsertCategorias extends Migration
 {
-    public function run()    {
+    public function up()
+    {
         DB::table('categorias')->insert([
             ['nombre' => 'Accesorios'],
             ['nombre' => 'Calzado'],
@@ -21,5 +20,9 @@ class CategoriaSeeder extends Seeder
             ['nombre' => 'Videojuegos'],
         ]);
     }
-}
 
+    public function down()
+    {
+        DB::table('categorias')->truncate(); // Elimina todos los registros
+    }
+}

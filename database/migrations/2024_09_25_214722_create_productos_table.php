@@ -16,11 +16,15 @@ return new class extends Migration
             $table->text('descripcion')->nullable();
             $table->decimal('precio', 8, 2);
             $table->integer('stock');
-            $table->string('categoria')->nullable();
+            $table->unsignedBigInteger('categoria_id'); // Nueva columna de relación
             $table->string('imagen')->nullable();
             $table->timestamps();
+
+            // Definición de clave foránea para la columna 'categoria_id'
+            $table->foreign('categoria_id')->references('id')->on('categorias')->onDelete('cascade');
         });
     }
+
     /* Reverse the migrations */
     public function down(): void
     {

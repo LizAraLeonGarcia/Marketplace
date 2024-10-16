@@ -9,6 +9,7 @@
         <form action="{{ route('productos.update', $producto->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
+            
             <!-- Nombre del Producto -->
             <div class="form-group">
                 <label for="nombre">Nombre</label>
@@ -17,6 +18,7 @@
                     <small class="text-danger">{{ $message }}</small>
                 @enderror
             </div>
+
             <!-- Descripción del Producto -->
             <div class="form-group">
                 <label for="descripcion">Descripción</label>
@@ -25,6 +27,7 @@
                     <small class="text-danger">{{ $message }}</small>
                 @enderror
             </div>
+
             <!-- Precio del Producto -->
             <div class="form-group">
                 <label for="precio">Precio ($)</label>
@@ -33,7 +36,8 @@
                     <small class="text-danger">{{ $message }}</small>
                 @enderror
             </div>
-            <!-- Cantidad del Producto -->
+
+            <!-- Stock del Producto -->
             <div class="form-group">
                 <label for="stock">Stock</label>
                 <input type="number" name="stock" id="stock" class="form-control @error('stock') is-invalid @enderror" value="{{ old('stock', $producto->stock) }}" required>
@@ -41,6 +45,23 @@
                     <small class="text-danger">{{ $message }}</small>
                 @enderror
             </div>
+
+            <!-- Categoría del Producto -->
+            <div class="form-group">
+                <label for="categoria_id">Categoría</label>
+                <select name="categoria_id" id="categoria_id" class="form-control @error('categoria_id') is-invalid @enderror" required>
+                    <option value="">Seleccionar categoría</option>
+                    @foreach($categorias as $categoria)
+                        <option value="{{ $categoria->id }}" {{ old('categoria_id', $producto->categoria_id) == $categoria->id ? 'selected' : '' }}>
+                            {{ $categoria->nombre }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('categoria_id')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
+            </div>
+
             <!-- Imagen del Producto -->
             <div class="form-group">
                 <label for="imagen">Imagen del Producto (opcional)</label>
@@ -52,6 +73,7 @@
                     <small class="text-danger">{{ $message }}</small>
                 @enderror
             </div>
+
             <!-- Botón de Actualizar -->
             <button type="submit" class="btn btn-primary">Actualizar</button>
             <a href="{{ route('productos.index') }}" class="btn btn-secondary">Cancelar</a>

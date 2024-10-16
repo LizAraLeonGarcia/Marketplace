@@ -57,9 +57,11 @@ class ProductoController extends Controller
         return view('productos.show', compact('producto'));
     }
     // Mostrar el formulario de edición de un producto
-    public function edit(Producto $producto)
+    public function edit($id)
     {
-        return view('productos.edit', compact('producto'));
+        $producto = Producto::findOrFail($id);
+        $categorias = Categoria::all(); // Asegúrate de que esto esté aquí
+        return view('productos.edit', compact('producto', 'categorias'));
     }
     // Actualizar el producto en la base de datos
     public function update(Request $request, Producto $producto)
@@ -70,7 +72,7 @@ class ProductoController extends Controller
             'descripcion' => 'required|string',
             'precio' => 'required|numeric',
             'stock' => 'required|integer',
-            'categoria' => 'required|string', // Asegúrate de validar la categoría
+            'categoria_id' => 'required|exists:categorias,id',
             'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
         // Si se sube una imagen nueva, eliminar la anterior y guardar la nueva
@@ -86,7 +88,7 @@ class ProductoController extends Controller
             'descripcion' => $request->descripcion,
             'precio' => $request->precio,
             'stock' => $request->stock,
-            'categoria' => $request->categoria,
+            'categoria_id' => $request->categoria_id, // Cambia a 'categoria_id'
         ]);
 
         return redirect()->route('productos.index')->with('success', 'Producto actualizado con éxito.');
