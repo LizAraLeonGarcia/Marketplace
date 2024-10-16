@@ -30,25 +30,27 @@ class ProductoController extends Controller
             'descripcion' => 'required|string',
             'precio' => 'required|numeric',
             'stock' => 'required|integer',
-            'categoria_id' => 'required|exists:categorias,id', // Nueva regla para categoría
+            'categoria_id' => 'required|exists:categorias,id', // Validación de categoría
             'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validación de la imagen
         ]);
+
         // Comprobar si se ha subido una imagen
         if ($request->hasFile('imagen')) {
-            $imagenPath = $request->file('imagen')->store('imagenes_productos', 'public'); // Guardar la imagen
+            $imagenPath = $request->file('imagen')->store('imagenes_productos', 'public'); // Guardar la imagen en el disco 'public'
         } else {
             $imagenPath = null; // Si no hay imagen, asignar null
         }
-    
+
+        // Crear el producto
         Producto::create([
             'nombre' => $request->nombre,
             'descripcion' => $request->descripcion,
             'precio' => $request->precio,
             'stock' => $request->stock,
             'categoria_id' => $request->categoria_id,
-            'imagen' => $imagenPath,
+            'imagen' => $imagenPath, // Guardar la ruta de la imagen en el producto
         ]);
-    
+
         return redirect()->route('productos.index')->with('success', 'Producto creado con éxito.');
     }
     // Mostrar los detalles de un producto específico

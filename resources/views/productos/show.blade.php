@@ -16,12 +16,10 @@
                 <p><strong>Cantidad:</strong> {{ $producto->stock }}</p>
                 <p><strong>Categoría:</strong> {{ $producto->categoria->nombre }}</p> <!-- Mostrar la categoría -->
                 <!-- Muestra la imagen del producto -->
-                @if ($producto->imagen)
-                    <div class="mb-3">
-                        <img src="{{ asset('storage/' . $producto->imagen) }}" alt="{{ $producto->nombre }}" class="img-fluid rounded shadow">
-                    </div>
+                @if($producto->imagen)
+                    <img src="{{ asset('storage/' . $producto->imagen) }}" alt="{{ $producto->nombre }}" width="200">
                 @else
-                    <div class="alert alert-warning">No hay imagen disponible para este producto.</div>
+                    <p>No hay imagen disponible para este producto.</p>
                 @endif
 
                 <div class="d-flex justify-content-between mt-4">
