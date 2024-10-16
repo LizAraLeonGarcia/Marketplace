@@ -64,29 +64,30 @@ class ProductoController extends Controller
     // Actualizar el producto en la base de datos
     public function update(Request $request, Producto $producto)
     {
+        // Validar los datos
         $request->validate([
-            'nombre' => 'required',
-            'descripcion' => 'required',
+            'nombre' => 'required|string|max:255',
+            'descripcion' => 'required|string',
             'precio' => 'required|numeric',
             'stock' => 'required|integer',
             'categoria' => 'required|string', // Asegúrate de validar la categoría
             'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-
+        // Si se sube una imagen nueva, eliminar la anterior y guardar la nueva
         if ($request->hasFile('imagen')) {
-            // Eliminar la imagen anterior si existe
             if ($producto->imagen) {
                 Storage::disk('public')->delete($producto->imagen);
             }
             $producto->imagen = $request->file('imagen')->store('imagenes_productos', 'public');
         }
-        // Actualizar el resto de los campos, incluyendo la categoría
-        $producto->nombre = $request->nombre;
-        $producto->descripcion = $request->descripcion;
-        $producto->precio = $request->precio;
-        $producto->stock = $request->cantidad;
-        $producto->categoria = $request->categoria; // Asegúrate de actualizar la categoría
-        $producto->save();
+        // Actualizar el resto de los campos
+        $producto->update([
+            'nombre' => $request->nombre,
+            'descripcion' => $request->descripcion,
+            'precio' => $request->precio,
+            'stock' => $request->stock,
+            'categoria' => $request->categoria,
+        ]);
 
         return redirect()->route('productos.index')->with('success', 'Producto actualizado con éxito.');
     }

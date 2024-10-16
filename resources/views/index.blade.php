@@ -34,7 +34,7 @@
             <div class="row align-items-center">
                 <!-- Columna para el texto -->
                 <div class="col-md-6">
-                    <h1 class="display-4 font-weight-bold">¡Bienvenido a Marketplace!</h1>
+                    <h1 class="display-4 font-weight-bold">¡Bienvenido a Vaquita Marketplace!</h1>
                     <p>Aquí podrá comprar y vender sus productos con total comodidad y confianza. Una página hecha especialmente para aquellos que desean:</p>
                     <ol>
                         <li><i class="fas fa-check-circle"></i> Productos a excelentes precios y en maravillosas condiciones</li>
@@ -64,19 +64,22 @@
                     @guest
                     <nav class="menu-lateral">
                         <ul>
-                            <li><a href="#todos-productos">Todos los Productos</a></li>
-                            <li><a href="{{ route('productos.categoria', ['categoria' => 'accesorios']) }}">Accesorios</a></li>
-                            <li><a href="{{ route('productos.categoria', ['categoria' => 'calzado']) }}">Calzado</a></li>
-                            <li><a href="{{ route('productos.categoria', ['categoria' => 'cocina']) }}">Cocina</a></li>
-                            <li><a href="{{ route('productos.categoria', ['categoria' => 'coleccionables']) }}">Coleccionables</a></li>
-                            <li><a href="{{ route('productos.categoria', ['categoria' => 'escolar']) }}">Escolar</a></li>
-                            <li><a href="{{ route('productos.categoria', ['categoria' => 'hogar']) }}">Hogar</a></li>
-                            <li><a href="{{ route('productos.categoria', ['categoria' => 'oficina']) }}">Oficina</a></li>
-                            <li><a href="{{ route('productos.categoria', ['categoria' => 'ropa']) }}">Ropa</a></li>
-                            <li><a href="{{ route('productos.categoria', ['categoria' => 'videojuegos']) }}">Videojuegos</a></li>
-                            <li><a href="#por-precio">Por precio</a></li>
-                            <li><a href="#mas-vendidos">Más vendidos</a></li>
-                            <li><a href="#nuevos-productos">Nuevos productos</a></li>
+                            <!-- Muestra el menú de productos solo si estás en la sección de productos -->
+                            @if(request()->is('productos'))
+                                <li><a href="#todos-productos">Todos los Productos</a></li>
+                                <li><a href="{{ route('productos.categoria', ['categoria' => 'accesorios']) }}">Accesorios</a></li>
+                                <li><a href="{{ route('productos.categoria', ['categoria' => 'calzado']) }}">Calzado</a></li>
+                                <li><a href="{{ route('productos.categoria', ['categoria' => 'cocina']) }}">Cocina</a></li>
+                                <li><a href="{{ route('productos.categoria', ['categoria' => 'coleccionables']) }}">Coleccionables</a></li>
+                                <li><a href="{{ route('productos.categoria', ['categoria' => 'escolar']) }}">Escolar</a></li>
+                                <li><a href="{{ route('productos.categoria', ['categoria' => 'hogar']) }}">Hogar</a></li>
+                                <li><a href="{{ route('productos.categoria', ['categoria' => 'oficina']) }}">Oficina</a></li>
+                                <li><a href="{{ route('productos.categoria', ['categoria' => 'ropa']) }}">Ropa</a></li>
+                                <li><a href="{{ route('productos.categoria', ['categoria' => 'videojuegos']) }}">Videojuegos</a></li>
+                                <li><a href="#por-precio">Por precio</a></li>
+                                <li><a href="#mas-vendidos">Más vendidos</a></li>
+                                <li><a href="#nuevos-productos">Nuevos productos</a></li>
+                            @endif
                         </ul>
                     </nav>
                     @endguest

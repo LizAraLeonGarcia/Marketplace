@@ -47,17 +47,11 @@ Route::get('/about', function () {
 // Rutas del CRUD de productos (solo accesibles para usuarios autenticados)
 Route::middleware(['auth'])->group(function () {
     // Rutas del CRUD de productos
-    Route::get('/productos', [ProductoController::class, 'index'])->name('productos.index');
+    Route::resource('productos', ProductoController::class);
     Route::get('/productos/categoria/{categoria}', [ProductoController::class, 'categoria'])->name('productos.categoria'); // Aquí defines la ruta
     Route::get('/productos/precio', [ProductoController::class, 'porPrecio'])->name('productos.precio');
     Route::get('/productos/mas-vendidos', [ProductoController::class, 'masVendidos'])->name('productos.mas-vendidos');
     Route::get('/productos/nuevos', [ProductoController::class, 'nuevosProductos'])->name('productos.nuevos');
-    Route::get('/productos/create', [ProductoController::class, 'create'])->name('productos.create');
-    Route::get('/productos/{id}', [ProductoController::class, 'show'])->name('productos.show');
-    Route::post('/productos', [ProductoController::class, 'store'])->name('productos.store');
-    Route::get('/productos/{producto}/edit', [ProductoController::class, 'edit'])->name('productos.edit');
-    Route::put('/productos/{producto}', [ProductoController::class, 'update'])->name('productos.update');
-    Route::delete('/productos/{producto}', [ProductoController::class, 'destroy'])->name('productos.destroy');
     // Ruta para el dashboard (Mi Cuenta)
     Route::get('/dashboard', [ProductoController::class, 'dashboard'])->name('dashboard');
 });

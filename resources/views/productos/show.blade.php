@@ -5,7 +5,6 @@
 @section('content')
     <div class="container">
         <h2 class="text-center mb-4">Detalles del Producto</h2>
-
         <div class="card">
             <div class="card-header text-center">
                 <h3>{{ $producto->nombre }}</h3>
