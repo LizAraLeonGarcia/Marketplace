@@ -59,30 +59,18 @@
     <section id="productos" class="productos">
         <div class="container">
             <div class="row">
-                <!-- Menú lateral (visible para usuarios no autenticados) -->
+                <!-- Menú lateral (visible para todos los usuarios en la página de productos) -->
                 <div class="col-md-3">
-                    @guest
-                    <nav class="menu-lateral">
-                        <ul>
-                            <!-- Muestra el menú de productos solo si estás en la sección de productos -->
-                            @if(request()->is('productos'))
-                                <li><a href="#todos-productos">Todos los Productos</a></li>
-                                <li><a href="{{ route('productos.categoria', ['categoria' => 'accesorios']) }}">Accesorios</a></li>
-                                <li><a href="{{ route('productos.categoria', ['categoria' => 'calzado']) }}">Calzado</a></li>
-                                <li><a href="{{ route('productos.categoria', ['categoria' => 'cocina']) }}">Cocina</a></li>
-                                <li><a href="{{ route('productos.categoria', ['categoria' => 'coleccionables']) }}">Coleccionables</a></li>
-                                <li><a href="{{ route('productos.categoria', ['categoria' => 'escolar']) }}">Escolar</a></li>
-                                <li><a href="{{ route('productos.categoria', ['categoria' => 'hogar']) }}">Hogar</a></li>
-                                <li><a href="{{ route('productos.categoria', ['categoria' => 'oficina']) }}">Oficina</a></li>
-                                <li><a href="{{ route('productos.categoria', ['categoria' => 'ropa']) }}">Ropa</a></li>
-                                <li><a href="{{ route('productos.categoria', ['categoria' => 'videojuegos']) }}">Videojuegos</a></li>
-                                <li><a href="#por-precio">Por precio</a></li>
-                                <li><a href="#mas-vendidos">Más vendidos</a></li>
-                                <li><a href="#nuevos-productos">Nuevos productos</a></li>
-                            @endif
+                    @if(request()->routeIs('productos.index'))
+                        <h4>Filtrar por</h4>
+                        <ul class="list-group">
+                            <li class="list-group-item"><a href="{{ route('productos.index') }}">Todos los Productos</a></li>
+                            <li class="list-group-item"><a href="{{ route('productos.categoria', ['categoria' => 'accesorios']) }}">Por categoría</a></li>
+                            <li class="list-group-item"><a href="#">Por precio</a></li>
+                            <li class="list-group-item"><a href="#">Más vendidos</a></li>
+                            <li class="list-group-item"><a href="#">Nuevos productos</a></li>
                         </ul>
-                    </nav>
-                    @endguest
+                    @endif
                 </div>
 
                 <!-- Sección principal donde se listan los productos -->
@@ -90,6 +78,7 @@
                     <h2>Productos</h2>
                     <p>Aquí puedes ver todos los productos disponibles.</p>
                     <!-- Aquí puedes colocar la lista de productos -->
+                    @yield('products-content')
                 </div>
             </div>
         </div>
