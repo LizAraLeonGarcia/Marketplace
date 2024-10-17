@@ -1,127 +1,95 @@
-/* Reset básico */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* Asegura que el body y html ocupen toda la altura de la ventana */
+/* Asegura que el body no tenga scroll adicional */
 html, body {
-  height: 100%;
-  margin: 0;
-  background-color: #f8f9fa; /* Fondo general */
-  color: #000000;
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
+  height: 100%; /* Ocupa toda la pantalla */
+  margin: 0; /* Elimina márgenes */
+  overflow-x: hidden; /* Evita scroll horizontal */
 }
-
-/* Navbar */
+/* ***************************************************************** NAVBAR ***************************************************************** */
 nav {
   background: #ffffff;
-  color: #000000;
-  position: fixed; /* Para que el header se mantenga en la parte superior */
+  color: #ffffff;
+  padding: 15px 20px;
+  position: fixed;
   top: 0;
   left: 0;
-  width: 100%; /* Para que ocupe todo el ancho */
-  z-index: 1000; /* Para que esté por encima de otros elementos */
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  height: 80px; /* Ajusta el alto del menú */
+}
+/* ------------------------------------------------------------------------------- Contenedor que agrupa el logo y las opciones de navegación */
+.nav-container {
+  display: flex;
+  justify-content: space-between; /* Separa los gifs del menú */
+  align-items: center; /* Alinea verticalmente */
+  width: 100%;
+}
+/* ----------------------------------------------------------------------------------------------------------- Ajustes para los gifs de vacas */
+nav .logo {
+  display: flex;
+  gap: 10px; /* Espacio entre los gifs */
 }
 
-nav img {
-  width: 50px; /* Ajusta según el tamaño de tu logo */
-  float: left;
-  margin-right: 20px;
+nav .logo img {
+  width: 80px; /* Ajusta el tamaño del gif */
+  height: auto; /* Mantiene la proporción del gif */
 }
-
+/* ----------------------------------------------------------------------------------------------------------- Estilos del menú de navegación */
 .nav-links {
   list-style: none;
-  float: right;
-  position: relative; /* Necesario para el submenú */
+  display: flex;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
 }
 
 .nav-links li {
-  display: inline;
-  margin-left: 20px;
+  display: inline-block;
 }
 
 .nav-links a {
   color: #000000;
   text-decoration: none;
   padding: 10px 15px;
+  font-weight: bold;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .nav-links a:hover {
   background: #16bff3;
+  color: #ffffff;
 }
+/* -------------------------------------------------------------------------------------------- Responsividad: Ajusta para pantallas pequeñas */
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column; /* Cambia el flujo a vertical en pantallas pequeñas */
+    align-items: flex-start; /* Alinea a la izquierda en pantallas pequeñas */
+  }
 
-/* Submenú */
-.submenu {
-  display: none; /* Oculta el submenú por defecto */
-  position: absolute;
-  background: #ffffff;
-  list-style: none;
-  padding: 10px;
-  z-index: 1000; /* Asegura que el submenú esté por encima */
+  .nav-links {
+    flex-direction: column; /* Los enlaces se apilan verticalmente */
+    width: 100%; /* Ocupa todo el ancho */
+    text-align: left; /* Alinea los enlaces a la izquierda */
+    gap: 10px; /* Espacio entre elementos en vertical */
+  }
 }
-
-.nav-links li:hover .submenu {
-  display: block; /* Muestra el submenú al pasar el mouse */
-}
-
-.submenu li {
-  display: block;
-  margin: 5px 0;
-}
-
-.submenu a {
-  padding: 5px 15px;
-  color: rgb(0, 0, 0); /* Asegura que el texto del submenú sea visible */
-}
-
-/* Estilos del header header {
-  background: #1c5f02;
-  padding: 60px 0;
-  text-align: center;
-  margin-top: 60px; } /* Para evitar que el contenido esté oculto detrás del header */
-
-
+/* ************************************************************** HEADERS , ETC ************************************************************** */
 header h1 {
-  margin-bottom: 20px;
+  margin-bottom: 20px; /* Agrega un margen inferior de 20 píxeles al elemento <h1> dentro del header */
 }
 
 header p {
-  font-size: 1.2em;
+  font-size: 1.2em; /* Establece el tamaño de la fuente del texto dentro de un elemento <p> en 1.2 veces el tamaño de fuente base (em) */
 }
 
-header .btn {
-  display: inline-block;
-  background: #790000;
-  color: #fff;
-  padding: 10px 20px;
-  text-decoration: none;
-  border-radius: 5px;
-}
-
-header .btn:hover {
-  background: #575757;
-}
-
-/* Estilos para las secciones */
-section {
-  min-height: calc(100vh - 60px); /* Asegura que cada sección ocupe al menos toda la altura de la ventana menos el header */
-  padding: 100px 0 40px; /* Agrega espacio en la parte superior para que no se tape */
-  border-bottom: 1px solid #ccc;
+h2, p {
+  text-align: center;  /* Centra el texto dentro de los elementos <h2> y <p> */
 }
 
 h2 {
-  text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 20px; /* Agrega un margen inferior de 20 píxeles al elemento <h2>, separándolo de los elementos que están debajo */
 }
-
-p {
-  text-align: center;
-}
-
-/* Formulario */
+/* *************************************************************** Formulario *************************************************************** */
 form {
   max-width: 400px;
   margin: 20px auto;
@@ -156,186 +124,159 @@ form button {
 form button:hover {
   background: #575757;
 }
-
-/* Estilos del footer */
-footer {
-  background: #333;
-  color: #fff;
-  text-align: center;
-  padding: 20px 0;
-}
-
-/* Responsividad */
+/* ************************************************************* Responsividad ************************************************************* */
 @media (max-width: 768px) {
   .nav-links {
-      float: none;
-      text-align: center;
-      margin-top: 10px;
+    float: none;
+    text-align: center;
+    margin-top: 10px;
   }
 
   .nav-links li {
-      display: block;
-      margin: 10px 0;
+    display: block;
+    margin: 10px 0;
   }
 
   header {
-      padding: 40px 0;
+    padding: 40px 0;
   }
 
   header h1 {
-      font-size: 2em;
+    font-size: 2em;
   }
 }
-
-.inicio {
-  background: linear-gradient(to right, #f8f9fa, #e9ecef); /* Fondo degradado */
-  padding: 60px 0; /* Espaciado superior e inferior */
-}
-
-.inicio h1 {
-  color: #1c5f02; /* Color del título */
-  margin-bottom: 20px;
-}
-
-.inicio ol {
-  list-style: none; /* Elimina los puntos de la lista */
-  padding-left: 0; /* Elimina el relleno izquierdo */
-}
-
-.inicio li {
-  position: relative; /* Posicionamiento para el ícono */
-  padding-left: 30px; /* Espacio para el ícono */
-}
-
-.inicio i {
-  position: absolute; /* Coloca el ícono a la izquierda */
-  left: 0;
-  color: #16bff3; /* Color del ícono */
-}
-
-.inicio .btn-primary {
-  background-color: #1c5f02; /* Color de fondo del botón */
-  border: none;
-  padding: 10px 20px;
-  font-weight: bold;
-}
-
-.inicio .btn-primary:hover {
-  background-color: #16bff3; /* Color de fondo del botón en hover */
-}
-
-/* Estilo de imagen */
+/* **************************************************************** Imagenes **************************************************************** */
+/* ------------------------------------------------------------------------------------------------------------------------- imagen de inicio */
 .inicio img {
-  border-radius: 10px; /* Bordes redondeados */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra */
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  margin: 20px 0;
 }
-
-ol li {
-  display: flex; /* Utiliza flexbox para alinear los elementos en línea */
-  align-items: center; /* Centra verticalmente */
-  margin-bottom: 10px; /* Espacio entre los elementos de la lista */
-}
-
+/* --------------------------------------------------------------------------------------------------------------------- logos redes sociales */
 .social-icon {
-  font-size: 18px; /* Tamaño del ícono */
-  margin-left: 10px; /* Espacio a la izquierda del ícono */
-  color: #1c5f02; /* Color del ícono */
-  transition: color 0.3s; /* Transición suave al cambiar de color */
-}
-
-.social-icon:hover {
-  color: #16bff3; /* Color al pasar el ratón */
-}
-
-/* Ajustes generales de espaciado para todo el contenido */
-body {
-  padding: 20px; /* Añade un margen global para que nada quede al ras */
-  margin: 0;
-  background-color: #f8f9fa;
-}
-
-/* Navbar */
-nav {
-  padding: 10px 20px; /* Espaciado interno del menú de navegación */
-  background: #ffffff;
+  font-size: 18px;
+  margin-left: 15px;
+  margin-right: 10px;
   color: #000000;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;
+  transition: color 0.3s;
 }
-
-/* Espacio para que no quede pegado al borde */
-nav img {
-  margin-left: 10px;
-  margin-right: 20px;
+/* ***************************************************************** Footer ***************************************************************** */
+footer {
+  background: #000000;
+  color: #fff;
+  text-align: center;
+  padding: 40px 0;
 }
-
-.nav-links a {
-  padding: 10px 20px; /* Mayor espaciado entre los enlaces */
+/* *************************************************************** SECCIONES *************************************************************** */
+section {
+  display: none; /* Ocultar todas las secciones por defecto */
+  width: 100vw;
+  min-height: 100vh; /* Cada sección ocupa el 100% de la altura de la pantalla */
+  padding: 80px 20px;
+  margin: 0; /* Elimina márgenes */
+  box-sizing: border-box;
+  overflow: auto; /* Permitir scroll si el contenido excede el tamaño de la sección */
 }
-
-header h1 {
-  margin-bottom: 20px;
-}
-
-/* Espaciado para la sección de inicio */
-.inicio {
-  padding: 80px 20px; /* Espaciado adicional en la parte superior e inferior */
+/* ------------------------------------------------------------------------------------------------------------------- Fondo de las secciones */
+#inicio, #productos, #soporte, #about {
   background: linear-gradient(to right, #f8f9fa, #e9ecef);
+  color: #000; /* Asegura que el texto sea legible */
+  width: 100%; /* Ocupa todo el ancho */
+  height: 100%; /* Ocupa toda la altura */
+  margin: 0; /* Elimina márgenes */
+  padding: 80px 20px; /* Elimina padding */
 }
-
+/* ************************************************************* Sección Inicio ************************************************************* */
+/* ---------------------------------------------------------------------------------------------------------------------------- estilo del h1 */
 .inicio h1 {
-  margin-bottom: 30px; /* Mayor separación debajo del título */
+  color: #ff009d;
+  margin-bottom: 30px; /* Ajuste aquí para mayor separación */
+  text-align: center; /* Centra el texto */
+}
+/* ----------------------------------------------------------------------------------------------------------------- Color para las palomitas */
+.inicio i {
+  position: absolute;
+  left: 0;
+  color: #1da103;
 }
 
-/* Espaciado para las listas y sus íconos */
 .inicio ol {
+  list-style: none;
   padding-left: 0;
 }
 
 .inicio li {
+  position: relative;
   padding-left: 40px; /* Mayor espacio para el ícono */
-  margin-bottom: 15px; /* Espacio entre los elementos de la lista */
+  margin-bottom: 15px;
 }
 
-/* Imagenes */
-.inicio img {
-  margin: 20px 0; /* Espaciado alrededor de las imágenes */
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+ol li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
 }
-
-/* Footer */
-footer {
-  background: #333;
-  color: #fff;
-  text-align: center;
-  padding: 40px 0; /* Mayor espacio en el footer */
+/* ****************************************** Headers1 de las secciones Productos, Soporte y About ****************************************** */
+#productos h1,
+#soporte h1,
+#about h1 {
+  text-align: center; /* Centra el texto */
 }
-
-/* Espaciado entre redes sociales y texto */
-.social-icon {
-  margin-left: 15px; /* Espacio más amplio a la izquierda del ícono */
-  margin-right: 10px; /* Espacio antes del texto de la red social */
+/* ************************************************************ PARA LOS BOTONES ************************************************************ */
+/* ----------------------------------------------------------------- INICIO ----------------------------------------------------------------- */
+/* ---------------------------------------------------------------------------------------------------- Color para el botón de Iniciar sesión */
+.inicio .btn-success {
+  background-color: #000000;
+  border: none;
+  padding: 10px 20px;
+  font-weight: bold;
+  margin: 30px;
 }
-
-
-/* Espaciado global y otros ajustes, ocultando las secciones por defecto */
-section {
-  display: none; /* Oculta todas las secciones */
-  padding: 60px 40px; /* Añade espacio en los lados y en la parte superior e inferior */
-  margin: 20px 0; /* Espacio entre las secciones */
-  border-bottom: 1px solid #ccc;
+/* ------------------------------------------------------------------------ Color para el botón de Iniciar sesión cuando el cursor está en él */
+.inicio .btn-success:hover {
+  background-color: #2bff00;
 }
-
-/* Mostrar solo la sección que es objetivo */
-section:target {
-  display: block; /* Muestra solo la sección que es objetivo */
+/* ------------------------------------------------------------------------------------------------------- Color para el botón de Registrarse */
+.inicio .btn-primary {
+  background-color: #000000;
+  border: none;
+  padding: 10px 20px;
+  font-weight: bold;
+  margin: 30px;
 }
-
-/* Mostrar la sección de inicio por defecto */
-#inicio {
-  display: block; /* Muestra la sección de inicio por defecto */
+/* --------------------------------------------------------------------------- Color para el botón de Registrarse cuando el cursor está en él */
+.inicio .btn-primary:hover {
+  background-color: #020061;
+}
+/* ----------------------------------------------------------------- ABOUT ----------------------------------------------------------------- */
+/* ------------------------------------------------------------------------------------------------------- Color para el botón de Registrarse */
+.about .btn-primary {
+  background-color: #000000;
+  border: none;
+  padding: 10px 20px;
+  font-weight: bold;
+  margin: 20px;
+}
+/* --------------------------------------------------------------------------- Color para el botón de Registrarse cuando el cursor está en él */
+.about .btn-primary:hover {
+  background-color: #020061;
+}
+/* ****************************************** Ajustes generales de espaciado para todo el contenido ****************************************** */
+body {
+  font-family: 'Times New Roman', Times, serif; /* Usar Times New Roman como fuente principal */
+  padding: 20px;
+  margin: 0;
+  background-color: #f8f9fa;
+}
+/* **************************************************** Mayor espaciado entre los enlaces **************************************************** */
+.nav-links a {
+  padding: 10px 20px; 
+}
+/* ************************************************* Ocultar todas las secciones por defecto ************************************************* */
+.section {
+  display: none; 
+}
+/* ****************************************************** Se muestra la sección activa ****************************************************** */
+section.active {
+  display: block;
 }
