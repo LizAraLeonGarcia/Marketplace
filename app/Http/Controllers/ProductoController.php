@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index', 'show']); // Asegúrate de que los usuarios estén autenticados para las acciones de CRUD
+    }
     // Listar todos los productos o filtrar por categoría
     public function index(Request $request)
     {
@@ -60,6 +64,7 @@ class ProductoController extends Controller
             'stock' => $request->stock,
             'categoria_id' => $request->categoria_id,
             'imagen' => $imagenPath, // Guardar la ruta de la imagen en el producto
+            'user_id' => auth()->id(), // Asignar el ID del usuario autenticado
         ]);
 
         return redirect()->route('productos.index')->with('success', 'Producto creado con éxito.');
@@ -128,9 +133,16 @@ class ProductoController extends Controller
 
     public function dashboard()
     {
-        // Obtener todos los productos
-        $productos = Producto::paginate(10); // Obtener los productos paginados
+        // Obtener el usuario autenticado
+        $user = auth()->user();
+        // Obtener productos del usuario autenticado
+        $productos = Producto::where('user_id', $user->id)->paginate(10);
+
         $categorias = Categoria::all(); // Obtener todas las categorías
         return view('dashboard', compact('productos', 'categorias'));
+        // Obtener todos los productos
+        //$productos = Producto::paginate(10); // Obtener los productos paginados
+        //$categorias = Categoria::all(); // Obtener todas las categorías
+        //return view('dashboard', compact('productos', 'categorias'));
     }
 }
