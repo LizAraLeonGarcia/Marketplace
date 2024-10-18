@@ -59,6 +59,71 @@ nav .logo img {
   background: #16bff3;
   color: #ffffff;
 }
+/* ************************************************************** MENÚ LATERAL ************************************************************** */
+#menu-lateral {
+  position: fixed;
+  top: 100px;
+  left: 0;
+  width: 250px;
+  background-color: #343a40; /* Fondo oscuro */
+  padding: 20px;
+  padding-right: 20px; /* Añadir espacio a la derecha del menú lateral */
+  border-right: 2px solid #ddd;
+  height: calc(100% - 100px);
+  overflow-y: auto;
+  color: white; /* Texto en blanco */
+  flex: 0 0 25%; /* Columna del menú lateral ocupa el 25% */
+}
+/* Estilo para el título del menú */
+#menu-lateral h4 {
+  color: #f8f9fa; /* Color claro para el título */
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  border-bottom: 2px solid #f8f9fa; /* Línea debajo del título */
+  padding-bottom: 10px;
+}
+/* Estilo de los enlaces de la lista */
+#menu-lateral .list-group-item {
+  background-color: #343a40; /* Fondo igual que el menú */
+  border: none; /* Eliminar borde */
+  padding: 10px 15px; /* Espaciado interno */
+  color: #f8f9fa; /* Texto claro */
+  font-size: 1.1rem;
+}
+/* Cambia el color del enlace al pasar el mouse */
+#menu-lateral .list-group-item a {
+  color: #f8f9fa; /* Color de enlace por defecto */
+  text-decoration: none; /* Quitar subrayado */
+  display: block; /* El enlace ocupa todo el ancho del item */
+  transition: color 0.3s ease; /* Transición suave en el hover */
+}
+/* Hover sobre los enlaces */
+#menu-lateral .list-group-item:hover {
+  background-color: #5aacff; /* Un gris más claro al pasar el mouse */
+}
+/* Color azul para los enlaces al pasar el mouse */
+#menu-lateral .list-group-item a:hover {
+  color: #343a40; 
+}
+/* Separación entre los items del menú */
+#menu-lateral .list-group-item:not(:last-child) {
+  margin-bottom: 10px; /* Espacio entre los items */
+}
+/* Ajustar el margen izquierdo del contenido principal */
+.col-md-9 {
+  margin-left: 30px; /* Aumentamos el margen a la izquierda */
+}
+
+/* Ajustar el padding para mejorar el espaciado general */
+.col-md-9 {
+  padding-left: 20px;
+}
+
+/* Ajustar el margen superior del h1 para evitar que se vea pegado al menú lateral */
+.col-md-9 h1 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 /* -------------------------------------------------------------------------------------------- Responsividad: Ajusta para pantallas pequeñas */
 @media (max-width: 768px) {
   nav {
@@ -89,6 +154,42 @@ h2, p {
 h2 {
   margin-bottom: 20px; /* Agrega un margen inferior de 20 píxeles al elemento <h2>, separándolo de los elementos que están debajo */
 }
+
+#soporte h1,
+#about h1 {
+  text-align: center; /* Centra el texto */
+}
+/* Ajuste adicional del espaciado del contenido principal */
+#productos .col-md-9 {
+  padding-left: 30px; /* Más espacio entre el contenido y el menú */
+}
+
+#productos {
+  background: linear-gradient(to right, #f8f9fa, #e9ecef);
+  color: #000; /* Asegura que el texto sea legible */
+  width: 100%; /* Ocupa todo el ancho */
+  height: 100%; /* Ocupa toda la altura */
+  margin: 0; /* Elimina márgenes */
+  padding: 80px 20px; /* Padding superior e inferior */
+}
+
+#productos h1 {
+  text-align: center; /* Centra el texto */
+  margin-top: 0; /* Elimina el margen superior */
+  margin-bottom: 20px; /* Espacio entre el título y el contenido */
+}
+/* Agregar espacio entre el menú lateral y el contenido principal */
+#contenido-productos {
+  flex: 0 0 75%; /* Columna principal ocupa el 75% */
+  padding-left: 20px; /* Relleno a la izquierda */
+}
+
+#contenido-productos h1 {
+  margin-top: 0px; /* Aumenta el margen superior */
+  margin-left: 60px; /* Aumenta el margen izquierdo */
+  margin-bottom: 20px; /* Margen inferior si lo deseas */
+}
+
 /* *************************************************************** Formulario *************************************************************** */
 form {
   max-width: 400px;
@@ -215,12 +316,6 @@ ol li {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
-}
-/* ****************************************** Headers1 de las secciones Productos, Soporte y About ****************************************** */
-#productos h1,
-#soporte h1,
-#about h1 {
-  text-align: center; /* Centra el texto */
 }
 /* ************************************************************ PARA LOS BOTONES ************************************************************ */
 /* ----------------------------------------------------------------- INICIO ----------------------------------------------------------------- */

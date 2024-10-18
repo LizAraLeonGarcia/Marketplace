@@ -71,28 +71,25 @@
     <!-- -------------------------------------------------------------------------------------------------------------------------- productos -->
     <section id="productos" class="productos">
         <div class="container">
-            <h1 class="display-7 font-weight-bold">¡Revisa todos los productos con los que contamos!</h1>
             <div class="row">
                 <!-- Menú lateral (visible para todos los usuarios en la página de productos) -->
-                <div class="col-md-3">
-                    @if(request()->routeIs('productos.index'))
+                <div class="col-md-3" id="menu-lateral">
+                    @if(request()->route()->getName())
                         <h4>Filtrar por</h4>
                         <ul class="list-group">
                             <li class="list-group-item"><a href="{{ route('productos.index') }}">Todos los Productos</a></li>
                             <li class="list-group-item"><a href="{{ route('productos.categoria', ['categoria' => 'accesorios']) }}">Por categoría</a></li>
-                            <li class="list-group-item"><a href="#">Por precio</a></li>
-                            <li class="list-group-item"><a href="#">Más vendidos</a></li>
-                            <li class="list-group-item"><a href="#">Nuevos productos</a></li>
+                            <li class="list-group-item"><a href="{{ route('productos.precio') }}">Por precio</a></li>
+                            <li class="list-group-item"><a href="{{ route('productos.mas-vendidos') }}">Más vendidos</a></li>
+                            <li class="list-group-item"><a href="{{ route('productos.nuevos') }}">Nuevos productos</a></li>
                         </ul>
                     @endif
                 </div>
-
                 <!-- Sección principal donde se listan los productos -->
-                <div class="col-md-9">
-                    <h2>Productos</h2>
-                    <p>Aquí puedes ver todos los productos disponibles.</p>
+                <div class="col-md-9" id="contenido-productos"> <!-- Se añadió 'offset-md-1' para separar más del menú lateral -->
+                    <h1 class="display-7 font-weight-bold text-center mt4">¡Revisa todos los productos con los que contamos!</h1>
+                    <p class="text-center">Aquí puedes ver todos los productos disponibles.</p>
                     <!-- Aquí puedes colocar la lista de productos -->
-                    @yield('products-content')
                 </div>
             </div>
         </div>
