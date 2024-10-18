@@ -63,7 +63,7 @@
                 </div>
                 <!-- Columna para la imagen -->
                 <div class="col-md-6">
-                    <img src="{{ asset('img/inicio.jpg') }}" class="img-fluid mt-4 rounded shadow" alt="Ilustración de Marketplace">
+                    <img src="{{ asset('img/inicio.png') }}" alt="Ilustración de Marketplace">
                 </div>
             </div>
         </div>
@@ -83,6 +83,8 @@
                             <li class="list-group-item"><a href="{{ route('productos.mas-vendidos') }}">Más vendidos</a></li>
                             <li class="list-group-item"><a href="{{ route('productos.nuevos') }}">Nuevos productos</a></li>
                         </ul>
+                        <!-- Imagen decorativa al final -->
+                        <img src="{{ asset('img/productos.png') }}" alt="Adorno" class="menu-adornment">
                     @endif
                 </div>
                 <!-- Sección principal donde se listan los productos -->
@@ -128,7 +130,7 @@
             </div>
             <!-- Columna para la imagen -->
             <div class="col-md-6">
-                <img src="{{ asset('img/soporte.jpg') }}" class="img-fluid mt-4 rounded shadow" alt="Ilustración de soporte" style="max-width: 80%; height: auto;">
+                <img src="{{ asset('img/soporte.png') }}" alt="Ilustración de soporte" style="max-width: 80%; height: auto;">
             </div>            
         </div>
     </section>
@@ -138,7 +140,7 @@
             <div class="row align-items-center">
                 <!-- Columna para la imagen -->
                 <div class="col-md-6">
-                    <img src="{{ asset('img/acerca-de.jpg') }}" class="img-fluid mt-4 rounded shadow" alt="Ilustración de Marketplace">
+                    <img src="{{ asset('img/acerca-de.png') }}" alt="Ilustración de Marketplace">
                 </div>
                 <!-- Columna para el texto -->
                 <div class="col-md-6">

@@ -109,6 +109,13 @@ nav .logo img {
 #menu-lateral .list-group-item:not(:last-child) {
   margin-bottom: 10px; /* Espacio entre los items */
 }
+/* Imagen del menpu al final lateral */
+.menu-adornment {
+  width: 100%; /* Ancho completo del contenedor */
+  margin-top: auto; /* Empuja la imagen hacia el fondo del contenedor */
+  display: block; /* Asegura que la imagen sea un bloque */
+  padding: 10px 0; /* Espaciado alrededor de la imagen, ajusta según sea necesario */
+}
 /* Ajustar el margen izquierdo del contenido principal */
 .col-md-9 {
   margin-left: 30px; /* Aumentamos el margen a la izquierda */
@@ -247,12 +254,7 @@ form button:hover {
   }
 }
 /* **************************************************************** Imagenes **************************************************************** */
-/* ------------------------------------------------------------------------------------------------------------------------- imagen de inicio */
-.inicio img {
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  margin: 20px 0;
-}
+
 /* --------------------------------------------------------------------------------------------------------------------- logos redes sociales */
 .social-icon {
   font-size: 18px;
