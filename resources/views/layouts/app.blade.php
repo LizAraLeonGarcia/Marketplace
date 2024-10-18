@@ -13,6 +13,7 @@
     <!-- CSS File -->
     <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/dashboard.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/productos.css') }}" rel="stylesheet"> <!-- Agrega esta línea -->
 </head>
 <body>
     <div class="container">

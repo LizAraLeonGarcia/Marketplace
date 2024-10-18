@@ -4,11 +4,10 @@
 
 @section('content')
 <div class="container">
-    <h2 class="mb-4">Lista de Productos</h2>
-
+    <h2 class="mb-4">Estos son los productos disponibles para ti en.... ¡Vaquita Marketplace!</h2>
     <!-- Navegación específica de productos -->
     <nav>
-            <ul class="nav nav-pills mb-4">
+        <ul class="nav nav-pills mb-4 nav-fill">
             <li class="nav-item">
                 <a class="nav-link active" href="{{ route('productos.index') }}">Todos los Productos</a>
             </li>
@@ -26,9 +25,12 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('productos.nuevos') }}">Nuevos productos</a>
             </li>
+            <!-- Opción para ir al Dashboard -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('dashboard') }}">Ir al Dashboard</a>
+            </li>
         </ul>
     </nav>
-
     <!-- Mensaje de éxito -->
     @if (session('success'))
         <div class="alert alert-success">
@@ -47,11 +49,8 @@
         </div>
     @endif
 
-    @if(auth()->check())
-        <h1 class="mb-4">Bienvenido, {{ auth()->user()->name }}</h1>
-        
-        <a href="{{ route('productos.create') }}" class="btn btn-primary mb-3">Crear Producto</a>
-
+    @if(auth()->check())        
+        <!--<a href="{{ route('productos.create') }}" class="btn btn-primary mb-3">Crear Producto</a>-->
         <!-- Muestra la lista de productos aquí -->
         <table class="table table-striped table-responsive">
             <thead>
@@ -74,7 +73,7 @@
                             <a href="{{ route('productos.show', $producto->id) }}" class="btn btn-info btn-sm" title="Ver detalles del producto">
                                 <i class="fas fa-eye"></i> Ver
                             </a>
-                            <a href="{{ route('productos.edit', $producto->id) }}" class="btn btn-warning btn-sm" title="Editar producto">
+                            <!--<a href="{{ route('productos.edit', $producto->id) }}" class="btn btn-warning btn-sm" title="Editar producto">
                                 <i class="fas fa-edit"></i> Editar
                             </a>
                             <form action="{{ route('productos.destroy', $producto->id) }}" method="POST" class="d-inline-block">
@@ -83,7 +82,7 @@
                                 <button type="submit" class="btn btn-danger btn-sm" title="Eliminar producto" onclick="return confirm('¿Estás seguro de que quieres eliminar este producto?');">
                                     <i class="fas fa-trash-alt"></i> Eliminar
                                 </button>
-                            </form>
+                            </form>-->
                         </td>
                     </tr>
                 @endforeach

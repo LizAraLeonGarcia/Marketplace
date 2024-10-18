@@ -1,4 +1,4 @@
-<!-- Submenú de productos, solo visible en la página de productos -->
+<!-- Submenú de productos, solo visible en la página de productos
 @if(request()->routeIs('productos.index'))
     <div class="container mt-4">
         <div class="row">
@@ -13,8 +13,8 @@
                 </ul>
             </div>
             <div class="col-md-9">
-                @yield('products-content') <!-- Aquí se mostrarán los productos -->
+                @yield('products-content')
             </div>
         </div>
     </div>
-@endif
+@endif-->

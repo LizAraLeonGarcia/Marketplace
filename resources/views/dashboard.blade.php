@@ -7,31 +7,31 @@
 <div class="container-fluid">
     <div class="row">
         <!-- Menú lateral -->
-        <div class="col-md-3 col-lg-2">
+        <div class="col-md-3 col-lg-2 custom-menu">
             <div class="list-group custom-menu border rounded shadow-sm">
                 <h5 class="list-group-item list-group-item-action active" aria-current="true">
                     Menú
                 </h5>
                 <a href="{{ route('productos.create') }}" class="list-group-item list-group-item-action">Crear Producto</a>
                 <a href="{{ route('productos.index') }}" class="list-group-item list-group-item-action">Ver Productos</a>
-                <!-- Sección de Categorías -->
-                <h6 class="list-group-item bg-secondary text-white">Categorías</h6>
-                @foreach ($categorias as $categoria)
-                    <a href="{{ route('productos.index', ['categoria_id' => $categoria->id]) }}" class="list-group-item list-group-item-action">
-                        {{ $categoria->nombre }}
+                <a href="{{ route('logout') }}" class="btn btn-link-danger" title="Cerrar sesión" 
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <i class="fas fa-sign-out-alt"></i> Cerrar sesión
                     </a>
-                @endforeach
-                <div class="list-group-item">
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                <!--<div class="list-group-item">
                     <form action="{{ route('logout') }}" method="POST">
                         @csrf
-                        <button type="submit" class="btn btn-link text-danger">Cerrar Sesión</button>
+                        <button type="submit" class="btn btn-link-danger">Cerrar Sesión</button>
                     </form>
-                </div>
+                </div>-->
             </div>
         </div>
         <!-- Área principal del dashboard -->
-        <div class="col-md-9 col-lg-10">
-            <div class="d-flex align-items-center mb-4">
+        <div class="col-md-9 col-lg-10 offset-md-3 offset-lg-2">
+            <div class="d-flex align-items-center mb-4 ">
                 <img src="{{ asset('assets/img/dashboard.png') }}" alt="Ilustración" class="img-fluid me-3" style="width: 180px; height: auto;"> <!-- Ajusta el tamaño -->
                 <div>
                     <h1>¡Bienvenido, {{ Auth::user()->name }}!</h1> <!-- Mensaje de bienvenida -->
@@ -62,12 +62,25 @@
                             <td>{{ $producto->descripcion }}</td>
                             <td>${{ number_format($producto->precio, 2) }}</td>
                             <td>
-                                <a href="{{ route('productos.edit', $producto->id) }}" class="btn btn-warning btn-sm">Editar</a>
+                                <a href="{{ route('productos.show', $producto->id) }}" class="btn btn-info btn-sm" title="Ver detalles del producto">
+                                    <i class="fas fa-eye"></i> Ver
+                                </a>
+                                <a href="{{ route('productos.edit', $producto->id) }}" class="btn btn-warning btn-sm" title="Editar producto">
+                                <i class="fas fa-edit"></i> Editar
+                                </a>
+                                <form action="{{ route('productos.destroy', $producto->id) }}" method="POST" class="d-inline-block">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm" title="Eliminar producto" onclick="return confirm('¿Estás seguro de que quieres eliminar este producto?');">
+                                        <i class="fas fa-trash-alt"></i> Eliminar
+                                    </button>
+                                </form>
+                                <!--<a href="{{ route('productos.edit', $producto->id) }}" class="btn btn-warning btn-sm">Editar</a>
                                 <form action="{{ route('productos.destroy', $producto->id) }}" method="POST" class="d-inline-block">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que quieres eliminar este producto?');">Eliminar</button>
-                                </form>
+                                </form>-->
                             </td>
                         </tr>
                     @endforeach

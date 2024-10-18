@@ -129,8 +129,6 @@ class ProductoController extends Controller
     public function dashboard()
     {
         // Obtener todos los productos
-        //$productos = Producto::paginate(10);
-        //return view('dashboard', compact('productos'));
         $productos = Producto::paginate(10); // Obtener los productos paginados
         $categorias = Categoria::all(); // Obtener todas las categorías
         return view('dashboard', compact('productos', 'categorias'));

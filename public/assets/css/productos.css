@@ -1,0 +1,41 @@
+/* Estilos para las pestañas del menú */
+.nav-pills .nav-link {
+    background-color: #000000; /* Color de fondo */
+    color: white; /* Color del texto */
+    margin: 5px; /* Margen entre los enlaces */
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 10px 15px; /* Espacio interno para hacer los botones más grandes */
+    text-align: center; /* Centrar el texto */
+    transition: background-color 0.3s, transform 0.2s; /* Suaviza la transición */
+}
+/* Estilo al pasar el mouse */
+.nav-pills .nav-link:hover {
+    background-color: #36e700; /* Color de fondo al pasar el mouse */
+    transform: scale(1.05); /* Aumenta ligeramente el tamaño */
+}
+/* Estilo de la pestaña activa */
+.nav-pills .nav-link.active {
+    background-color: #870997; /* Color de la pestaña activa */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Sombra para resaltar la pestaña activa */
+}
+/* Estilo específico para el enlace del dashboard */
+.nav-pills .nav-link[href="{{ route('dashboard') }}"] {
+    background-color: #570057; /* Color de fondo para el dashboard */
+    color: white !important; /* Color del texto del dashboard */
+}
+/* Opcional: estilo para la barra de navegación */
+.nav-pills {
+    border-bottom: 2px solid #ccc; /* Línea inferior para separar las pestañas */
+}
+/* Opcional: estilar el texto */
+.nav-pills .nav-link {
+    font-weight: bold; /* Hacer el texto más grueso */
+    font-size: 1rem; /* Tamaño de fuente */
+}
+/* Opcional: estilos para dispositivos móviles */
+@media (max-width: 576px) {
+    .nav-pills .nav-link {
+        padding: 8px 10px; /* Menos espacio en dispositivos pequeños */
+        font-size: 0.9rem; /* Tamaño de fuente más pequeño */
+    }
+}
