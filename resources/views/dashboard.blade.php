@@ -3,31 +3,33 @@
 @section('title', 'Dashboard')
 
 @section('content')
-<div class="container">
+
+<div class="container-fluid">
     <div class="row">
         <!-- Menú lateral -->
-        <div class="col-md-3">
-            <ul class="list-group">
-                <li class="list-group-item"><a href="{{ route('productos.create') }}">Crear Producto</a></li>
-                <li class="list-group-item"><a href="{{ route('productos.index') }}">Ver Productos</a></li>
-                <li class="list-group-item">
+        <div class="col-md-3 col-lg-2">
+            <div class="list-group custom-menu border rounded shadow-sm">
+                <h5 class="list-group-item list-group-item-action active" aria-current="true">
+                    Menú
+                </h5>
+                <a href="{{ route('productos.create') }}" class="list-group-item list-group-item-action">Crear Producto</a>
+                <a href="{{ route('productos.index') }}" class="list-group-item list-group-item-action">Ver Productos</a>
+                <div class="list-group-item">
                     <form action="{{ route('logout') }}" method="POST">
                         @csrf
                         <button type="submit" class="btn btn-link">Cerrar Sesión</button>
                     </form>
-                </li>
-            </ul>
+                </div>
+            </div>
         </div>
-
         <!-- Área principal del dashboard -->
-        <div class="col-md-9">
+        <div class="col-md-9 col-lg-10">
+            <h1>¡Bienvenido, {{ Auth::user()->name }}!</h1> <!-- Mensaje de bienvenida -->
             <h1>Mis productos</h1>
-
             <!-- Mensaje de éxito o error -->
             @if (session('success'))
                 <div class="alert alert-success">{{ session('success') }}</div>
             @endif
-
             <!-- Tabla de productos -->
             <table class="table table-striped table-responsive">
                 <thead>

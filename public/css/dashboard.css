@@ -1,22 +1,30 @@
-/* assets/css/main.css */
-
-body {
-    background-color: #f8f9fa; /* Color de fondo claro */
-}
-
-.card {
-    border-radius: 10px; /* Bordes redondeados */
+.list-group {
+    background-color: #f8f9fa; /* Color de fondo */
+    border-radius: 5px; /* Bordes redondeados */
 }
 
 .list-group-item {
-    font-size: 1.1em;
-    transition: background-color 0.2s ease;
+    margin-bottom: 10px; /* Espaciado entre elementos */
 }
 
 .list-group-item:hover {
-    background-color: #e9ecef;
+    background-color: gold; /* Color al pasar el mouse */
 }
 
-.btn {
-    width: 100%; /* Ancho completo para el botón de cerrar sesión */
+.list-group-item.active {
+    background-color: #ff20c7; /* Color del elemento activo */
+    color: white; /* Color del texto del elemento activo */
+}
+
+.custom-menu {
+    background-color: #000000; /* Cambia este color por el que desees */
+    color: white; /* Color del texto */
+}
+
+.custom-menu .list-group-item {
+    transition: background-color 0.3s; /* Transición suave */
+}
+
+.custom-menu .list-group-item:hover {
+    background-color: #357ABD; /* Color al pasar el ratón */
 }
