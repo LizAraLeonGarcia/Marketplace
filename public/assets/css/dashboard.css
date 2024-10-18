@@ -1,0 +1,35 @@
+/* Fondo general del menú */
+.custom-menu {
+    background-color: #000000; /* Cambia este color por el que desees */
+    color: white; /* Color del texto */
+    padding: 15px; /* Espaciado interno */
+    border-radius: 5px;
+}
+/* Estilos de los elementos de la lista */
+.custom-menu .list-group-item {
+    background-color: transparent; /* Fondo transparente */
+    color: rgb(255, 255, 255); /* Color del texto */
+    border: none; /* Sin borde */
+    transition: background-color 0.3s, color 0.3s; /* Transición suave */
+    margin-bottom: 5px; /* Espaciado entre elementos */
+}
+/* Efecto hover sobre los ítems */
+.custom-menu .list-group-item:hover {
+    background-color: gold; /* Color al pasar el ratón */
+    color: rgb(0, 0, 0); /* Asegurar que el texto siga siendo visible */
+}
+/* Elemento activo */
+.custom-menu .list-group-item.active {
+    background-color: #ff20c7; /* Color del elemento activo */
+    color: white; /* Texto blanco para resaltar */
+}
+/* Separadores de categorías */
+.list-group-item.bg-secondary {
+    background-color: #905010 !important; /* Color secundario de Bootstrap */
+    color: rgb(255, 255, 255); /* Texto blanco */
+    font-weight: bold;
+}
+
+h1 {
+    text-align: center;  /* Centra el texto dentro de los elementos <h2> y <p> */
+}

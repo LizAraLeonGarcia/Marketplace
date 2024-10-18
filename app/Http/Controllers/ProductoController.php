@@ -9,13 +9,24 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductoController extends Controller
 {
-    // Listar todos los productos
-    public function index()
+    // Listar todos los productos o filtrar por categoría
+    public function index(Request $request)
+    {
+        $categorias = Categoria::all();
+        // Verificar si se ha enviado una categoría para filtrar
+        if ($request->has('categoria_id') && $request->categoria_id != null) {
+            $productos = Producto::where('categoria_id', $request->categoria_id)->paginate(10);
+        } else {
+            $productos = Producto::paginate(10); // Mostrar todos los productos
+        }
+        return view('productos.index', compact('productos', 'categorias'));
+    }
+    /*public function index()
     {
         $productos = Producto::paginate(10);
         $categorias = Categoria::all();
         return view('productos.index', compact('productos','categorias' ));
-    }
+    }*/
     // Mostrar el formulario de creación
     public function create()
     {
@@ -118,9 +129,10 @@ class ProductoController extends Controller
     public function dashboard()
     {
         // Obtener todos los productos
-        $productos = Producto::paginate(10);
-
-        return view('dashboard', compact('productos'));
+        //$productos = Producto::paginate(10);
+        //return view('dashboard', compact('productos'));
+        $productos = Producto::paginate(10); // Obtener los productos paginados
+        $categorias = Categoria::all(); // Obtener todas las categorías
+        return view('dashboard', compact('productos', 'categorias'));
     }
-
 }

@@ -14,18 +14,31 @@
                 </h5>
                 <a href="{{ route('productos.create') }}" class="list-group-item list-group-item-action">Crear Producto</a>
                 <a href="{{ route('productos.index') }}" class="list-group-item list-group-item-action">Ver Productos</a>
+                <!-- Sección de Categorías -->
+                <h6 class="list-group-item bg-secondary text-white">Categorías</h6>
+                @foreach ($categorias as $categoria)
+                    <a href="{{ route('productos.index', ['categoria_id' => $categoria->id]) }}" class="list-group-item list-group-item-action">
+                        {{ $categoria->nombre }}
+                    </a>
+                @endforeach
                 <div class="list-group-item">
                     <form action="{{ route('logout') }}" method="POST">
                         @csrf
-                        <button type="submit" class="btn btn-link">Cerrar Sesión</button>
+                        <button type="submit" class="btn btn-link text-danger">Cerrar Sesión</button>
                     </form>
                 </div>
             </div>
         </div>
         <!-- Área principal del dashboard -->
         <div class="col-md-9 col-lg-10">
-            <h1>¡Bienvenido, {{ Auth::user()->name }}!</h1> <!-- Mensaje de bienvenida -->
-            <h1>Mis productos</h1>
+            <div class="d-flex align-items-center mb-4">
+                <img src="{{ asset('assets/img/dashboard.png') }}" alt="Ilustración" class="img-fluid me-3" style="width: 180px; height: auto;"> <!-- Ajusta el tamaño -->
+                <div>
+                    <h1>¡Bienvenido, {{ Auth::user()->name }}!</h1> <!-- Mensaje de bienvenida -->
+                    <h1>A continuación, verás tus productos</h1> <!-- Los productos del usuario-->
+                </div>
+                <img src="{{ asset('assets/img/dashboard2.png') }}" alt="Ilustración" class="img-fluid me-3" style="width: 180px; height: auto;"> <!-- Ajusta el tamaño -->
+            </div> 
             <!-- Mensaje de éxito o error -->
             @if (session('success'))
                 <div class="alert alert-success">{{ session('success') }}</div>
