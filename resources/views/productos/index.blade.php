@@ -27,7 +27,7 @@
             </li>
             <!-- Opción para ir al Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('dashboard') }}">Ir al Dashboard</a>
+                <a class="nav-link dashboard-link" href="{{ route('dashboard') }}">Ir al Dashboard</a>
             </li>
         </ul>
     </nav>

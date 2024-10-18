@@ -19,7 +19,7 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Sombra para resaltar la pestaña activa */
 }
 /* Estilo específico para el enlace del dashboard */
-.nav-pills .nav-link[href="{{ route('dashboard') }}"] {
+.nav-pills .dashboard-link {
     background-color: #570057; /* Color de fondo para el dashboard */
     color: white !important; /* Color del texto del dashboard */
 }
