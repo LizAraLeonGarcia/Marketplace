@@ -59,79 +59,7 @@ nav .logo img {
   background: #16bff3;
   color: #ffffff;
 }
-/* ************************************************************** MENÚ LATERAL ************************************************************** */
-#menu-lateral {
-  position: fixed;
-  top: 100px;
-  left: 0;
-  width: 250px;
-  background-color: #343a40; /* Fondo oscuro */
-  padding: 20px;
-  padding-right: 20px; /* Añadir espacio a la derecha del menú lateral */
-  border-right: 2px solid #ddd;
-  height: calc(100% - 100px);
-  overflow-y: auto;
-  color: white; /* Texto en blanco */
-  flex: 0 0 25%; /* Columna del menú lateral ocupa el 25% */
-}
-/* Estilo para el título del menú */
-#menu-lateral h4 {
-  color: #f8f9fa; /* Color claro para el título */
-  margin-bottom: 20px;
-  font-size: 1.5rem;
-  border-bottom: 2px solid #f8f9fa; /* Línea debajo del título */
-  padding-bottom: 10px;
-}
-/* Estilo de los enlaces de la lista */
-#menu-lateral .list-group-item {
-  background-color: #343a40; /* Fondo igual que el menú */
-  border: none; /* Eliminar borde */
-  padding: 10px 15px; /* Espaciado interno */
-  color: #f8f9fa; /* Texto claro */
-  font-size: 1.1rem;
-}
-/* Cambia el color del enlace al pasar el mouse */
-#menu-lateral .list-group-item a {
-  color: #f8f9fa; /* Color de enlace por defecto */
-  text-decoration: none; /* Quitar subrayado */
-  display: block; /* El enlace ocupa todo el ancho del item */
-  transition: color 0.3s ease; /* Transición suave en el hover */
-}
-/* Hover sobre los enlaces */
-#menu-lateral .list-group-item:hover {
-  background-color: #5aacff; /* Un gris más claro al pasar el mouse */
-}
-/* Color azul para los enlaces al pasar el mouse */
-#menu-lateral .list-group-item a:hover {
-  color: #343a40; 
-}
-/* Separación entre los items del menú */
-#menu-lateral .list-group-item:not(:last-child) {
-  margin-bottom: 10px; /* Espacio entre los items */
-}
-/* Imagen del menpu al final lateral */
-.menu-adornment {
-  width: 100%; /* Ancho completo del contenedor */
-  margin-top: auto; /* Empuja la imagen hacia el fondo del contenedor */
-  display: block; /* Asegura que la imagen sea un bloque */
-  padding: 10px 0; /* Espaciado alrededor de la imagen, ajusta según sea necesario */
-}
-/* Ajustar el margen izquierdo del contenido principal */
-.col-md-9 {
-  margin-left: 30px; /* Aumentamos el margen a la izquierda */
-}
-
-/* Ajustar el padding para mejorar el espaciado general */
-.col-md-9 {
-  padding-left: 20px;
-}
-
-/* Ajustar el margen superior del h1 para evitar que se vea pegado al menú lateral */
-.col-md-9 h1 {
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-/* -------------------------------------------------------------------------------------------- Responsividad: Ajusta para pantallas pequeñas */
+/* ********************************************** Responsividad: Ajusta para pantallas pequeñas ********************************************** */
 @media (max-width: 768px) {
   nav {
     flex-direction: column; /* Cambia el flujo a vertical en pantallas pequeñas */
@@ -146,57 +74,18 @@ nav .logo img {
   }
 }
 /* ************************************************************** HEADERS , ETC ************************************************************** */
+/* Agrega un margen inferior de 20 píxeles al elemento <h1> dentro del header */
 header h1 {
-  margin-bottom: 20px; /* Agrega un margen inferior de 20 píxeles al elemento <h1> dentro del header */
+  margin-bottom: 20px; 
 }
-
+/* Establece el tamaño de la fuente del texto dentro de un elemento <p> en 1.2 veces el tamaño de fuente base (em) */
 header p {
-  font-size: 1.2em; /* Establece el tamaño de la fuente del texto dentro de un elemento <p> en 1.2 veces el tamaño de fuente base (em) */
+  font-size: 1.2em; 
 }
-
-h2, p {
-  text-align: center;  /* Centra el texto dentro de los elementos <h2> y <p> */
-}
-
+/* Agrega un margen inferior de 20 píxeles al elemento <h2>, separándolo de los elementos que están debajo */
 h2 {
-  margin-bottom: 20px; /* Agrega un margen inferior de 20 píxeles al elemento <h2>, separándolo de los elementos que están debajo */
+  margin-bottom: 20px; 
 }
-
-#soporte h1,
-#about h1 {
-  text-align: center; /* Centra el texto */
-}
-/* Ajuste adicional del espaciado del contenido principal */
-#productos .col-md-9 {
-  padding-left: 30px; /* Más espacio entre el contenido y el menú */
-}
-
-#productos {
-  background: linear-gradient(to right, #f8f9fa, #e9ecef);
-  color: #000; /* Asegura que el texto sea legible */
-  width: 100%; /* Ocupa todo el ancho */
-  height: 100%; /* Ocupa toda la altura */
-  margin: 0; /* Elimina márgenes */
-  padding: 80px 20px; /* Padding superior e inferior */
-}
-
-#productos h1 {
-  text-align: center; /* Centra el texto */
-  margin-top: 0; /* Elimina el margen superior */
-  margin-bottom: 20px; /* Espacio entre el título y el contenido */
-}
-/* Agregar espacio entre el menú lateral y el contenido principal */
-#contenido-productos {
-  flex: 0 0 75%; /* Columna principal ocupa el 75% */
-  padding-left: 20px; /* Relleno a la izquierda */
-}
-
-#contenido-productos h1 {
-  margin-top: 0px; /* Aumenta el margen superior */
-  margin-left: 60px; /* Aumenta el margen izquierdo */
-  margin-bottom: 20px; /* Margen inferior si lo deseas */
-}
-
 /* *************************************************************** Formulario *************************************************************** */
 form {
   max-width: 400px;
@@ -253,9 +142,7 @@ form button:hover {
     font-size: 2em;
   }
 }
-/* **************************************************************** Imagenes **************************************************************** */
-
-/* --------------------------------------------------------------------------------------------------------------------- logos redes sociales */
+/* ********************************************************** LOGOS REDES SOCIALES ********************************************************** */
 .social-icon {
   font-size: 18px;
   margin-left: 15px;
@@ -263,7 +150,35 @@ form button:hover {
   color: #000000;
   transition: color 0.3s;
 }
-/* ***************************************************************** Footer ***************************************************************** */
+
+.soporte ol {
+  padding-left: 0; /* Elimina el padding por defecto */
+  list-style-type: none; /* Elimina los puntos de la lista */
+}
+
+.soporte li {
+  display: flex; /* Utiliza flexbox para alinear los íconos y el texto */
+  align-items: center; /* Alinea verticalmente el contenido */
+  margin-bottom: 15px; /* Espacio entre elementos */
+}
+
+.soporte li i {
+  flex-shrink: 0; /* Evita que el ícono se reduzca */
+  width: 24px; /* Ajusta el ancho según el tamaño del ícono */
+  height: 24px; /* Ajusta la altura según el tamaño del ícono */
+  margin-right: 10px; /* Espacio fijo entre el ícono y el texto */
+}
+
+.soporte li .text {
+  flex: 1; /* Permite que el texto ocupe el espacio restante */
+}
+
+.soporte li a {
+  margin-left: 10px; /* Espacio entre el texto y el enlace */
+  text-decoration: none; /* Opcional: eliminar subrayado en los enlaces */
+  color: inherit; /* Asegura que el enlace tome el color del texto */
+}
+/* ***************************************************************** FOOTER ***************************************************************** */
 footer {
   background: #000000;
   color: #fff;
@@ -281,20 +196,20 @@ section {
   overflow: auto; /* Permitir scroll si el contenido excede el tamaño de la sección */
 }
 /* ------------------------------------------------------------------------------------------------------------------- Fondo de las secciones */
-#inicio, #productos, #soporte, #about {
+#inicio, #soporte, #about {
   background: linear-gradient(to right, #f8f9fa, #e9ecef);
   color: #000; /* Asegura que el texto sea legible */
   width: 100%; /* Ocupa todo el ancho */
-  height: 100%; /* Ocupa toda la altura */
+  height: auto; /* Ocupa toda la altura */
   margin: 0; /* Elimina márgenes */
-  padding: 80px 20px; /* Elimina padding */
+  padding: 80px 20px; 
 }
 /* ************************************************************* Sección Inicio ************************************************************* */
 /* ---------------------------------------------------------------------------------------------------------------------------- estilo del h1 */
 .inicio h1 {
   color: #ff009d;
-  margin-bottom: 30px; /* Ajuste aquí para mayor separación */
-  text-align: center; /* Centra el texto */
+  margin: 0 auto 40px; /* Elimina margen superior y centra con auto */
+  width: fit-content; /* Ajusta el ancho al contenido */  text-align: center; /* Centra el texto */
 }
 /* ----------------------------------------------------------------------------------------------------------------- Color para las palomitas */
 .inicio i {
@@ -318,6 +233,54 @@ ol li {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
+}
+/* Justifica el texto de los párrafos de la sección inicio */
+.justificado {
+  text-align: justify; 
+}
+/* Justifica el texto de los párrafos de la sección acerca de */
+.justificado2 {
+  text-align: justify; 
+}
+/* Justifica el texto del párrafo de la sección soporte */
+.justificado3 {
+  text-align: justify; 
+}
+/* ************************************************************* Sección soporte ************************************************************* */
+/* ---------------------------------------------------------------------------------------------------------------------------- estilo del h1 */
+.soporte h1 {
+  color: #000000;
+  margin: 0 auto 40px; /* Elimina margen superior y centra con auto */
+  width: fit-content; /* Ajusta el ancho al contenido */  
+  text-align: center; /* Centra el texto */
+}
+/* --------------------------------------------------------------------------------------------------------------------------------------- h5 */
+.soporte h5
+{
+  text-align: center; /* Centra el texto */
+}
+/* ************************************************************** Sección about ************************************************************** */
+/* ---------------------------------------------------------------------------------------------------------------------------- estilo del h1 */
+.about h1 {
+  color: #000000;
+  margin: 0 auto 40px; /* Elimina margen superior y centra con auto */
+  width: fit-content; /* Ajusta el ancho al contenido */  
+  text-align: center; /* Centra el texto */
+}
+/* --------------------------------------------------------------------------------------------------------------------------------------- h5 */
+.about h5
+{
+  text-align: center; /* Centra el texto */
+}
+
+.about li i {
+  margin-right: 10px; /* Ajusta el valor según el espacio que desees */
+}
+
+.about ol {
+  text-align: right; /* Alinea el texto a la derecha */
+  padding-left: 0; /* Elimina el padding por defecto */
+  list-style-type: none; /* Elimina los puntos de la lista */
 }
 /* ************************************************************ PARA LOS BOTONES ************************************************************ */
 /* ----------------------------------------------------------------- INICIO ----------------------------------------------------------------- */
@@ -350,9 +313,9 @@ ol li {
 .about .btn-primary {
   background-color: #000000;
   border: none;
-  padding: 10px 20px;
   font-weight: bold;
-  margin: 20px;
+  display: block; /* Cambia a block para aplicar el margin */
+  margin: 0 auto; /* Centra el botón */
 }
 /* --------------------------------------------------------------------------- Color para el botón de Registrarse cuando el cursor está en él */
 .about .btn-primary:hover {
