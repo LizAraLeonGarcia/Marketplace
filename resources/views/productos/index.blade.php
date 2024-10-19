@@ -1,7 +1,5 @@
 @extends('layouts.app')
 
-@section('title', 'Lista de Productos')
-
 @section('content')
 <div class="container">
     <h2 class="mb-4">Estos son los productos disponibles para ti en.... ¡Vaquita Marketplace!</h2>
@@ -11,11 +9,12 @@
             <li class="nav-item">
                 <a class="nav-link active" href="{{ route('productos.index') }}">Todos los Productos</a>
             </li>
-            @foreach($categorias as $categoria)
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('productos.categoria', $categoria->id) }}">{{ $categoria->nombre }}</a>
-                </li>
-            @endforeach
+            <select name="categoria" class="form-control">
+                @foreach($categorias as $categoria)
+                    <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
+                    <!--<a class="nav-link" href="{{ route('productos.categoria', $categoria->id) }}">{{ $categoria->nombre }}</a>-->
+                @endforeach
+            </select>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('productos.precio') }}">Por precio</a>
             </li>
@@ -37,7 +36,6 @@
             {{ session('success') }}
         </div>
     @endif
-
     <!-- Mensajes de error -->
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -50,7 +48,6 @@
     @endif
 
     @if(auth()->check())        
-        <!--<a href="{{ route('productos.create') }}" class="btn btn-primary mb-3">Crear Producto</a>-->
         <!-- Muestra la lista de productos aquí -->
         <table class="table table-striped table-responsive">
             <thead>
