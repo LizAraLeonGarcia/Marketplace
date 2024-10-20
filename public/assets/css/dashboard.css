@@ -54,3 +54,7 @@ h1 {
     height: auto;
     margin-bottom: 10px; /* Espaciado inferior */
 }
+
+body {
+    font-family: 'Times New Roman', serif;
+}
