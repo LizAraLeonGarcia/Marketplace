@@ -23,7 +23,6 @@
         padding: 20px;
         position: relative;
     }
-
     /* Contenedor del formulario */
     .form-container {
         padding: 40px;
@@ -57,14 +56,12 @@
     .d-flex {
         margin-top: 20px;
     }
-
     /* Estilo para el encabezado del producto */
     .card-header {
         background-color: none; 
         color: white;
         text-align: center;
     }
-
     /* Contenedor de las imágenes laterales */
     .side-images {
         display: flex;
