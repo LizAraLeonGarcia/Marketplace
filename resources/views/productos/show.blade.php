@@ -5,22 +5,25 @@
 @section('content')
     <div class="container">
         <h2 class="text-center mb-4">Detalles del Producto</h2>
-        <div class="card">
-            <div class="card-header text-center">
+        <div class="card shadow-lg border-light">
+            <div class="card-header text-center bg-primary text-white">
                 <h3>{{ $producto->nombre }}</h3>
             </div>
             <div class="card-body">
-                <h5>ID: {{ $producto->id }}</h5>
+                <h5 class="text-muted">ID: {{ $producto->id }}</h5>
                 <p><strong>Descripción:</strong> {{ $producto->descripcion }}</p>
                 <p><strong>Precio:</strong> ${{ number_format($producto->precio, 2) }}</p>
                 <p><strong>Cantidad:</strong> {{ $producto->stock }}</p>
                 <p><strong>Categoría:</strong> {{ $producto->categoria->nombre }}</p> <!-- Mostrar la categoría -->
+
                 <!-- Muestra la imagen del producto -->
-                @if($producto->imagen)
-                    <img src="{{ asset('storage/' . $producto->imagen) }}" alt="{{ $producto->nombre }}" width="200">
-                @else
-                    <p>No hay imagen disponible para este producto.</p>
-                @endif
+                <div class="text-center mb-4">
+                    @if($producto->imagen)
+                        <img src="{{ asset('storage/' . $producto->imagen) }}" alt="{{ $producto->nombre }}" class="img-fluid rounded" style="max-width: 300px; height: auto;">
+                    @else
+                        <p class="text-warning">No hay imagen disponible para este producto.</p>
+                    @endif
+                </div>
 
                 <div class="d-flex justify-content-between mt-4">
                     <a href="{{ route('productos.index') }}" class="btn btn-secondary">Volver a la lista</a>

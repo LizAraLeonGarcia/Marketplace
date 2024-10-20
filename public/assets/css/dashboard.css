@@ -48,3 +48,9 @@ h1 {
     background-color: #ff0019; /* Color de fondo */
     color: white; /* Mantener el texto en blanco */
 }
+
+.sidebar-header img {
+    width: 200px; /* Ajusta el tamaño según sea necesario */
+    height: auto;
+    margin-bottom: 10px; /* Espaciado inferior */
+}

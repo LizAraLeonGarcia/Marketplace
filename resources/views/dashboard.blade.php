@@ -27,6 +27,9 @@
                         <button type="submit" class="btn btn-link-danger">Cerrar Sesión</button>
                     </form>
                 </div>-->
+                <div class="sidebar-header">
+                    <img src="{{ asset('assets/img/menuLateralDashboard.png') }}" alt="Descripción de la imagen" class="img-fluid">
+                </div>
             </div>
         </div>
         <!-- Área principal del dashboard -->
