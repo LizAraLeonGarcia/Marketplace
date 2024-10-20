@@ -9,7 +9,9 @@
         background-image: url('{{ asset('img/fondoFormCreate.jpg') }}');
         background-size: cover; /* La imagen cubre toda la pantalla */
         background-position: center; /* Centra la imagen */
+        background-attachment: fixed; /* Fija la imagen al fondo */
         background-repeat: no-repeat; /* No repetir la imagen */
+        font-family: 'Times New Roman', Times, serif; /* Definir la fuente */
     }
 
     .form-container {
@@ -35,6 +37,18 @@
     img {
         max-width: 100%; /* Asegura que las imágenes se ajusten a su contenedor */
         height: auto; /* Mantiene la relación de aspecto */
+    }
+    /* Estilo para las etiquetas */
+    label {
+        background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco con un poco de transparencia */
+        padding: 5px 10px; /* Espacio alrededor del texto */
+        border-radius: 5px; /* Esquinas redondeadas */
+        display: inline-block; /* Permitir el ajuste de tamaño */
+    }
+    /* El contenedor de imágenes al final */
+    .image-container {
+        text-align: center; /* Centrar las imágenes */
+        margin-top: 40px; /* Espacio entre el formulario y las imágenes */
     }
 </style>
 
@@ -113,17 +127,18 @@
                 <button type="submit" class="btn btn-success" style="width: 200px;" onclick="this.disabled=true; this.form.submit();">Crear Producto</button>
             </div>
         </form>
-
         <!-- Espacio para imágenes debajo del formulario -->
-        <div class="row mt-5">
-            <div class="col-md-4">
-                <img src="{{ asset('img/crear1.png') }}" alt="Imagen 1" class="img-fluid rounded">
-            </div>
-            <div class="col-md-4">
-                <img src="{{ asset('img/crear2.png') }}" alt="Imagen 2" class="img-fluid rounded">
-            </div>
-            <div class="col-md-4">
-                <img src="{{ asset('img/crear3.png') }}" alt="Imagen 3" class="img-fluid rounded">
+        <div class="image-container">
+            <div class="row mt-5">
+                <div class="col-md-4">
+                    <img src="{{ asset('img/crear1.png') }}" alt="Imagen 1" class="img-fluid rounded">
+                </div>
+                <div class="col-md-4">
+                    <img src="{{ asset('img/crear2.png') }}" alt="Imagen 2" class="img-fluid rounded">
+                </div>
+                <div class="col-md-4">
+                    <img src="{{ asset('img/crear3.png') }}" alt="Imagen 3" class="img-fluid rounded">
+                </div>
             </div>
         </div>
     </div>
