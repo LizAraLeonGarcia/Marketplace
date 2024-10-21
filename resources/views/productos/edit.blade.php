@@ -93,7 +93,7 @@
 
         <!-- Categoría del Producto -->
         <div class="form-group">
-            <label for="categoria_id">Categoría</label>
+            <label for="categoria_id">Categoría <span class="text-danger">*</span></label>
             <select name="categoria_id" id="categoria_id" class="form-control @error('categoria_id') is-invalid @enderror" required>
                 <option value="">Seleccionar categoría</option>
                 @foreach($categorias as $categoria)
