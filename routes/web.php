@@ -43,7 +43,6 @@ Route::get('/soporte', function () {
 Route::get('/about', function () {
     return view('about'); // Cambia 'about' por la vista de "Acerca de" si tienes una específica
 })->name('about');
-
 // Rutas del CRUD de productos (solo accesibles para usuarios autenticados)
 Route::middleware(['auth'])->group(function () {
     // Rutas del CRUD de productos
@@ -54,4 +53,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/productos/nuevos', [ProductoController::class, 'nuevosProductos'])->name('productos.nuevos');
     // Ruta para el dashboard (Mi Cuenta)
     Route::get('/dashboard', [ProductoController::class, 'dashboard'])->name('dashboard');
+
+    Route::get('/ayuda/contacto', [AyudaController::class, 'contacto'])->name('ayuda.contacto');
 });

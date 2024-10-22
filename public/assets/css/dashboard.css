@@ -1,4 +1,4 @@
-/* Fondo general del menú ------------------------------------------------------------------------------------------------------------------- */
+/* Fondo general del menú */
 .custom-menu {
     background-color: #000000; /* Cambia este color por el que desees */
     color: white; /* Color del texto */
@@ -7,10 +7,12 @@
     top: 0; /* Se alinea al borde superior */
     bottom: 0; /* Se extiende hasta el borde inferior */
     left: 0; /* Se alinea al borde izquierdo */
-    width: 200px; /* Ajusta el ancho del menú */
+    width: 230px; /* Ajusta el ancho del menú */
     overflow-y: auto; /* Permite el desplazamiento vertical si es necesario */
+    min-height: 100vh; /* Asegura que el menú ocupe toda la altura */
 }
-/* Estilos de los elementos de la lista ----------------------------------------------------------------------------------------------------- */
+
+/* Estilos de los elementos de la lista */
 .custom-menu .list-group-item {
     background-color: transparent; /* Fondo transparente */
     color: rgb(255, 255, 255); /* Color del texto */
@@ -18,22 +20,26 @@
     transition: background-color 0.3s, color 0.3s; /* Transición suave */
     margin-bottom: 5px; /* Espaciado entre elementos */
 }
-/* Efecto hover sobre los ítems ------------------------------------------------------------------------------------------------------------- */
+
+/* Efecto hover sobre los ítems */
 .custom-menu .list-group-item:hover {
     background-color: gold; /* Color al pasar el ratón */
     color: rgb(0, 0, 0); /* Asegurar que el texto siga siendo visible */
 }
-/* Elemento activo -------------------------------------------------------------------------------------------------------------------------- */
+
+/* Elemento activo */
 .custom-menu .list-group-item.active {
     background-color: #ff20c7; /* Color del elemento activo */
     color: white; /* Texto blanco para resaltar */
     text-align: center;  
 }
-/* Centrar el texto dentro del h1 ----------------------------------------------------------------------------------------------------------- */
+
+/* Centrando el texto dentro del h1 */
 h1 {
     text-align: center;  
 }
-/* botón de cerrar sesión ------------------------------------------------------------------------------------------------------------------- */
+
+/* Botón de cerrar sesión */
 .btn-link-danger {
     background-color: #a80616; /* Color de fondo personalizado */
     color: white; /* Color del texto */
@@ -43,18 +49,51 @@ h1 {
     display: block; /* Ocupa todo el ancho disponible */
     width: 100%; /* Asegura que ocupe todo el ancho del contenedor */
 }
-/* al pasar el mouse ------------------------------------------------------------------------------------------------------------------------ */
+
+/* Al pasar el mouse */
 .btn-link-danger:hover {
     background-color: #ff0019; /* Color de fondo */
     color: white; /* Mantener el texto en blanco */
 }
 
+/* Estilo de la imagen en el menú lateral */
 .sidebar-header img {
     width: 200px; /* Ajusta el tamaño según sea necesario */
     height: auto;
     margin-bottom: 10px; /* Espaciado inferior */
 }
 
+/* Fondo y márgenes del cuerpo */
 body {
+    margin: 0;
+    padding: 0;
     font-family: 'Times New Roman', serif;
+}
+
+/* Evitar márgenes indeseados en la barra lateral */
+.sidebar {
+    margin: 0;
+}
+
+/* Asegurar que la tabla ocupe todo el espacio disponible */
+.table {
+    width: calc(100% - 230px); /* Ajustar el ancho de la tabla */
+    margin-left: 230px; /* Para que la tabla no se superponga al menú */
+}
+
+/* Espacio en la parte superior del contenido */
+.content {
+    margin-top: 20px; /* Espacio entre el contenido y el menú */
+}
+
+/* Estilos del dashboard */
+.dashboard-welcome {
+    display: flex; /* Usar flexbox para alinear el contenido */
+    align-items: center; /* Centrar verticalmente */
+    margin-bottom: 20px; /* Espacio inferior */
+}
+
+/* Margen para el contenido principal */
+.col-md-9, .col-lg-10 {
+    padding: 20px; /* Espaciado interno para el contenido */
 }
