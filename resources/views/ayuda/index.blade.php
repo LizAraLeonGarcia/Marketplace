@@ -1,8 +1,13 @@
 @extends('layouts.app')
 
+@section('title', 'Ayuda')
+
 @section('content')
 <section id="soporte" class="soporte">
     <div class="row">
+        <!-- Menú lateral -->
+            @include('partials.menu-lateral') <!-- Incluye el menú lateral aquí -->
+<!-- -->
         <h1 class="display-7 font-weight-bold">Si necesitas ayuda técnica, ¡contáctanos!</h1>
         <!-- Columna para la imagen -->
         <div class="col-md-6">

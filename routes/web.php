@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
+use App\Http\Controllers\AyudaController;
 
 // Ruta de inicio (index.blade.php)
 Route::get('/', function () {
@@ -53,6 +54,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/productos/nuevos', [ProductoController::class, 'nuevosProductos'])->name('productos.nuevos');
     // Ruta para el dashboard (Mi Cuenta)
     Route::get('/dashboard', [ProductoController::class, 'dashboard'])->name('dashboard');
-
-    Route::get('/ayuda/contacto', [AyudaController::class, 'contacto'])->name('ayuda.contacto');
+    // Define la ruta para el índice de ayuda
+    Route::get('/ayuda', [AyudaController::class, 'index'])->name('ayuda.index');
 });
