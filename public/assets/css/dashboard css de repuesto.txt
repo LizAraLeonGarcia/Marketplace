@@ -1,0 +1,121 @@
+html, body {
+    margin: 0; /* Eliminar márgenes */
+    padding: 0; /* Eliminar padding */
+    width: 100%; /* Ocupar todo el ancho */
+    height: 100%; /* Ocupar toda la altura */
+    font-family: 'Times New Roman', serif; /* Fuente general */
+    overflow-x: hidden; /* Esto oculta el desbordamiento horizontal */
+}
+
+body {
+    background-color: #c1c6ca; /* Color de fondo del body */
+}
+/* Elimina márgenes de los contenedores de Bootstrap */
+.container-fluid {
+    padding: 0; /* Sin padding */
+}
+/* Estilo del contenido principal */
+.content {
+    width: calc(100% - 230px); /* Esto asegura que el contenido abarque todo el ancho disponible menos el menú */
+    margin-left: 230px; /* Para dejar espacio para el menú lateral */
+    height: calc(100vh - 56px); /* Ajusta según la altura de tu barra de navegación */
+    overflow-y: auto; /* Permite el desplazamiento */
+}
+
+/* Estilo para la sección de soporte */
+.soporte {
+    padding: 20px; /* Añade padding a la sección */
+    width: 100%; /* Ocupa todo el ancho del contenido */
+}
+.carousel-controls {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.justificado {
+    text-align: justify;
+}
+/* Fondo general del menú */
+.custom-menu {
+    background-color: #000000; /* Color del menú */
+    color: white; /* Color del texto */
+    position: fixed; /* Fijo a la izquierda */
+    top: 0; /* Se alinea al borde superior */
+    bottom: 0; /* Se extiende hasta el borde inferior */
+    left: 0; /* Se alinea al borde izquierdo */
+    height: 100vh; /* Ocupar toda la altura de la ventana */
+    width: 230px; /* Ancho del menú */
+    overflow-y: auto; /* Permite el desplazamiento vertical */
+}
+
+/* Estilos de los elementos de la lista del menú */
+.custom-menu .list-group-item {
+    background-color: transparent; /* Fondo transparente */
+    color: rgb(255, 255, 255); /* Color del texto */
+    border: none; /* Sin borde */
+    transition: background-color 0.3s, color 0.3s; /* Transición suave */
+    margin-bottom: 5px; /* Espaciado entre elementos */
+}
+
+/* Efecto hover sobre los ítems */
+.custom-menu .list-group-item:hover {
+    background-color: gold; /* Color al pasar el ratón */
+    color: rgb(0, 0, 0); /* Asegurar que el texto siga siendo visible */
+}
+
+/* Elemento activo */
+.custom-menu .list-group-item.active {
+    background-color: #ff20c7; /* Color del elemento activo */
+    color: white; /* Texto blanco para resaltar */
+    text-align: center;  
+}
+
+/* Centrando el texto dentro del h1 */
+h1 {
+    text-align: center;  
+}
+
+/* Botón de cerrar sesión */
+.btn-link-danger {
+    background-color: #a80616; /* Color de fondo personalizado */
+    color: white; /* Color del texto */
+    font-weight: bold; /* Negrita */
+    text-align: center; /* Centra el texto dentro del botón */
+    border-radius: 5px; /* Bordes redondeados */
+    display: block; /* Ocupa todo el ancho disponible */
+    width: 100%; /* Asegura que ocupe todo el ancho del contenedor */
+}
+
+/* Al pasar el mouse */
+.btn-link-danger:hover {
+    background-color: #ff0019; /* Color de fondo */
+    color: white; /* Mantener el texto en blanco */
+}
+
+/* Estilo de la imagen en el menú lateral */
+.sidebar-header img {
+    width: 200px; /* Ajusta el tamaño según sea necesario */
+    height: auto;
+    margin-bottom: 10px; /* Espaciado inferior */
+}
+
+/* Asegurar que la tabla ocupe todo el espacio disponible */
+.table {
+    width: calc(100% - 230px); /* Ajustar el ancho de la tabla */
+}
+
+/* Estilos del dashboard */
+.dashboard-welcome {
+    display: flex; /* Usar flexbox para alinear el contenido */
+    align-items: center; /* Centrar verticalmente */
+    margin-bottom: 20px; /* Espacio inferior */
+}
+.row {
+    margin-right: 0;  /* Asegúrate de que no haya márgenes adicionales que causen desbordamiento */
+    margin-left: 0;
+}
+
+.col-md-9, .col-md-3 {
+    padding-right: 0;
+    padding-left: 0;
+}

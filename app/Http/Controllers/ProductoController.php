@@ -6,6 +6,7 @@ use App\Models\Producto;
 use App\Models\Categoria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth; // Importa Auth para obtener el ID del usuario autenticado
 
 class ProductoController extends Controller
 {
@@ -47,16 +48,14 @@ class ProductoController extends Controller
             'categoria_id' => 'required|exists:categorias,id', // Validación de categoría
             'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validación de la imagen
         ]);
+        
         // Comprobar si se ha subido una imagen
-        if ($request->hasFile('imagen')) 
-        {
+        if ($request->hasFile('imagen')) {
             $imagenPath = $request->file('imagen')->store('imagenes_productos', 'public'); // Guardar la imagen en el disco 'public'
-        } 
-        // Si no hay imagen, asignar null
-        else
-        {
-            $imagenPath = null; 
+        } else {
+            $imagenPath = null; // Si no hay imagen, asignar null
         }
+        
         // Crear el producto
         Producto::create([
             'nombre' => $request->nombre,
@@ -66,9 +65,14 @@ class ProductoController extends Controller
             'categoria_id' => $request->categoria_id,
             'imagen' => $imagenPath, // Guardar la ruta de la imagen en el producto
             'user_id' => auth()->id(), // Asignar el ID del usuario autenticado
-        ]);
-
-        return redirect()->route('productos.index')->with('success', 'Producto creado con éxito.');
+            'vendedor_id' => auth()->id(), // Asignar el vendedor actual al producto (usuario autenticado)
+        ]);        
+        // Activar el rol de vendedor si aún no lo tiene
+        if (!Auth::user()->is_vendedor) {
+            Auth::user()->is_vendedor = true;
+            Auth::user()->save();
+        }          
+        return redirect()->route('productos.index')->with('success', 'Producto creado con éxito.');        
     }
     // ------------------------------------------------------------------------------------------ Mostrar los detalles de un producto específico
     public function show(Producto $producto)

@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Auth\Events\Registered;
 
 class RegisteredUserController extends Controller
 {
@@ -17,19 +18,27 @@ class RegisteredUserController extends Controller
 
     public function store(Request $request)
     {
+        // Validar el request
         $this->validator($request->all())->validate();
 
+        // Crear el usuario
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
+        // Autenticar al usuario
         auth()->login($user);
 
-        return redirect()->route('productos.index')->with('success', 'Usuario registrado y autenticado exitosamente.');
+        // Lanzar el evento para el envío del correo de verificación
+        event(new Registered($user));
+
+        // Redirigir al usuario con un mensaje para que verifique su correo
+        return redirect()->route('inicio')->with('success', 'Por favor, verifica tu correo electrónico.');
     }
 
+    // Método para validar los datos del registro
     protected function validator(array $data)
     {
         return Validator::make($data, [

@@ -55,11 +55,9 @@
 <div class="container-fluid">
     <div class="form-container">
         <h1 class="mb-4">Crear Producto</h1>
-        
         <!-- Formulario -->
         <form action="{{ route('productos.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
-            
             <!-- Nombre del producto -->
             <div class="form-group">
                 <label for="nombre">Nombre <span class="text-danger">*</span></label>
@@ -68,7 +66,6 @@
                     <small class="text-danger">{{ $message }}</small>
                 @enderror
             </div>
-
             <!-- Descripción del producto -->
             <div class="form-group">
                 <label for="descripcion">Descripción <span class="text-danger">*</span></label>
@@ -77,7 +74,6 @@
                     <small class="text-danger">{{ $message }}</small>
                 @enderror
             </div>
-
             <!-- Precio del producto -->
             <div class="form-group">
                 <label for="precio">Precio <span class="text-danger">*</span></label>
@@ -86,7 +82,6 @@
                     <small class="text-danger">{{ $message }}</small>
                 @enderror
             </div>
-
             <!-- Stock del Producto -->
             <div class="form-group">
                 <label for="stock">Stock <span class="text-danger">*</span></label>
@@ -95,7 +90,6 @@
                     <small class="text-danger">{{ $message }}</small>
                 @enderror
             </div>
-
             <!-- Categoría del producto -->
             <div class="form-group">
                 <label for="categoria_id">Categoría <span class="text-danger">*</span></label>
@@ -111,7 +105,6 @@
                     <small class="text-danger">{{ $message }}</small>
                 @enderror
             </div>
-
             <!-- Imagen del Producto -->
             <div class="form-group">
                 <label for="imagen">Imagen del Producto <span class="text-danger">*</span></label>
@@ -121,10 +114,11 @@
                 @enderror
                 <img id="preview" src="#" alt="Vista previa de la imagen" style="max-width: 200px; margin-top: 10px; display: none;">
             </div>
-
             <!-- Botón de Enviar -->
             <div class="text-center">
                 <button type="submit" class="btn btn-success" style="width: 200px;" onclick="this.disabled=true; this.form.submit();">Crear Producto</button>
+                <a href="{{ route('dashboard') }}" class="btn btn-secondary">Volver al Dashboard</a>
+                <a href="{{ route('productos.index') }}" class="btn btn-danger">Cancelar</a>
             </div>
         </form>
         <!-- Espacio para imágenes debajo del formulario -->

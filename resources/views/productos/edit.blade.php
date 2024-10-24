@@ -54,7 +54,6 @@
     <form action="{{ route('productos.update', $producto->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
-        
         <!-- Nombre del Producto -->
         <div class="form-group">
             <label for="nombre">Nombre</label>
@@ -63,7 +62,6 @@
                 <small class="text-danger">{{ $message }}</small>
             @enderror
         </div>
-
         <!-- Descripción del Producto -->
         <div class="form-group">
             <label for="descripcion">Descripción</label>
@@ -72,7 +70,6 @@
                 <small class="text-danger">{{ $message }}</small>
             @enderror
         </div>
-
         <!-- Precio del Producto -->
         <div class="form-group">
             <label for="precio">Precio ($)</label>
@@ -81,7 +78,6 @@
                 <small class="text-danger">{{ $message }}</small>
             @enderror
         </div>
-
         <!-- Stock del Producto -->
         <div class="form-group">
             <label for="stock">Stock</label>
@@ -90,7 +86,6 @@
                 <small class="text-danger">{{ $message }}</small>
             @enderror
         </div>
-
         <!-- Categoría del Producto -->
         <div class="form-group">
             <label for="categoria_id">Categoría <span class="text-danger">*</span></label>
@@ -106,7 +101,6 @@
                 <small class="text-danger">{{ $message }}</small>
             @enderror
         </div>
-
         <!-- Imagen del Producto -->
         <div class="form-group">
             <label for="imagen">Imagen del Producto (opcional)</label>
@@ -118,14 +112,13 @@
                 <small class="text-danger">{{ $message }}</small>
             @enderror
         </div>
-
         <!-- Botones de Actualizar y Cancelar -->
         <div class="btn-container">
             <button type="submit" class="btn btn-primary">Actualizar</button>
-            <a href="{{ route('productos.index') }}" class="btn btn-secondary">Cancelar</a>
+            <a href="{{ route('dashboard') }}" class="btn btn-secondary">Volver al Dashboard</a>
+            <a href="{{ route('productos.index') }}" class="btn btn-danger">Cancelar</a>
         </div>
     </form>
-
     <!-- Sección de Imágenes -->
     <div class="image-container">
         <img src="{{ asset('img/editar1.png') }}" alt="Imagen 1">

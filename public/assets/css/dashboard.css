@@ -1,18 +1,26 @@
-/* Fondo general del menú */
+/* Body sin márgenes */
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%; /* Ocupar todo el ancho */
+    height: 100%; /* Ocupar toda la altura */
+    font-family: 'Times New Roman', serif; /* Fuente general */
+    background-color: #c1c6ca; /* Color de fondo del body */
+}
+/* ************************************************************** Menú lateral ************************************************************** */
 .custom-menu {
-    background-color: #000000; /* Cambia este color por el que desees */
+    background-color: #000000; /* Color de fondo del menú */
     color: white; /* Color del texto */
-    padding: 15px; /* Espaciado interno */
-    position: fixed; /* Hace que el menú sea fijo */
+    padding: 0; /* Elimina el padding */
+    position: fixed; /* Fija el menú en su posición */
     top: 0; /* Se alinea al borde superior */
     bottom: 0; /* Se extiende hasta el borde inferior */
     left: 0; /* Se alinea al borde izquierdo */
     width: 230px; /* Ajusta el ancho del menú */
+    height: 100vh; /* Ocupar toda la altura de la ventana */
     overflow-y: auto; /* Permite el desplazamiento vertical si es necesario */
-    min-height: 100vh; /* Asegura que el menú ocupe toda la altura */
 }
-
-/* Estilos de los elementos de la lista */
+/* -------------------------------------------------------------------------------------------- Estilos de los elementos de la lista del menú */
 .custom-menu .list-group-item {
     background-color: transparent; /* Fondo transparente */
     color: rgb(255, 255, 255); /* Color del texto */
@@ -20,26 +28,18 @@
     transition: background-color 0.3s, color 0.3s; /* Transición suave */
     margin-bottom: 5px; /* Espaciado entre elementos */
 }
-
-/* Efecto hover sobre los ítems */
+/* ------------------------------------------------------------------------------------------------------------- Efecto hover sobre los ítems */
 .custom-menu .list-group-item:hover {
     background-color: gold; /* Color al pasar el ratón */
     color: rgb(0, 0, 0); /* Asegurar que el texto siga siendo visible */
 }
-
-/* Elemento activo */
+/* -------------------------------------------------------------------------------------------------------------------------- Elemento activo */
 .custom-menu .list-group-item.active {
     background-color: #ff20c7; /* Color del elemento activo */
     color: white; /* Texto blanco para resaltar */
     text-align: center;  
 }
-
-/* Centrando el texto dentro del h1 */
-h1 {
-    text-align: center;  
-}
-
-/* Botón de cerrar sesión */
+/* ------------------------------------------------------------------------------------------------------------------- Botón de cerrar sesión */
 .btn-link-danger {
     background-color: #a80616; /* Color de fondo personalizado */
     color: white; /* Color del texto */
@@ -49,51 +49,38 @@ h1 {
     display: block; /* Ocupa todo el ancho disponible */
     width: 100%; /* Asegura que ocupe todo el ancho del contenedor */
 }
-
-/* Al pasar el mouse */
+/* ------------------------------------------------------------------------------------------------------------------------ Al pasar el mouse */
 .btn-link-danger:hover {
     background-color: #ff0019; /* Color de fondo */
     color: white; /* Mantener el texto en blanco */
 }
-
-/* Estilo de la imagen en el menú lateral */
+/* --------------------------------------------------------------------------------------------------- Estilo de la imagen en el menú lateral */
 .sidebar-header img {
     width: 200px; /* Ajusta el tamaño según sea necesario */
     height: auto;
     margin-bottom: 10px; /* Espaciado inferior */
 }
-
-/* Fondo y márgenes del cuerpo */
-body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Times New Roman', serif;
+/* ************************************************************ SECCIÓN DE AYUDA ************************************************************ */
+.soporte {
+    padding: 0px; /* Añade padding a la sección */
+    width: 100%; /* Ocupa todo el ancho del contenido */
 }
 
-/* Evitar márgenes indeseados en la barra lateral */
-.sidebar {
-    margin: 0;
+.carousel-controls {
+    margin-top: 10px;
+    text-align: center;
 }
 
-/* Asegurar que la tabla ocupe todo el espacio disponible */
+.justificado {
+    text-align: justify;
+}
+/* --------------------------------------------- Para asegurar que la tabla ocupe todo el ancho --------------------------------------------- */
 .table {
-    width: calc(100% - 230px); /* Ajustar el ancho de la tabla */
-    margin-left: 230px; /* Para que la tabla no se superponga al menú */
+    width: 100%; /* Ocupa todo el ancho disponible */
 }
-
-/* Espacio en la parte superior del contenido */
-.content {
-    margin-top: 20px; /* Espacio entre el contenido y el menú */
-}
-
-/* Estilos del dashboard */
-.dashboard-welcome {
-    display: flex; /* Usar flexbox para alinear el contenido */
-    align-items: center; /* Centrar verticalmente */
-    margin-bottom: 20px; /* Espacio inferior */
-}
-
-/* Margen para el contenido principal */
+/* ------------------------------------------------------ Área principal del dashboard ------------------------------------------------------ */
 .col-md-9, .col-lg-10 {
-    padding: 20px; /* Espaciado interno para el contenido */
+    margin-left: 230px; /* Asegúrate de que el área principal comience después del menú */
+    padding: 0; /* Elimina el padding para evitar espacios innecesarios */
+    min-height: 100vh; /* Asegúrate de que el área principal ocupe toda la altura */
 }

@@ -1,0 +1,30 @@
+/* Asegúrate de que estos estilos están en tu archivo CSS */
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.container-fluid {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.menu-lateral {
+    width: 250px; /* Ajusta el ancho si es necesario */
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-right: 1px solid #dee2e6;
+    height: 100%;
+    overflow-y: auto;
+}
+
+#main-content {
+    flex-grow: 1; /* El contenido principal ocupará el espacio restante */
+    padding: 20px;
+    overflow-y: auto;
+    background-color: #fff;
+    box-sizing: border-box;
+}

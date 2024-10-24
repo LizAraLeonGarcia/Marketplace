@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
@@ -36,10 +36,13 @@ class RegisterController extends Controller
         $user = $this->create($request->all());
 
         // Autenticar al usuario
-        Auth::login($user);
+        auth()->login($user);
 
-        // Redirigir al usuario
-        return redirect()->route('productos.index')->with('success', 'Usuario registrado y autenticado exitosamente.');
+        // Disparar el evento Registered para enviar el correo de verificación
+        event(new Registered($user));
+
+        // Redirigir al usuario con un mensaje pidiendo que verifique su correo
+        return redirect()->route('inicio')->with('success', 'Por favor, verifica tu correo electrónico.');
     }
 
     /**

@@ -8,18 +8,13 @@ use App\Models\Categoria;
 
 class CategoriaSeeder extends Seeder
 {
-    public function run()    {
-        DB::table('categorias')->insert([
-            ['nombre' => 'Accesorios'],
-            ['nombre' => 'Calzado'],
-            ['nombre' => 'Cocina'],
-            ['nombre' => 'Coleccionables'],
-            ['nombre' => 'Escolar'],
-            ['nombre' => 'Hogar'],
-            ['nombre' => 'Oficina'],
-            ['nombre' => 'Ropa'],
-            ['nombre' => 'Videojuegos'],
-        ]);
+    public function run()
+    {    
+        $categorias = ['Accesorios', 'Calzado', 'Cocina', 'Coleccionables', 'Escolar', 'Hogar', 'Oficina', 'Ropa', 'Videojuegos'];
+    
+        foreach ($categorias as $nombre) {
+            Categoria::firstOrCreate(['nombre' => $nombre]);
+        }
     }
 }
 

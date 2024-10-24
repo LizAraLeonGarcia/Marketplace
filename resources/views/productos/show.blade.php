@@ -97,7 +97,6 @@
     <div class="image-wrapper">
         <img src="{{ asset('img/show1.png') }}" alt="Imagen 1" class="side-image">
     </div>
-
     <!-- Contenedor del formulario -->
     <div class="card shadow-lg border-light form-container">
         <div class="card-header text-center">
@@ -119,7 +118,7 @@
             </div>
 
             <div class="d-flex justify-content-between">
-                <a href="{{ route('productos.index') }}" class="btn btn-secondary">Volver a la lista</a>
+                <a href="{{ route('dashboard') }}" class="btn btn-secondary">Volver al Dashboard</a>
                 <a href="{{ route('productos.edit', $producto->id) }}" class="btn btn-primary">Editar Producto</a>
 
                 <form action="{{ route('productos.destroy', $producto->id) }}" method="POST" class="d-inline-block">
@@ -130,7 +129,6 @@
             </div>
         </div>
     </div>
-
     <!-- Imagen lateral derecha -->
     <div class="image-wrapper">
         <img src="{{ asset('img/show2.png') }}" alt="Imagen 2" class="side-image">
