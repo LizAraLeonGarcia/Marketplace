@@ -65,10 +65,12 @@
                             <a href="{{ route('login') }}" class="btn btn-success">Iniciar sesión</a>
                         @endguest
                         @auth
-                            <a href="{{ route('logout') }}" class="btn btn-danger">Cerrar sesión</a>
+                            <a href="{{ route('dashboard') }}" class="btn-custom-dashboard">Ir al Dashboard</a>
+                            <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                                @csrf
+                                <button type="submit" class="btn-custom-logout">Cerrar sesión</button>
+                            </form>
                         @endauth
-                        <!--<a href="{{ route('register') }}" class="btn btn-primary">Regístrate ahora</a>
-                        <a href="{{ route('login') }}" class="btn btn-primary">Iniciar sesión</a>-->
                     </div>
                 </div>
             </div>

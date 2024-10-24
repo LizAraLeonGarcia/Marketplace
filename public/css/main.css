@@ -94,7 +94,8 @@ form {
   border: 1px solid #ccc;
   border-radius: 5px;
   background: #f9f9f9;
-}
+  margin: 0;
+  padding: 0;}
 
 form label {
   display: block;
@@ -283,6 +284,34 @@ ol li {
   list-style-type: none; /* Elimina los puntos de la lista */
 }
 /* ************************************************************ PARA LOS BOTONES ************************************************************ */
+.btn-custom-logout {
+  margin: 0; /* Elimina cualquier margen */
+  background-color: #ad0213; /* Color de fondo rojo */
+  color: white;              /* Color del texto */
+  padding: 15px 30px;        /* Espaciado interno */
+  border: none;              /* Sin bordes */
+  border-radius: 5px;        /* Bordes redondeados */
+  cursor: pointer;           /* Cambiar el cursor al pasar por encima */
+}
+
+.btn-custom-logout:hover {
+  background-color: #d80b1f; /* Color de fondo al pasar el ratón */
+}
+
+.btn-custom-dashboard {
+  margin: 0; /* Elimina cualquier margen */
+  background-color: #d30082; /* Color de fondo rojo */
+  color: white;              /* Color del texto */
+  padding: 15px 30px;        /* Espaciado interno */
+  border: none;              /* Sin bordes */
+  border-radius: 5px;        /* Bordes redondeados */
+  cursor: pointer;           /* Cambiar el cursor al pasar por encima */
+}
+
+.btn-custom-dashboard:hover {
+  background-color: #f13ab4; /* Color de fondo al pasar el ratón */
+  color: white; /* Asegúrate de que el color del texto se mantenga */
+}
 /* ----------------------------------------------------------------- INICIO ----------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------------- Color para el botón de Iniciar sesión */
 .inicio .btn-success {
