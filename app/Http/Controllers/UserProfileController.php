@@ -10,15 +10,20 @@ class UserProfileController extends Controller
 {
     public function perfilComprador()
     {
-      //  $compras = auth()->user()->compras; // 
-      //  return view('perfil.comprador', compact('compras'));
+        // Aquí puedes manejar la lógica para el perfil del comprador
+        // $compras = auth()->user()->compras; 
+        // return view('perfil.comprador', compact('compras'));
     }
 
     public function perfilVendedor()
     {
         // Obtiene los productos asociados al vendedor autenticado
         $productos = Producto::where('vendedor_id', auth()->id())->get();
-        // Verifica que la variable $productos esté correctamente definida
-        return view('vendedor', compact('productos'));
+
+        // Obtiene el usuario autenticado
+        $user = auth()->user();
+
+        // Retorna la vista con los productos y el usuario
+        return view('vendedor', compact('productos', 'user'));
     }
 }

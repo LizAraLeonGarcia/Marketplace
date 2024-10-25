@@ -10,9 +10,17 @@ use App\Http\Controllers\AyudaController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\FileController;
 
 // Habilitar verificación de email
 Auth::routes(['verify' => true]);
+//
+Route::get('/files', [FileController::class, 'index'])->name('files.index');
+Route::post('/files', [FileController::class, 'store'])->name('files.store');
+Route::delete('/files/{id}', [FileController::class, 'destroy'])->name('files.destroy');
+Route::put('/files/{id}', [FileController::class, 'update'])->name('files.update');
+Route::get('/files/create', [FileController::class, 'create'])->name('files.create');
+
 // ******************************************************* Ruta inicio (index.blade.php) *******************************************************
 Route::get('/', function () {
     return view('index');

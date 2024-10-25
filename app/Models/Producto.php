@@ -15,7 +15,6 @@ class Producto extends Model
         'precio',
         'stock',
         'categoria_id', 
-        'imagen',
         'user_id',
         'vendedor_id',
     ];
@@ -23,5 +22,10 @@ class Producto extends Model
     public function categoria()
     {
         return $this->belongsTo(Categoria::class);
+    }
+    
+    public function images()
+    {
+        return $this->hasMany(Image::class); // Relación con imágenes
     }
 }

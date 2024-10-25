@@ -4,26 +4,37 @@
 
 @section('content')
 <style>
+    html, body {
+        height: 100%; /* Asegura que html y body ocupen el 100% de la altura */
+        margin: 0; /* Elimina los márgenes por defecto */
+        padding: 0; /* Elimina el padding por defecto */
+        box-sizing: border-box; /* Asegura que el box-sizing incluya padding y border */
+    }
+
+    *, *::before, *::after {
+    box-sizing: inherit; /* Aplica el box-sizing a todos los elementos */
+    }
+    
     body {
+        height: 100vh; /* Asegúrate de que el body tenga la altura de la ventana */
         background-image: url('{{ asset('img/fondoFormEdit.jpg') }}'); /* Ajusta la ruta según sea necesario */
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
         font-family: 'Times New Roman', Times, serif;
-        min-height: 100vh; /* Asegúrate de que el body tenga la altura de la ventana */
         display: flex;
-        justify-content: center; /* Centra el contenido horizontalmente */
-        align-items: flex-start; /* Alinea el contenido en la parte superior */
+        justify-content: flex-start; 
         flex-direction: column; /* Coloca el contenido en columna */
-        padding: 20px; /* Agrega un poco de espacio alrededor */
+        overflow-y: hidden; /* O usa auto */
     }
     .form-container {
         max-width: 800px; /* Ajusta el tamaño máximo del formulario */
         padding: 40px;
         border-radius: 15px;
         background-color: transparent; /* Mantiene el fondo completamente transparente */
-        margin: 20px auto; /* Centra el contenedor */
+        margin: 0 auto; /* Centra el contenedor */
         box-shadow: none; /* Elimina la sombra si no es necesaria */
+        overflow: auto; /* Esto permitirá que se genere una barra de desplazamiento solo dentro de este contenedor si es necesario */
     }
     .form-group label {
         background-color: rgba(255, 255, 255, 0.8); /* Fondo semitransparente para las etiquetas */
@@ -34,17 +45,16 @@
     .image-container {
         display: flex;
         justify-content: space-around;
-        margin-top: 40px;
         width: 100%; /* Asegura que la imagen se ajuste al contenedor */
     }
     .image-container img {
-        max-width: 30%;
+        max-width: 30%; 
+        height: auto; /* Mantiene la relación de aspecto */
         border-radius: 10px;
     }
     .btn-container {
         display: flex;
         justify-content: space-between; /* Asegura que los botones estén a los lados */
-        margin-top: 20px; /* Espacio entre el formulario y los botones */
     }
 </style>
 

@@ -10,6 +10,14 @@
         <!-- Contenido -->
         <div class="col">
             <h2 class="mb-4" class="text-center display-4">Perfil como Vendedor</h2>
+            
+            <div class="col-md-8">
+                <h5 class="fw-bold">ID del usuario: {{ $user->id }} </h5>
+                <h5 class="fw-bold">Nombre: {{ $user->nombre }} {{ $user->apellido }}</h5>
+                <p><strong>Apodo:</strong> {{ $user->apodo ?? 'No especificado' }}</p>
+                <p><strong>País:</strong> {{ $user->pais }}</p>
+                <p><strong>Correo:</strong> {{ $user->email }}</p>
+            </div>
 
             <h3>Mis Productos</h3>
             <table class="table">

@@ -107,12 +107,15 @@
             </div>
             <!-- Imagen del Producto -->
             <div class="form-group">
-                <label for="imagen">Imagen del Producto <span class="text-danger">*</span></label>
-                <input type="file" name="imagen" id="imagen" class="form-control @error('imagen') is-invalid @enderror" accept="image/*" required onchange="previewImage(event)">
-                @error('imagen')
+                <label for="imagenes">Imágenes del Producto <span class="text-danger">*</span></label>
+                <input type="file" name="imagenes[]" id="imagenes" class="form-control @error('imagenes') is-invalid @enderror" accept="image/*" required multiple onchange="previewImages(event)">
+                @error('imagenes')
                     <small class="text-danger">{{ $message }}</small>
                 @enderror
-                <img id="preview" src="#" alt="Vista previa de la imagen" style="max-width: 200px; margin-top: 10px; display: none;">
+
+                <div id="preview-container" style="margin-top: 10px;">
+                    <!-- Las imágenes de vista previa se insertarán aquí -->
+                </div>
             </div>
             <!-- Botón de Enviar -->
             <div class="text-center">
@@ -137,8 +140,7 @@
         </div>
     </div>
 </div>
-
-<script>
+<!--<script>
     function previewImage(event) {
         var reader = new FileReader();
         reader.onload = function() {
@@ -148,6 +150,26 @@
         };
         reader.readAsDataURL(event.target.files[0]);
     }
-</script>
+</script>-->
+<script>
+    function previewImages(event) {
+        const previewContainer = document.getElementById('preview-container');
+        previewContainer.innerHTML = ''; // Limpiar el contenedor de vista previa
 
+        const files = event.target.files; // Obtener los archivos seleccionados
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const img = document.createElement('img');
+                img.src = e.target.result; // Establecer la fuente de la imagen
+                img.style.maxWidth = '200px'; // Establecer el ancho máximo
+                img.style.marginRight = '10px'; // Espaciado entre imágenes
+                img.style.marginTop = '10px'; // Espaciado superior
+                previewContainer.appendChild(img); // Añadir la imagen al contenedor
+            };
+            reader.readAsDataURL(file); // Leer el archivo como una URL de datos
+        }
+    }
+</script>
 @endsection

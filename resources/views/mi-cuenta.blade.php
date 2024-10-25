@@ -38,7 +38,13 @@
                             <a class="nav-link active" href="#">Cambiar contraseña</a>    
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link active" href="#">Cambiar correo</a>    
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link active" href="#">Metodo de pago</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">Eliminar mi cuenta</a>    
                         </li>
                     </ul>
                 </nav>    
@@ -58,10 +64,8 @@
                 </div>
             @else
                 <!-- Información del usuario -->
-                <div class="card mb-4 shadow-sm border-0 rounded-lg">
-                    <div class="card-header bg-secondary text-white">
-                        <h2 class="h5 mb-0">Información de la Cuenta</h2>
-                    </div>
+                <h3 class="text-center">Información de la cuenta</h3>
+                <div class="mb-4 rounded-lg">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4 text-center">
@@ -69,6 +73,7 @@
                                 alt="Foto de perfil" class="img-fluid rounded-circle shadow">
                             </div>
                             <div class="col-md-8">
+                                <h5 class="fw-bold">ID del usuario: {{ Auth::user()->id }} </h5>
                                 <h5 class="fw-bold">Nombre: {{ $user->nombre }} {{ $user->apellido }}</h5>
                                 <p><strong>Apodo:</strong> {{ $user->apodo ?? 'No especificado' }}</p>
                                 <p><strong>Sexo:</strong> {{ $user->sexo }}</p>
@@ -76,6 +81,13 @@
                                 <p><strong>Fecha de Nacimiento:</strong> {{ $user->fecha_nacimiento ? $user->fecha_nacimiento->format('d/m/Y') : 'No especificada' }}</p>
                                 <p><strong>Descripción:</strong> {{ $user->descripcion ?? 'No especificada' }}</p>
                                 <p><strong>Correo:</strong> {{ $user->email }}</p>
+                                <p><strong>Correo verificado:</strong> 
+                                    @if (Auth::user()->hasVerifiedEmail())
+                                        Sí
+                                    @else
+                                        No
+                                    @endif
+                                </p>
                             </div>
                         </div>
                     </div>
