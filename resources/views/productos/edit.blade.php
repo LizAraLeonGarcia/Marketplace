@@ -4,61 +4,81 @@
 
 @section('content')
 <style>
-    html, body {
-        height: 100%; /* Asegura que html y body ocupen el 100% de la altura */
-        margin: 0; /* Elimina los márgenes por defecto */
-        padding: 0; /* Elimina el padding por defecto */
-        box-sizing: border-box; /* Asegura que el box-sizing incluya padding y border */
-    }
+    body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    background-image: url('{{ asset('img/fondoFormEdit.jpg') }}');
+    background-size: cover;
+    background-position: center;
+    font-family: 'Times New Roman', Times, serif;
+    overflow-x: hidden; /* Oculta la barra de desplazamiento horizontal */
+}
 
-    *, *::before, *::after {
-    box-sizing: inherit; /* Aplica el box-sizing a todos los elementos */
-    }
-    
-    body {
-        height: 100vh; /* Asegúrate de que el body tenga la altura de la ventana */
-        background-image: url('{{ asset('img/fondoFormEdit.jpg') }}'); /* Ajusta la ruta según sea necesario */
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        font-family: 'Times New Roman', Times, serif;
-        display: flex;
-        justify-content: flex-start; 
-        flex-direction: column; /* Coloca el contenido en columna */
-        overflow-y: hidden; /* O usa auto */
-    }
-    .form-container {
-        max-width: 800px; /* Ajusta el tamaño máximo del formulario */
-        padding: 40px;
-        border-radius: 15px;
-        background-color: transparent; /* Mantiene el fondo completamente transparente */
-        margin: 0 auto; /* Centra el contenedor */
-        box-shadow: none; /* Elimina la sombra si no es necesaria */
-        overflow: auto; /* Esto permitirá que se genere una barra de desplazamiento solo dentro de este contenedor si es necesario */
-    }
-    .form-group label {
-        background-color: rgba(255, 255, 255, 0.8); /* Fondo semitransparente para las etiquetas */
-        padding: 5px; /* Espacio interno para las etiquetas */
-        border-radius: 5px; /* Esquinas redondeadas para las etiquetas */
-        color: #333; /* Color del texto de las etiquetas */
-    }
-    .image-container {
-        display: flex;
-        justify-content: space-around;
-        width: 100%; /* Asegura que la imagen se ajuste al contenedor */
-    }
-    .image-container img {
-        max-width: 30%; 
-        height: auto; /* Mantiene la relación de aspecto */
-        border-radius: 10px;
-    }
-    .btn-container {
-        display: flex;
-        justify-content: space-between; /* Asegura que los botones estén a los lados */
-    }
+.main-container {
+    height: 100%; /* Usa 100% para ocupar el alto total disponible */
+    display: flex;
+    flex-direction: column; /* Mantiene los elementos en una columna */
+    justify-content: flex-start; /* Asegura que comience desde la parte superior */
+    align-items: center; /* Centra horizontalmente */
+    padding: 20px; /* Espaciado alrededor del contenedor */
+}
+
+h2 {
+    margin: 20px 0; 
+    color: #f39c12; /* Color del título */
+}
+
+form {
+    width: 100%; /* Asegura que el formulario ocupe todo el ancho del contenedor */
+    max-width: 600px; /* Ancho máximo del formulario */
+    flex-grow: 1; /* Permite que el formulario ocupe el espacio disponible */
+}
+
+.form-group {
+    margin-bottom: 15px; /* Espaciado entre grupos de formulario */
+}
+
+.form-group label {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 5px;
+    border-radius: 5px;
+    color: #333;
+}
+
+.form-group input,
+.form-group textarea {
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%; /* Ancho completo */
+}
+
+.btn-container {
+    display: flex;
+    justify-content: space-between; 
+    width: 100%;
+    margin-top: 20px;
+}
+
+.image-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.image-container img {
+    max-width: 150px; /* Tamaño deseado para las imágenes */
+    height: auto; 
+    margin: 5px;
+}
 </style>
 
-<div class="container form-container">
+<div class="main-container">
     <h2 class="text-center">Editar Producto</h2>
     
     <form action="{{ route('productos.update', $producto->id) }}" method="POST" enctype="multipart/form-data">
@@ -111,16 +131,25 @@
                 <small class="text-danger">{{ $message }}</small>
             @enderror
         </div>
-        <!-- Imagen del Producto -->
+        <!-- Mostrar imágenes existentes -->
         <div class="form-group">
-            <label for="imagen">Imagen del Producto (opcional)</label>
-            <input type="file" name="imagen" id="imagen" class="form-control @error('imagen') is-invalid @enderror" accept="image/*">
-            <small class="form-text text-muted">Imagen actual: 
-                <img src="{{ asset('storage/' . $producto->imagen) }}" alt="Imagen del producto" style="max-width: 150px; max-height: 150px;">
-            </small>
-            @error('imagen')
-                <small class="text-danger">{{ $message }}</small>
-            @enderror
+                    <label>Imágenes actuales:</label>
+                    <div class="row">
+                        @foreach ($producto->imagenes as $imagen)
+                            <div class="col-md-3">
+                                <img src="{{ Storage::url($imagen->path) }}" class="img-fluid" alt="Imagen del producto">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" name="delete_images[]" value="{{ $imagen->id }}">
+                                    <label class="form-check-label">Eliminar</label>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+        <!-- Subir nuevas imágenes -->
+        <div class="form-group">
+            <label for="imagenes">Subir Nuevas Imágenes:</label>
+            <input type="file" class="form-control" name="imagenes[]" multiple>
         </div>
         <!-- Botones de Actualizar y Cancelar -->
         <div class="btn-container">
