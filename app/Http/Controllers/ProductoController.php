@@ -84,9 +84,9 @@ class ProductoController extends Controller
     // ------------------------------------------------------------------------------------------ Mostrar los detalles de un producto específico
     public function show(Producto $producto)
     {
+        $producto->load('imagenes'); // Carga las imágenes junto con el producto
         return view('productos.show', compact('producto'));
-    }
-
+    }    
     // ----------------------------------------------------------------------------------------- Mostrar el formulario de edición de un producto
     public function edit($id)
     {

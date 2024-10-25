@@ -24,7 +24,7 @@ class Producto extends Model
         return $this->belongsTo(Categoria::class);
     }
     
-    public function images()
+    public function imagenes()
     {
         return $this->hasMany(Image::class); // Relación con imágenes
     }
