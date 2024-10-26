@@ -1,0 +1,51 @@
+body {
+    background-image: url('/img/fondoEditarCuenta.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #333;
+    font-family: 'Times New Roman', serif;
+    margin: 0; /* Elimina el margen por defecto */
+    padding: 0; /* Elimina el padding por defecto */
+    overflow-x: hidden; /* Oculta la barra de desplazamiento horizontal */
+}
+
+#main-content {
+    max-width: 650px;
+    margin: 0 auto; /* Centra el contenedor */
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow-x: hidden; /* Evita el desbordamiento horizontal */
+}
+
+.textos {
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco semi-transparente */
+    padding: 10px; /* Espaciado interno */
+    border-radius: 5px; /* Bordes redondeados */
+    margin: 5px 0; /* Espacio entre elementos */
+}
+
+h1 {
+    color: #007bff; /* Cambia el color del encabezado */
+}
+
+.form-group {
+    margin-bottom: 15px;
+    width: 100%; /* Asegúrate de que los elementos ocupen el 100% del ancho */
+}
+
+.alert {
+    margin-top: 10px;
+}
+
+button.btn {
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    color: #fff;
+    cursor: pointer;
+}
+
+button.btn:hover {
+    background-color: #0056b3;
+}
