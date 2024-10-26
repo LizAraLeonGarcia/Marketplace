@@ -9,5 +9,5 @@ class Categoria extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nombre']; // Asegúrate de que 'nombre' sea un campo en la tabla
+    protected $fillable = ['nombre']; 
 }

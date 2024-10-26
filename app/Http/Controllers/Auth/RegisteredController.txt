@@ -41,13 +41,12 @@ class RegisterController extends Controller
         // Disparar el evento Registered para enviar el correo de verificación
         event(new Registered($user));
 
-        // Redirigir al usuario con un mensaje pidiendo que verifique su correo
         // Envía el correo de verificación
-        $user->sendEmailVerificationNotification();
-        
+        $user->notify(new CustomVerifyEmail());
+
+        // Redirigir al usuario con un mensaje pidiendo que verifique su correo
         return redirect()->route('inicio')->with('success', '¡Registro exitoso! Por favor, verifica tu correo electrónico.');
     }
-
     /**
      * Valida los datos de entrada para el registro.
      *

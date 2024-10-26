@@ -13,12 +13,17 @@ class CustomVerifyEmail extends VerifyEmail
         $verificationUrl = $this->verificationUrl($notifiable);
 
         return (new MailMessage)
-            ->subject('Confirma tu correo electrónico')
-            ->greeting('¡Hola, ' . $notifiable->name . '!')
-            ->line('Gracias por registrarte en VaquitaMarketplace. Por favor, confirma tu correo electrónico.')
-            ->action('Verificar Correo', $verificationUrl)
-            ->line('Aviso: Después de verificar, serás redirigido a tu dashboard.')
-            ->markdown('emails.verify-email', ['url' => $verificationUrl, 'user' => $notifiable]);
+        ->subject('Confirma tu correo electrónico')
+        ->greeting('¡Hola, ' . $notifiable->name . '!')
+        ->line('Gracias por registrarte en VaquitaMarketplace. Por favor, confirma tu correo electrónico.')
+        ->action('Verificar Correo', $verificationUrl)
+        ->line('Aviso: Después de verificar, serás redirigido a tu dashboard.')
+        ->line('¡Gracias por unirte a nosotros!')
+        ->markdown('emails.verify-email', [
+            'logoUrl' => asset('img/logo.jpg'),
+            'user' => $notifiable, 
+            'url' => $verificationUrl, 
+        ]);
     }
 
     public function verificationUrl($notifiable)

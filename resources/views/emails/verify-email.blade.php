@@ -1,11 +1,11 @@
 @component('mail::message')
-<img src="{{ asset('img/logo.jpg') }}" alt="Logo" style="width: 100px; height: auto;">
+<img src="{{ $logoUrl }}" alt="Logo" style="width: 100px; height: auto;">
 
 # ¡Hola, {{ $user->name }}!
 
 Gracias por registrarte en **VaquitaMarketplace**. Solo falta un paso más.
 
-@component('mail::button', ['url' => $url])
+@component('mail::button', ['url' => $url]) <!-- Usa $url aquí -->
 Verificar Correo
 @endcomponent
 
