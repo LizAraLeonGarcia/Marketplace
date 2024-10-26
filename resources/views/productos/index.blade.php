@@ -80,7 +80,19 @@
                                         <a href="{{ route('productos.show', $producto->id) }}" class="btn btn-info btn-sm" title="Ver detalles del producto">
                                             <i class="fas fa-eye"></i> Ver
                                         </a>
-                                        <!-- Agrega botones de editar y eliminar si es necesario -->
+                                        <div class="button-container d-flex justify-content-between mt-2">
+                                            @if (Auth::user()->can('update', $producto))
+                                                <a href="{{ route('productos.edit', $producto->id) }}" class="btn btn-primary btn-sm">Editar Producto</a>
+                                            @endif
+
+                                            @if (Auth::user()->can('delete', $producto))
+                                                <form action="{{ route('productos.destroy', $producto->id) }}" method="POST" class="d-inline-block">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas eliminar este producto?');">Eliminar Producto</button>
+                                                </form>
+                                            @endif
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach

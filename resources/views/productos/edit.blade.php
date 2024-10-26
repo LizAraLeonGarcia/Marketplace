@@ -5,88 +5,106 @@
 @section('content')
 <style>
     body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    width: 100%;
-    background-image: url('{{ asset('img/fondoFormEdit.jpg') }}');
-    background-size: cover;
-    background-position: center;
-    font-family: 'Times New Roman', Times, serif;
-    overflow-x: hidden; /* Oculta la barra de desplazamiento horizontal */
-}
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+        background-image: url('{{ asset('img/fondoFormEdit.jpg') }}');
+        background-size: cover;
+        background-position: center;
+        font-family: 'Times New Roman', Times, serif;
+        overflow-x: hidden; /* Oculta la barra de desplazamiento horizontal */
+    }
 
-.main-container {
-    height: 100%; /* Usa 100% para ocupar el alto total disponible */
-    display: flex;
-    flex-direction: column; /* Mantiene los elementos en una columna */
-    justify-content: flex-start; /* Asegura que comience desde la parte superior */
-    align-items: center; /* Centra horizontalmente */
-    padding: 20px; /* Espaciado alrededor del contenedor */
-}
+    .main-container {
+        height: 100%;
+        display: flex;
+        flex-direction: column; 
+        justify-content: flex-start; 
+        align-items: center; 
+        padding: 20px; 
+    }
 
-h2 {
-    margin: 20px 0; 
-    color: #f39c12; /* Color del título */
-}
+    h2 {
+        margin: 10px 0; 
+        color: #f39c12; 
+    }
 
-form {
-    width: 100%; /* Asegura que el formulario ocupe todo el ancho del contenedor */
-    max-width: 600px; /* Ancho máximo del formulario */
-    flex-grow: 1; /* Permite que el formulario ocupe el espacio disponible */
-}
+    h4 {
+        margin: 10px 0; 
+        color: #f39c12; 
+        background-color: rgba(255, 255, 255, 0.9);
+        border-radius: 5px;
+    }
 
-.form-group {
-    margin-bottom: 15px; /* Espaciado entre grupos de formulario */
-}
+    form {
+        width: 100%;
+        max-width: 600px; 
+        flex-grow: 1; 
+    }
 
-.form-group label {
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 5px;
-    border-radius: 5px;
-    color: #333;
-}
+    .form-group {
+        margin-bottom: 15px; 
+    }
 
-.form-group input,
-.form-group textarea {
-    background-color: rgba(255, 255, 255, 0.9);
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    width: 100%; /* Ancho completo */
-}
+    .form-group label {
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 5px;
+        border-radius: 5px;
+        color: #333;
+    }
 
-.btn-container {
-    display: flex;
-    justify-content: space-between; 
-    width: 100%;
-    margin-top: 20px;
-}
+    .form-group input,
+    .form-group textarea {
+        background-color: rgba(255, 255, 255, 0.9);
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+        width: 100%; 
+    }
 
-.image-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    width: 100%;
-    flex-wrap: wrap;
-}
+    .btn-container {
+        display: flex;
+        justify-content: space-between; 
+        width: 100%;
+        margin-top: 20px;
+    }
 
-.image-container img {
-    max-width: 150px; /* Tamaño deseado para las imágenes */
-    height: auto; 
-    margin: 5px;
-}
+    .image-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .image-container img {
+        max-width: 150px; 
+        height: auto; 
+        margin: 5px;
+    }
+
+    .text-danger {
+        color: red; /* Color del asterisco rojo */
+    }
+
+    .delete-btn-container {
+        display: flex;
+        justify-content: center; /* Centra el botón de eliminación horizontalmente */
+        margin-top: 20px; /* Espacio superior para separación */
+    }
 </style>
 
 <div class="main-container">
     <h2 class="text-center">Editar Producto</h2>
-    
+    <h4 class="text-center">Recuerda que todos los campos son obligatorios.</h4>
+
     <form action="{{ route('productos.update', $producto->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <!-- Nombre del Producto -->
         <div class="form-group">
-            <label for="nombre">Nombre</label>
+            <label for="nombre">Nombre <span class="text-danger">*</span></label>
             <input type="text" name="nombre" id="nombre" class="form-control @error('nombre') is-invalid @enderror" value="{{ old('nombre', $producto->nombre) }}" required>
             @error('nombre')
                 <small class="text-danger">{{ $message }}</small>
@@ -94,7 +112,7 @@ form {
         </div>
         <!-- Descripción del Producto -->
         <div class="form-group">
-            <label for="descripcion">Descripción</label>
+            <label for="descripcion">Descripción <span class="text-danger">*</span></label>
             <textarea name="descripcion" id="descripcion" class="form-control @error('descripcion') is-invalid @enderror" required>{{ old('descripcion', $producto->descripcion) }}</textarea>
             @error('descripcion')
                 <small class="text-danger">{{ $message }}</small>
@@ -102,7 +120,7 @@ form {
         </div>
         <!-- Precio del Producto -->
         <div class="form-group">
-            <label for="precio">Precio ($)</label>
+            <label for="precio">Precio ($) <span class="text-danger">*</span></label>
             <input type="number" name="precio" id="precio" class="form-control @error('precio') is-invalid @enderror" value="{{ old('precio', $producto->precio) }}" step="0.01" required>
             @error('precio')
                 <small class="text-danger">{{ $message }}</small>
@@ -110,7 +128,7 @@ form {
         </div>
         <!-- Stock del Producto -->
         <div class="form-group">
-            <label for="stock">Stock</label>
+            <label for="stock">Stock <span class="text-danger">*</span></label>
             <input type="number" name="stock" id="stock" class="form-control @error('stock') is-invalid @enderror" value="{{ old('stock', $producto->stock) }}" required>
             @error('stock')
                 <small class="text-danger">{{ $message }}</small>
@@ -133,19 +151,19 @@ form {
         </div>
         <!-- Mostrar imágenes existentes -->
         <div class="form-group">
-                    <label>Imágenes actuales:</label>
-                    <div class="row">
-                        @foreach ($producto->imagenes as $imagen)
-                            <div class="col-md-3">
-                                <img src="{{ Storage::url($imagen->path) }}" class="img-fluid" alt="Imagen del producto">
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" name="delete_images[]" value="{{ $imagen->id }}">
-                                    <label class="form-check-label">Eliminar</label>
-                                </div>
-                            </div>
-                        @endforeach
+            <label>Imágenes actuales:</label>
+            <div class="row">
+                @foreach ($producto->imagenes as $imagen)
+                    <div class="col-md-3">
+                        <img src="{{ Storage::url($imagen->path) }}" class="img-fluid" alt="Imagen del producto">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" name="delete_images[]" value="{{ $imagen->id }}">
+                            <label class="form-check-label">Eliminar</label>
+                        </div>
                     </div>
-                </div>
+                @endforeach
+            </div>
+        </div>
         <!-- Subir nuevas imágenes -->
         <div class="form-group">
             <label for="imagenes">Subir Nuevas Imágenes:</label>
@@ -158,11 +176,43 @@ form {
             <a href="{{ route('productos.index') }}" class="btn btn-danger">Cancelar</a>
         </div>
     </form>
+        
+    @if (Auth::user()->can('delete', $producto))
+        <div class="delete-btn-container">
+            <form action="{{ route('productos.destroy', $producto) }}" method="POST" style="display:inline;">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger">Eliminar</button>
+            </form>
+        </div>
+    @endif
     <!-- Sección de Imágenes -->
     <div class="image-container">
         <img src="{{ asset('img/editar1.png') }}" alt="Imagen 1">
         <img src="{{ asset('img/editar2.png') }}" alt="Imagen 2">
         <img src="{{ asset('img/editar3.png') }}" alt="Imagen 3">
     </div>
+    <script>
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.querySelector('form');
+        form.addEventListener('submit', (event) => {
+            const precio = document.getElementById('precio');
+            const stock = document.getElementById('stock');       
+            // Validación personalizada
+            if (precio.value <= 0) {
+                event.preventDefault();
+                alert('El precio debe ser mayor que 0');
+                precio.focus();
+            }
+
+            if (stock.value < 0) {
+                event.preventDefault();
+                alert('El stock no puede ser negativo');
+                stock.focus();
+            }
+        });
+    });
+    </script>
 </div>
 @endsection

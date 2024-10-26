@@ -8,6 +8,8 @@ use App\Models\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use App\Notifications\ProductCreated;
+use Illuminate\Support\Facades\Gate;
 
 class ProductoController extends Controller
 {
@@ -34,15 +36,18 @@ class ProductoController extends Controller
 
     public function store(Request $request)
     {
+        // Validar los datos del formulario
         $request->validate([
             'nombre' => 'required|string|max:255',
             'descripcion' => 'required|string',
             'precio' => 'required|numeric',
             'stock' => 'required|integer',
             'categoria_id' => 'required|exists:categorias,id',
+            'imagenes' => 'required_without:imagenes.*|array', // Al menos una imagen
             'imagenes.*' => 'image|mimes:jpg,png,jpeg|max:2048',
         ]);
-
+    
+        // Crear el producto
         $producto = Producto::create([
             'nombre' => $request->nombre,
             'descripcion' => $request->descripcion,
@@ -52,21 +57,27 @@ class ProductoController extends Controller
             'user_id' => auth()->id(),
             'vendedor_id' => auth()->id(),
         ]);
-
+    
+        // Manejar la subida de imágenes
         if ($request->hasFile('imagenes')) {
             foreach ($request->file('imagenes') as $image) {
                 $path = $image->store('products', 'public');
-                $producto->imagenes()->create(['path' => $path]); // Cambiado a 'path'
+                $producto->imagenes()->create(['path' => $path]); // Guarda la ruta de la imagen
             }
         }
-
+    
+        // Actualizar el estado de vendedor si es necesario
         if (!Auth::user()->is_vendedor) {
             Auth::user()->is_vendedor = true;
             Auth::user()->save();
-        }          
-
+        }
+    
+        // Enviar la notificación al usuario
+        $request->user()->notify(new ProductCreated($producto));
+    
+        // Redirigir al índice de productos con mensaje de éxito
         return redirect()->route('productos.index')->with('success', 'Producto creado con éxito.');        
-    }
+    }    
 
     public function show(Producto $producto)
     {
@@ -76,6 +87,10 @@ class ProductoController extends Controller
 
     public function edit(Producto $producto)
     {
+        if (Gate::denies('update', $producto)) {
+            return redirect()->route('productos.index')->with('error', 'No tienes permiso para editar este producto.');
+        }
+        
         $categorias = Categoria::all();
         return view('productos.edit', compact('producto', 'categorias'));
     }
@@ -121,8 +136,12 @@ class ProductoController extends Controller
 
     public function destroy(Producto $producto)
     {
+        if (Gate::denies('delete', $producto)) {
+            return redirect()->route('productos.index')->with('error', 'No tienes permiso para eliminar este producto.');
+        }
+
         foreach ($producto->imagenes as $imagen) {
-            Storage::disk('public')->delete($imagen->path); // Cambiado a 'path'
+            Storage::disk('public')->delete($imagen->path); 
             $imagen->delete();
         }
 

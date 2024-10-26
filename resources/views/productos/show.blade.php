@@ -160,13 +160,18 @@
 
             <div class="button-container d-flex justify-content-between">
                 <a href="{{ route('dashboard') }}" class="btn btn-secondary">Volver al Dashboard</a>
-                <a href="{{ route('productos.edit', $producto->id) }}" class="btn btn-primary">Editar Producto</a>
 
-                <form action="{{ route('productos.destroy', $producto->id) }}" method="POST" class="d-inline-block">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este producto?');">Eliminar Producto</button>
-                </form>
+                @if (Auth::user()->can('update', $producto))
+                    <a href="{{ route('productos.edit', $producto->id) }}" class="btn btn-primary">Editar Producto</a>
+                @endif
+
+                @if (Auth::user()->can('delete', $producto))
+                    <form action="{{ route('productos.destroy', $producto->id) }}" method="POST" class="d-inline-block">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este producto?');">Eliminar Producto</button>
+                    </form>
+                @endif
             </div>
         </div>
     </div>

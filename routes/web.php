@@ -13,7 +13,9 @@ use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\FileController;
 
 // Habilitar verificación de email
-Auth::routes(['verify' => true]);
+Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])
+    ->middleware(['signed', 'throttle:6,1'])
+    ->name('verification.verify');    
 //
 Route::get('/files', [FileController::class, 'index'])->name('files.index');
 Route::post('/files', [FileController::class, 'store'])->name('files.store');
