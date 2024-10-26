@@ -1,5 +1,5 @@
-<div class="custom-menu"> <!-- Elimina el padding -->
-    <div class="list-group custom-menu border rounded shadow-sm" style="height: 100vh;"> <!-- Asegúrate de que el menú ocupe toda la altura -->
+<div class="custom-menu"> <!-- Mantener el contenedor del menú -->
+    <div class="list-group border rounded shadow-sm">
         <h5 class="list-group-item list-group-item-action active" aria-current="true">
             Menú
         </h5>
@@ -30,7 +30,6 @@
         <div class="sidebar-header">
             <img src="{{ asset('assets/img/menuLateralDashboard.png') }}" alt="Descripción de la imagen" class="img-fluid">
         </div>
-        <a href="#" class="list-group-item list-group-item-action"></a>
         <a href="{{ route('logout') }}" class="btn btn-link-danger" title="Cerrar sesión" 
             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
             <i class="fas fa-sign-out-alt"></i> Cerrar sesión

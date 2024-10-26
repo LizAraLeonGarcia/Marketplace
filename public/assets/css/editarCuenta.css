@@ -1,5 +1,6 @@
 body {
     background-image: url('/img/fondoEditarCuenta.jpg');
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
     background-size: cover;
     background-position: center;
     color: #333;

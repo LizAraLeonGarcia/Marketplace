@@ -80,7 +80,7 @@ body {
 }
 /* ------------------------------------------------------ Área principal del dashboard ------------------------------------------------------ */
 .col-md-9, .col-lg-10 {
-    margin-left: 230px; /* Asegúrate de que el área principal comience después del menú */
     padding: 0; /* Elimina el padding para evitar espacios innecesarios */
     min-height: 100vh; /* Asegúrate de que el área principal ocupe toda la altura */
+    margin-left: 230px; /* Asegúrate de que el área principal comience después del menú */
 }

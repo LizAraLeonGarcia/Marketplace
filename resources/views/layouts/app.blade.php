@@ -16,14 +16,19 @@
         html, body {
             height: 100%;
             margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            font-family: 'Times New Roman', serif;
+            background-color: #c1c6ca; /* Color de fondo del body */
         }
 
-        .container-fluid {
-            height: 100%;
+        .container-fluid, .content {
+            min-height: 100vh; /* Asegura altura completa */
+            width: 100%;      /* Asegura ancho completo */
         }
 
         .row {
-            height: 100%;
+            min-height: 100%; /* Ocupa todo el alto dentro del contenedor */
         }
 
         .custom-menu {
@@ -32,7 +37,7 @@
         }
 
         .content {
-            height: calc(100vh - 56px); /* Ajusta según la altura de tu barra de navegación si la tienes */
+            padding-top: 20px;
             overflow-y: auto;
         }
     </style>
@@ -42,23 +47,20 @@
         <div class="row">
             <!-- Menú lateral -->
             <div class="col-md-3 col-lg-2 custom-menu {{ request()->is('productos/create') || request()->is('productos/*/edit') || request()->is('productos/*') || request()->is('mi-cuenta/editar') ? 'd-none' : '' }}">
-                @include('partials.menu-lateral') <!-- Menú lateral -->
+                @include('partials.menu-lateral')
             </div>
             <!-- Contenido principal -->
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <div class="content">
-                    @yield('content') <!-- Sección donde se cargan las vistas específicas -->
+                    @yield('content')
                 </div>
             </main>
         </div>
     </div>
     
-    <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('assets/js/main.js') }}"></script>
-    <!-- Bootstrap JS -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('assets/js/main.js') }}"></script>
 </body>
 </html>

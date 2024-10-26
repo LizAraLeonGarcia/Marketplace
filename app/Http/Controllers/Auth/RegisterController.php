@@ -42,7 +42,10 @@ class RegisterController extends Controller
         event(new Registered($user));
 
         // Redirigir al usuario con un mensaje pidiendo que verifique su correo
-        return redirect()->route('inicio')->with('success', 'Por favor, verifica tu correo electrónico.');
+        // Envía el correo de verificación
+        $user->sendEmailVerificationNotification();
+        
+        return redirect()->route('inicio')->with('success', '¡Registro exitoso! Por favor, verifica tu correo electrónico.');
     }
 
     /**
