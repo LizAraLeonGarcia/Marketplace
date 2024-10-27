@@ -9,15 +9,13 @@ class AddUserIdToProductosTable extends Migration
     public function up()
     {
         Schema::table('productos', function (Blueprint $table) {
-            $table->unsignedBigInteger('user_id')->after('id'); // O después de la columna que desees
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            //$table->unsignedBigInteger('user_id')->after('id');
         });
     }
 
     public function down()
     {
         Schema::table('productos', function (Blueprint $table) {
-            $table->dropForeign(['user_id']); // Elimina la clave foránea
             $table->dropColumn('user_id'); // Elimina la columna
         });
     }

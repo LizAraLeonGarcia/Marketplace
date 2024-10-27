@@ -3,11 +3,21 @@
 @section('title', 'Dashboard')
 
 @section('content')
+<style>
+    .col-md-9, .col-lg-10 {
+        padding: 0; /* Elimina el padding para evitar espacios innecesarios */
+        min-height: 100vh; /* Asegúrate de que el área principal ocupe toda la altura */
+        margin-left: 230px; /* Asegúrate de que el área principal comience después del menú */
+        background-color: #c1c6ca; /* Color de fondo del body */
+    }
+</style>
+
 @if (session('success'))
     <div class="alert alert-success">
         {{ session('success') }}
     </div>
 @endif
+
 <div class="container-fluid">
     <div class="row">
         <!-- Menú lateral -->

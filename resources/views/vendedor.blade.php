@@ -1,15 +1,31 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-fluid"> 
-    <div class="row">
+<style>
+    .col-md-9, .col-lg-10 {
+        padding: 0; /* Elimina el padding para evitar espacios innecesarios */
+        min-height: 100vh; /* Asegúrate de que el área principal ocupe toda la altura */
+        margin-left: 230px; /* Asegúrate de que el área principal comience después del menú */
+        background-color: #c1c6ca; /* Color de fondo del body */
+    }
+</style>
+
+<div class="container"> 
+    <div class="container-fluid">
         <!-- Menú lateral -->
         <div class="custom-menu {{ request()->is('productos/create') || request()->is('productos/*/edit') || request()->is('productos/*') ? 'd-none' : '' }}">
             @include('partials.menu-lateral')
         </div>
         <!-- Contenido -->
         <div class="col">
-            <h2 class="mb-4" class="text-center display-4">Perfil como Vendedor</h2>
+            <div class="row d-flex align-items-center mb-4">
+                <div class="col-md-8">
+                    <h2 class="display-4 mb-0">Perfil como Vendedor</h2>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <img src="{{ asset('assets/img/perfilVendedor.png') }}" alt="Ilustración" class="img-fluid" style="width: 200px; height: auto;">
+                </div>
+            </div>
             
             <div class="col-md-8">
                 <h5 class="fw-bold">ID del usuario: {{ $user->id }} </h5>
@@ -54,9 +70,7 @@
                     @endforeach
                 </tbody>
             </table>
-
-            <h3>Estadísticas de ventas</h3>
-            <!-- Aquí puedes agregar gráficos o tablas con estadísticas -->
+            
             <h3>Mis reseñas como vendedor</h3>
         </div>
     </div>

@@ -6,13 +6,14 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\UserProfileController;
+use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\AyudaController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\FileController;
 
-// Habilitar verificación de email
+// ****************************************************** Habilitar verificación de email ******************************************************
 Route::get('email/verify/{id}/{hash}', [VerificationController::class, 'verify'])
     ->name('verification.verify');    
 //
@@ -21,7 +22,6 @@ Route::post('/files', [FileController::class, 'store'])->name('files.store');
 Route::delete('/files/{id}', [FileController::class, 'destroy'])->name('files.destroy');
 Route::put('/files/{id}', [FileController::class, 'update'])->name('files.update');
 Route::get('/files/create', [FileController::class, 'create'])->name('files.create');
-
 // ******************************************************* Ruta inicio (index.blade.php) *******************************************************
 Route::get('/', function () {
     return view('index');
@@ -68,11 +68,16 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/mi-cuenta/editar', [AccountController::class, 'edit'])->name('perfil.editar');
     Route::post('/mi-cuenta/actualizar', [AccountController::class, 'update'])->name('perfil.actualizar');
     //
-    Route::get('/perfil/comprador', [UserProfileController::class, 'perfilComprador'])->name('perfil.comprador');
+    Route::get('/comprador', [UserProfileController::class, 'perfilComprador'])->name('comprador.perfil');
     //
     Route::get('/vendedor', [UserProfileController::class, 'perfilVendedor'])->name('vendedor.perfil');       
     // historial de pedidos ....................................................................................................................
     Route::get('/mi-cuenta/historial', [AccountController::class, 'historial'])->name('historial.pedidos');
     // índice de ayuda .........................................................................................................................
     Route::get('/ayuda', [AyudaController::class, 'index'])->name('ayuda.index');
+    // --------------------------------------------------------------------------------------------------------------------------------- carrito
+    Route::get('/carrito', [CarritoController::class, 'index'])->name('carrito.index');
+    Route::post('/carrito/agregar/{producto}', [CarritoController::class, 'agregar'])->name('carrito.agregar'); // Agregar al carrito
+    Route::delete('/carrito/eliminar/{producto}', [CarritoController::class, 'eliminar'])->name('carrito.eliminar'); // Eliminar del carrito
+    Route::get('/productos/{id}', [ProductoController::class, 'show'])->name('productos.show');
 });

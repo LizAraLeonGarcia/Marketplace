@@ -12,17 +12,18 @@ class Sale extends Model
     protected $fillable = [
         'producto_id',
         'vendedor_id',
+        'user_id',
         'precio_venta',
         'cantidad',
     ];
 
+    public function usuario()
+    {
+        return $this->belongsTo(User::class, 'user_id'); // Relación con el modelo User
+    }
+
     public function producto()
     {
         return $this->belongsTo(Producto::class);
-    }
-
-    public function vendedor()
-    {
-        return $this->belongsTo(User::class, 'vendedor_id');
     }
 }

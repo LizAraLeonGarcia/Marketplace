@@ -28,4 +28,11 @@ class Producto extends Model
     {
         return $this->hasMany(Image::class); // Relación con imágenes
     }
+
+    public function carrito()
+    {
+        return $this->belongsToMany(User::class, 'carrito')
+                    ->withPivot('cantidad')
+                    ->withTimestamps();
+    }
 }

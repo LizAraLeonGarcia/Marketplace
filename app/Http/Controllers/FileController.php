@@ -1,8 +1,11 @@
 <?php
 
+namespace App\Http\Controllers;
+
 use App\Models\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\Controller;
 
 class FileController extends Controller
 {

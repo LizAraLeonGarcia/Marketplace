@@ -1,6 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+    .col-md-9, .col-lg-10 {
+        padding: 0; /* Elimina el padding para evitar espacios innecesarios */
+        min-height: 100vh; /* Asegúrate de que el área principal ocupe toda la altura */
+        margin-left: 230px; /* Asegúrate de que el área principal comience después del menú */
+        background-color: #c1c6ca; /* Color de fondo del body */
+    }
+</style>
 
 <div class="container-fluid">
     <div class="row">
@@ -94,6 +102,13 @@
                                                 </form>
                                             @endif
                                         </div>
+                                        <!-- Botón para agregar al carrito solo si el producto no pertenece al usuario -->
+                                        @if (Auth::id() !== $producto->vendedor_id)
+                                            <form action="{{ route('carrito.agregar', $producto->id) }}" method="POST" class="mt-2">
+                                                @csrf
+                                                <button type="submit" class="btn btn-success btn-sm">Agregar al Carrito</button>
+                                            </form>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach

@@ -15,7 +15,7 @@
     }
 
     .form-container {
-        background-color: rgba(255, 255, 255, 0.85);
+        background-color: rgba(255, 255, 255, 0.8); /* Blanco con transparencia del 80% */
         padding: 40px;
         border-radius: 15px; 
         background: transparent;
@@ -24,6 +24,10 @@
         position: relative;
         top: 20%;
         box-shadow: none;
+    }
+
+    .col-md-9, .col-lg-10 {
+        background-color: transparent;
     }
 
     h1 {

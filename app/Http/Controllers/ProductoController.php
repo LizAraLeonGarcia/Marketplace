@@ -149,7 +149,9 @@ class ProductoController extends Controller
 
         return redirect()->route('productos.index')->with('success', 'Producto eliminado exitosamente.');
     }
-
+    //
+    
+    //
     public function categoria($categoria)
     {
         $productos = Producto::where('categoria_id', $categoria)->paginate(10);

@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
-use App\Notifications\CustomVerifyEmail;
+use Illuminate\Auth\Notifications\VerifyEmail;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -25,7 +25,19 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function sendEmailVerificationNotification()
     {
-        $this->notify(new CustomVerifyEmail);
+        $this->notify(new VerifyEmail);
+    }
+
+    public function carrito()
+    {
+        return $this->belongsToMany(Producto::class, 'carrito')
+                ->withPivot('cantidad')
+                ->withTimestamps();
+    }
+
+    public function compras()
+    {
+        return $this->hasMany(Sale::class, 'user_id');
     }
 
     protected $fillable = [

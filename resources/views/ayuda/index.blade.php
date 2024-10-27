@@ -1,8 +1,17 @@
 @extends('layouts.app')
 
-@section('title', 'Ayuda')
+@section('title', 'Vaquita Marketplace')
 
 @section('content')
+<style>
+    .col-md-9, .col-lg-10 {
+        padding: 0; /* Elimina el padding para evitar espacios innecesarios */
+        min-height: 100vh; /* Asegúrate de que el área principal ocupe toda la altura */
+        margin-left: 230px; /* Asegúrate de que el área principal comience después del menú */
+        background-color: #c1c6ca; /* Color de fondo del body */
+    }
+</style>
+
 <div class="container-fluid">
     <div class="row">
         <!-- Menú lateral -->
@@ -97,10 +106,10 @@
                                 <a href="https://www.instagram.com/VaquitaMarketplace" target="_blank"> Vaquita Marketplace</a>
                             </li>
                         </ol>
+                        <h5 class="text-center">¡No tardaremos en ayudarte!, por favor, ¡sé paciente!</h5>
                     </div>
                     <div class="col-md-6">
                         <img src="{{ asset('assets/img/dashboardAyuda.png') }}" alt="Ilustración de soporte" class="img-fluid">
-                        <h5 class="text-center">¡No tardaremos en ayudarte!, por favor, ¡sé paciente!</h5>
                     </div>
                 </div>
             </section>

@@ -9,8 +9,11 @@
         <a href="{{ route('vendedor.perfil') }}" class="list-group-item list-group-item-action d-flex align-items-center">
             <i class="fas fa-store me-2"></i> Ver mi perfil como vendedor
         </a>
-        <a href="{{ route('perfil.comprador') }}" class="list-group-item list-group-item-action d-flex align-items-center">
+        <a href="{{ route('comprador.perfil') }}" class="list-group-item list-group-item-action d-flex align-items-center">
             <i class="fas fa-shopping-bag me-2"></i> Ver mi perfil como comprador
+        </a>
+        <a href="{{ route('dashboard') }}" class="list-group-item list-group-item-action d-flex align-items-center">
+            <i class="fas fa-th-large"></i> Dashboard
         </a>
         <a href="{{ route('productos.create') }}" class="list-group-item list-group-item-action d-flex align-items-center">
             <i class="fas fa-plus-circle me-2"></i> Crear producto
@@ -18,14 +21,11 @@
         <a href="{{ route('productos.index') }}" class="list-group-item list-group-item-action d-flex align-items-center">
             <i class="fas fa-box-open me-2"></i> Ver productos
         </a>
-        <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+        <a href="{{ route('carrito.index') }}" class="list-group-item list-group-item-action d-flex align-items-center">
             <i class="fas fa-shopping-cart me-2"></i> Carrito
         </a>
         <a href="{{ route('ayuda.index') }}" class="list-group-item list-group-item-action d-flex align-items-center">
             <i class="fas fa-headset me-2"></i> Ayuda
-        </a>
-        <a href="{{ route('dashboard') }}" class="list-group-item list-group-item-action d-flex align-items-center">
-            <i class="fas fa-th-large"></i> Dashboard
         </a>
         <div class="sidebar-header">
             <img src="{{ asset('assets/img/menuLateralDashboard.png') }}" alt="Descripción de la imagen" class="img-fluid">

@@ -10,8 +10,8 @@ class AddRolesToUsersTable extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->boolean('is_vendedor')->default(false)->after('remember_token');
-            $table->boolean('is_comprador')->default(true)->after('is_vendedor');
+           // $table->boolean('is_vendedor')->default(false)->after('remember_token');
+           // $table->boolean('is_comprador')->default(true)->after('is_vendedor');
         });
     }
 

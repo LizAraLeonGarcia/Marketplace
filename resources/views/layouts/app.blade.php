@@ -19,7 +19,6 @@
             padding: 0;
             overflow-x: hidden;
             font-family: 'Times New Roman', serif;
-            background-color: #c1c6ca; /* Color de fondo del body */
         }
 
         .container-fluid, .content {

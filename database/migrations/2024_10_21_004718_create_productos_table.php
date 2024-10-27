@@ -15,6 +15,7 @@ class CreateProductosTable extends Migration
             $table->decimal('precio', 8, 2);
             $table->integer('stock');
             $table->unsignedBigInteger('categoria_id');
+            $table->unsignedBigInteger('user_id');
             $table->string('imagen')->nullable();
             $table->timestamps();
 
