@@ -9,12 +9,26 @@
         background-color: #c1c6ca; /* Color de fondo del body */
     }
     /* ---------------------------------------------------------- PARA LOS BOTONES ---------------------------------------------------------- */
+    .btn-pagar {
+        background-color: green !important; /* Color verde para pagar */
+        color: white !important;
+        align-items: center;
+    }
+    .btn-basura {
+        background-color: red !important; /* Color rojo para eliminar */
+        color: white !important;
+    }
+    .btn-detalles {
+        background-color: blue !important; /* Color azul para ver detalles */
+        color: white !important;
+    }
     /* Alineación de los botones */
     .acciones {
         display: flex;
+        align-items: center;
         gap: 10px; /* Espacio entre los botones */
     }
-    /* Alinear checkbox y texto */
+
     .form-check-input {
         margin-right: 10px; /* Espacio a la derecha del checkbox */
     }
@@ -53,7 +67,7 @@
                         <tr>
                             <th>Producto</th>
                             <th>Cantidad</th>
-                            <th>Acciones</th>
+                            <th>Cantidad</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -65,12 +79,15 @@
                                 <td>{{ $producto->nombre }}</td>
                                 <td>{{ $producto->pivot->cantidad }}</td>
                                 <td>
+                                <td>
+                                    <input type="number" min="1" max="{{ $producto->pivot->cantidad }}" name="cantidad_{{ $producto->id }}" value="{{ $producto->pivot->cantidad }}" class="form-control" />
+                                </td>
                                 <td class="acciones">
-                                    <a href="{{ route('productos.show', $producto) }}" class="btn btn-primary btn-sm">Ver Detalles</a>
+                                    <a href="{{ route('productos.show', $producto) }}" class="btn btn-detalles btn-sm">Ver Detalles</a>
                                     <form action="{{ route('carrito.eliminar', $producto->id) }}" method="POST" style="display:inline;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                                        <button type="submit" class="btn btn-basura btn-sm">Eliminar</button>
                                     </form>
                                 </td>
                             </tr>
@@ -78,7 +95,7 @@
                     </tbody>
                 </table>
                 <div class="text-end mt-4">
-                    <button type="submit" class="btn btn-success btn-sm">Pagar</button>
+                    <button type="submit" class="btn btn-pagar btn-sm">Pagar</button>
                 </div>
             @endif
         </div>

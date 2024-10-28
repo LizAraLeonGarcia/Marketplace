@@ -8,8 +8,9 @@ use App\Models\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
-use App\Notifications\ProductCreated;
 use Illuminate\Support\Facades\Gate;
+use App\Mail\PrimerProductoMail;
+use Illuminate\Support\Facades\Mail;
 
 class ProductoController extends Controller
 {
@@ -46,7 +47,6 @@ class ProductoController extends Controller
             'imagenes' => 'required_without:imagenes.*|array', // Al menos una imagen
             'imagenes.*' => 'image|mimes:jpg,png,jpeg|max:2048',
         ]);
-    
         // Crear el producto
         $producto = Producto::create([
             'nombre' => $request->nombre,
@@ -57,7 +57,6 @@ class ProductoController extends Controller
             'user_id' => auth()->id(),
             'vendedor_id' => auth()->id(),
         ]);
-    
         // Manejar la subida de imágenes
         if ($request->hasFile('imagenes')) {
             foreach ($request->file('imagenes') as $image) {
@@ -65,16 +64,17 @@ class ProductoController extends Controller
                 $producto->imagenes()->create(['path' => $path]); // Guarda la ruta de la imagen
             }
         }
-    
+        // Verificar si es el primer producto del usuario
+        $productosCount = Producto::where('user_id', auth()->id())->count();
+        if ($productosCount == 1) {
+            // Enviar correo de bienvenida por primer producto
+            Mail::to(auth()->user()->email)->send(new PrimerProductoMail($producto));
+        }
         // Actualizar el estado de vendedor si es necesario
         if (!Auth::user()->is_vendedor) {
             Auth::user()->is_vendedor = true;
             Auth::user()->save();
         }
-    
-        // Enviar la notificación al usuario
-        $request->user()->notify(new ProductCreated($producto));
-    
         // Redirigir al índice de productos con mensaje de éxito
         return redirect()->route('productos.index')->with('success', 'Producto creado con éxito.');        
     }    
