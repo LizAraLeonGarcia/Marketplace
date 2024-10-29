@@ -29,6 +29,11 @@ class Producto extends Model
         return $this->hasMany(Image::class); // Relación con imágenes
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
     public function carrito()
     {
         return $this->belongsToMany(User::class, 'carrito')

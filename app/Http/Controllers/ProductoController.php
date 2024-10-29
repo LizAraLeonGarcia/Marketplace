@@ -65,10 +65,8 @@ class ProductoController extends Controller
             }
         }
         // Verificar si es el primer producto del usuario
-        $productosCount = Producto::where('user_id', auth()->id())->count();
-        if ($productosCount == 1) {
-            // Enviar correo de bienvenida por primer producto
-            Mail::to(auth()->user()->email)->send(new PrimerProductoMail($producto));
+        if (auth()->user()->productos()->count() === 1) {
+            Mail::to(auth()->user()->email)->send(new PrimerProductoMail($producto, auth()->user()));
         }
         // Actualizar el estado de vendedor si es necesario
         if (!Auth::user()->is_vendedor) {
