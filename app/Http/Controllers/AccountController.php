@@ -62,7 +62,7 @@ class AccountController extends Controller
         $user->apellido = $request->apellido;
         $user->apodo = $request->apodo;
         $user->sexo = $request->sexo;
-        $user->pais = $request->pais;
+        $user->pais_id = $request->input('pais');
         $user->fecha_nacimiento = $request->fecha_nacimiento;
         $user->descripcion = $request->descripcion;
         // Manejo de la foto

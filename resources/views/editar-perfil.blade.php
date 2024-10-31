@@ -75,8 +75,8 @@
                                 <label for="sexo" class="textos">Sexo <span class="text-danger">*</span></label>
                                 <select name="sexo" id="sexo" class="form-control" required>
                                     <option value="">Selecciona</option>
-                                    <option value="femenino" {{ (old('sexo', $user->sexo) == 'femenino') ? 'selected' : '' }}>Femenino</option>
-                                    <option value="masculino" {{ (old('sexo', $user->sexo) == 'masculino') ? 'selected' : '' }}>Masculino</option>
+                                    <option value="Femenino" {{ (old('sexo', $user->sexo) == 'Femenino') ? 'selected' : '' }}>Femenino</option>
+                                    <option value="Masculino" {{ (old('sexo', $user->sexo) == 'Masculino') ? 'selected' : '' }}>Masculino</option>
                                 </select>
                                 @error('sexo') <div class="alert alert-danger">{{ $message }}</div> @enderror
                             </div>
@@ -84,9 +84,9 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="pais" class="textos">País <span class="text-danger">*</span></label>
-                                <select name="pais" id="pais" class="form-control" required>
+                                <select name="pais_id" id="pais" class="form-control" required>
                                     @foreach($paises as $pais)
-                                        <option value="{{ $pais->id }}" {{ old('pais', $user->pais) == $pais->id ? 'selected' : '' }}>{{ $pais->nombre }}</option>
+                                        <option value="{{ $pais->id }}" {{ old('pais_id', $user->pais_id) == $pais->id ? 'selected' : '' }}>{{ $pais->nombre }}</option>
                                     @endforeach
                                 </select>
                                 @error('pais') <div class="alert alert-danger">{{ $message }}</div> @enderror

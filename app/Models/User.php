@@ -40,7 +40,7 @@ class User extends Authenticatable implements MustVerifyEmail
     
     public function pais()
     {
-        return $this->belongsTo(Pais::class, 'pais', 'id'); 
+        return $this->belongsTo(Pais::class, 'pais_id'); 
     }
 
     protected $fillable = [

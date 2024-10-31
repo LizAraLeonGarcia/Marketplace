@@ -78,6 +78,38 @@ body {
 .table {
     width: 100%; /* Ocupa todo el ancho disponible */
 }
+/* **************************************************************** BOTONES **************************************************************** */
+/* --------------------------------------------------------------------------------------------------------------------------------- ver */
+.btn-info {
+    background-color: #ef6c00 !important; /* Cambia a tu color deseado */
+    border-color: #ef6c00 !important; /* Cambia el color del borde si es necesario */
+}
+
+.btn-info:hover {
+    background-color: orange !important; /* Color al pasar el mouse */
+    border-color: orange !important; /* Color del borde al pasar el mouse */
+}
+/* ------------------------------------------------------------------------------------------------------------------------------ editar */
+.btn-warning {
+    background-color: #1a237e; /* Cambia a tu color deseado */
+    border-color: #1a237e; /* Cambia el color del borde si es necesario */
+    color: white;
+}
+
+.btn-warning:hover {
+    background-color: blue; /* Color al pasar el mouse */
+    border-color: blue; /* Color del borde al pasar el mouse */
+}
+/* ---------------------------------------------------------------------------------------------------------------------------- eliminar */
+.btn-danger {
+    background-color: #c62828 !important; /* Cambia a tu color deseado */
+    border-color: #c62828 !important; /* Cambia el color del borde si es necesario */
+}
+
+.btn-danger:hover {
+    background-color: red !important; /* Color al pasar el mouse */
+    border-color: red !important; /* Color del borde al pasar el mouse */
+}
 /* ------------------------------------------------------ Área principal del dashboard ------------------------------------------------------ */
 .col-md-9, .col-lg-10 {
     padding: 0; /* Elimina el padding para evitar espacios innecesarios */

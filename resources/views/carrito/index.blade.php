@@ -50,7 +50,7 @@
             <div class="d-flex align-items-center justify-content-between mb-4">
                 <!-- Imagen izquierda -->
                 <img src="{{ asset('assets/img/carrito1.png') }}" alt="Ilustración" class="img-fluid me-3" style="width: 150px; height: auto;">
-                @if ($carrito->isNotEmpty())
+                @if ($carritos->isNotEmpty())
                     <h2 class="mb-4">A continuación, verás tus productos para comprar.</h2>
                 @else
                     <h2 class="mb-4">No tienes productos por comprar.</h2>
@@ -59,7 +59,7 @@
                 <img src="{{ asset('assets/img/carrito2.png') }}" alt="Ilustración" class="img-fluid me-3" style="width: 150px; height: auto;">
             </div>
 
-            @if($carrito->isEmpty())
+            @if($carritos->isEmpty())
                 <h2>¡Agrega algún producto a tu carrito para comprarlo!</h2>
             @else
                 <table class="table">

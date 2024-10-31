@@ -31,7 +31,7 @@
                 <h5 class="fw-bold">ID del usuario: {{ $user->id }} </h5>
                 <h5 class="fw-bold">Nombre: {{ $user->nombre }} {{ $user->apellido }}</h5>
                 <p><strong>Apodo:</strong> {{ $user->apodo ?? 'No especificado' }}</p>
-                <p><strong>País:</strong> {{ $user->pais }}</p>
+                <p><strong>País:</strong> {{ $user->pais->nombre ?? 'No especificado' }}</p>
                 <p><strong>Correo:</strong> {{ $user->email }}</p>
             </div>
 

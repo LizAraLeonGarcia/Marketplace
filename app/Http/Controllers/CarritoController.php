@@ -12,9 +12,9 @@ class CarritoController extends Controller
     public function index()
     {
         // Obtiene los productos en el carrito del usuario autenticado
-        $carrito = auth()->user()->carrito()->with(['categoria'])->withPivot('cantidad')->get();
+        $carritos = auth()->user()->carritos()->with(['categoria'])->withPivot('cantidad')->get();
         // Pasa la variable $carrito a la vista
-        return view('carrito.index', compact('carrito')); 
+        return view('carrito.index', compact('carritos')); 
     }
     // --------------------------------------------------------------------------------------------------------------------------------- agregar
     public function agregar(Request $request, $producto_id)
@@ -25,7 +25,7 @@ class CarritoController extends Controller
         // Asegurar que el producto existe
         $producto = Producto::findOrFail($producto_id);
         // Agrega el producto al carrito con la cantidad especificada
-        auth()->user()->carrito()->syncWithoutDetaching([
+        auth()->user()->carritos()->syncWithoutDetaching([
             $producto->id => ['cantidad' => $cantidad]
         ]);
 
@@ -34,14 +34,14 @@ class CarritoController extends Controller
     // -------------------------------------------------------------------------------------------------------------------------------- eliminar
     public function eliminar($producto_id)
     {
-        auth()->user()->carrito()->detach($producto_id);
+        auth()->user()->carritos()->detach($producto_id);
         return redirect()->route('carrito.index')->with('success', 'Producto eliminado del carrito');
     }
     // --------------------------------------------------------------------------------------------------------------------- producto especifico
     public function mostrar()
     {
         $usuario = Auth::user();
-        $productos = $usuario->carrito()->withPivot('cantidad')->get();
+        $productos = $usuario->carritos()->withPivot('cantidad')->get();
         return view('carrito.index', compact('productos'));
     }
 }
