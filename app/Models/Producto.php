@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Producto extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'nombre',
@@ -16,28 +17,32 @@ class Producto extends Model
         'stock',
         'categoria_id', 
         'user_id',
-        'vendedor_id',
     ];
-
+    // ------------------------------------------------------------------------------------------------------------------ Relacion con categoria
     public function categoria()
     {
         return $this->belongsTo(Categoria::class);
     }
-    
-    public function imagenes()
+    // ------------------------------------------------------------------------------------------------------------------- Relación con imágenes
+    public function images()
     {
-        return $this->hasMany(Image::class); // Relación con imágenes
+        return $this->hasMany(Image::class, 'producto_id');
     }
-
+    // ----------------------------------------------------------------------------------------------------------------------- Relacion con user
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-
-    public function carrito()
+    // -------------------------------------------------------------------------------------------------------------------- Relacion con carrito
+    public function carritos()
     {
-        return $this->belongsToMany(User::class, 'carrito')
+        return $this->belongsToMany(User::class, 'carritos')
                     ->withPivot('cantidad')
                     ->withTimestamps();
+    }
+    //    
+    public function ventas()
+    {
+        return $this->hasMany(Sale::class, 'producto_id');
     }
 }

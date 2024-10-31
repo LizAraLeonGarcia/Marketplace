@@ -9,10 +9,24 @@ class CategoriaSeeder extends Seeder
 {
     public function run()
     {    
-        $categorias = ['Accesorios', 'Calzado', 'Cocina', 'Coleccionables', 'Escolar', 'Hogar', 'Oficina', 'Ropa', 'Videojuegos'];
-    
+        $categorias = [
+            'Accesorios',
+            'Calzado',
+            'Cocina',
+            'Coleccionables',
+            'Escolar',
+            'Hogar',
+            'Oficina',
+            'Ropa',
+            'Videojuegos',
+        ];
+
         foreach ($categorias as $nombre) {
-            Categoria::firstOrCreate(['nombre' => $nombre]);
+            Categoria::firstOrCreate(['nombre' => $nombre], [
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
         }
+
     }
 }

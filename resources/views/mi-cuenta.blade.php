@@ -78,15 +78,14 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4 text-center">
-                                <img src="{{ $user->foto ? asset('storage/' . $user->foto) : asset('images/default-profile.png') }}" 
-                                alt="Foto de perfil" class="img-fluid rounded-circle shadow">
+                                <img src="{{ asset('storage/' . $user->foto) }}" alt="Foto de perfil" class="img-fluid">
                             </div>
                             <div class="col-md-8">
                                 <h5 class="fw-bold">ID del usuario: {{ Auth::user()->id }} </h5>
                                 <h5 class="fw-bold">Nombre: {{ $user->nombre }} {{ $user->apellido }}</h5>
                                 <p><strong>Apodo:</strong> {{ $user->apodo ?? 'No especificado' }}</p>
                                 <p><strong>Sexo:</strong> {{ $user->sexo }}</p>
-                                <p><strong>País:</strong> {{ $user->pais }}</p>
+                                <p><strong>País:</strong> {{ $user->pais->nombre ?? 'No especificado' }}</p>
                                 <p><strong>Fecha de Nacimiento:</strong> {{ $user->fecha_nacimiento ? $user->fecha_nacimiento->format('d/m/Y') : 'No especificada' }}</p>
                                 <p><strong>Descripción:</strong> {{ $user->descripcion ?? 'No especificada' }}</p>
                                 <p><strong>Correo:</strong> {{ $user->email }}</p>

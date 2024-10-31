@@ -8,17 +8,21 @@ use Illuminate\Support\Facades\Auth;
 
 class CarritoController extends Controller
 {
+    // --------------------------------------------------------------------------------------------------------------------------- mostrar todos
     public function index()
     {
-        $carrito = auth()->user()->carrito; // Obtiene los productos en el carrito del usuario autenticado
-
-        return view('carrito.index', compact('carrito')); // Pasa la variable $carrito a la vista
+        // Obtiene los productos en el carrito del usuario autenticado
+        $carrito = auth()->user()->carrito()->with(['categoria'])->withPivot('cantidad')->get();
+        // Pasa la variable $carrito a la vista
+        return view('carrito.index', compact('carrito')); 
     }
-
+    // --------------------------------------------------------------------------------------------------------------------------------- agregar
     public function agregar(Request $request, $producto_id)
     {
+        $request->validate(['cantidad' => 'required|integer|min:1']);
+        
         $cantidad = $request->input('cantidad', 1);
-        // Asegúrate de que el producto existe
+        // Asegurar que el producto existe
         $producto = Producto::findOrFail($producto_id);
         // Agrega el producto al carrito con la cantidad especificada
         auth()->user()->carrito()->syncWithoutDetaching([
@@ -27,13 +31,13 @@ class CarritoController extends Controller
 
         return redirect()->route('carrito.index')->with('success', 'Producto agregado al carrito');
     }
-
-    public function eliminar(Producto $producto_id)
+    // -------------------------------------------------------------------------------------------------------------------------------- eliminar
+    public function eliminar($producto_id)
     {
-        auth()->user()->carrito()->detach($producto->id);
+        auth()->user()->carrito()->detach($producto_id);
         return redirect()->route('carrito.index')->with('success', 'Producto eliminado del carrito');
     }
-
+    // --------------------------------------------------------------------------------------------------------------------- producto especifico
     public function mostrar()
     {
         $usuario = Auth::user();

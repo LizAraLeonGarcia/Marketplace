@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -17,34 +19,37 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasProfilePhoto;
     use TwoFactorAuthenticatable;
     use Notifiable;
-
+    use SoftDeletes;
+    // ------------------------------------------------------------------------------------------------------------------ Relacion con productos
     public function productos()
     {
         return $this->hasMany(Producto::class, 'user_id');
     }
-    
-    public function carrito()
+    // -------------------------------------------------------------------------------------------------------------------- Relacion con carrito
+    public function carritos()
     {
-        return $this->belongsToMany(Producto::class, 'carrito')
+        return $this->belongsToMany(Producto::class, 'carritos')
                 ->withPivot('cantidad')
                 ->withTimestamps();
     }
-
+    // -------------------------------------------------------------------------------------------------------------------- Relacion con compras
     public function compras()
     {
         return $this->hasMany(Sale::class, 'user_id');
+    }
+    
+    public function pais()
+    {
+        return $this->belongsTo(Pais::class, 'pais', 'id'); 
     }
 
     protected $fillable = [
         'name',
         'email',
         'password',
+        'foto',
     ];
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
+
     protected $hidden = [
         'password',
         'remember_token',
@@ -52,19 +57,10 @@ class User extends Authenticatable implements MustVerifyEmail
         'two_factor_secret',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    /**
-     * The accessors to append to the model's array form.
-     *
-     * @var array<int, string>
-     */
+
     protected $appends = [
         'profile_photo_url',
     ];

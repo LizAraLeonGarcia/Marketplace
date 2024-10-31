@@ -118,9 +118,9 @@
             </div>
 
             <div class="form-group">
-                <label for="imagenes">Imágenes del Producto <span class="text-danger">*</span></label>
-                <input type="file" name="imagenes[]" id="imagenes" class="form-control @error('imagenes') is-invalid @enderror" accept="image/*" required multiple onchange="previewImages(event)">
-                @error('imagenes')
+                <label for="images">Imágenes del Producto <span class="text-danger">*</span></label>
+                <input type="file" name="images[]" id="images" class="form-control @error('images') is-invalid @enderror" accept="image/*" required multiple onchange="previewImages(event)">
+                @error('images')
                     <small class="text-danger">{{ $message }}</small>
                 @enderror
 
@@ -153,7 +153,7 @@
 </div>
 
 <script>
-    const MAX_IMAGES = 10; // Establece un límite de imágenes
+    const MAX_IMAGES = 10; // Establece un límite de 10 imágenes
 
     function previewImages(event) {
         const previewContainer = document.getElementById('preview-container');
@@ -161,7 +161,7 @@
         
         const files = event.target.files;
         if (files.length > MAX_IMAGES) {
-            alert(`Solo puedes subir hasta ${MAX_IMAGES} imágenes`);
+            alert(`Solo puedes subir hasta ${MAX_IMAGES} images`);
             event.target.value = ''; // Limpiar la selección de imágenes
             return;
         }

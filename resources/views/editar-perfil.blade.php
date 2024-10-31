@@ -29,6 +29,7 @@
 
                 <form action="{{ route('perfil.actualizar') }}" method="POST" enctype="multipart/form-data">
                     @csrf
+                    <h2 class="mb-4 text-center textos">Información personal</h2>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -67,14 +68,15 @@
                             </div>
                         </div>
                     </div>
+                    <h2 class="mb-4 text-center textos">Información Adicional</h2>
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="sexo" class="textos">Sexo <span class="text-danger">*</span></label>
                                 <select name="sexo" id="sexo" class="form-control" required>
                                     <option value="">Selecciona</option>
-                                    <option value="masculino" {{ (old('sexo', $user->sexo) == 'masculino') ? 'selected' : '' }}>Masculino</option>
                                     <option value="femenino" {{ (old('sexo', $user->sexo) == 'femenino') ? 'selected' : '' }}>Femenino</option>
+                                    <option value="masculino" {{ (old('sexo', $user->sexo) == 'masculino') ? 'selected' : '' }}>Masculino</option>
                                 </select>
                                 @error('sexo') <div class="alert alert-danger">{{ $message }}</div> @enderror
                             </div>
@@ -83,13 +85,9 @@
                             <div class="form-group">
                                 <label for="pais" class="textos">País <span class="text-danger">*</span></label>
                                 <select name="pais" id="pais" class="form-control" required>
-                                    <option value="">Selecciona un país</option>
-                                    <option value="argentina" {{ (old('pais', $user->pais) == 'argentina') ? 'selected' : '' }}>Argentina</option>
-                                    <option value="brasil" {{ (old('pais', $user->pais) == 'brasil') ? 'selected' : '' }}>Brasil</option>
-                                    <option value="chile" {{ (old('pais', $user->pais) == 'chile') ? 'selected' : '' }}>Chile</option>
-                                    <option value="colombia" {{ (old('pais', $user->pais) == 'colombia') ? 'selected' : '' }}>Colombia</option>
-                                    <option value="mexico" {{ (old('pais', $user->pais) == 'mexico') ? 'selected' : '' }}>México</option>
-                                    <option value="peru" {{ (old('pais', $user->pais) == 'peru') ? 'selected' : '' }}>Perú</option>
+                                    @foreach($paises as $pais)
+                                        <option value="{{ $pais->id }}" {{ old('pais', $user->pais) == $pais->id ? 'selected' : '' }}>{{ $pais->nombre }}</option>
+                                    @endforeach
                                 </select>
                                 @error('pais') <div class="alert alert-danger">{{ $message }}</div> @enderror
                             </div>

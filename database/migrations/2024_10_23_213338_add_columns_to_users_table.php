@@ -21,10 +21,7 @@ class AddColumnsToUsersTable extends Migration
             $table->text('descripcion')->nullable();
             $table->string('foto')->nullable();
             $table->string('sexo')->nullable();
-            $table->string('metodo_pago')->nullable();
-            $table->string('numero_tarjeta')->nullable();
-            $table->string('fecha_expiracion')->nullable();
-            $table->string('cvv')->nullable();
+            $table->date('fecha_nacimiento')->nullable(); 
         });
     }
 
@@ -38,7 +35,7 @@ class AddColumnsToUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn([
                 'nombre', 'apellido', 'apodo', 'pais', 'descripcion', 'foto',
-                'sexo', 'metodo_pago', 'numero_tarjeta', 'fecha_expiracion', 'cvv'
+                'sexo', 'fecha_nacimiento'
             ]);
         });
     }

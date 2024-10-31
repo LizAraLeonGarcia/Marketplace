@@ -23,9 +23,12 @@ class ProductoController extends Controller
     {
         $categorias = Categoria::all();
         $productos = $request->has('categoria_id') && $request->categoria_id != null
-            ? Producto::where('categoria_id', $request->categoria_id)->paginate(10)
-            : Producto::paginate(10); 
-        
+            ? Producto::with(['categoria', 'images']) // eager loading
+                ->where('categoria_id', $request->categoria_id)
+                ->paginate(10)
+            : Producto::with(['categoria', 'images']) // eager loading
+                ->paginate(10);     
+                
         return view('productos.index', compact('productos', 'categorias'));
     }
 
@@ -44,8 +47,8 @@ class ProductoController extends Controller
             'precio' => 'required|numeric',
             'stock' => 'required|integer',
             'categoria_id' => 'required|exists:categorias,id',
-            'imagenes' => 'required_without:imagenes.*|array', // Al menos una imagen
-            'imagenes.*' => 'image|mimes:jpg,png,jpeg|max:2048',
+            'images' => 'array', 
+            'images.*' => 'image|mimes:jpg,png,jpeg|max:2048',
         ]);
         // Crear el producto
         $producto = Producto::create([
@@ -55,13 +58,12 @@ class ProductoController extends Controller
             'stock' => $request->stock,
             'categoria_id' => $request->categoria_id,
             'user_id' => auth()->id(),
-            'vendedor_id' => auth()->id(),
         ]);
         // Manejar la subida de imágenes
-        if ($request->hasFile('imagenes')) {
-            foreach ($request->file('imagenes') as $image) {
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
                 $path = $image->store('products', 'public');
-                $producto->imagenes()->create(['path' => $path]); // Guarda la ruta de la imagen
+                $producto->images()->create(['path' => $path]); // Guarda la ruta de la imagen
             }
         }
         // Verificar si es el primer producto del usuario
@@ -79,7 +81,7 @@ class ProductoController extends Controller
 
     public function show(Producto $producto)
     {
-        $producto->load('imagenes');
+        $producto->load(['images', 'categoria']);
         return view('productos.show', compact('producto'));
     }
 
@@ -88,7 +90,10 @@ class ProductoController extends Controller
         if (Gate::denies('update', $producto)) {
             return redirect()->route('productos.index')->with('error', 'No tienes permiso para editar este producto.');
         }
-        
+        // Cargar la relación de imágenes
+        $producto->load('images');
+        $categorias = Categoria::all();
+
         $categorias = Categoria::all();
         return view('productos.edit', compact('producto', 'categorias'));
     }
@@ -101,7 +106,8 @@ class ProductoController extends Controller
             'precio' => 'required|numeric',
             'stock' => 'required|integer',
             'categoria_id' => 'required|exists:categorias,id',
-            'imagenes.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'images' => 'array', 
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $producto->update([
@@ -114,18 +120,18 @@ class ProductoController extends Controller
         // Eliminar imágenes seleccionadas
         if ($request->has('delete_images')) {
             foreach ($request->delete_images as $imageId) {
-                $imagen = Image::find($imageId);
-                if ($imagen) {
-                    Storage::disk('public')->delete($imagen->path);
-                    $imagen->delete();
+                $image = Image::find($imageId);
+                if ($image) {
+                    Storage::disk('public')->delete($image->path);
+                    $image->delete();
                 }
             }
         }
         // Subir nuevas imágenes
-        if ($request->hasFile('imagenes')) {
-            foreach ($request->file('imagenes') as $imagen) {
-                $path = $imagen->store('imagenes', 'public');
-                $producto->imagenes()->create(['path' => $path]); // Cambiado a 'path'
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $path = $image->store('producto', 'public');
+                $producto->images()->create(['path' => $path]); 
             }
         }
 
@@ -137,18 +143,16 @@ class ProductoController extends Controller
         if (Gate::denies('delete', $producto)) {
             return redirect()->route('productos.index')->with('error', 'No tienes permiso para eliminar este producto.');
         }
-
-        foreach ($producto->imagenes as $imagen) {
-            Storage::disk('public')->delete($imagen->path); 
-            $imagen->delete();
+        // eliminar imagenes asociadas
+        foreach ($producto->images as $image) {
+            Storage::disk('public')->delete($image->path); 
+            $image->delete();
         }
 
         $producto->delete();
 
         return redirect()->route('productos.index')->with('success', 'Producto eliminado exitosamente.');
     }
-    //
-    
     //
     public function categoria($categoria)
     {

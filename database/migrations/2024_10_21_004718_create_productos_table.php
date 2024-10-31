@@ -14,13 +14,12 @@ class CreateProductosTable extends Migration
             $table->text('descripcion')->nullable();
             $table->decimal('precio', 8, 2);
             $table->integer('stock');
-            $table->unsignedBigInteger('categoria_id');
-            $table->unsignedBigInteger('user_id');
-            $table->string('imagen')->nullable();
-            $table->timestamps();
-
             // Clave foránea
-            $table->foreign('categoria_id')->references('id')->on('categorias')->onDelete('cascade');
+            $table->foreignId('categoria_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained();
+            $table->timestamps();
+            // Agregar borrado lógico
+            $table->softDeletes();
         });
     }
 

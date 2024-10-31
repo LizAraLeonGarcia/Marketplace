@@ -11,7 +11,7 @@ body {
 }
 
 #main-content {
-    max-width: 650px;
+    max-width: 820px;
     margin: 0 auto; /* Centra el contenedor */
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);

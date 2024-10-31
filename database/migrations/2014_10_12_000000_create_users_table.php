@@ -23,6 +23,7 @@ return new class extends Migration
             $table->boolean('is_vendedor')->default(false);
             $table->boolean('is_comprador')->default(true);  // Por defecto todos los usuarios pueden comprar           
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -153,21 +153,25 @@
         <div class="form-group">
             <label>Imágenes actuales:</label>
             <div class="row">
-                @foreach ($producto->imagenes as $imagen)
-                    <div class="col-md-3">
-                        <img src="{{ Storage::url($imagen->path) }}" class="img-fluid" alt="Imagen del producto">
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" name="delete_images[]" value="{{ $imagen->id }}">
-                            <label class="form-check-label">Eliminar</label>
+                @if($producto->images && $producto->images->isNotEmpty())
+                    @foreach ($producto->images as $imagen)
+                        <div class="col-md-3">
+                            <img src="{{ Storage::url($imagen->path) }}" class="img-fluid" alt="Imagen del producto">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" name="delete_images[]" value="{{ $imagen->id }}">
+                                <label class="form-check-label">Eliminar</label>
+                            </div>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                @else
+                    <p>No hay imágenes disponibles para este producto.</p>
+                @endif
             </div>
         </div>
         <!-- Subir nuevas imágenes -->
         <div class="form-group">
-            <label for="imagenes">Subir Nuevas Imágenes:</label>
-            <input type="file" class="form-control" name="imagenes[]" multiple>
+            <label for="images">Subir nuevas imágenes:</label>
+            <input type="file" class="form-control" name="images[]" multiple>
         </div>
         <!-- Botones de Actualizar y Cancelar -->
         <div class="btn-container">

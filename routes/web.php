@@ -70,7 +70,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/carrito', [CarritoController::class, 'index'])->name('carrito.index');
     Route::post('/carrito/agregar/{producto}', [CarritoController::class, 'agregar'])->name('carrito.agregar'); // Agregar al carrito
     Route::delete('/carrito/eliminar/{producto}', [CarritoController::class, 'eliminar'])->name('carrito.eliminar'); // Eliminar del carrito
-    Route::get('/productos/{id}', [ProductoController::class, 'show'])->name('productos.show');
+    //Route::get('/productos/{id}/detalles', [ProductoController::class, 'detalles'])->name('productos.show');
     //
     Route::get('/files', [FileController::class, 'index'])->name('files.index');
     Route::post('/files', [FileController::class, 'store'])->name('files.store');

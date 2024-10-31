@@ -8,6 +8,46 @@
         margin-left: 230px; /* Asegúrate de que el área principal comience después del menú */
         background-color: #c1c6ca; /* Color de fondo del body */
     }
+    /* --------------------------------------------------------------------------------------------------------------------------------- ver */
+    .btn-secondary {
+        background-color: #ef6c00 !important; /* Cambia a tu color deseado */
+        border-color: #ef6c00 !important; /* Cambia el color del borde si es necesario */
+    }
+
+    .btn-secondary:hover {
+        background-color: orange !important; /* Color al pasar el mouse */
+        border-color: orange !important; /* Color del borde al pasar el mouse */
+    }
+    /* ------------------------------------------------------------------------------------------------------------------------------ editar */
+    .btn-primary {
+        background-color: #1a237e; /* Cambia a tu color deseado */
+        border-color: #1a237e; /* Cambia el color del borde si es necesario */
+    }
+
+    .btn-primary:hover {
+        background-color: blue; /* Color al pasar el mouse */
+        border-color: blue; /* Color del borde al pasar el mouse */
+    }
+    /* ---------------------------------------------------------------------------------------------------------------------------- eliminar */
+    .btn-danger {
+        background-color: #c62828 !important; /* Cambia a tu color deseado */
+        border-color: #c62828 !important; /* Cambia el color del borde si es necesario */
+    }
+
+    .btn-danger:hover {
+        background-color: red !important; /* Color al pasar el mouse */
+        border-color: red !important; /* Color del borde al pasar el mouse */
+    }
+    /* ----------------------------------------------------------------------------------------------------------------------------- carrito */
+    .btn-carrito {
+        background-color: #1b5e20 !important; /* Cambia a tu color deseado */
+        border-color: #1b5e20 !important; /* Cambia el color del borde si es necesario */
+    }
+
+    .btn-carrito:hover {
+        background-color: green !important; /* Color al pasar el mouse */
+        border-color: green !important; /* Color del borde al pasar el mouse */
+    }
 </style>
 
 <div class="container-fluid">
@@ -85,28 +125,29 @@
                                     <td>{{ $producto->nombre }}</td>
                                     <td>{{ $producto->descripcion }}</td>
                                     <td>${{ number_format($producto->precio, 2) }}</td>
-                                    <td>
-                                        <a href="{{ route('productos.show', $producto->id) }}" class="btn btn-info btn-sm" title="Ver detalles del producto">
+                                    <td class="text-center">
+                                        <a href="{{ route('productos.show', $producto->id) }}" class="btn btn-secondary btn-sm" title="Ver detalles del producto">
                                             <i class="fas fa-eye"></i> Ver
                                         </a>
-                                        <div class="button-container d-flex justify-content-between mt-2">
+                                        <div class="button-container d-flex justify-content-center mt-2">
                                             @if (Auth::user()->can('update', $producto))
-                                                <a href="{{ route('productos.edit', $producto->id) }}" class="btn btn-primary btn-sm">Editar Producto</a>
+                                                <a href="{{ route('productos.edit', $producto->id) }}" class="btn btn-primary btn-sm mx-1">Editar Producto</a>
                                             @endif
 
                                             @if (Auth::user()->can('delete', $producto))
                                                 <form action="{{ route('productos.destroy', $producto->id) }}" method="POST" class="d-inline-block">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas eliminar este producto?');">Eliminar Producto</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm mx-1" onclick="return confirm('¿Estás seguro de que deseas eliminar este producto?');">Eliminar Producto</button>
                                                 </form>
                                             @endif
                                         </div>
-                                        <!-- Botón para agregar al carrito solo si el producto no pertenece al usuario -->
-                                        @if (Auth::id() !== $producto->vendedor_id)
-                                            <form action="{{ route('carrito.agregar', $producto->id) }}" method="POST" class="mt-2">
+                                        <!-- Aquí verifica si el usuario autenticado es el vendedor del producto -->
+                                        @if (Auth::check() && Auth::id() !== $producto->user_id)
+                                            <!-- Mostrar el botón para agregar al carrito solo si el usuario no es el vendedor -->
+                                            <form action="{{ route('carrito.agregar', $producto) }}" method="POST" class="btn btn-carrito btn-sm mx-1">
                                                 @csrf
-                                                <button type="submit" class="btn btn-success btn-sm">Agregar al Carrito</button>
+                                                <button type="submit">Agregar al carrito</button>
                                             </form>
                                         @endif
                                     </td>

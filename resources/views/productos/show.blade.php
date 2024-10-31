@@ -63,9 +63,9 @@
 
     .carousel-item img {
         width: 100%; /* Asegura que las imágenes ocupen el ancho completo del contenedor */
-        height: auto; /* Mantiene la proporción de la imagen */
-        max-height: 100%; /* Limita la altura máxima de las imágenes al 100% del contenedor */
-        object-fit: cover; /* Asegura que la imagen cubra el contenedor sin distorsionarse */
+        height: 400px; /* Mantiene la proporción de la imagen */
+        /*max-height: 100%;*/ /* Limita la altura máxima de las imágenes al 100% del contenedor */
+        object-fit: contain; /* Asegura que la imagen cubra el contenedor sin distorsionarse */
     }
 
     /* Ajustes para los botones de control del carrusel */
@@ -112,12 +112,42 @@
     .right-image {
         right: 10px; 
     }
-    /* ------------------------------------------------------------------------------------------------------------------------------ Botones */
+    /* -------------------------------------------------------------- Botones -------------------------------------------------------------- */
     .button-container {
         display: flex;
         justify-content: space-between; 
-        gap: 10px; /* Espaciado entre los botones */
+        gap: 20px; /* Espaciado entre los botones */
         margin-bottom: 20px; 
+    }
+    /* --------------------------------------------------------------------------------------------------------------------------- dashboard */
+    .btn-secondary {
+        background-color: #f06292; /* Cambia a tu color deseado */
+        border-color: #f06292; /* Cambia el color del borde si es necesario */
+    }
+
+    .btn-secondary:hover {
+        background-color: green; /* Color al pasar el mouse */
+        border-color: green; /* Color del borde al pasar el mouse */
+    }
+    /* ------------------------------------------------------------------------------------------------------------------------------ editar */
+    .btn-primary {
+        background-color: #f06292; /* Cambia a tu color deseado */
+        border-color: #f06292; /* Cambia el color del borde si es necesario */
+    }
+
+    .btn-primary:hover {
+        background-color: blue; /* Color al pasar el mouse */
+        border-color: blue; /* Color del borde al pasar el mouse */
+    }
+    /* ---------------------------------------------------------------------------------------------------------------------------- eliminar */
+    .btn-danger {
+        background-color: #f06292 !important; /* Cambia a tu color deseado */
+        border-color: #f06292 !important; /* Cambia el color del borde si es necesario */
+    }
+
+    .btn-danger:hover {
+        background-color: red !important; /* Color al pasar el mouse */
+        border-color: red !important; /* Color del borde al pasar el mouse */
     }
 </style>
 
@@ -137,21 +167,22 @@
             <p><strong>Cantidad:</strong> {{ $producto->stock }}</p>
             <p><strong>Categoría:</strong> {{ $producto->categoria->nombre }}</p>
 
-            @if($producto->imagenes->isNotEmpty())
+            @if($producto->images && $producto->images->isNotEmpty())
                 <div id="carouselExample" class="carousel slide mb-4" data-ride="carousel">
                     <div class="carousel-inner">
-                        @foreach($producto->imagenes as $key => $imagen)
+                        @foreach($producto->images as $key => $imagen)
                             <div class="carousel-item {{ $key === 0 ? 'active' : '' }}">
-                                <img src="{{ asset('storage/' . $imagen->path) }}" class="d-block w-100" alt="Imagen de {{ $producto->nombre }}">
+                                <img src="{{ Storage::url($imagen->path) }}" class="d-block w-100" alt="Imagen de {{ $producto->nombre }}">
                             </div>
                         @endforeach
                     </div>
                     <a class="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="sr-only">Previous</span>
-                        </a>
+                    </a>
                     <a class="carousel-control-next" href="#carouselExample" role="button" data-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
                     </a>
                 </div>
             @else
