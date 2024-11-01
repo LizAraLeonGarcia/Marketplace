@@ -1,12 +1,12 @@
 <?php
 
 return [
-    'default' => env('MAIL_MAILER', 'array'),
+
+    'default' => env('MAIL_MAILER', 'smtp'),
 
     'mailers' => [
         'smtp' => [
             'transport' => 'smtp',
-            'url' => env('MAIL_URL'),
             'host' => env('MAIL_HOST', 'smtp.gmail.com'),
             'port' => env('MAIL_PORT', 587),
             'encryption' => env('MAIL_ENCRYPTION', 'tls'),
@@ -14,13 +14,7 @@ return [
             'password' => env('MAIL_PASSWORD'),
             'timeout' => null,
             'auth_mode' => null,
-            'stream' => [
-                'ssl' => [
-                    'allow_self_signed' => true,
-                    'verify_peer' => false,
-                    'verify_peer_name' => false,
-                ],
-            ],
+            'verify_peer' => false,
         ],
 
         'ses' => [
@@ -31,15 +25,15 @@ return [
             'transport' => 'postmark',
             'message_stream_id' => null,
             'client' => [
-            'timeout' => 5,
+                'timeout' => 5,
             ],
         ],
 
         'mailgun' => [
             'transport' => 'mailgun',
-             'client' => [
-                 'timeout' => 5,
-             ],
+            'client' => [
+                'timeout' => 5,
+            ],
         ],
 
         'sendmail' => [

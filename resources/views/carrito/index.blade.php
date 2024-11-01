@@ -71,7 +71,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                    @foreach($carrito as $producto)
+                    @foreach($carritos as $producto)
                             <tr>
                                 <td>
                                     <input type="checkbox" class="form-check-input" id="producto_{{ $producto->id }}">

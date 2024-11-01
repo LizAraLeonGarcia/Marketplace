@@ -145,9 +145,10 @@
                                         <!-- Aquí verifica si el usuario autenticado es el vendedor del producto -->
                                         @if (Auth::check() && Auth::id() !== $producto->user_id)
                                             <!-- Mostrar el botón para agregar al carrito solo si el usuario no es el vendedor -->
-                                            <form action="{{ route('carrito.agregar', $producto) }}" method="POST" class="btn btn-carrito btn-sm mx-1">
+                                                <form action="{{ route('carrito.agregar', ['producto' => $producto]) }}" method="POST">
                                                 @csrf
-                                                <button type="submit">Agregar al carrito</button>
+                                                <input type="number" name="cantidad" value="1" min="1" required>
+                                                <button type="submit" class="btn btn-carrito btn-sm mx-1">Agregar al carrito</button>
                                             </form>
                                         @endif
                                     </td>
