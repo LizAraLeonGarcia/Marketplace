@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use App\Mail\PrimerProductoMail;
 use Illuminate\Support\Facades\Mail;
+use App\Notifications\ProductCreated;
 
 class ProductoController extends Controller
 {
@@ -68,7 +69,8 @@ class ProductoController extends Controller
         }
         // Verificar si es el primer producto del usuario
         if (auth()->user()->productos()->count() === 1) {
-            Mail::to(auth()->user()->email)->send(new PrimerProductoMail($producto, auth()->user()));
+            // Notificar al usuario solo si es su primer producto
+            $producto->user->notify(new ProductCreated($producto)); // Pasa el objeto Producto aquí
         }
         // Actualizar el estado de vendedor si es necesario
         if (!Auth::user()->is_vendedor) {
