@@ -24,15 +24,14 @@ class AccountController extends Controller
         $camposObligatorios = ['nombre', 'apellido', 'apodo', 'sexo', 'pais', 'fecha_nacimiento', 'descripcion', 'foto'];
         foreach ($camposObligatorios as $campo) {
             if (empty($user->$campo)) {
-                return redirect()->route('perfil.editar');
+                return redirect()->route('cuenta.editar');
             }
         }
         // Convertir fecha_nacimiento a un objeto Carbon si no es nulo
         if ($user->fecha_nacimiento) {
             $user->fecha_nacimiento = Carbon::parse($user->fecha_nacimiento);
         }
-
-            return view('mi-cuenta', compact('user'));
+        return view('mi-cuenta', compact('user'));
     }
     
     public function edit()
@@ -40,7 +39,7 @@ class AccountController extends Controller
         $user = Auth::user()->load('pais');
         $paises = Pais::all();
 
-        return view('editar-perfil', compact('user', 'paises'));
+        return view('editar-cuenta', compact('user', 'paises'));
     }
 
     public function update(Request $request)
@@ -50,7 +49,7 @@ class AccountController extends Controller
             'apellido' => 'required|string|max:255',
             'apodo' => 'nullable|string|max:255',
             'sexo' => 'required|string',
-            'pais' => 'required|exists:paises,id',
+            'pais_id' => 'required|exists:paises,id',
             'fecha_nacimiento' => 'required|date',
             'descripcion' => 'nullable|string',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -62,7 +61,7 @@ class AccountController extends Controller
         $user->apellido = $request->apellido;
         $user->apodo = $request->apodo;
         $user->sexo = $request->sexo;
-        $user->pais_id = $request->input('pais');
+        $user->pais_id = $request->input('pais_id');
         $user->fecha_nacimiento = $request->fecha_nacimiento;
         $user->descripcion = $request->descripcion;
         // Manejo de la foto

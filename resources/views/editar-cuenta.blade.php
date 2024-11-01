@@ -27,7 +27,7 @@
                     </div>
                 @endif
 
-                <form action="{{ route('perfil.actualizar') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('cuenta.actualizar') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <h2 class="mb-4 text-center textos">Información personal</h2>
                     <div class="row">
@@ -89,7 +89,7 @@
                                         <option value="{{ $pais->id }}" {{ old('pais_id', $user->pais_id) == $pais->id ? 'selected' : '' }}>{{ $pais->nombre }}</option>
                                     @endforeach
                                 </select>
-                                @error('pais') <div class="alert alert-danger">{{ $message }}</div> @enderror
+                                @error('pais_id') <div class="alert alert-danger">{{ $message }}</div> @enderror
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -119,7 +119,6 @@
                             </ul>
                         </div>
                     @endif
-
                     <button type="submit" class="btn btn-primary mb-4">Actualizar Cuenta</button>
                 </form>
             </div>

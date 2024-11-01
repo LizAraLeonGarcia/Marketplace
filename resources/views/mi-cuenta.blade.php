@@ -41,7 +41,7 @@
                 <nav>
                     <ul class="nav nav-pills mb-4">
                         <li class="nav-item">
-                            <a class="nav-link active" href="{{ route('perfil.editar') }}">Editar cuenta</a>
+                            <a class="nav-link active" href="{{ route('cuenta.editar') }}">Editar cuenta</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="#">Cambiar contraseña</a>    
@@ -68,7 +68,7 @@
                     </div>
                     <div class="card-body">
                         <p>Por favor, completa la información obligatoria de tu perfil.</p>
-                        <a href="{{ route('perfil.editar') }}" class="btn btn-primary">Completar perfil</a>
+                        <a href="{{ route('cuenta.editar') }}" class="btn btn-primary">Completar perfil</a>
                     </div>
                 </div>
             @else
