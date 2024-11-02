@@ -53,16 +53,16 @@
         <div class="col">
             <section id="soporte" class="soporte">
                 <h2 class="mb-4" class="text-center display-4">¿Algún problema?</h1>
-                <p class="justificado">No te preocupes, a continuación tendrás una sección de preguntas y respuestas, quizás la solución a tu inconveniente esté ahí.</p>
+                <p class="text-center">No te preocupes, a continuación tendrás una sección de preguntas y respuestas, quizás la solución a tu inconveniente esté ahí.</p>
                 <!-- Carrousel de preguntas y respuestas -->
                 <div id="faqCarousel" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner text-center">
                         <div class="carousel-item">
                             <h5>¿Cómo edito mi cuenta?</h5>
-                            <p>Puedes editar tu cuenta yendo a la opción Mi cuenta en el menú lateral de tu Dashboard, ahí encontrarás la opción Editar Cuenta si ya has
-                                editado tu cuenta anteriormente, pero si es tu primera vez en cuanto selecciones la opción del Dashboard se te dirigirá inmediatamente a la
-                                vista sin necesidad de opciones intermedias. Asimismo entre los datos que puedes editar están tu nombre, apellido, apodo, foto, descripción,
-                                sexo, país y fecha de nacimiento.</p>
+                            <p>Puedes editar tu cuenta yendo a la opción <em>Mi cuenta</em> en el menú lateral de tu Dashboard, ahí encontrarás la opción <em>Editar Cuenta</em> 
+                                si ya has editado tu cuenta anteriormente, pero si es tu primera vez en cuanto selecciones la opción <em>Dashboard</em> se te dirigirá 
+                                inmediatamente a la vista sin necesidad de opciones intermedias. Asimismo entre los datos que puedes editar están tu nombre, apellido, 
+                                apodo, foto, descripción, sexo, país y fecha de nacimiento.</p>
                         </div>
                         <div class="carousel-item">
                             <h5>¿Qué es el perfil de comprador?</h5>
@@ -77,45 +77,45 @@
                         </div>
                         <div class="carousel-item active">
                             <h5>¿Cómo creo un producto?</h5>
-                            <p>Puedes crearlo directamente en la opción Crear Producto que aparece en el menú lateral de tu Dashboard.</p>
+                            <p>Puedes crearlo directamente en la opción <em>Crear Producto</em> que aparece en el menú lateral de tu Dashboard.</p>
                         </div>
                         <div class="carousel-item">
                             <h5>¿Cómo edito un producto?</h5>
-                            <p>Hay dos opciones, la primera es que puedes editarlo en la opción Editar que sale en la parte derecha de cada uno de tus producto del 
-                                Dashboard, la segunda es yendo a la sección de Ver Productos y buscar el producto que necesitas editar para escoger la opción Editar,
+                            <p>Hay dos opciones, la primera es en la opción <em>Editar</em> que sale en la parte derecha de cada uno de tus producto del Dashboard, la
+                                segunda es yendo a la sección <em>Ver Productos</em> y buscar el producto que necesitas para escoger la opción de <strong>Editar</strong>,
                                 también ubicada a la derecha del producto.</p>
                         </div>
                         <div class="carousel-item">
                             <h5>¿Cómo veo un producto?</h5>
-                            <p>Hay varias maneras, la primera está en tu Dashboard, donde puedes ver cada uno de tus productos escogiendo la opción Ver que aparece a la  
-                                derecha de cada uno de ellos, la segunda opción es en la sección de Ver Productos, ahí verás todos los productos disponibles y podrás
-                                filtrar según tus necesidades, además de también poder ver uno por uno escogiendo la opción Ver que también está a la derecha de cada
-                                prodcuto, por último, pero no menos importante, puedes ver un producto que esté ya en tu carrito de compras, igual que en las demás formas
-                                también tendrás un botón a la derecha llamado Ver.</p>
+                            <p>Hay varias maneras, la primera está en tu <em>Dashboard</em>, donde puedes ver cada uno de tus productos escogiendo la opción <strong>Ver</strong>
+                                que aparece a la derecha de cada uno de ellos, la segunda opción es en la sección <em>Ver Productos</em>, ahí verás todos los productos
+                                disponibles y podrás filtrar según tus necesidades, además de también poder ver uno por uno escogiendo la opción <strong>Ver</strong> que
+                                también está a la derecha de cada prodcuto, por último, pero no menos importante, puedes ver un producto que esté ya en tu <em>carrito</em>, 
+                            igual que en las demás formas también tendrás un botón a la derecha llamado <strong>Ver</strong>.</p>
                         </div>
                         <div class="carousel-item">
                             <h5>¿Cómo elimino un producto?</h5>
-                            <p>Hay varias maneras, la primera está en tu Dashboard, donde puedes eliminar cada uno de tus productos escogiendo la opción Eliminar que
-                                aparece a la derecha de cada uno de ellos, la segunda opción y más tediosa, es ir a la sección de Ver Productos, ahí verás todos los 
-                                productos disponibles y podrás filtrar según tus necesidades, mientras escogiendo la opción de Eliminar que también está a la derecha de 
-                                cada producto, podrás borrar el producto que desees; por último, pero no menos importante, puedes eliminar un producto que esté ya en tu 
-                                carrito de compras, igual que en las demás formas también tendrás un botón a la derecha llamado Eliminar.</p>
+                            <p>Hay varias maneras, la primera está en tu <em>Dashboard</em>, donde puedes eliminar cada uno de tus productos escogiendo la opción <strong>Eliminar
+                                </strong> que aparece a la derecha de cada uno de ellos, la segunda opción y más tediosa, es ir a la sección <em>Ver Productos</em>, ahí
+                                verás todos los productos disponibles y podrás filtrar según tus necesidades, mientras escogiendo la opción <strong>Eliminar</strong> que
+                                también está a la derecha de cada producto, podrás borrar el producto que desees; por último, pero no menos importante, puedes eliminar un 
+                                producto que esté ya en tu <em>carrito</em>, igual que en las demás formas también tendrás un botón a la derecha llamado <strong>Eliminar</strong>.</p>
                         </div>
                         <div class="carousel-item">
                             <h5>¿Cómo compro un producto?</h5>
-                            <p>Basta con seleccionar la opción de Agregar al carrito en el producto que desees comprar, después debes dirigirte a la sección de Mi carrito,
-                                ahí podrás escoger, suponiendo que tienes más de un producto en el carrito, si deseas pagar uno, todos algunos; además de también poder
-                                modificar la cantidad si es que te equivocaste. ¡Y recuerda colocar tus datos en el método de pago de forma correcta!</p>
+                            <p>Basta con seleccionar la opción de <strong>Agregar al carrito</strong> en el producto que desees comprar, después debes dirigirte a la sección
+                                de <em>Mi carrito</em>, ahí podrás escoger si deseas pagar uno, todos o algunos; además de también poder modificar la cantidad. Pero siempre
+                                recuerda colocar tus datos en el método de pago de forma correcta y ¡no compartirlos con nadie!.</p>
                         </div>
                         <div class="carousel-item">
                             <h5>¿Cómo veo mis reseñas como vendedor?</h5>
-                            <p>Sólo necesitas ir a la sección Ver mi perfil como vendedor, ahí encontrarás tus reseñas en la parte de abajo, además podrás filtrarlas por
-                                puntuación o por las más recientes.</p>
+                            <p>Sólo necesitas ir a la sección <em>Ver mi perfil como vendedor</em>, ahí encontrarás tus reseñas en la parte de abajo, además podrás 
+                                filtrarlas por puntuación o por las más recientes.</p>
                             </div>
                         <div class="carousel-item">
                             <h5>¿Cómo veo mis reseñas como comprador?</h5>
-                            <p>Sólo necesitas ir a la sección Ver mi perfil como comprador, ahí encontrarás tus reseñas en la parte de abajo, además podrás filtrarlas por
-                            puntuación o por las más recientes.</p>
+                            <p>Sólo necesitas ir a la sección <em>Ver mi perfil como comprador</em>, ahí encontrarás tus reseñas en la parte de abajo, además podrás
+                                filtrarlas por puntuación o por las más recientes.</p>
                         </div>
                         <div class="carousel-item">
                             <h5>¿ pregunta ?</h5>
