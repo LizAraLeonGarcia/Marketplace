@@ -100,23 +100,23 @@
                 <p class="justicado3">Aquí tienes todas las formas en que puedes ponerte en contacto con nosotros para solicitar soporte técnico.</p>
                 <ol>
                     <li>
-                        <i class="fas fa-envelope"></i> Correo: 
+                        <i class="fas fa-envelope" style="margin-right: 10px;"></i> <strong>Correo:</strong> 
                         <a href="mailto:vaquitamarketplace@gmail.com"> vaquitamarketplace@gmail.com</a>
                     </li>
                     <li>
-                        <i class="fab fa-facebook-f" style="margin-right: 10px;"></i> Facebook: 
+                        <i class="fab fa-facebook-f" style="margin-right: 10px;"></i> <strong>Facebook:</strong>
                         <a href="https://www.facebook.com/VaquitaMarketplace" target="_blank"> Vaquita Marketplace</a>
                     </li>
                     <li>
-                        <i class="fab fa-whatsapp" style="margin-right: 10px;"></i> WhatsApp: 
+                        <i class="fab fa-whatsapp" style="margin-right: 10px;"></i> <strong>WhatsApp:</strong> 
                         <a href="https://wa.me/523323242223" target="_blank"> +52 1 33 2324 2223</a>
                     </li>
                     <li>
-                        <i class="fab fa-twitter" style="margin-right: 10px;"></i> Twitter / X: 
+                        <i class="fab fa-twitter" style="margin-right: 10px;"></i> <strong>Twitter / X:</strong> 
                         <a href="https://twitter.com/VaquitaMarketplace" target="_blank"> Vaquita Marketplace</a>
                     </li>
                     <li>
-                        <i class="fab fa-instagram" style="margin-right: 10px;"></i> Instagram: 
+                        <i class="fab fa-instagram" style="margin-right: 10px;"></i> <strong>Instagram:</strong> 
                         <a href="https://www.instagram.com/VaquitaMarketplace" target="_blank"> Vaquita Marketplace</a>
                     </li>
                 </ol>
@@ -140,24 +140,20 @@
                     </p>
                     <ol>
                         <li><i class="fas fa-info-circle"></i> Una sección llamada Dashboard,</li>
-                        <p class="justificado2">donde tú manejarás tus productos al mostrartelos en casi toda la pantalla, ahí cada producto 
-                        tiene las opciones de editarlo, verlo o eliminarlo.</p>
+                            <p class="justificado2">donde tú manejarás tus productos al mostrartelos en toda la pantalla, ahí cada producto 
+                            tiene las opciones para editarlo, verlo o eliminarlo.</p>
                         <li><i class="fas fa-info-circle"></i> Un menú lateral en tu Dashboard,</li>
-                        <p class="justificado2">con opciones para ir a ver los productos disponibles, crear un producto o cerrar sesión.</p>
-                        <p class="justificado2">Además, si decides ir a ver los productos disponibles, se te mostrará otra pantalla en donde
-                        por default se te mostrarán todos los productos, aunque tmabién puedes filtrarlos por categoría, por precio, por los 
-                        más vendidos o por los nuevos; que son aquellos agregados hace menos de 8 días. Asimismo también te incluimos una opción
-                        para ir a tu Dashboard.
-                        </p>
-                        <li><i class="fas fa-exclamation-triangle"></i> EN DESARROLLO LOS FILTRADOS DE LOS PRODUCTOS, ASÍ COMO EN PROCESO EL
-                        AÑADIR MÁS FUNCIONES COMO LAS RESEÑAS A PRODUCTOS, VENDEDORES, COMPRADORES, ETC.</li>
+                            <p class="justificado2">con opciones para ir a ver tu cuenta de usuario, tu perfil como vendedor, tu perfil como
+                            comprador, los productos disponibles, crear un producto, ver tu carrito de compras, la sección de ayuda con preguntas
+                            y respuestas a las dudas más comunes, además de un apartado con todas las formas en que puedes contactarnos, y hasta
+                            el final una opción para cerrar sesión.</p>
                     </ol>
+                    <h5>No lo pienses más, ésta pagina es una gran opcion para comprar y vender. ¡Regístrate ahora y comienza a explorar un mundo de productos!</h5>
                 </div>
                 <!-- Columna para la imagen -->
                 <div class="col-md-6">
                     <img src="{{ asset('img/acerca-de.png') }}" alt="Ilustración de Marketplace">
                     <div class="mt-5">
-                        <h5>No lo pienses más, ésta pagina es una gran opcion para comprar y vender. ¡Regístrate ahora y comienza a explorar un mundo de productos!</h5>
                         <a href="{{ route('register') }}" class="btn btn-primary">Regístrate ahora</a>
                     </div>
                 </div>
