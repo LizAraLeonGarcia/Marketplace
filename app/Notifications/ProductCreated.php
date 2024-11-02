@@ -25,7 +25,7 @@ class ProductCreated extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject('Producto Creado')
+            ->subject('Tu primer producto Creado')
             ->markdown('emails.primer_producto', ['producto' => $this->producto]);
     }
 }

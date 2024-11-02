@@ -47,13 +47,10 @@
                             <a class="nav-link active" href="#">Cambiar contraseña</a>    
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">Cambiar correo</a>    
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link active" href="#">Metodo de pago</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">Eliminar mi cuenta</a>    
+                            <a class="nav-link active" href="{{ route('cuenta.eliminar.form') }}">Eliminar mi cuenta</a>    
                         </li>
                     </ul>
                 </nav>    

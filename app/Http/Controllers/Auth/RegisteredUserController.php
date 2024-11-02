@@ -6,8 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use App\Notifications\CustomVerifyEmail;
 
 class RegisteredUserController extends Controller
 {
@@ -31,10 +32,12 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
         // Lanzar el evento para el envío del correo de verificación
-        event(new Registered($user));
+        //event(new Registered($user));
+        // Enviar la notificación de verificación de correo
+        $user->notify(new CustomVerifyEmail()); 
         // Autenticar al usuario
-        auth()->login($user);
+        auth()->login($user);    
         // Redirigir al usuario con un mensaje para que verifique su correo
-        return redirect()->route('verification.notice')->with('success', 'Usuario registrado con éxito');
+        return redirect('/')->with('success', 'Usuario registrado con éxito. Por favor, verifica tu correo electrónico.')->with('status', 'verification-link-sent');
     }
 }

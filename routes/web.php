@@ -10,6 +10,14 @@ use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\AyudaController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\FileController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+// ****************************************************** Habilitar verificación de email ******************************************************
+// ------------------------------------------------------------- Ruta para mostrar la notificación de verificación de email después del registro
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+
+    return redirect('/dashboard')->with('success', '¡Correo electrónico verificado exitosamente!');
+})->middleware(['auth', 'signed'])->name('verification.verify');
 // ******************************************************* Ruta inicio (index.blade.php) *******************************************************
 Route::get('/', function () {
     return view('index');
@@ -58,6 +66,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/mi-cuenta/editar', [AccountController::class, 'edit'])->name('cuenta.editar');
     // actualizar ..............................................................................................................................
     Route::post('/mi-cuenta/actualizar', [AccountController::class, 'update'])->name('cuenta.actualizar');
+    // eliminar ................................................................................................................................
+    // mostrar la vista de eliminar cuenta
+    Route::get('/mi-cuenta/eliminar', function () {return view('eliminar-cuenta'); })->name('cuenta.eliminar.form')->middleware('auth');
+    // manejar la eliminación de la cuenta
+    Route::delete('/mi-cuenta/eliminar', [AccountController::class, 'eliminarCuenta'])->name('cuenta.eliminar')->middleware('auth');
     // perfil y rol comprador ..................................................................................................................
     Route::get('/comprador', [UserProfileController::class, 'perfilComprador'])->name('comprador.perfil');
     // perfil y rol vendedor ...................................................................................................................

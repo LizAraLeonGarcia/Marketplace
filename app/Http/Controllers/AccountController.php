@@ -11,12 +11,13 @@ use Carbon\Carbon;
 
 class AccountController extends Controller
 {
+    // ................................................................................................................................... index
     public function index()
     {
         $user = Auth::user();
         return view('mi-cuenta', compact('user'));
     }
-
+    // ................................................................................................................................. mostrar
     public function mostrarCuenta()
     {
         $user = auth()->user();
@@ -33,7 +34,7 @@ class AccountController extends Controller
         }
         return view('mi-cuenta', compact('user'));
     }
-    
+    // .................................................................................................................................. editar
     public function edit()
     {
         $user = Auth::user()->load('pais');
@@ -41,7 +42,7 @@ class AccountController extends Controller
 
         return view('editar-cuenta', compact('user', 'paises'));
     }
-
+    // .............................................................................................................................. actualizar
     public function update(Request $request)
     {        
         $request->validate([
@@ -74,5 +75,17 @@ class AccountController extends Controller
         $user->save();
 
         return redirect()->route('mi-cuenta')->with('success', 'Cuenta actualizada correctamente.');
+    }
+    // ................................................................................................................................ eliminar
+    public function eliminarCuenta()
+    {
+        $user = Auth::user();
+        // pendiente eliminar registros asociados
+        // Eliminar el usuario
+        $user->delete();
+        // Cerrar la sesión
+        Auth::logout();
+        // Redirigir con mensaje de confirmación
+        return redirect('index')->with('status', 'Tu cuenta ha sido eliminada correctamente.');
     }
 }

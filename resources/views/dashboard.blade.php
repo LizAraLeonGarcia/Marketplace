@@ -18,6 +18,12 @@
     </div>
 @endif
 
+@if(session('verified'))
+    <div class="alert alert-info">
+        {{ __('Tu correo electrónico ha sido verificado. ¡Bienvenido!') }}
+    </div>
+@endif
+
 <div class="container-fluid">
     <div class="row">
         <!-- Menú lateral -->

@@ -11,6 +11,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use App\Notifications\CustomVerifyEmail;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -37,12 +38,17 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Sale::class, 'user_id');
     }
-    
+    // ----------------------------------------------------------------------------------------------------------------------- Relación con país
     public function pais()
     {
         return $this->belongsTo(Pais::class, 'pais_id'); 
     }
-
+    // verificar correo ------------------------------------------------------------------------------------------------------------------------
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new \App\Notifications\CustomVerifyEmail);
+    }
+    //
     protected $fillable = [
         'name',
         'email',

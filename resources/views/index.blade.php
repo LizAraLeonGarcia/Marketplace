@@ -33,6 +33,17 @@
     </header>
 <!-- ************************************************************** SECCIONES ************************************************************** -->
 <main>
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if(session('status') == 'verification-link-sent')
+        <div class="alert alert-info">
+            {{ __('Un nuevo enlace de verificación ha sido enviado a tu correo electrónico.') }}
+        </div>
+    @endif
     <!-- ---------------------------------------------------------------------------------------------------------------------------- inicio -->
     <section id="inicio" class="inicio">
         <div class="container">
