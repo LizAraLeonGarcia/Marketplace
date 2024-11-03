@@ -44,4 +44,17 @@ class CarritoController extends Controller
         $productos = $usuario->carritos()->withPivot('cantidad')->get();
         return view('carrito.index', compact('productos'));
     }
+    // metodo de pago
+    public function checkout(Request $request)
+    {
+        $user = $request->user();
+        if (!$user->stripe_customer_id) {
+            return redirect()->route('metodo-de-pago.show')->withErrors(['error' => 'Agrega un método de pago antes de continuar.']);
+        }
+        // Muestra el resumen del carrito y confirma el pago usando el método predeterminado
+        return view('checkout', [
+            'metodoDePago' => $user->metodoDePago(), // Método de pago predeterminado
+            'cart' => session('cart'),
+        ]);
+    }
 }

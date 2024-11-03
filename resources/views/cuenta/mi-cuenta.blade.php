@@ -44,10 +44,10 @@
                             <a class="nav-link active" href="{{ route('cuenta.editar') }}">Editar cuenta</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="{{ route('cuenta.cambiar-contrasena') }}">Cambiar contraseña</a>    
+                            <a class="nav-link active" href="{{ route('cuenta.cambiar-contrasena.form') }}">Cambiar contraseña</a>    
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">Metodo de pago</a>
+                            <a class="nav-link active" href="{{ route('metodo-de-pago.show') }}">Metodo de pago</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="{{ route('cuenta.eliminar.form') }}">Eliminar mi cuenta</a>    

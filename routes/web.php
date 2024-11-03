@@ -1,18 +1,18 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProductoController;
-use App\Http\Controllers\Auth\RegisteredUserController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\CarritoController;
+use App\Http\Controllers\MetodoDePagoController;
 use App\Http\Controllers\AyudaController;
-use Illuminate\Http\Request;
 use App\Http\Controllers\FileController;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
 // ****************************************************** Habilitar verificación de email ******************************************************
-// ------------------------------------------------------------- Ruta para mostrar la notificación de verificación de email después del registro
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
 
@@ -40,13 +40,11 @@ Route::post('/login', [AuthenticatedSessionController::class, 'store'])
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->middleware('auth')
     ->name('logout');
-// ****************************************************** Habilitar verificación de email ******************************************************
-
 // ************************************************************* Ruta para soporte *************************************************************
 Route::get('/soporte', function () {
     return view('soporte'); 
 })->name('soporte');
-// ****************************************************** Ruta para la página "Acerca de" ******************************************************
+// *********************************************************** Ruta para "Acerca de" ***********************************************************
 Route::get('/about', function () {
     return view('about');
 })->name('about');
@@ -58,9 +56,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/productos/precio', [ProductoController::class, 'porPrecio'])->name('productos.precio');
     Route::get('/productos/mas-vendidos', [ProductoController::class, 'masVendidos'])->name('productos.mas-vendidos');
     Route::get('/productos/nuevos', [ProductoController::class, 'nuevosProductos'])->name('productos.nuevos');
-    // ---------------------------------------------------- Ruta para dashboard (Mi Cuenta) ----------------------------------------------------
+    // ---------------------------------------------------------- Ruta para dashboard ----------------------------------------------------------
     Route::get('/dashboard', [ProductoController::class, 'dashboard'])->name('dashboard');
-    // ------------------------------------------------------------------------------------------------------------------------------- mi cuenta 
+    // --------------------------------------------------------------- mi cuenta ---------------------------------------------------------------
     Route::get('/cuenta/mi-cuenta', [AccountController::class, 'mostrarCuenta'])->name('mi-cuenta');
     // editar ..................................................................................................................................
     Route::get('/cuenta/mi-cuenta/editar', [AccountController::class, 'edit'])->name('cuenta.editar');
@@ -73,24 +71,28 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/cuenta/mi-cuenta/eliminar', [AccountController::class, 'eliminarCuenta'])->name('cuenta.eliminar')->middleware('auth');
     // cambiar la contraseña ...................................................................................................................
     // mostrar la vista de cambiar contraseña
-    Route::get('/cuenta/cambiar-contrasena', [AccountController::class, 'mostrarFormularioCambioContrasena'])->name('cuenta.cambiar-contrasena');
+    Route::get('/cuenta/cambiar-contrasena', [AccountController::class, 'mostrarFormularioCambioContrasena'])->name('cuenta.cambiar-contrasena.form');
     // manejar el cambio de contraseña
-    Route::post('/cuenta/cambiar-contrasena', [AccountController::class, 'cambiarContrasena'])->name('cuenta.cambiar-contrasena');
-    // perfil y rol comprador ..................................................................................................................
+    Route::post('/cuenta/cambiar-contrasena', [AccountController::class, 'cambiarContrasena'])->name('cuenta.cambiar-contrasena.update');
+    // metodo pago .............................................................................................................................
+    Route::get('/cuenta/metodo-de-pago', [MetodoDePagoController::class, 'showMetodoDePagoForm'])->name('metodo-de-pago.show');
+    Route::post('/cuenta/metodo-de-pago', [MetodoDePagoController::class, 'storeMetodoDePago'])->name('metodo-de-pago.store');
+    // ----------------------------------------------------------- perfil comprador -----------------------------------------------------------
     Route::get('/cuenta/comprador', [UserProfileController::class, 'perfilComprador'])->name('comprador.perfil');
-    // perfil y rol vendedor ...................................................................................................................
+    // ------------------------------------------------------------ perfil vendedor ------------------------------------------------------------
     Route::get('/cuenta/vendedor', [UserProfileController::class, 'perfilVendedor'])->name('vendedor.perfil');       
     // historial de pedidos ....................................................................................................................
     Route::get('/cuenta/mi-cuenta/historial', [AccountController::class, 'historial'])->name('historial.pedidos');
-    // ------------------------------------------------------------- sección ayuda -------------------------------------------------------------
-    Route::get('/ayuda', [AyudaController::class, 'index'])->name('ayuda.index');
+    // reseñas .................................................................................................................................
+    Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
     // ---------------------------------------------------------------- carrito ----------------------------------------------------------------
     Route::get('/carrito', [CarritoController::class, 'index'])->name('carrito.index');
     Route::post('/carrito/agregar/{producto}', [CarritoController::class, 'agregar'])->name('carrito.agregar'); // Agregar al carrito
     Route::delete('/carrito/eliminar/{producto}', [CarritoController::class, 'eliminar'])->name('carrito.eliminar'); // Eliminar del carrito
+    Route::get('/checkout', [CarritoController::class, 'checkout'])->name('checkout');
     //Route::get('/productos/{id}/detalles', [ProductoController::class, 'detalles'])->name('productos.show');
-    // ---------------------------------------------------------------- reseñas ----------------------------------------------------------------
-    Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+    // ------------------------------------------------------------- sección ayuda -------------------------------------------------------------
+    Route::get('/ayuda', [AyudaController::class, 'index'])->name('ayuda.index');
 
 
 

@@ -66,7 +66,7 @@
             <img src="{{ asset('assets/img/cambiarContrasena.png') }}" alt="Descripción de la imagen" class="img-fluid">
         </div>
         <div class="col-md-8">
-            <form action="{{ route('cuenta.cambiar-contrasena') }}" method="POST">
+            <form action="{{ route('cuenta.cambiar-contrasena.form') }}" method="POST">
                 @csrf
                 <div class="mb-3">
                     <label for="current_password" class="form-label">Contraseña Actual</label>
