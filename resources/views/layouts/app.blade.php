@@ -45,7 +45,7 @@
     <div class="container-fluid">
         <div class="row">
             <!-- Menú lateral -->
-            <div class="col-md-3 col-lg-2 custom-menu {{ request()->is('productos/create') || request()->is('productos/*/edit') || request()->is('productos/*') || request()->is('mi-cuenta/editar') ? 'd-none' : '' }}">
+            <div class="col-md-3 col-lg-2 custom-menu {{ request()->is('productos/create') || request()->is('productos/*/edit') || request()->is('productos/*') || request()->is('cuenta/mi-cuenta/editar') ? 'd-none' : '' }}">
                 @include('partials.menu-lateral')
             </div>
             <!-- Contenido principal -->

@@ -161,6 +161,12 @@
             @else
                 <h1 class="text-center">Por favor, inicia sesión para ver los productos.</h1>
             @endif
+
+            @foreach($producto->reviews as $review)
+                <p>{{ $review->review }}</p>
+                <p>Calificación: {{ $review->rating }}</p>
+                <p>Por: {{ $review->user->name }}</p>
+            @endforeach
         </div>
     </div>
 </div>

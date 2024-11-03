@@ -21,7 +21,7 @@ class UserProfileController extends Controller
         $compras = $user->compras()->with('productos')->get(); // Cargar relaciones necesarias
         $message = $compras->isEmpty() ? "No has realizado ninguna compra todavía." : null;
         // Retorna la vista con las compras
-        return view('comprador', compact('compras', 'user', 'message'));
+        return view('/cuenta/comprador', compact('compras', 'user', 'message'));
     }
 
     public function perfilVendedor()
@@ -36,6 +36,6 @@ class UserProfileController extends Controller
         $productos = $user->productos()->with(['images', 'categoria'])->get(); // Cargar relaciones necesarias
         $message = $productos->isEmpty() ? "No tienes productos en venta." : null;
         // Retorna la vista con los productos y el usuario
-        return view('vendedor', compact('productos', 'user', 'message'));
+        return view('/cuenta/vendedor', compact('productos', 'user', 'message'));
     }
 }

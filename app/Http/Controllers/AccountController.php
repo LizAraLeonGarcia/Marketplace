@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use App\Models\User;
 use App\Models\Pais;
@@ -15,14 +17,14 @@ class AccountController extends Controller
     public function index()
     {
         $user = Auth::user();
-        return view('mi-cuenta', compact('user'));
+        return view('cuenta.mi-cuenta', compact('user'));
     }
     // ................................................................................................................................. mostrar
     public function mostrarCuenta()
     {
         $user = auth()->user();
         // Si el usuario no ha completado todos los campos requeridos, redirige a la edición de perfil
-        $camposObligatorios = ['nombre', 'apellido', 'apodo', 'sexo', 'pais', 'fecha_nacimiento', 'descripcion', 'foto'];
+        $camposObligatorios = ['nombre', 'apellido', 'sexo', 'pais', 'fecha_nacimiento', 'foto'];
         foreach ($camposObligatorios as $campo) {
             if (empty($user->$campo)) {
                 return redirect()->route('cuenta.editar');
@@ -32,7 +34,7 @@ class AccountController extends Controller
         if ($user->fecha_nacimiento) {
             $user->fecha_nacimiento = Carbon::parse($user->fecha_nacimiento);
         }
-        return view('mi-cuenta', compact('user'));
+        return view('cuenta.mi-cuenta', compact('user'));
     }
     // .................................................................................................................................. editar
     public function edit()
@@ -40,7 +42,7 @@ class AccountController extends Controller
         $user = Auth::user()->load('pais');
         $paises = Pais::all();
 
-        return view('editar-cuenta', compact('user', 'paises'));
+        return view('cuenta.editar-cuenta', compact('user', 'paises'));
     }
     // .............................................................................................................................. actualizar
     public function update(Request $request)
@@ -74,7 +76,7 @@ class AccountController extends Controller
         // Guarda los cambios en la base de datos
         $user->save();
 
-        return redirect()->route('mi-cuenta')->with('success', 'Cuenta actualizada correctamente.');
+        return redirect()->route('cuenta.mi-cuenta')->with('success', 'Cuenta actualizada correctamente.');
     }
     // ................................................................................................................................ eliminar
     public function eliminarCuenta()
@@ -87,5 +89,30 @@ class AccountController extends Controller
         Auth::logout();
         // Redirigir con mensaje de confirmación
         return redirect('index')->with('status', 'Tu cuenta ha sido eliminada correctamente.');
+    }
+    // ...................................................................................................................... cambiar contraseña
+    public function mostrarFormularioCambioContrasena()
+    {
+        return view('cuenta.cambiar-contrasena');
+    }
+
+    public function cambiarContrasena(Request $request)
+    {
+        $request->validate([
+            'current_password' => 'required',
+            'new_password' => 'required|min:8|confirmed',
+        ]);
+
+        // Verifica que la contraseña actual sea correcta
+        if (!Hash::check($request->current_password, Auth::user()->password)) {
+            return back()->withErrors(['current_password' => 'La contraseña actual no es correcta.']);
+        }
+
+        // Actualiza la contraseña del usuario
+        $user = Auth::user();
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+
+        return redirect()->route('cuenta.cambiar-contrasena')->with('status', 'Contraseña cambiada exitosamente.');
     }
 }

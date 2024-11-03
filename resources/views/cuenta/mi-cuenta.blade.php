@@ -28,7 +28,7 @@
 <div class="container-fluid">
     <div class="row">
         <!-- Menú lateral -->
-        <div class="custom-menu {{ request()->is('productos/create') || request()->is('productos/*/edit') || request()->is('productos/*') ? 'd-none' : '' }}">
+        <div class="custom-menu {{ request()->is('productos/create') || request()->is('productos/*/edit') || request()->is('productos/*') || request()->is('cuenta/mi-cuenta/editar') ? 'd-none' : '' }}">
             @include('partials.menu-lateral') <!-- Menú lateral -->
         </div>
         <!-- Contenido -->
@@ -44,7 +44,7 @@
                             <a class="nav-link active" href="{{ route('cuenta.editar') }}">Editar cuenta</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">Cambiar contraseña</a>    
+                            <a class="nav-link active" href="{{ route('cuenta.cambiar-contrasena') }}">Cambiar contraseña</a>    
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="#">Metodo de pago</a>
@@ -55,7 +55,7 @@
                     </ul>
                 </nav>    
                 <!-- Imagen derecha -->
-                <img src="{{ asset('assets/img/miCuenta2.png') }}" alt="Icono derecho" class="img-fluid" style="height: 240px;">
+                <img src="{{ asset('assets/img/miCuenta2.png') }}" alt="Icono derecho" class="img-fluid" style="height: 200px;">
             </div>
             <!-- Verificar si el usuario ha completado los campos obligatorios -->
             @if (empty($user->sexo) || empty($user->pais) || empty($user->fecha_nacimiento) || empty($user->nombre) || empty($user->apellido))
@@ -70,17 +70,19 @@
                 </div>
             @else
                 <!-- Información del usuario -->
-                <h3 class="text-center">Información de la cuenta</h3>
-                <div class="mb-4 rounded-lg">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-4 text-center">
-                                <img src="{{ asset('storage/' . $user->foto) }}" alt="Foto de perfil" class="img-fluid">
-                            </div>
-                            <div class="col-md-8">
-                                <h5 class="fw-bold">ID del usuario: {{ Auth::user()->id }} </h5>
-                                <h5 class="fw-bold">Nombre: {{ $user->nombre }} {{ $user->apellido }}</h5>
-                                <p><strong>Apodo:</strong> {{ $user->apodo ?? 'No especificado' }}</p>
+                <div class="card-body">
+                    <div class="row">
+                        <!-- Columna de la imagen -->
+                        <div class="col-md-4 d-flex align-items-center justify-content-center">
+                            <img src="{{ asset('storage/' . $user->foto) }}" alt="Foto de perfil" class="img-fluid rounded-circle">
+                        </div>
+                        <!-- Columna de la información -->
+                        <div class="col-md-8">
+                            <div class="bg-white p-3 rounded">
+                                <h3 class="fw-bold text-center"><strong>Información de la cuenta</strong></h3>
+                                <h4 class="fw-bold"><strong>ID de usuario:</strong> {{ Auth::user()->id }} </h4>
+                                <h4 class="fw-bold"><strong>Nombre:</strong> {{ $user->nombre }} {{ $user->apellido }}</h4>
+                                <h5><strong>Apodo:</strong> {{ $user->apodo ?? 'No especificado' }}</h5>
                                 <p><strong>Sexo:</strong> {{ $user->sexo }}</p>
                                 <p><strong>País:</strong> {{ $user->pais->nombre ?? 'No especificado' }}</p>
                                 <p><strong>Fecha de Nacimiento:</strong> {{ $user->fecha_nacimiento ? $user->fecha_nacimiento->format('d/m/Y') : 'No especificada' }}</p>
@@ -88,9 +90,9 @@
                                 <p><strong>Correo:</strong> {{ $user->email }}</p>
                                 <p><strong>Correo verificado:</strong> 
                                     @if (Auth::user()->hasVerifiedEmail())
-                                        Sí
+                                        <span class="badge bg-success text-white">Sí</span>
                                     @else
-                                        No
+                                        <span class="badge bg-danger text-white">No</span>
                                     @endif
                                 </p>
                             </div>

@@ -26,15 +26,27 @@
                     <img src="{{ asset('assets/img/perfilVendedor.png') }}" alt="Ilustración" class="img-fluid" style="width: 200px; height: auto;">
                 </div>
             </div>
-            
-            <div class="col-md-8">
-                <h5 class="fw-bold">ID del usuario: {{ $user->id }} </h5>
-                <h5 class="fw-bold">Nombre: {{ $user->nombre }} {{ $user->apellido }}</h5>
-                <p><strong>Apodo:</strong> {{ $user->apodo ?? 'No especificado' }}</p>
-                <p><strong>País:</strong> {{ $user->pais->nombre ?? 'No especificado' }}</p>
-                <p><strong>Correo:</strong> {{ $user->email }}</p>
+            <!-- Datos del perfil -->
+            <div class="row  align-items-center">
+                <div class="col-md-8">
+                    <h4 class="fw-bold"><strong>ID de usuario:</strong> {{ Auth::user()->id }} </h4>
+                    <h4 class="fw-bold"><strong>Nombre:</strong> {{ $user->nombre }} {{ $user->apellido }}</h4>
+                    <h5><strong>Apodo:</strong> {{ $user->apodo ?? 'No especificado' }}</h5>
+                    <p><strong>País:</strong> {{ $user->pais->nombre ?? 'No especificado' }}</p>
+                    <p><strong>Descripción:</strong> {{ $user->descripcion ?? 'No especificada' }}</p>
+                    <p><strong>Correo verificado:</strong> 
+                        @if (Auth::user()->hasVerifiedEmail())
+                            <span class="badge bg-success text-white">Sí</span>
+                        @else
+                            <span class="badge bg-danger text-white">No</span>
+                        @endif
+                    </p>
+                </div>
+                <div class="col-md-4 text-center">
+                    <img src="{{ asset('storage/' . $user->foto) }}" alt="Foto de perfil" class="img-fluid rounded-circle">
+                </div>
             </div>
-
+            <!-- Información de los productos -->
             <h3>Mis Productos</h3>
             <table class="table">
                 <thead>
@@ -72,6 +84,34 @@
             </table>
             
             <h3>Mis reseñas como vendedor</h3>
+            @if($order->isCompleted() && $order->hasBuyerReview() && !$order->hasSellerReview())
+                <!-- Formulario para dejar reseña al comprador -->
+                <form action="{{ route('reviews.store') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="reviewable_id" value="{{ $order->buyer->id }}">
+                    <input type="hidden" name="reviewable_type" value="App\Models\User">
+
+                    <label for="review">Reseña del Comprador:</label>
+                    <textarea name="review" required></textarea>
+
+                    <label for="rating">Calificación del Comprador:</label>
+                    <select name="rating" required>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+
+                    <button type="submit">Enviar Reseña</button>
+                </form>
+            @endif
+
+            @foreach($user->reviewsReceived as $review)
+                <p>{{ $review->review }}</p>
+                <p>Calificación: {{ $review->rating }}</p>
+                <p>Por: {{ $review->user->name }}</p>
+            @endforeach
         </div>
     </div>
 </div>

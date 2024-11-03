@@ -45,4 +45,9 @@ class Producto extends Model
     {
         return $this->hasMany(Sale::class, 'producto_id');
     }
+    //
+    public function reviews()
+    {
+        return $this->morphMany(Review::class, 'reviewable');
+    }
 }

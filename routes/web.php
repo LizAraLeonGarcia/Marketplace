@@ -61,22 +61,27 @@ Route::middleware(['auth'])->group(function () {
     // ---------------------------------------------------- Ruta para dashboard (Mi Cuenta) ----------------------------------------------------
     Route::get('/dashboard', [ProductoController::class, 'dashboard'])->name('dashboard');
     // ------------------------------------------------------------------------------------------------------------------------------- mi cuenta 
-    Route::get('/mi-cuenta', [AccountController::class, 'mostrarCuenta'])->name('mi-cuenta');
+    Route::get('/cuenta/mi-cuenta', [AccountController::class, 'mostrarCuenta'])->name('mi-cuenta');
     // editar ..................................................................................................................................
-    Route::get('/mi-cuenta/editar', [AccountController::class, 'edit'])->name('cuenta.editar');
+    Route::get('/cuenta/mi-cuenta/editar', [AccountController::class, 'edit'])->name('cuenta.editar');
     // actualizar ..............................................................................................................................
-    Route::post('/mi-cuenta/actualizar', [AccountController::class, 'update'])->name('cuenta.actualizar');
+    Route::post('/cuenta/mi-cuenta/actualizar', [AccountController::class, 'update'])->name('cuenta.actualizar');
     // eliminar ................................................................................................................................
     // mostrar la vista de eliminar cuenta
-    Route::get('/mi-cuenta/eliminar', function () {return view('eliminar-cuenta'); })->name('cuenta.eliminar.form')->middleware('auth');
+    Route::get('/cuenta/mi-cuenta/eliminar', function () {return view('cuenta.eliminar-cuenta'); })->name('cuenta.eliminar.form')->middleware('auth');
     // manejar la eliminación de la cuenta
-    Route::delete('/mi-cuenta/eliminar', [AccountController::class, 'eliminarCuenta'])->name('cuenta.eliminar')->middleware('auth');
+    Route::delete('/cuenta/mi-cuenta/eliminar', [AccountController::class, 'eliminarCuenta'])->name('cuenta.eliminar')->middleware('auth');
+    // cambiar la contraseña ...................................................................................................................
+    // mostrar la vista de cambiar contraseña
+    Route::get('/cuenta/cambiar-contrasena', [AccountController::class, 'mostrarFormularioCambioContrasena'])->name('cuenta.cambiar-contrasena');
+    // manejar el cambio de contraseña
+    Route::post('/cuenta/cambiar-contrasena', [AccountController::class, 'cambiarContrasena'])->name('cuenta.cambiar-contrasena');
     // perfil y rol comprador ..................................................................................................................
-    Route::get('/comprador', [UserProfileController::class, 'perfilComprador'])->name('comprador.perfil');
+    Route::get('/cuenta/comprador', [UserProfileController::class, 'perfilComprador'])->name('comprador.perfil');
     // perfil y rol vendedor ...................................................................................................................
-    Route::get('/vendedor', [UserProfileController::class, 'perfilVendedor'])->name('vendedor.perfil');       
+    Route::get('/cuenta/vendedor', [UserProfileController::class, 'perfilVendedor'])->name('vendedor.perfil');       
     // historial de pedidos ....................................................................................................................
-    Route::get('/mi-cuenta/historial', [AccountController::class, 'historial'])->name('historial.pedidos');
+    Route::get('/cuenta/mi-cuenta/historial', [AccountController::class, 'historial'])->name('historial.pedidos');
     // ------------------------------------------------------------- sección ayuda -------------------------------------------------------------
     Route::get('/ayuda', [AyudaController::class, 'index'])->name('ayuda.index');
     // ---------------------------------------------------------------- carrito ----------------------------------------------------------------
@@ -84,7 +89,11 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/carrito/agregar/{producto}', [CarritoController::class, 'agregar'])->name('carrito.agregar'); // Agregar al carrito
     Route::delete('/carrito/eliminar/{producto}', [CarritoController::class, 'eliminar'])->name('carrito.eliminar'); // Eliminar del carrito
     //Route::get('/productos/{id}/detalles', [ProductoController::class, 'detalles'])->name('productos.show');
-    //
+    // ---------------------------------------------------------------- reseñas ----------------------------------------------------------------
+    Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+
+
+
     Route::get('/files', [FileController::class, 'index'])->name('files.index');
     Route::post('/files', [FileController::class, 'store'])->name('files.store');
     Route::delete('/files/{id}', [FileController::class, 'destroy'])->name('files.destroy');
