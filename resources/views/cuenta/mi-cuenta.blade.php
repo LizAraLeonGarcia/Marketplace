@@ -5,10 +5,10 @@
 @section('content')
 <style>
     .col-md-9, .col-lg-10 {
-        padding: 0; /* Elimina el padding para evitar espacios innecesarios */
-        min-height: 100vh; /* Asegúrate de que el área principal ocupe toda la altura */
-        margin-left: 230px; /* Asegúrate de que el área principal comience después del menú */
-        background-color: #c1c6ca; /* Color de fondo del body */
+        padding: 0; /* eliminar el padding para evitar espacios innecesarios */
+        min-height: 100vh; /* área principal ocupa toda la altura */
+        margin-left: 230px; /* área principal después del menú */
+        background-color: #c1c6ca; /* color de fondo del body */
     }
 </style>
 

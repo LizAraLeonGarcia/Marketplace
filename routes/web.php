@@ -89,6 +89,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/carrito', [CarritoController::class, 'index'])->name('carrito.index');
     Route::post('/carrito/agregar/{producto}', [CarritoController::class, 'agregar'])->name('carrito.agregar'); // Agregar al carrito
     Route::delete('/carrito/eliminar/{producto}', [CarritoController::class, 'eliminar'])->name('carrito.eliminar'); // Eliminar del carrito
+    Route::delete('/carrito/eliminar-seleccionados', [CarritoController::class, 'eliminarSeleccionados'])->name('carrito.eliminarSeleccionados');
     Route::get('/checkout', [CarritoController::class, 'checkout'])->name('checkout');
     //Route::get('/productos/{id}/detalles', [ProductoController::class, 'detalles'])->name('productos.show');
     // ------------------------------------------------------------- sección ayuda -------------------------------------------------------------

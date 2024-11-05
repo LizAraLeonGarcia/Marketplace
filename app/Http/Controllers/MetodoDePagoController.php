@@ -11,19 +11,41 @@ class MetodoDePagoController extends Controller
 {
     public function showMetodoDePagoForm()
     {
-        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+        $user = auth()->user();
+        Stripe::setApiKey(env('STRIPE_SECRET'));
 
+        // Crear cliente en Stripe si no existe
+        if (!$user->stripe_customer_id) {
+            $customer = Customer::create([
+                'email' => $user->email,
+            ]);
+            $user->stripe_customer_id = $customer->id;
+            $user->save();
+        }
+
+        // Crear SetupIntent para capturar un método de pago nuevo
         $intent = \Stripe\SetupIntent::create([
-            'customer' => auth()->user()->stripe_customer_id,
+            'customer' => $user->stripe_customer_id,
+        ]);
+
+        // Obtener métodos de pago existentes
+        $paymentMethods = PaymentMethod::all([
+            'customer' => $user->stripe_customer_id,
+            'type' => 'card',  // Filtra solo tarjetas de crédito/débito
         ]);
 
         return view('cuenta.metodo-de-pago', [
             'intent' => $intent,
+            'paymentMethods' => $paymentMethods->data,  // Pasar los métodos de pago a la vista
         ]);
     }
 
     public function storeMetodoDePago(Request $request)
     {
+        if (empty($request->paymentMethodId)) {
+            return back()->withErrors(['error' => 'El ID del método de pago no es válido.']);
+        }        
+
         Stripe::setApiKey(env('STRIPE_SECRET'));
 
         try {

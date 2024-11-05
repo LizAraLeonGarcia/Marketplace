@@ -76,7 +76,7 @@ class AccountController extends Controller
         // Guarda los cambios en la base de datos
         $user->save();
 
-        return redirect()->route('cuenta.mi-cuenta')->with('success', 'Cuenta actualizada correctamente.');
+        return redirect()->route('mi-cuenta')->with('success', 'Cuenta actualizada correctamente.');
     }
     // ................................................................................................................................ eliminar
     public function eliminarCuenta()

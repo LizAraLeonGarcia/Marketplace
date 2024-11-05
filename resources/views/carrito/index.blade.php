@@ -3,100 +3,116 @@
 @section('content')
 <style>
     .col-md-9, .col-lg-10 {
-        padding: 0; /* Elimina el padding para evitar espacios innecesarios */
-        min-height: 100vh; /* Asegúrate de que el área principal ocupe toda la altura */
-        margin-left: 230px; /* Asegúrate de que el área principal comience después del menú */
-        background-color: #c1c6ca; /* Color de fondo del body */
+        padding: 0;
+        min-height: 100vh;
+        margin-left: 230px;
+        background-color: #c1c6ca;
     }
-    /* ---------------------------------------------------------- PARA LOS BOTONES ---------------------------------------------------------- */
+
     .btn-pagar {
-        background-color: green !important; /* Color verde para pagar */
+        background-color: green !important;
         color: white !important;
         align-items: center;
     }
     .btn-basura {
-        background-color: red !important; /* Color rojo para eliminar */
+        background-color: red !important;
         color: white !important;
     }
     .btn-detalles {
-        background-color: blue !important; /* Color azul para ver detalles */
+        background-color: blue !important;
         color: white !important;
     }
-    /* Alineación de los botones */
     .acciones {
         display: flex;
         align-items: center;
-        gap: 10px; /* Espacio entre los botones */
+        gap: 10px;
     }
-
     .form-check-input {
-        margin-right: 10px; /* Espacio a la derecha del checkbox */
+        margin-right: 10px;
+    }
+    .table th, .table td {
+        vertical-align: middle;
+    }
+    .total {
+        font-size: 18px;
+        font-weight: bold;
+        color: #333;
+        margin-top: 20px;
+        text-align: end;
     }
 </style>
 
 <div class="container-fluid">
-    <div class=row>
-        <!-- Menú lateral -->
+    <div class="row">
         <div class="custom-menu {{ request()->is('productos/create') || request()->is('productos/*/edit') || request()->is('productos/*') ? 'd-none' : '' }}">
-            @include('partials.menu-lateral') <!-- Menú lateral -->
+            @include('partials.menu-lateral')
         </div> 
-        <!-- Contenido -->
         <div class="col">
             @if(session('success'))
                 <div class="alert alert-success">{{ session('success') }}</div>
             @endif
-            <!-- Contenedor con imágenes y texto -->
-            <h2 class="mb-4" class="text-center display-4">Carrito de compras</h2>
+            <h2 class="mb-4 text-center display-4">Carrito de compras</h2>
+
             <div class="d-flex align-items-center justify-content-between mb-4">
-                <!-- Imagen izquierda -->
                 <img src="{{ asset('assets/img/carrito1.png') }}" alt="Ilustración" class="img-fluid me-3" style="width: 150px; height: auto;">
                 @if ($carritos->isNotEmpty())
                     <h2 class="mb-4">A continuación, verás tus productos para comprar.</h2>
                 @else
                     <h2 class="mb-4">No tienes productos por comprar.</h2>
                 @endif
-                <!-- Imagen derecha -->
                 <img src="{{ asset('assets/img/carrito2.png') }}" alt="Ilustración" class="img-fluid me-3" style="width: 150px; height: auto;">
             </div>
 
             @if($carritos->isEmpty())
                 <h2>¡Agrega algún producto a tu carrito para comprarlo!</h2>
             @else
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Producto</th>
-                            <th>Cantidad</th>
-                            <th>Cantidad</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($carritos as $producto)
+                <form action="{{ route('carrito.eliminarSeleccionados') }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    @php $total = 0; @endphp <!-- Variable para almacenar el total -->
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Seleccionar</th>
+                                <th>Producto</th>
+                                <th>Precio</th>
+                                <th>Cantidad</th>
+                                <th>Subtotal</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($carritos as $producto)
+                            @php 
+                                $subtotal = $producto->precio * $producto->pivot->cantidad;
+                                $total += $subtotal;
+                            @endphp
                             <tr>
                                 <td>
-                                    <input type="checkbox" class="form-check-input" id="producto_{{ $producto->id }}">
+                                    <input type="checkbox" name="productos_seleccionados[]" value="{{ $producto->id }}" class="form-check-input">
                                 </td>
                                 <td>{{ $producto->nombre }}</td>
-                                <td>{{ $producto->pivot->cantidad }}</td>
+                                <td>${{ number_format($producto->precio, 2) }}</td>
                                 <td>
-                                <td>
-                                    <input type="number" min="1" max="{{ $producto->pivot->cantidad }}" name="cantidad_{{ $producto->id }}" value="{{ $producto->pivot->cantidad }}" class="form-control" />
+                                    <input type="number" min="1" max="{{ $producto->stock }}" name="cantidad_{{ $producto->id }}" value="{{ $producto->pivot->cantidad }}" class="form-control" />
                                 </td>
+                                <td>${{ number_format($subtotal, 2) }}</td>
                                 <td class="acciones">
                                     <a href="{{ route('productos.show', $producto) }}" class="btn btn-detalles btn-sm">Ver Detalles</a>
-                                    <form action="{{ route('carrito.eliminar', $producto->id) }}" method="POST" style="display:inline;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-basura btn-sm">Eliminar</button>
-                                    </form>
                                 </td>
                             </tr>
                         @endforeach
-                    </tbody>
-                </table>
-                <div class="text-end mt-4">
-                    <button type="submit" class="btn btn-pagar btn-sm">Pagar</button>
-                </div>
+                        </tbody>
+                    </table>
+
+                    <!-- Mostrar el total -->
+                    <div class="total">Total: ${{ number_format($total, 2) }}</div>
+
+                    <div class="d-flex justify-content-between mt-4">
+                        <button type="submit" class="btn btn-basura btn-sm">Eliminar seleccionados</button>
+                        <button type="button" class="btn btn-pagar btn-sm">Pagar</button>
+                    </div>
+                </form>
             @endif
         </div>
     </div>

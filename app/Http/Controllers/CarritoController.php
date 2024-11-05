@@ -37,6 +37,16 @@ class CarritoController extends Controller
         auth()->user()->carritos()->detach($producto_id);
         return redirect()->route('carrito.index')->with('success', 'Producto eliminado del carrito');
     }
+    
+    public function eliminarSeleccionados(Request $request)
+    {
+        $productosSeleccionados = $request->input('productos_seleccionados', []);
+        if (!empty($productosSeleccionados)) {
+            // Aquí eliminamos los productos seleccionados del carrito del usuario
+            auth()->user()->carrito()->detach($productosSeleccionados);
+        }
+        return redirect()->route('carrito.index')->with('success', 'Productos eliminados del carrito.');
+    }
     // --------------------------------------------------------------------------------------------------------------------- producto especifico
     public function mostrar()
     {
