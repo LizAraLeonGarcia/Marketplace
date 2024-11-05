@@ -48,6 +48,20 @@
         background-color: green !important; /* Color al pasar el mouse */
         border-color: green !important; /* Color del borde al pasar el mouse */
     }
+    /* --------------------------------------------------------------- tabla --------------------------------------------------------------- */
+    .table th {
+        text-align: center; /* centrando el texto de los encabezados de la tabla */
+    }
+    .table td {
+        text-align: center;  /* centrando el texto de los campos de la tabla */
+    }
+    /* ---------------------------------------------------------------------------------------------------------- imagen previa del producto */
+    .producto-img {
+        width: 80px; /* Ancho deseado */
+        height: 100px; /* Alto deseado */
+        object-fit: cover; /* Ajusta la imagen sin distorsionar */
+        border-radius: 5px; /* Bordes redondeados para darle un toque estético */
+    }
 </style>
 
 <div class="container-fluid">
@@ -112,6 +126,7 @@
                         <thead>
                             <tr>
                                 <th scope="col">ID</th>
+                                <th scope="col">Vista previa</th>
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Descripción</th>
                                 <th scope="col">Precio</th>
@@ -122,6 +137,14 @@
                             @foreach ($productos as $producto)
                                 <tr>
                                     <th scope="row">{{ $producto->id }}</th>
+                                    <td>
+                                        <!-- Muestra la primera imagen del producto -->
+                                        @if($producto->images->first())
+                                            <img src="{{ $producto->images->first()->url }}" alt="{{ $producto->nombre }}" class="producto-img">
+                                        @else
+                                            <img src="{{ asset('assets/img/placeholder.png') }}" alt="Sin imagen" class="producto-img">
+                                        @endif
+                                    </td>
                                     <td>{{ $producto->nombre }}</td>
                                     <td>{{ $producto->descripcion }}</td>
                                     <td>${{ number_format($producto->precio, 2) }}</td>

@@ -10,6 +10,20 @@
         margin-left: 230px; /* Asegúrate de que el área principal comience después del menú */
         background-color: #c1c6ca; /* Color de fondo del body */
     }
+    /* Centrando el texto de los encabezados de la tabla */
+    .table th {
+        text-align: center;
+    }
+    .table td {
+        text-align: center;
+    }
+    /* imagen previa del producto */
+    .producto-img {
+        width: 80px; /* Ancho deseado */
+        height: 100px; /* Alto deseado */
+        object-fit: cover; /* Ajusta la imagen sin distorsionar */
+        border-radius: 5px; /* Bordes redondeados para darle un toque estético */
+    }
 </style>
 
 @if (session('success'))
@@ -53,17 +67,26 @@
                         <table class="table table-striped table-responsive">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Nombre</th>
-                                    <th>Descripción</th>
-                                    <th>Precio</th>
-                                    <th>Acciones</th>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Vista previa</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Descripción</th>
+                                    <th scope="col">Precio</th>
+                                    <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($productos as $producto)
                                     <tr>
                                         <td>{{ $producto->id }}</td>
+                                        <td>
+                                            <!-- Muestra la primera imagen del producto -->
+                                            @if($producto->images->first())
+                                                <img src="{{ $producto->images->first()->url }}" alt="{{ $producto->nombre }}" class="producto-img">
+                                            @else
+                                                <img src="{{ asset('assets/img/placeholder.png') }}" alt="Sin imagen" class="producto-img">
+                                            @endif
+                                        </td>
                                         <td>{{ $producto->nombre }}</td>
                                         <td>{{ $producto->descripcion }}</td>
                                         <td>${{ number_format($producto->precio, 2) }}</td>
