@@ -15,27 +15,20 @@ class ReviewController extends Controller
         $request->validate([
             'review' => 'required|string',
             'rating' => 'required|integer|min:1|max:5',
-            'reviewable_type' => 'required|string',
+            'reviewable_type' => 'required|string', // 'producto' o 'user'
             'reviewable_id' => 'required|integer',
         ]);
 
-        // Identifica el modelo al que pertenece la reseña
-        switch ($request->reviewable_type) {
-            case 'order':
-                $reviewable = Order::findOrFail($request->reviewable_id);
-                break;
-            case 'product':
-                $reviewable = Product::findOrFail($request->reviewable_id);
-                break;
-            case 'user':
-                $reviewable = User::findOrFail($request->reviewable_id);
-                break;
-            default:
-                return redirect()->back()->withErrors(['invalid_type' => 'Tipo de reseña no válido']);
-        }
+        // Determinar el tipo de modelo al que se asigna la reseña
+        $reviewableType = match ($request->reviewable_type) {
+            'product' => Product::class,
+            'user' => User::class,
+        };
+
+        $reviewable = $reviewableType::findOrFail($request->reviewable_id);
 
         // Crear la reseña
-        $review = $reviewable->reviews()->create([
+        $reviewable->reviews()->create([
             'review' => $request->review,
             'rating' => $request->rating,
             'user_id' => auth()->id(),

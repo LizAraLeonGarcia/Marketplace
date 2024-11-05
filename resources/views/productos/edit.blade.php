@@ -70,6 +70,18 @@
         margin-top: 20px;
     }
 
+    .btn-cancelar {
+        background-color: #FF8C00; /* rosa bajito */
+        border-color: ##FF8C00;
+        color: white;
+    }
+
+    .btn-cancelar:hover {
+        background-color: orange; /* Color al pasar el mouse */
+        border-color: orange; /* Color del borde al pasar el mouse */
+        color: white;
+    }
+
     .image-container {
         display: flex;
         justify-content: center;
@@ -177,7 +189,7 @@
         <div class="btn-container">
             <button type="submit" class="btn btn-primary">Actualizar</button>
             <a href="{{ route('dashboard') }}" class="btn btn-secondary">Volver al Dashboard</a>
-            <a href="{{ route('productos.index') }}" class="btn btn-danger">Cancelar</a>
+            <a href="{{ route('productos.index') }}" class="btn btn-cancelar">Cancelar</a>
         </div>
     </form>
         

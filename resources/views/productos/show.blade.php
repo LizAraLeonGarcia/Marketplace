@@ -121,8 +121,8 @@
     }
     /* --------------------------------------------------------------------------------------------------------------------------- dashboard */
     .btn-secondary {
-        background-color: #f06292; /* Cambia a tu color deseado */
-        border-color: #f06292; /* Cambia el color del borde si es necesario */
+        background-color: #f06292; /* rosa bajito */
+        border-color: #f06292;
     }
 
     .btn-secondary:hover {
@@ -131,8 +131,8 @@
     }
     /* ------------------------------------------------------------------------------------------------------------------------------ editar */
     .btn-primary {
-        background-color: #f06292; /* Cambia a tu color deseado */
-        border-color: #f06292; /* Cambia el color del borde si es necesario */
+        background-color: #f06292; /* rosa bajito */
+        border-color: #f06292;
     }
 
     .btn-primary:hover {
@@ -141,8 +141,8 @@
     }
     /* ---------------------------------------------------------------------------------------------------------------------------- eliminar */
     .btn-danger {
-        background-color: #f06292 !important; /* Cambia a tu color deseado */
-        border-color: #f06292 !important; /* Cambia el color del borde si es necesario */
+        background-color: #f06292 !important; /* rosa bajito */
+        border-color: #f06292 !important; 
     }
 
     .btn-danger:hover {

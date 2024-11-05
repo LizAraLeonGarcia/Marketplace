@@ -43,10 +43,15 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsTo(Pais::class, 'pais_id'); 
     }
-    // reseñas
+    // -------------------------------------------------------------------------------------------------------------------- Relación con reseñas
     public function reviews()
     {
         return $this->morphMany(Review::class, 'reviewable');
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'seller_id'); 
     }
     // verificar correo ------------------------------------------------------------------------------------------------------------------------
     public function sendEmailVerificationNotification()

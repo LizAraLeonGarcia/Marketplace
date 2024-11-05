@@ -19,9 +19,14 @@ class UserProfileController extends Controller
         $user = auth()->user();        
         // Obtiene las compras del usuario autenticado con Eager Loading
         $compras = $user->compras()->with('productos')->get(); // Cargar relaciones necesarias
+        // Obtén la primera orden completada, si existe
+        $order = $user->orders()->where('status', 'completed')->first();
+    
         $message = $compras->isEmpty() ? "No has realizado ninguna compra todavía." : null;
+        // Cargar las reseñas recibidas por el comprador, donde el tipo de reviewable es 'App\Models\User'
+        $reviewsReceived = $user->reviews()->where('reviewable_type', 'App\Models\User')->get();
         // Retorna la vista con las compras
-        return view('/cuenta/comprador', compact('compras', 'user', 'message'));
+        return view('/cuenta/comprador', compact('compras', 'user', 'order', 'reviewsReceived', 'message'));
     }
 
     public function perfilVendedor()
@@ -34,8 +39,13 @@ class UserProfileController extends Controller
         $user = auth()->user();        
         // Obtiene los productos asociados al vendedor autenticado con Eager Loading
         $productos = $user->productos()->with(['images', 'categoria'])->get(); // Cargar relaciones necesarias
+        // Busca un pedido completado relacionado con este vendedor
+        $order = $user->orders()->where('status', 'completed')->first();
+        // Mensaje en caso de no tener productos
         $message = $productos->isEmpty() ? "No tienes productos en venta." : null;
+        // Carga las reseñas donde el tipo es `User`
+        $reviewsReceived = $user->reviews()->where('reviewable_type', 'App\Models\User')->get();
         // Retorna la vista con los productos y el usuario
-        return view('/cuenta/vendedor', compact('productos', 'user', 'message'));
+        return view('/cuenta/vendedor', compact('productos', 'user', 'order', 'reviewsReceived', 'message'));
     }
 }

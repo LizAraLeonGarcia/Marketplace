@@ -71,8 +71,8 @@
                     </table>
                 @endif
                 
-            <h3>Mis reseñas como vendedor</h3>
-            @if($order->isCompleted() && !$order->hasBuyerReview())
+            <h3>Mis reseñas como comprador</h3>
+            @if($order && $order->isCompleted() && !$order->hasBuyerReview())
                 <!-- Formulario para dejar reseña al vendedor y al producto -->
                 <form action="{{ route('reviews.store') }}" method="POST">
                     @csrf
@@ -110,11 +110,17 @@
                 </form>
             @endif
 
-            @foreach($user->reviewsReceived as $review)
-                <p>{{ $review->review }}</p>
-                <p>Calificación: {{ $review->rating }}</p>
-                <p>Por: {{ $review->user->name }}</p>
-            @endforeach
+            @if($reviewsReceived->isEmpty())
+                <p>No has recibido reseñas aún.</p>
+            @else
+                @foreach($user->reviewsReceived as $review)
+                    <div class="review">
+                        <p><strong>Reseña:</strong> {{ $review->review }}</p>
+                        <p><strong>Calificación:</strong> {{ $review->rating }}</p>
+                        <p><strong>Por:</strong> {{ $review->user->name }}</p>
+                    </div>
+                @endforeach
+            @endif
         </div>
     </div>
 </div>

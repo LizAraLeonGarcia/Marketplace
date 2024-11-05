@@ -84,8 +84,8 @@
             </table>
             
             <h3>Mis reseñas como vendedor</h3>
-            @if($order->isCompleted() && $order->hasBuyerReview() && !$order->hasSellerReview())
-                <!-- Formulario para dejar reseña al comprador -->
+            @if($order && $order->isCompleted() && $order->hasBuyerReview() && !$order->hasSellerReview())
+            <!-- Sección para dejar reseña al comprador -->
                 <form action="{{ route('reviews.store') }}" method="POST">
                     @csrf
                     <input type="hidden" name="reviewable_id" value="{{ $order->buyer->id }}">
@@ -102,16 +102,19 @@
                         <option value="4">4</option>
                         <option value="5">5</option>
                     </select>
-
                     <button type="submit">Enviar Reseña</button>
                 </form>
             @endif
 
-            @foreach($user->reviewsReceived as $review)
-                <p>{{ $review->review }}</p>
-                <p>Calificación: {{ $review->rating }}</p>
-                <p>Por: {{ $review->user->name }}</p>
-            @endforeach
+            @if($user->reviewsReceived && $user->reviewsReceived->isNotEmpty())
+                @foreach($user->reviewsReceived as $review)
+                    <p>{{ $review->review }}</p>
+                    <p>Calificación: {{ $review->rating }}</p>
+                    <p>Por: {{ $review->user->name }}</p>
+                @endforeach
+            @else
+                <p>No tienes reseñas recibidas como vendedor.</p>
+            @endif
         </div>
     </div>
 </div>

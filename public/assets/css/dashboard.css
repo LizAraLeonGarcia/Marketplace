@@ -81,13 +81,13 @@ body {
 /* **************************************************************** BOTONES **************************************************************** */
 /* --------------------------------------------------------------------------------------------------------------------------------- ver */
 .btn-info {
-    background-color: #ef6c00 !important; /* Cambia a tu color deseado */
-    border-color: #ef6c00 !important; /* Cambia el color del borde si es necesario */
+    background-color: sienna !important; /* Cambia a tu color deseado */
+    border-color: sienna !important; /* Cambia el color del borde si es necesario */
 }
 
 .btn-info:hover {
-    background-color: orange !important; /* Color al pasar el mouse */
-    border-color: orange !important; /* Color del borde al pasar el mouse */
+    background-color: peru !important; /* Color al pasar el mouse */
+    border-color: peru !important; /* Color del borde al pasar el mouse */
 }
 /* ------------------------------------------------------------------------------------------------------------------------------ editar */
 .btn-warning {
@@ -99,6 +99,7 @@ body {
 .btn-warning:hover {
     background-color: blue; /* Color al pasar el mouse */
     border-color: blue; /* Color del borde al pasar el mouse */
+    color: white;
 }
 /* ---------------------------------------------------------------------------------------------------------------------------- eliminar */
 .btn-danger {

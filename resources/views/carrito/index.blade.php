@@ -48,7 +48,6 @@
         .btn-pagar {
         background-color: green !important;
         color: white !important;
-        align-items: center;
     }
     /* ---------------------------------------------------------------------------------------------------------------------------- eliminar */
     .btn-basura {
@@ -57,7 +56,7 @@
     }
     /* ------------------------------------------------------------------------------------------------------- ver los detalles del producto */
     .btn-detalles {
-        background-color: blue !important;
+        background-color: sienna !important;
         color: white !important;
     }
 </style>
@@ -127,7 +126,7 @@
                                 </td>
                                 <td>${{ number_format($subtotal, 2) }}</td>
                                 <td>
-                                    <a href="{{ route('productos.show', $producto) }}" class="btn btn-detalles btn-sm">Ver Detalles</a>
+                                    <a href="{{ route('productos.show', $producto) }}" class="btn btn-detalles btn-sm"> <i class="fas fa-eye"></i> Ver Detalles</a>
                                 </td>
                             </tr>
                         @endforeach
@@ -138,8 +137,8 @@
                     <div class="total">Total: ${{ number_format($total, 2) }}</div>
 
                     <div class="d-flex justify-content-between mt-4">
-                        <button type="submit" class="btn btn-basura btn-sm">Eliminar seleccionados</button>
-                        <button type="button" class="btn btn-pagar btn-sm">Pagar</button>
+                        <button type="submit" class="btn btn-basura btn-sm"> <i class="fas fa-trash-alt"></i> Eliminar seleccionados</button>
+                        <button type="button" class="btn btn-pagar btn-sm"> <i class="fas fa-money-bill-wave"></i> Pagar</button>
                     </div>
                 </form>
             @endif

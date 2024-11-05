@@ -10,13 +10,13 @@
     }
     /* --------------------------------------------------------------------------------------------------------------------------------- ver */
     .btn-secondary {
-        background-color: #ef6c00 !important; /* Cambia a tu color deseado */
-        border-color: #ef6c00 !important; /* Cambia el color del borde si es necesario */
+        background-color: sienna !important; /* Cambia a tu color deseado */
+        border-color: sienna !important; /* Cambia el color del borde si es necesario */
     }
 
     .btn-secondary:hover {
-        background-color: orange !important; /* Color al pasar el mouse */
-        border-color: orange !important; /* Color del borde al pasar el mouse */
+        background-color: peru !important; /* Color al pasar el mouse */
+        border-color: peru !important; /* Color del borde al pasar el mouse */
     }
     /* ------------------------------------------------------------------------------------------------------------------------------ editar */
     .btn-primary {
@@ -154,14 +154,14 @@
                                         </a>
                                         <div class="button-container d-flex justify-content-center mt-2">
                                             @if (Auth::user()->can('update', $producto))
-                                                <a href="{{ route('productos.edit', $producto->id) }}" class="btn btn-primary btn-sm mx-1">Editar Producto</a>
+                                                <a href="{{ route('productos.edit', $producto->id) }}" class="btn btn-primary btn-sm mx-1"> <i class="fas fa-edit"></i> Editar Producto</a>
                                             @endif
 
                                             @if (Auth::user()->can('delete', $producto))
                                                 <form action="{{ route('productos.destroy', $producto->id) }}" method="POST" class="d-inline-block">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm mx-1" onclick="return confirm('¿Estás seguro de que deseas eliminar este producto?');">Eliminar Producto</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm mx-1" onclick="return confirm('¿Estás seguro de que deseas eliminar este producto?');"><i class="fas fa-trash-alt"></i>Eliminar Producto</button>
                                                 </form>
                                             @endif
                                         </div>
@@ -171,7 +171,7 @@
                                                 <form action="{{ route('carrito.agregar', ['producto' => $producto]) }}" method="POST">
                                                 @csrf
                                                 <input type="number" name="cantidad" value="1" min="1" required>
-                                                <button type="submit" class="btn btn-carrito btn-sm mx-1">Agregar al carrito</button>
+                                                <button type="submit" class="btn btn-carrito btn-sm mx-1"> <i class="fas fa-shopping-cart"></i> Agregar al carrito</button>
                                             </form>
                                         @endif
                                     </td>
