@@ -64,7 +64,7 @@
                 <!-- Tabla de productos -->
                 @if(isset($productos) && $productos->isNotEmpty())
                     <div class="table-responsive">
-                        <table class="table table-striped table-responsive">
+                        <table class="table table-striped table-hover">
                             <thead>
                                 <tr>
                                     <th scope="col">ID</th>
