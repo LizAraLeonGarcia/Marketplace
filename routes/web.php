@@ -52,10 +52,13 @@ Route::get('/about', function () {
 Route::middleware(['auth'])->group(function () {
     // ------------------------------------------------------ Rutas del CRUD de productos ------------------------------------------------------
     Route::resource('productos', ProductoController::class);
-    Route::get('/productos/categoria/{categoria}', [ProductoController::class, 'categoria'])->name('productos.categoria');
+    Route::get('/productos/categoria/{id}', [ProductoController::class, 'porCategoria'])->name('productos.categoria');
+    Route::get('/productos/ofertas', [ProductoController::class, 'ofertas'])->name('productos.ofertas');
+    Route::get('/productos/recomendaciones', [ProductoController::class, 'recomendaciones'])->name('productos.recomendaciones');
     Route::get('/productos/precio', [ProductoController::class, 'porPrecio'])->name('productos.precio');
     Route::get('/productos/mas-vendidos', [ProductoController::class, 'masVendidos'])->name('productos.mas-vendidos');
     Route::get('/productos/nuevos', [ProductoController::class, 'nuevosProductos'])->name('productos.nuevos');
+    Route::get('/productos/buscar', [ProductoController::class, 'buscar'])->name('productos.buscar');
     // ---------------------------------------------------------- Ruta para dashboard ----------------------------------------------------------
     Route::get('/dashboard', [ProductoController::class, 'dashboard'])->name('dashboard');
     // --------------------------------------------------------------- mi cuenta ---------------------------------------------------------------

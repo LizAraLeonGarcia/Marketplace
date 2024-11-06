@@ -6,7 +6,7 @@
     <title>@yield('title', 'Vaquita Marketplace')</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Main CSS -->
+    <!-- CSS -->
     <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/dashboard.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/productos.css') }}" rel="stylesheet">

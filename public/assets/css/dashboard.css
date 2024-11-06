@@ -33,9 +33,9 @@ body {
     background-color: gold; /* Color al pasar el ratón */
     color: rgb(0, 0, 0); /* Asegurar que el texto siga siendo visible */
 }
-/* -------------------------------------------------------------------------------------------------------------------------- Elemento activo */
+/* ------------------------------------------------------------------------------------------------------------------------------- texto MENÚ */
 .custom-menu .list-group-item.active {
-    background-color: #ff20c7; /* Color del elemento activo */
+    background-color: #ff20c7;
     color: white; /* Texto blanco para resaltar */
     text-align: center;  
 }

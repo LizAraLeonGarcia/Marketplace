@@ -8,6 +8,58 @@
         margin-left: 230px; /* Asegúrate de que el área principal comience después del menú */
         background-color: #c1c6ca; /* Color de fondo del body */
     }
+    /* ------------------------------------------------------------------------------------------------------------------------------ select */
+    /* Asegurar que el dropdown no afecte el alineamiento de otras opciones */
+    .nav-item.dropdown {
+        margin-top: 7.5px; /* Agregar un pequeño margen superior si es necesario */
+    }
+
+    .nav-item .form-control {
+        width: auto; /* Asegurar que el select tenga un ancho adecuado */
+        margin: 0; /* Eliminar márgenes que puedan desalinear el select */
+    }
+    
+    .form-control {
+        background-color: black; /* Fondo negro */
+        color: white; /* Texto blanco */
+        border: none; /* Quita el borde por defecto */
+        text-align: center; /* Centra el texto de las opciones */
+    }
+    /* opciones dentro del select */
+    .form-control option {
+        background-color: black; /* Fondo negro */
+        color: white; /* Texto blanco */
+        text-align: center; /* Alinea el texto en el centro */
+    }
+    /* mejora visual al abrir el dropdown */
+    .form-control:focus {
+        outline: none; /* Elimina el borde de enfoque */
+        box-shadow: 0px 0px 4px #c1c6ca; /* Sutil sombra alrededor */
+    }
+    /* ------------------------------------------------------------------------------------------------------------------- barra de búsqueda */
+    .form-control[type="text"] {
+        background-color: white;
+        color: black; /* Puedes cambiar el color del texto si es necesario */
+        border: 1px solid #ccc; /* Puedes poner un borde sutil si lo deseas */
+        padding-left: 10px; /* Ajusta el padding si es necesario */
+    }
+
+    .form-control[type="text"]:focus {
+        background-color: white; /* Asegúrate de que el fondo siga siendo transparente cuando está enfocado */
+        box-shadow: none; /* Elimina el efecto de sombra al enfocarse, si lo hay */
+    }
+    /* ------------------------------------------------------------------------------------------------------------------------------ buscar */
+    .btn-buscar {
+        background-color: black !important; /* Color de fondo */
+        color: white;
+        border-radius: 0.25rem; /* Bordes redondeados */
+        margin-left: 10px;
+    }
+
+    .btn-buscar:hover {
+        background-color: black !important; /* Color de fondo al pasar el ratón */
+        color: #c1c6ca !important;
+    }
     /* --------------------------------------------------------------------------------------------------------------------------------- ver */
     .btn-secondary {
         background-color: sienna !important; /* Cambia a tu color deseado */
@@ -76,31 +128,52 @@
             <!-- Contenedor con imágenes y navegación -->
             <div class="d-flex align-items-center justify-content-between mb-4">
                 <!-- Imagen izquierda -->
-                <img src="{{ asset('img/menuProductos1.png') }}" alt="Imagen Izquierda" class="img-fluid" style="max-width: 170px; height: auto;">
+                <img src="{{ asset('img/menuProductos1.png') }}" alt="Imagen Izquierda" class="img-fluid" style="max-width: 180px; height: auto;">
                 <!-- Navegación específica de productos -->
                 <nav>
                     <ul class="nav nav-pills mb-4">
                         <li class="nav-item">
                             <a class="nav-link active" href="{{ route('productos.index') }}">Todos los Productos</a>
                         </li>
-                        @foreach($categorias as $categoria)
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('productos.categoria', $categoria->id) }}">{{ $categoria->nombre }}</a>
-                            </li>
-                        @endforeach
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('productos.precio') }}">Por precio</a>
+                            <a class="nav-link" href="{{ route('productos.nuevos') }}">Nuevos productos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('productos.recomendaciones') }}">Recomendaciones</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('productos.ofertas') }}">Ofertas</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('productos.mas-vendidos') }}">Más vendidos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('productos.nuevos') }}">Nuevos productos</a>
+                            <a class="nav-link" href="{{ route('productos.precio') }}">Por precio</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <form method="GET" action="{{ route('productos.index') }}" class="mb-4">
+                                <div class="form-group">
+                                    <select name="categoria_id" id="categoria_id" class="form-control" onchange="this.form.submit()">
+                                        <option value="">Todas las categorías</option>
+                                        @foreach($categorias as $categoria)
+                                            <option value="{{ $categoria->id }}" {{ request('categoria_id') == $categoria->id ? 'selected' : '' }}>
+                                                {{ $categoria->nombre }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </form>
                         </li>
                     </ul>
+                    <div class="mb-4">
+                        <form action="{{ route('productos.buscar') }}" method="GET" class="d-flex">
+                            <input type="text" name="query" class="form-control me-2" placeholder="Buscar producto" aria-label="Buscar">
+                            <button type="submit" class="btn btn-buscar"><strong>Buscar</strong></button>
+                        </form>
+                    </div>
                 </nav>
                 <!-- Imagen derecha -->
-                <img src="{{ asset('img/menuProductos2.png') }}" alt="Imagen Derecha" class="img-fluid" style="max-width: 200px; height: auto;">
+                <img src="{{ asset('img/menuProductos2.png') }}" alt="Imagen Derecha" class="img-fluid" style="max-width: 210px; height: auto;">
             </div>    
             <!-- Mensaje de éxito -->
             @if (session('success'))

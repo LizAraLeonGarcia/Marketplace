@@ -1,13 +1,13 @@
-/* Estilos para las pestañas del menú */
+/* *************************************************** Estilos para las pestañas del menú *************************************************** */
 .nav-pills {
-    display: flex; /* Usa flexbox para distribuir los elementos */
+    display: flex; /* Flexbox para distribuir los elementos */
     justify-content: space-around; /* Espacio igual entre las pestañas */
-    width: 100%; /* Asegúrate de que ocupa el 100% del ancho */
+    width: 100%; /* 100% del ancho */
     margin: 0; /* Eliminar márgenes */
     padding: 0; /* Eliminar padding */
     border-bottom: 2px solid #ccc; /* Línea inferior para separar las pestañas */
 }
-
+/* */
 .nav-pills .nav-link {
     background-color: #000000; /* Color de fondo */
     color: white; /* Color del texto */
@@ -18,39 +18,28 @@
     flex: 1; /* Hace que cada enlace ocupe el mismo espacio */
     margin: 5px; /* Margen entre los enlaces */
 }
-
-/* Estilo al pasar el mouse */
+/* ******************************************************* Estilos al pasar el mouse ******************************************************* */
 .nav-pills .nav-link:hover {
-    background-color: #36e700; /* Color de fondo al pasar el mouse */
+    color: #c1c6ca;
     transform: scale(1.05); /* Aumenta ligeramente el tamaño */
 }
-
-/* Estilo de la pestaña activa */
+/* **************************** Estilos de la opción Todos los productos en el menú de la sección Ver productos **************************** */
 .nav-pills .nav-link.active {
-    background-color: #870997; /* Color de la pestaña activa */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Sombra para resaltar la pestaña activa */
+    background-color: #000000; 
 }
-
-/* Estilo específico para el enlace del dashboard */
-.nav-pills .dashboard-link {
-    background-color: #570057; /* Color de fondo para el dashboard */
-    color: white !important; /* Color del texto del dashboard */
-}
-
-/* Opcional: estilar el texto */
+/* *********************************************************** Estilos del texto *********************************************************** */
 .nav-pills .nav-link {
     font-weight: bold; /* Hacer el texto más grueso */
     font-size: 1rem; /* Tamaño de fuente */
 }
-
-/* Opcional: estilos para dispositivos móviles */
+/* *************************************************** Estilos para dispositivos móviles *************************************************** */
 @media (max-width: 576px) {
     .nav-pills .nav-link {
         padding: 8px 10px; /* Menos espacio en dispositivos pequeños */
         font-size: 0.9rem; /* Tamaño de fuente más pequeño */
     }
 }
-/* Estilos para el encabezado h2 */
+/* ***************************************************** Estilos para el encabezado h2 ***************************************************** */
 h2 {
     font-size: 2rem; /* Tamaño de la fuente */
     font-weight: bold; /* Peso de la fuente */
@@ -63,8 +52,7 @@ h2 {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra sutil */
     letter-spacing: 1px; /* Espaciado entre letras */
 }
-
-/* Estilos responsivos */
+/* ********************************************************** Estilos responsivos ********************************************************** */
 @media (max-width: 576px) {
     h2 {
         font-size: 1.5rem; /* Tamaño de fuente más pequeño en móviles */

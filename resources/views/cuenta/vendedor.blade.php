@@ -113,7 +113,7 @@
                     <p>Por: {{ $review->user->name }}</p>
                 @endforeach
             @else
-                <p>No tienes reseñas recibidas como vendedor.</p>
+                <p>No has recibido reseñas aún.</p>
             @endif
         </div>
     </div>

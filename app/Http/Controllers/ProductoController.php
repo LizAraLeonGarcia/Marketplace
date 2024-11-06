@@ -19,7 +19,7 @@ class ProductoController extends Controller
     {
         $this->middleware('auth')->except(['index', 'show']); 
     }
-
+    // ***************************************************** todos los productos
     public function index(Request $request)
     {
         $categorias = Categoria::all();
@@ -32,13 +32,13 @@ class ProductoController extends Controller
                 
         return view('productos.index', compact('productos', 'categorias'));
     }
-
+    // ******************************************************* crear producto
     public function create()
     {
         $categorias = Categoria::all();
         return view('productos.create', compact('categorias'));
     }
-
+    // ************************************************************ store
     public function store(Request $request)
     {
         // Validar los datos del formulario
@@ -80,13 +80,13 @@ class ProductoController extends Controller
         // Redirigir al índice de productos con mensaje de éxito
         return redirect()->route('productos.index')->with('success', 'Producto creado con éxito.');        
     }    
-
+    // ******************************************************** mostrar producto
     public function show(Producto $producto)
     {
         $producto->load(['images', 'categoria']);
         return view('productos.show', compact('producto'));
     }
-
+    // ********************************************************* editar producto
     public function edit(Producto $producto)
     {
         if (Gate::denies('update', $producto)) {
@@ -99,7 +99,7 @@ class ProductoController extends Controller
         $categorias = Categoria::all();
         return view('productos.edit', compact('producto', 'categorias'));
     }
-
+    // ********************************************************* actualizar producto
     public function update(Request $request, Producto $producto)
     {
         $request->validate([
@@ -139,7 +139,7 @@ class ProductoController extends Controller
 
         return redirect()->route('productos.index')->with('success', 'Producto actualizado con éxito.');
     }
-
+    // ***************************************************** eliminar producto
     public function destroy(Producto $producto)
     {
         if (Gate::denies('delete', $producto)) {
@@ -155,13 +155,56 @@ class ProductoController extends Controller
 
         return redirect()->route('productos.index')->with('success', 'Producto eliminado exitosamente.');
     }
-    //
+    // ********************************************************* filtrar los productos *********************************************************
+    // .......................................................................................................................... por categoria
+    public function porCategoria($id)
+    {
+        $productos = Producto::where('categoria_id', $id)->get();
+        return view('productos.index', compact('productos'));
+    }
+    // ................................................................................................................................ ofertas
+    public function ofertas()
+    {
+
+    }
+    // ........................................................................................................................ recomendaciones
+    public function recomendaciones()
+    {
+
+    }
+    // ............................................................................................................................. por precio
+    public function porPrecio()
+    {
+        $productos = Producto::orderBy('precio')->get();
+        return view('productos.index', compact('productos'));
+    }
+    // ............................................................................................................................mas vendidos
+    public function masVendidos()
+    {
+        $productos = Producto::orderBy('ventas', 'desc')->take(10)->get();
+        return view('productos.index', compact('productos'));
+    }
+    // ....................................................................................................................... nuevos productos
+    public function nuevosProductos()
+    {
+        $productos = Producto::where('created_at', '>=', now()->subMonth())->get();
+        return view('productos.index', compact('productos'));
+    }
+    // ................................................................................................................................. buscar
+    public function buscar(Request $request)
+    {
+        $query = $request->input('query');
+        $productos = Producto::where('nombre', 'LIKE', "%{$query}%")->paginate(10);
+
+        return view('productos.index', compact('productos'));
+    }
+    // -------------------------------------------------------------- categorias --------------------------------------------------------------
     public function categoria($categoria)
     {
         $productos = Producto::where('categoria_id', $categoria)->paginate(10);
         return view('productos.categoria', compact('productos', 'categoria'));
     }
-
+    // --------------------------------------------------------------- dashboard ---------------------------------------------------------------
     public function dashboard()
     {
         $user = auth()->user();

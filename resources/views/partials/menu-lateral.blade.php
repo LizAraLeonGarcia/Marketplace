@@ -3,17 +3,17 @@
         <h5 class="list-group-item list-group-item-action active" aria-current="true">
             Menú
         </h5>
+        <a href="{{ route('dashboard') }}" class="list-group-item list-group-item-action d-flex align-items-center">
+            <i class="fas fa-th-large"></i> Dashboard
+        </a>
         <a href="{{ route('mi-cuenta') }}" class="list-group-item list-group-item-action d-flex align-items-center">
             <i class="fas fa-user me-2"></i> Mi cuenta
-        </a>
-        <a href="{{ route('vendedor.perfil') }}" class="list-group-item list-group-item-action d-flex align-items-center">
-            <i class="fas fa-store me-2"></i> Ver mi perfil como vendedor
         </a>
         <a href="{{ route('comprador.perfil') }}" class="list-group-item list-group-item-action d-flex align-items-center">
             <i class="fas fa-shopping-bag me-2"></i> Ver mi perfil como comprador
         </a>
-        <a href="{{ route('dashboard') }}" class="list-group-item list-group-item-action d-flex align-items-center">
-            <i class="fas fa-th-large"></i> Dashboard
+        <a href="{{ route('vendedor.perfil') }}" class="list-group-item list-group-item-action d-flex align-items-center">
+            <i class="fas fa-store me-2"></i> Ver mi perfil como vendedor
         </a>
         <a href="{{ route('productos.create') }}" class="list-group-item list-group-item-action d-flex align-items-center">
             <i class="fas fa-plus-circle me-2"></i> Crear producto
