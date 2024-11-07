@@ -32,14 +32,13 @@ class Producto extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
-    }
-    // -------------------------------------------------------------------------------------------------------------------- Relacion con carrito
-    public function carritos()
-    {
-        return $this->belongsToMany(User::class, 'carritos')
+
+        return $this->belongsToMany(User::class, 'carrito_producto')
                     ->withPivot('cantidad')
                     ->withTimestamps();
     }
+    // -------------------------------------------------------------------------------------------------------------------- Relacion con carrito
+
     //    
     public function ventas()
     {

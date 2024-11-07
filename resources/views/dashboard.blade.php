@@ -47,7 +47,7 @@
         <!-- Contenido -->
         <div class="col">
             <!-- Contenedor con imágenes y texto -->
-            <h2 class="mb-4" class="text-center display-4">¡Bienvenido, {{ Auth::user()->name }}!</h2>
+            <h2 class="mb-4" class="text-center display-4">¡Hola, {{ Auth::user()->name }}!</h2>
             <div class="d-flex align-items-center justify-content-between mb-4">
                 <!-- Imagen izquierda -->
                 <img src="{{ asset('assets/img/dashboard2.png') }}" alt="Ilustración" class="img-fluid me-3" style="width: 150px; height: auto;">

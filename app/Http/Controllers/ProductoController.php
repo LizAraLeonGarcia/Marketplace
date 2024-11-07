@@ -9,8 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use App\Mail\PrimerProductoMail;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\PrimerProductoMail;
 use App\Notifications\ProductCreated;
 
 class ProductoController extends Controller
@@ -19,7 +19,7 @@ class ProductoController extends Controller
     {
         $this->middleware('auth')->except(['index', 'show']); 
     }
-    // ***************************************************** todos los productos
+    // ********************************************************** todos los productos **********************************************************
     public function index(Request $request)
     {
         $categorias = Categoria::all();
@@ -32,24 +32,36 @@ class ProductoController extends Controller
                 
         return view('productos.index', compact('productos', 'categorias'));
     }
-    // ******************************************************* crear producto
+    // ***************************************************************** crear *****************************************************************
     public function create()
     {
         $categorias = Categoria::all();
         return view('productos.create', compact('categorias'));
     }
-    // ************************************************************ store
+    // ***************************************************************** store *****************************************************************
     public function store(Request $request)
     {
         // Validar los datos del formulario
         $request->validate([
             'nombre' => 'required|string|max:255',
-            'descripcion' => 'required|string',
-            'precio' => 'required|numeric',
-            'stock' => 'required|integer',
+            'descripcion' => 'required|string|min:10|max:700',
+            'precio' => 'required|numeric|min:1',
+            'stock' => 'required|integer|min:1',
             'categoria_id' => 'required|exists:categorias,id',
-            'images' => 'array', 
+            'images' => 'required|array|max:10', 
             'images.*' => 'image|mimes:jpg,png,jpeg|max:2048',
+        ], [
+            'nombre.required' => 'El nombre del producto es obligatorio.',
+            'descripcion.required' => 'La descripción es obligatoria y debe tener al menos 10 caracteres.',
+            'precio.required' => 'El precio es obligatorio y debe ser un valor numérico.',
+            'stock.required' => 'El stock es obligatorio y debe ser un número entero.',
+            'categoria_id.required' => 'Debes seleccionar una categoría.',
+            'images.required' => 'Es necesario subir al menos una imagen del producto.',
+            'images.array' => 'Debes subir una serie de imágenes.',
+            'images.max' => 'No puedes subir más de 10 imágenes.',
+            'images.*.image' => 'Cada archivo debe ser una imagen y máximo puedes subir 10 imágenes.',
+            'images.*.mimes' => 'Las imágenes deben ser en formato jpg, png o jpeg.',
+            'images.*.max' => 'Cada imagen no debe superar los 2 MB.',
         ]);
         // Crear el producto
         $producto = Producto::create([
@@ -78,15 +90,15 @@ class ProductoController extends Controller
             Auth::user()->save();
         }
         // Redirigir al índice de productos con mensaje de éxito
-        return redirect()->route('productos.index')->with('success', 'Producto creado con éxito.');        
+        return redirect()->route('dashboard')->with('success', 'Producto creado con éxito.');        
     }    
-    // ******************************************************** mostrar producto
+    // **************************************************************** mostrar ****************************************************************
     public function show(Producto $producto)
     {
         $producto->load(['images', 'categoria']);
         return view('productos.show', compact('producto'));
     }
-    // ********************************************************* editar producto
+    // ***************************************************************** edita *****************************************************************
     public function edit(Producto $producto)
     {
         if (Gate::denies('update', $producto)) {
@@ -99,7 +111,7 @@ class ProductoController extends Controller
         $categorias = Categoria::all();
         return view('productos.edit', compact('producto', 'categorias'));
     }
-    // ********************************************************* actualizar producto
+    // *************************************************************** actualiza ***************************************************************
     public function update(Request $request, Producto $producto)
     {
         $request->validate([
@@ -111,7 +123,7 @@ class ProductoController extends Controller
             'images' => 'array', 
             'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-
+        // Actualizar producto
         $producto->update([
             'nombre' => $request->nombre,
             'descripcion' => $request->descripcion,
@@ -137,9 +149,9 @@ class ProductoController extends Controller
             }
         }
 
-        return redirect()->route('productos.index')->with('success', 'Producto actualizado con éxito.');
+        return redirect()->route('dashboard')->with('success', 'Producto actualizado con éxito.');
     }
-    // ***************************************************** eliminar producto
+    // *********************************************************** eliminar producto ***********************************************************
     public function destroy(Producto $producto)
     {
         if (Gate::denies('delete', $producto)) {
@@ -153,7 +165,7 @@ class ProductoController extends Controller
 
         $producto->delete();
 
-        return redirect()->route('productos.index')->with('success', 'Producto eliminado exitosamente.');
+        return redirect()->route('dashboard')->with('success', 'Producto eliminado exitosamente.');
     }
     // ********************************************************* filtrar los productos *********************************************************
     // .......................................................................................................................... por categoria

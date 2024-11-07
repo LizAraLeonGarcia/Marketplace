@@ -29,9 +29,9 @@ class User extends Authenticatable implements MustVerifyEmail
     // -------------------------------------------------------------------------------------------------------------------- Relacion con carrito
     public function carritos()
     {
-        return $this->belongsToMany(Producto::class, 'carritos')
-                ->withPivot('cantidad')
-                ->withTimestamps();
+        return $this->belongsToMany(Producto::class, 'carrito_producto')  
+                    ->withPivot('cantidad') 
+                    ->withTimestamps();
     }
     // -------------------------------------------------------------------------------------------------------------------- Relacion con compras
     public function compras()
@@ -51,7 +51,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function orders()
     {
-        return $this->hasMany(Order::class, 'seller_id'); 
+        return $this->hasMany(Order::class, 'buyer_id'); 
     }
     // verificar correo ------------------------------------------------------------------------------------------------------------------------
     public function sendEmailVerificationNotification()

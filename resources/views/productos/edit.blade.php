@@ -54,8 +54,7 @@
         color: #333;
     }
 
-    .form-group input,
-    .form-group textarea {
+    .form-group input, .form-group textarea {
         background-color: rgba(255, 255, 255, 0.9);
         border: 1px solid #ccc;
         border-radius: 5px;
@@ -114,39 +113,47 @@
     <form action="{{ route('productos.update', $producto->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
-        <!-- Nombre del Producto -->
+        <!-- nombre ------------------------------------------------------------------------------------------------------------------------ -->
         <div class="form-group">
             <label for="nombre">Nombre <span class="text-danger">*</span></label>
             <input type="text" name="nombre" id="nombre" class="form-control @error('nombre') is-invalid @enderror" value="{{ old('nombre', $producto->nombre) }}" required>
             @error('nombre')
-                <small class="text-danger">{{ $message }}</small>
+                <div class="alert alert-danger" style="background-color: rgba(255, 0, 0, 0.1); padding: 5px; border-radius: 5px;">
+                    <small class="text-danger">{{ $message }}</small>
+                </div>
             @enderror
         </div>
-        <!-- Descripción del Producto -->
+        <!-- descripción ------------------------------------------------------------------------------------------------------------------- -->
         <div class="form-group">
             <label for="descripcion">Descripción <span class="text-danger">*</span></label>
             <textarea name="descripcion" id="descripcion" class="form-control @error('descripcion') is-invalid @enderror" required>{{ old('descripcion', $producto->descripcion) }}</textarea>
             @error('descripcion')
-                <small class="text-danger">{{ $message }}</small>
+                <div class="alert alert-danger" style="background-color: rgba(255, 0, 0, 0.1); padding: 5px; border-radius: 5px;">
+                    <small class="text-danger">{{ $message }}</small>
+                </div>
             @enderror
         </div>
-        <!-- Precio del Producto -->
+        <!-- precio ------------------------------------------------------------------------------------------------------------------------ -->
         <div class="form-group">
             <label for="precio">Precio ($) <span class="text-danger">*</span></label>
             <input type="number" name="precio" id="precio" class="form-control @error('precio') is-invalid @enderror" value="{{ old('precio', $producto->precio) }}" step="0.01" required>
             @error('precio')
-                <small class="text-danger">{{ $message }}</small>
+                <div class="alert alert-danger" style="background-color: rgba(255, 0, 0, 0.1); padding: 5px; border-radius: 5px;">
+                    <small class="text-danger">{{ $message }}</small>
+                </div>
             @enderror
         </div>
-        <!-- Stock del Producto -->
+        <!-- stock ------------------------------------------------------------------------------------------------------------------------- -->
         <div class="form-group">
             <label for="stock">Stock <span class="text-danger">*</span></label>
             <input type="number" name="stock" id="stock" class="form-control @error('stock') is-invalid @enderror" value="{{ old('stock', $producto->stock) }}" required>
             @error('stock')
-                <small class="text-danger">{{ $message }}</small>
+                <div class="alert alert-danger" style="background-color: rgba(255, 0, 0, 0.1); padding: 5px; border-radius: 5px;">
+                    <small class="text-danger">{{ $message }}</small>
+                </div>
             @enderror
         </div>
-        <!-- Categoría del Producto -->
+        <!-- categorías -------------------------------------------------------------------------------------------------------------------- -->
         <div class="form-group">
             <label for="categoria_id">Categoría <span class="text-danger">*</span></label>
             <select name="categoria_id" id="categoria_id" class="form-control @error('categoria_id') is-invalid @enderror" required>
@@ -158,19 +165,21 @@
                 @endforeach
             </select>
             @error('categoria_id')
-                <small class="text-danger">{{ $message }}</small>
+                <div class="alert alert-danger" style="background-color: rgba(255, 0, 0, 0.1); padding: 5px; border-radius: 5px;">
+                    <small class="text-danger">{{ $message }}</small>
+                </div>
             @enderror
         </div>
-        <!-- Mostrar imágenes existentes -->
+        <!-- mostrar imágenes existentes --------------------------------------------------------------------------------------------------- -->
         <div class="form-group">
             <label>Imágenes actuales:</label>
             <div class="row">
                 @if($producto->images && $producto->images->isNotEmpty())
-                    @foreach ($producto->images as $imagen)
+                    @foreach ($producto->images as $image)
                         <div class="col-md-3">
-                            <img src="{{ Storage::url($imagen->path) }}" class="img-fluid" alt="Imagen del producto">
+                            <img src="{{ Storage::url($image->path) }}" class="img-fluid" alt="Imagen del producto">
                             <div class="form-check">
-                                <input type="checkbox" class="form-check-input" name="delete_images[]" value="{{ $imagen->id }}">
+                                <input type="checkbox" class="form-check-input" name="delete_images[]" value="{{ $image->id }}">
                                 <label class="form-check-label">Eliminar</label>
                             </div>
                         </div>
@@ -180,12 +189,12 @@
                 @endif
             </div>
         </div>
-        <!-- Subir nuevas imágenes -->
+        <!-- subir nuevas imágenes --------------------------------------------------------------------------------------------------------- -->
         <div class="form-group">
             <label for="images">Subir nuevas imágenes:</label>
             <input type="file" class="form-control" name="images[]" multiple>
         </div>
-        <!-- Botones de Actualizar y Cancelar -->
+        <!-- ----------------------------------------------------------- botones ----------------------------------------------------------- -->
         <div class="btn-container">
             <button type="submit" class="btn btn-primary">Actualizar</button>
             <a href="{{ route('dashboard') }}" class="btn btn-secondary">Volver al Dashboard</a>
@@ -198,11 +207,11 @@
             <form action="{{ route('productos.destroy', $producto) }}" method="POST" style="display:inline;">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="btn btn-danger">Eliminar</button>
+                <button type="submit" class="btn btn-danger">Eliminar producto</button>
             </form>
         </div>
     @endif
-    <!-- Sección de Imágenes -->
+    <!-- ------------------------------------------------------- sección de imágenes ------------------------------------------------------- -->
     <div class="image-container">
         <img src="{{ asset('img/editar1.png') }}" alt="Imagen 1">
         <img src="{{ asset('img/editar2.png') }}" alt="Imagen 2">

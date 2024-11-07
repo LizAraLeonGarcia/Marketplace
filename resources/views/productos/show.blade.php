@@ -4,7 +4,6 @@
 
 @section('content')
 <style>
-    /* Aseguramos que html y body ocupen toda la pantalla y no tengan márgenes */
     body {
         margin: 0;
         padding: 0;
@@ -27,7 +26,7 @@
         background-size: cover;
         background-position: center;
         padding: 20px;
-        box-sizing: border-box; /* Asegura que el padding no reduzca el tamaño del contenedor */
+        box-sizing: border-box; /* asegurar que el padding no reduzca el tamaño del contenedor */
     }
     /* Contenedor del formulario ajustado para centrarse */
     .form-container {
@@ -55,7 +54,6 @@
         text-align: center;
     }
     /* ------------------------------------------------------------------------------------------------- Estilos para el carrusel de imágenes */
-    /* Ajustes para el carrusel */
     .carousel-inner {
         max-height: 400px; /* Limita la altura máxima del carrusel según sea necesario */
         margin-bottom: 20px; /* Agrega un margen inferior para separar el carrusel del texto siguiente */
@@ -67,7 +65,6 @@
         /*max-height: 100%;*/ /* Limita la altura máxima de las imágenes al 100% del contenedor */
         object-fit: contain; /* Asegura que la imagen cubra el contenedor sin distorsionarse */
     }
-
     /* Ajustes para los botones de control del carrusel */
     .carousel-control-prev,
     .carousel-control-next {

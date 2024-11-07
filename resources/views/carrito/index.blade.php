@@ -105,11 +105,13 @@
                         @foreach($carritos as $producto)
                             @php 
                                 $subtotal = $producto->precio * $producto->pivot->cantidad;
-                                $total += $subtotal;
                             @endphp
                             <tr>
                                 <td>
-                                    <input type="checkbox" name="productos_seleccionados[]" value="{{ $producto->id }}" class="form-check-input">
+                                    <input type="checkbox" name="productos_seleccionados[]" value="{{ $producto->id }}" class="form-check-input checkbox-producto" 
+                                        data-subtotal="{{ $subtotal }}" 
+                                        onchange="actualizarTotal()"
+                                    >
                                 </td>
                                 <td>
                                     <!-- Muestra la primera imagen del producto -->
@@ -122,23 +124,76 @@
                                 <td>{{ $producto->nombre }}</td>
                                 <td>${{ number_format($producto->precio, 2) }}</td>
                                 <td>
-                                    <input type="number" min="1" max="{{ $producto->stock }}" name="cantidad_{{ $producto->id }}" value="{{ $producto->pivot->cantidad }}" class="form-control" />
+                                    <!-- Input de cantidad con onchange para recalcular el subtotal -->
+                                    <input type="number" min="1" max="{{ $producto->stock }}" 
+                                        name="cantidad_{{ $producto->id }}" 
+                                        value="{{ $producto->pivot->cantidad }}" 
+                                        class="form-control cantidad-producto" 
+                                        onchange="actualizarSubtotal(this, {{ $producto->id }})"
+                                    />
                                 </td>
-                                <td>${{ number_format($subtotal, 2) }}</td>
+                                <td><span class="subtotal-producto">${{ number_format($subtotal, 2) }}</span></td>
                                 <td>
                                     <a href="{{ route('productos.show', $producto) }}" class="btn btn-detalles btn-sm"> <i class="fas fa-eye"></i> Ver Detalles</a>
                                 </td>
                             </tr>
+                            @if(in_array($producto->id, old('productos_seleccionados', [])))
+                                @php $total += $subtotal; @endphp
+                            @endif
                         @endforeach
                         </tbody>
                     </table>
-
-                    <!-- Mostrar el total -->
-                    <div class="total">Total: ${{ number_format($total, 2) }}</div>
-
+                    <!-- Mostrar el total con ID -->
+                    <div class="total">Total: $<span id="total">{{ number_format($total, 2) }}</span></div>
+                    <!-- JavaScript para actualizar el total y subtotal -->
+                    <script>
+                        function actualizarTotal() {
+                            let total = 0;
+                            // Recorre todos los checkboxes
+                            document.querySelectorAll('.checkbox-producto').forEach(checkbox => {
+                                if (checkbox.checked) {
+                                    // Suma el subtotal de los productos seleccionados
+                                    let subtotal = parseFloat(checkbox.getAttribute('data-subtotal'));
+                                    total += subtotal;
+                                }
+                            });
+                            // Actualiza el total en la vista
+                            document.getElementById('total').textContent = total.toFixed(2);
+                        }
+                        // Actualiza el subtotal de un producto y el total cuando se cambia la cantidad
+                        function actualizarSubtotal(input, productoId) {
+                            let cantidad = parseInt(input.value);
+                            let precio = parseFloat(input.closest('tr').querySelector('td:nth-child(4)').textContent.replace('$', '').trim());
+                            // Calcula el nuevo subtotal
+                            let subtotal = cantidad * precio;
+                            // Actualiza el subtotal en la tabla
+                            input.closest('tr').querySelector('.subtotal-producto').textContent = `$${subtotal.toFixed(2)}`;
+                            // Actualiza el data-subtotal del checkbox
+                            input.closest('tr').querySelector('.checkbox-producto').setAttribute('data-subtotal', subtotal);
+                            // Actualiza el total global
+                            actualizarTotal();
+                        }
+                        // Llamamos a la función para inicializar el total
+                        actualizarTotal();
+                    </script>
+                    
                     <div class="d-flex justify-content-between mt-4">
-                        <button type="submit" class="btn btn-basura btn-sm"> <i class="fas fa-trash-alt"></i> Eliminar seleccionados</button>
-                        <button type="button" class="btn btn-pagar btn-sm"> <i class="fas fa-money-bill-wave"></i> Pagar</button>
+                        <!-- Formulario para eliminar los productos seleccionados -->
+                            <form action="{{ route('carrito.eliminar', $producto->id) }}" method="POST" style="display: inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-basura btn-sm">
+                                    <i class="fas fa-trash-alt"></i> Eliminar seleccionados
+                                </button>
+                            </form>
+                        <!-- Formulario para pagar los productos seleccionados -->
+                            <form action="{{ route('carrito.pagar') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="productos_seleccionados" value="{{ implode(',', old('productos_seleccionados', [])) }}">
+                                <button type="submit" class="btn btn-pagar btn-sm">
+                                    <i class="fas fa-money-bill-wave"></i> Pagar
+                                </button>
+                            </form>
                     </div>
                 </form>
             @endif

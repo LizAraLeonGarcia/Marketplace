@@ -12,11 +12,11 @@
 
 <div class="container">
     <div class="container-fluid"> 
-        <!-- Menú lateral -->
+        <!-- -------------------------------------------------------- Menú  lateral -------------------------------------------------------- -->
         <div class="custom-menu {{ request()->is('productos/create') || request()->is('productos/*/edit') || request()->is('productos/*') ? 'd-none' : '' }}">
             @include('partials.menu-lateral')
         </div>
-        <!-- Contenido -->
+        <!-- ---------------------------------------------------------- Contenido ---------------------------------------------------------- -->
         <div class="col">
             <div class="row d-flex align-items-center mb-4">
                 <div class="col-md-8">
@@ -26,7 +26,7 @@
                     <img src="{{ asset('assets/img/perfilComprador.png') }}" alt="Ilustración" class="img-fluid" style="width: 200px; height: auto;">
                 </div>
             </div>    
-            <!-- Datos del perfil -->
+            <!-- ---------------------------------------------------------------------------------------------------------- datos del perfil -->
             <div class="row  align-items-center">
                 <div class="col-md-8">
                     <h4 class="fw-bold"><strong>ID de usuario:</strong> {{ Auth::user()->id }} </h4>
@@ -46,8 +46,8 @@
                     <img src="{{ asset('storage/' . $user->foto) }}" alt="Foto de perfil" class="img-fluid rounded-circle">
                 </div>
             </div>
-            <!-- Información de los productos -->
-            <h3>Mis Compras</h3>
+            <!-- ------------------------------------------------------------------------------------------------------ historial de compras -->
+            <h3>Historial de compras</h3>
                 @if($compras->isEmpty())
                     <p>No tienes compras registradas.</p>
                 @else
@@ -70,7 +70,19 @@
                         </tbody>
                     </table>
                 @endif
-                
+            <!-- --------------------------------------------------------------------------------------------------------- compras en proceso -->
+            <h3>Compras en proceso</h3>
+            @foreach(Auth::user()->orders as $order)
+                <div>
+                    <h3>Pedido #{{ $order->id }} - Estado: {{ $order->status }}</h3>
+                    <ul>
+                        @foreach($order->products as $product)
+                            <li>{{ $product->name }} ({{ $product->pivot->cantidad }}) - ${{ number_format($product->price * $product->pivot->cantidad, 2) }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endforeach
+            <!-- ---------------------------------------------------------------------------------------------------- reseñas como comprador -->   
             <h3>Mis reseñas como comprador</h3>
             @if($order && $order->isCompleted() && !$order->hasBuyerReview())
                 <!-- Formulario para dejar reseña al vendedor y al producto -->
