@@ -36,7 +36,7 @@ class User extends Authenticatable implements MustVerifyEmail
     // -------------------------------------------------------------------------------------------------------------------- Relacion con compras
     public function compras()
     {
-        return $this->hasMany(Sale::class, 'user_id');
+        return $this->hasMany(Order::class, 'buyer_id');
     }
     // ----------------------------------------------------------------------------------------------------------------------- Relación con país
     public function pais()
@@ -44,8 +44,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsTo(Pais::class, 'pais_id'); 
     }
     // -------------------------------------------------------------------------------------------------------------------- Relación con reseñas
-    public function reviews()
+    public function reviewsReceived()
     {
+        return $this->hasMany(Review::class, 'reviewable_id')
+                ->where('reviewable_type', User::class);
         return $this->morphMany(Review::class, 'reviewable');
     }
 

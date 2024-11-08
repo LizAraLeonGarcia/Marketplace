@@ -9,11 +9,11 @@ use Stripe\PaymentMethod;
 
 class MetodoDePagoController extends Controller
 {
+    // ............................................................................................................... mostrar el metodo de pago
     public function showMetodoDePagoForm()
     {
         $user = auth()->user();
         Stripe::setApiKey(env('STRIPE_SECRET'));
-
         // Crear cliente en Stripe si no existe
         if (!$user->stripe_customer_id) {
             $customer = Customer::create([
@@ -22,24 +22,19 @@ class MetodoDePagoController extends Controller
             $user->stripe_customer_id = $customer->id;
             $user->save();
         }
-
         // Crear SetupIntent para capturar un método de pago nuevo
         $intent = \Stripe\SetupIntent::create([
             'customer' => $user->stripe_customer_id,
         ]);
-
         // Obtener métodos de pago existentes
         $paymentMethods = PaymentMethod::all([
             'customer' => $user->stripe_customer_id,
             'type' => 'card',  // Filtra solo tarjetas de crédito/débito
         ]);
-
-        return view('cuenta.metodo-de-pago', [
-            'intent' => $intent,
-            'paymentMethods' => $paymentMethods->data,  // Pasar los métodos de pago a la vista
-        ]);
+        // Pasar los métodos de pago a la vista
+        return view('cuenta.metodo-de-pago', ['intent' => $intent,'paymentMethods' => $paymentMethods->data, ]);
     }
-
+    // ................................................................................................................................... store
     public function storeMetodoDePago(Request $request)
     {
         if (empty($request->paymentMethodId)) {

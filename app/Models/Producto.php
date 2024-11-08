@@ -38,7 +38,17 @@ class Producto extends Model
                     ->withTimestamps();
     }
     // -------------------------------------------------------------------------------------------------------------------- Relacion con carrito
+    public function carritos()
+    {
+        return $this->belongsToMany(User::class, 'carrito_producto')
+                    ->withPivot('cantidad')
+                    ->withTimestamps();
+    }
 
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
     //    
     public function ventas()
     {

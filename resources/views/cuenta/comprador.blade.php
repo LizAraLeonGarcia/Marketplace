@@ -48,40 +48,62 @@
             </div>
             <!-- ------------------------------------------------------------------------------------------------------ historial de compras -->
             <h3>Historial de compras</h3>
-                @if($compras->isEmpty())
-                    <p>No tienes compras registradas.</p>
-                @else
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Producto</th>
-                                <th>Fecha de compra</th>
-                                <th>Precio</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($compras as $compra)
+            @if($completedOrders->isEmpty())
+                <p>No tienes compras registradas.</p>
+            @else
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Fecha de compra</th>
+                            <th>Precio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($completedOrders as $order)  <!-- Recorre las órdenes -->
+                            @foreach($order->items as $orderItem)  <!-- Recorre los items dentro de cada orden -->
                                 <tr>
-                                    <td>{{ $compra->producto->nombre }}</td>
-                                    <td>{{ $compra->fecha_compra }}</td>
-                                    <td>{{ $compra->precio }}</td>
+                                    <td>{{ $orderItem->producto ? $orderItem->producto->nombre : 'Producto no disponible' }}</td>
+                                    <td>{{ $order->fecha_compra }}</td>
+                                    <td>{{ $orderItem->precio }}</td>
                                 </tr>
                             @endforeach
-                        </tbody>
-                    </table>
-                @endif
+                        @endforeach
+                    </tbody>
+                </table>
+            @endif
             <!-- --------------------------------------------------------------------------------------------------------- compras en proceso -->
             <h3>Compras en proceso</h3>
-            @foreach(Auth::user()->orders as $order)
-                <div>
-                    <h3>Pedido #{{ $order->id }} - Estado: {{ $order->status }}</h3>
-                    <ul>
-                        @foreach($order->products as $product)
-                            <li>{{ $product->name }} ({{ $product->pivot->cantidad }}) - ${{ number_format($product->price * $product->pivot->cantidad, 2) }}</li>
+            @if($inProcessOrders->isEmpty())
+                <p>No tienes compras en proceso.</p>
+            @else
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Estado</th>
+                            <th>Detalles</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($inProcessOrders as $order) <!-- Recorre las órdenes en proceso -->
+                            @foreach($order->items as $orderItem) <!-- Recorre los items dentro de cada orden -->
+                                <tr>
+                                    <!-- Verifica si el producto está disponible y muestra el nombre correctamente -->
+                                    <td>{{ $orderItem->producto ? $orderItem->producto->nombre : 'Producto no disponible' }}</td>
+                                    
+                                    <!-- Muestra la cantidad correctamente -->
+                                    <td>{{ $orderItem->cantidad }}</td>
+
+                                    <!-- Muestra el estado de la orden -->
+                                    <td>{{ $order->status }}</td>
+                                </tr>
+                            @endforeach
                         @endforeach
-                    </ul>
-                </div>
-            @endforeach
+                    </tbody>
+                </table>
+            @endif
             <!-- ---------------------------------------------------------------------------------------------------- reseñas como comprador -->   
             <h3>Mis reseñas como comprador</h3>
             @if($order && $order->isCompleted() && !$order->hasBuyerReview())

@@ -85,9 +85,8 @@
             @if($carritos->isEmpty())
                 <h2>¡Agrega algún producto a tu carrito para comprarlo!</h2>
             @else
-                <form action="{{ route('carrito.eliminarSeleccionados') }}" method="POST">
+                <form id="carritoForm" method="POST">
                     @csrf
-                    @method('DELETE')
                     @php $total = 0; @endphp <!-- Variable para almacenar el total -->
                     <table class="table">
                         <thead>
@@ -108,10 +107,7 @@
                             @endphp
                             <tr>
                                 <td>
-                                    <input type="checkbox" name="productos_seleccionados[]" value="{{ $producto->id }}" class="form-check-input checkbox-producto" 
-                                        data-subtotal="{{ $subtotal }}" 
-                                        onchange="actualizarTotal()"
-                                    >
+                                    <input type="checkbox" name="productos_seleccionados[]" value="{{ $producto->id }}" class="form-check-input checkbox-producto" data-subtotal="{{ $subtotal }}" onchange="actualizarTotal()">
                                 </td>
                                 <td>
                                     <!-- Muestra la primera imagen del producto -->
@@ -124,13 +120,7 @@
                                 <td>{{ $producto->nombre }}</td>
                                 <td>${{ number_format($producto->precio, 2) }}</td>
                                 <td>
-                                    <!-- Input de cantidad con onchange para recalcular el subtotal -->
-                                    <input type="number" min="1" max="{{ $producto->stock }}" 
-                                        name="cantidad_{{ $producto->id }}" 
-                                        value="{{ $producto->pivot->cantidad }}" 
-                                        class="form-control cantidad-producto" 
-                                        onchange="actualizarSubtotal(this, {{ $producto->id }})"
-                                    />
+                                    <input type="number" min="1" max="{{ $producto->stock }}" name="cantidad_{{ $producto->id }}" value="{{ $producto->pivot->cantidad }}" class="form-control cantidad-producto" onchange="actualizarSubtotal(this, {{ $producto->id }})" />
                                 </td>
                                 <td><span class="subtotal-producto">${{ number_format($subtotal, 2) }}</span></td>
                                 <td>
@@ -145,57 +135,61 @@
                     </table>
                     <!-- Mostrar el total con ID -->
                     <div class="total">Total: $<span id="total">{{ number_format($total, 2) }}</span></div>
-                    <!-- JavaScript para actualizar el total y subtotal -->
-                    <script>
-                        function actualizarTotal() {
-                            let total = 0;
-                            // Recorre todos los checkboxes
-                            document.querySelectorAll('.checkbox-producto').forEach(checkbox => {
-                                if (checkbox.checked) {
-                                    // Suma el subtotal de los productos seleccionados
-                                    let subtotal = parseFloat(checkbox.getAttribute('data-subtotal'));
-                                    total += subtotal;
-                                }
-                            });
-                            // Actualiza el total en la vista
-                            document.getElementById('total').textContent = total.toFixed(2);
-                        }
-                        // Actualiza el subtotal de un producto y el total cuando se cambia la cantidad
-                        function actualizarSubtotal(input, productoId) {
-                            let cantidad = parseInt(input.value);
-                            let precio = parseFloat(input.closest('tr').querySelector('td:nth-child(4)').textContent.replace('$', '').trim());
-                            // Calcula el nuevo subtotal
-                            let subtotal = cantidad * precio;
-                            // Actualiza el subtotal en la tabla
-                            input.closest('tr').querySelector('.subtotal-producto').textContent = `$${subtotal.toFixed(2)}`;
-                            // Actualiza el data-subtotal del checkbox
-                            input.closest('tr').querySelector('.checkbox-producto').setAttribute('data-subtotal', subtotal);
-                            // Actualiza el total global
-                            actualizarTotal();
-                        }
-                        // Llamamos a la función para inicializar el total
-                        actualizarTotal();
-                    </script>
                     
                     <div class="d-flex justify-content-between mt-4">
-                        <!-- Formulario para eliminar los productos seleccionados -->
-                            <form action="{{ route('carrito.eliminar', $producto->id) }}" method="POST" style="display: inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-basura btn-sm">
-                                    <i class="fas fa-trash-alt"></i> Eliminar seleccionados
-                                </button>
-                            </form>
-                        <!-- Formulario para pagar los productos seleccionados -->
-                            <form action="{{ route('carrito.pagar') }}" method="POST">
-                                @csrf
-                                <input type="hidden" name="productos_seleccionados" value="{{ implode(',', old('productos_seleccionados', [])) }}">
-                                <button type="submit" class="btn btn-pagar btn-sm">
-                                    <i class="fas fa-money-bill-wave"></i> Pagar
-                                </button>
-                            </form>
+                        <button type="submit" class="btn btn-basura btn-sm" onclick="setAction('{{ route('carrito.eliminarSeleccionados') }}')">
+                            <i class="fas fa-trash-alt"></i> Eliminar seleccionados
+                        </button>
+                        <button type="submit" class="btn btn-pagar btn-sm" onclick="setAction('{{ route('carrito.pagar') }}')">
+                            <i class="fas fa-money-bill-wave"></i> Pagar
+                        </button>
                     </div>
                 </form>
+
+                <script>
+                    function actualizarTotal() {
+                        let total = 0;
+                        document.querySelectorAll('.checkbox-producto').forEach(checkbox => {
+                            if (checkbox.checked) {
+                                let subtotal = parseFloat(checkbox.getAttribute('data-subtotal'));
+                                total += subtotal;
+                            }
+                        });
+                        document.getElementById('total').textContent = total.toFixed(2);
+                    }
+
+                    function actualizarSubtotal(input, productoId) {
+                        let cantidad = parseInt(input.value);
+                        let precio = parseFloat(input.closest('tr').querySelector('td:nth-child(4)').textContent.replace('$', '').trim());
+                        let subtotal = cantidad * precio;
+                        input.closest('tr').querySelector('.subtotal-producto').textContent = `$${subtotal.toFixed(2)}`;
+                        input.closest('tr').querySelector('.checkbox-producto').setAttribute('data-subtotal', subtotal);
+                        actualizarTotal();
+                    }
+
+                    function setAction(route) {
+                        const form = document.getElementById('carritoForm');
+                        form.action = route;
+
+                        const productosSeleccionados = document.querySelectorAll('.checkbox-producto:checked');
+                        productosSeleccionados.forEach(checkbox => {
+                            const input = document.createElement('input');
+                            input.type = 'hidden';
+                            input.name = 'productos_seleccionados[]';
+                            input.value = checkbox.value;
+                            form.appendChild(input);
+
+                            const cantidadInput = checkbox.closest('tr').querySelector('.cantidad-producto');
+                            const inputCantidad = document.createElement('input');
+                            inputCantidad.type = 'hidden';
+                            inputCantidad.name = `cantidad_${checkbox.value}`;
+                            inputCantidad.value = cantidadInput.value;
+                            form.appendChild(inputCantidad);
+                        });
+                    }
+                    
+                    actualizarTotal();
+                </script>
             @endif
         </div>
     </div>

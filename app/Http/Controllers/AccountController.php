@@ -95,19 +95,17 @@ class AccountController extends Controller
     {
         return view('cuenta.cambiar-contrasena');
     }
-
+    
     public function cambiarContrasena(Request $request)
     {
         $request->validate([
             'current_password' => 'required',
             'new_password' => 'required|min:8|confirmed',
         ]);
-
         // Verifica que la contraseña actual sea correcta
         if (!Hash::check($request->current_password, Auth::user()->password)) {
             return back()->withErrors(['current_password' => 'La contraseña actual no es correcta.']);
         }
-
         // Actualiza la contraseña del usuario
         $user = Auth::user();
         $user->password = Hash::make($request->new_password);

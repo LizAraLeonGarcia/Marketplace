@@ -18,7 +18,6 @@ class ReviewController extends Controller
             'reviewable_type' => 'required|string', // 'producto' o 'user'
             'reviewable_id' => 'required|integer',
         ]);
-
         // Determinar el tipo de modelo al que se asigna la reseña
         $reviewableType = match ($request->reviewable_type) {
             'product' => Product::class,
@@ -26,7 +25,6 @@ class ReviewController extends Controller
         };
 
         $reviewable = $reviewableType::findOrFail($request->reviewable_id);
-
         // Crear la reseña
         $reviewable->reviews()->create([
             'review' => $request->review,

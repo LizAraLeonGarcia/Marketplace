@@ -29,10 +29,17 @@ class CarritoController extends Controller
         $cantidad = $request->input('cantidad', 1);
         // Asegurar que el producto existe
         $producto = Producto::findOrFail($producto_id);
-        // Agrega el producto al carrito con la cantidad especificada
-        auth()->user()->carritos()->syncWithoutDetaching([
-            $producto->id => ['cantidad' => $cantidad]
-        ]);
+        // Verifica si el producto ya está en el carrito
+        $carrito = auth()->user()->carritos()->where('producto_id', $producto->id)->first();
+
+        if ($carrito) {
+            // Si el producto ya está en el carrito, actualiza la cantidad sumando la cantidad nueva
+            $nuevaCantidad = $carrito->pivot->cantidad + $cantidad;
+            auth()->user()->carritos()->updateExistingPivot($producto->id, ['cantidad' => $carrito->pivot->cantidad + $cantidad]);
+        } else {
+            // Si el producto no está en el carrito, agrega el producto con la cantidad especificada
+            auth()->user()->carritos()->attach($producto->id, ['cantidad' => $cantidad]);
+        }
 
         return redirect()->route('productos.index')->with('success', 'Producto agregado al carrito');
     }
@@ -67,40 +74,71 @@ class CarritoController extends Controller
     // ---------------------------------------------------------------------------------------------------------------- pagar el o los productos
     public function pagar(Request $request)
     {
+        $user = auth()->user(); // Recuperar el usuario autenticado
+        // Validar que hay productos seleccionados
         $productosSeleccionados = $request->input('productos_seleccionados', []);
-        
         if (empty($productosSeleccionados)) {
-            return redirect()->back()->with('error', 'No has seleccionado ningún producto para pagar.');
+            return redirect()->back()->with('error', 'No se seleccionaron productos para comprar.');
         }
+        // Validar los productos seleccionados
+        $request->validate([
+            'productos_seleccionados' => 'required|array|min:1',
+            'productos_seleccionados.*' => 'exists:productos,id',
+            'cantidad_*' => 'integer|min:1',
+        ]);
         // Crear el pedido (order)
         $order = Order::create([
-            'buyer_id' => Auth::id(),
-            'status' => 'pending', // Estado de "pendiente" (puede ser "completed" después del pago).
+            'buyer_id' => $user->id,
+            'status' => 'pending', // Estado de "pendiente"
         ]);
         // Asociar los productos seleccionados con el pedido
         foreach ($productosSeleccionados as $productoId) {
             $producto = Producto::find($productoId);
-            if ($producto) {
-                $cantidad = $request->input('cantidad_' . $productoId, 1); 
-                $order->products()->attach($producto, ['cantidad' => $cantidad]);
+            // Obtener la cantidad del producto desde el carrito
+            $cantidad = $user->carritos()->where('productos.id', $productoId)->first()->pivot->cantidad ?? 1;
+        
+            // Aquí se verifica si el producto ya está en el pedido
+            $existingOrderItem = $order->items()->where('product_id', $producto->id)->first();
+            if ($existingOrderItem) {
+                $existingOrderItem->update([
+                    'cantidad' => $existingOrderItem->cantidad + $cantidad,
+                    'precio' => $producto->precio,
+                ]);
+            } else {
+                $order->items()->create([
+                    'product_id' => $producto->id,
+                    'cantidad' => $cantidad,
+                    'precio' => $producto->precio,
+                ]);
             }
         }
         // Limpiar el carrito después de hacer el pedido
-        Auth::user()->carritos()->detach($productosSeleccionados);
+        $user->carritos()->detach($productosSeleccionados);
         // Redirigir al usuario a su perfil como comprador
-        return redirect()->route('cuenta.comprador')->with('success', 'Pedido realizado con éxito.');
+        return redirect()->route('carrito.index')->with('success', 'Pedido realizado con éxito.');
     }
     // metodo de pago ..........................................................................................................................
     public function checkout(Request $request)
     {
         $user = $request->user();
+        
         if (!$user->stripe_customer_id) {
             return redirect()->route('metodo-de-pago.show')->withErrors(['error' => 'Agrega un método de pago antes de continuar.']);
         }
-        // Muestra el resumen del carrito y confirma el pago usando el método predeterminado
-        return view('checkout', [
-            'metodoDePago' => $user->metodoDePago(), // Método de pago predeterminado
-            'cart' => auth()->user()->carritos,
-        ]);
+        // Resumen de productos en el carrito
+        $productos = $user->carritos()->with(['product'])->get();
+        // Calcula el total del pedido
+        $total = $productos->sum(function ($producto) {
+            return $producto->precio * $producto->pivot->cantidad;
+        });
+        // Realiza el pago a través de Stripe
+        $paymentIntent = $this->realizarPago($user, $total);
+        // Si el pago es exitoso, marca el pedido como pagado
+        if ($paymentIntent->status == 'succeeded') {
+            // Aquí se crea el pedido y los productos se asocian con sus vendedores
+            return redirect()->route('comprador.perfil')->with('success', 'Pedido realizado con éxito y pagado.');
+        } else {
+            return redirect()->back()->with('error', 'Error en el pago.');
+        }
     }
 }
