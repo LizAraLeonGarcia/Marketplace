@@ -85,7 +85,7 @@
             @if($carritos->isEmpty())
                 <h2>¡Agrega algún producto a tu carrito para comprarlo!</h2>
             @else
-                <form id="carritoForm" method="POST">
+                <form id="carritoForm" method="POST" action="">
                     @csrf
                     @php $total = 0; @endphp <!-- Variable para almacenar el total -->
                     <table class="table">
@@ -137,16 +137,69 @@
                     <div class="total">Total: $<span id="total">{{ number_format($total, 2) }}</span></div>
                     
                     <div class="d-flex justify-content-between mt-4">
-                        <button type="submit" class="btn btn-basura btn-sm" onclick="setAction('{{ route('carrito.eliminarSeleccionados') }}')">
+                        <button type="button" class="btn btn-basura btn-sm" data-route="{{ route('carrito.eliminarSeleccionados') }}" data-method="DELETE">
                             <i class="fas fa-trash-alt"></i> Eliminar seleccionados
                         </button>
-                        <button type="submit" class="btn btn-pagar btn-sm" onclick="setAction('{{ route('carrito.pagar') }}')">
+                        <button type="button" class="btn btn-pagar btn-sm" onclick="setAction('{{ route('carrito.pagar') }}', 'POST')">
                             <i class="fas fa-money-bill-wave"></i> Pagar
                         </button>
                     </div>
                 </form>
 
                 <script>
+                    function setAction(route, method) {
+                        const form = document.getElementById('carritoForm');
+                        form.action = route;
+                        // Remueve cualquier input oculto previo de método
+                        const previousMethodInput = form.querySelector('input[name="_method"]');
+                        if (previousMethodInput) {
+                            previousMethodInput.remove();
+                        }
+                        // Agregar el token CSRF al formulario (si no existe)
+                        if (!form.querySelector('input[name="_token"]')) {
+                            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                            const csrfInput = document.createElement('input');
+                            csrfInput.type = 'hidden';
+                            csrfInput.name = '_token';
+                            csrfInput.value = csrfToken;
+                            form.appendChild(csrfInput);
+                        }
+                        // Si el método es DELETE, agrega el campo `_method` con valor DELETE
+                        if (method === 'DELETE') {
+                            const deleteMethod = document.createElement('input');
+                            deleteMethod.type = 'hidden';
+                            deleteMethod.name = '_method';
+                            deleteMethod.value = 'DELETE';
+                            form.appendChild(deleteMethod);
+                        }
+                        // Agregar productos seleccionados y sus cantidades
+                        const productosSeleccionados = document.querySelectorAll('.checkbox-producto:checked');
+                        productosSeleccionados.forEach(checkbox => {
+                            const input = document.createElement('input');
+                            input.type = 'hidden';
+                            input.name = 'productos_seleccionados[]';
+                            input.value = checkbox.value;
+                            form.appendChild(input);
+
+                            const cantidadInput = checkbox.closest('tr').querySelector('.cantidad-producto');
+                            const inputCantidad = document.createElement('input');
+                            inputCantidad.type = 'hidden';
+                            inputCantidad.name = `cantidad_${checkbox.value}`;
+                            inputCantidad.value = cantidadInput.value;
+                            form.appendChild(inputCantidad);
+                        });
+                    }
+
+                    // Evento de clic en los botones para definir la acción antes de enviar
+                    document.querySelectorAll('.btn-basura, .btn-pagar').forEach(button => {
+                        button.addEventListener('click', function() {
+                            const route = button.getAttribute('data-route');
+                            const method = button.getAttribute('data-method') || 'POST';
+                            setAction(route, method);
+                            document.getElementById('carritoForm').submit(); // Enviar formulario
+                        });
+                    });
+
                     function actualizarTotal() {
                         let total = 0;
                         document.querySelectorAll('.checkbox-producto').forEach(checkbox => {
@@ -167,27 +220,7 @@
                         actualizarTotal();
                     }
 
-                    function setAction(route) {
-                        const form = document.getElementById('carritoForm');
-                        form.action = route;
-
-                        const productosSeleccionados = document.querySelectorAll('.checkbox-producto:checked');
-                        productosSeleccionados.forEach(checkbox => {
-                            const input = document.createElement('input');
-                            input.type = 'hidden';
-                            input.name = 'productos_seleccionados[]';
-                            input.value = checkbox.value;
-                            form.appendChild(input);
-
-                            const cantidadInput = checkbox.closest('tr').querySelector('.cantidad-producto');
-                            const inputCantidad = document.createElement('input');
-                            inputCantidad.type = 'hidden';
-                            inputCantidad.name = `cantidad_${checkbox.value}`;
-                            inputCantidad.value = cantidadInput.value;
-                            form.appendChild(inputCantidad);
-                        });
-                    }
-                    
+                    // Actualiza el total en la carga inicial de la página
                     actualizarTotal();
                 </script>
             @endif

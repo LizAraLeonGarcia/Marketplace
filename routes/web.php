@@ -10,6 +10,7 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\MetodoDePagoController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\AyudaController;
 use App\Http\Controllers\FileController;
 // ****************************************************** Habilitar verificación de email ******************************************************
