@@ -11,7 +11,7 @@ body {
 }
 
 #main-content {
-    max-width: 820px;
+    max-width: 960px;
     margin: 0 auto; /* Centra el contenedor */
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -50,7 +50,32 @@ button.btn {
 button.btn:hover {
     background-color: #0056b3;
 }
+/* ******************************************************** imágenes en el carrusel ******************************************************** */
+.profile-preview {
+    width: 120px;  /* Asegura que la imagen ocupe todo el ancho */
+    height: 120px;  /* Ajusta la altura proporcionalmente */
+    object-fit: cover;  /* Asegura que la imagen cubra el contenedor sin distorsionarse */
+}
 
+.carousel {
+    position: relative;
+    width: 100%;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    color: #fff;  /* Cambia el color de los iconos */
+    font-size: 20px;  /* Ajusta el tamaño del icono */
+    background-color: rgba(0, 0, 0, 0.5);  /* Fondo semi-transparente */
+    border-radius: 50%;  /* Hace los controles redondeados */
+}
+
+/* Cambiar el estilo al pasar el ratón sobre los controles */
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+    background-color: rgba(0, 0, 0, 0.7);  /* Fondo más oscuro al pasar el ratón */
+}
+/* ***************************************************************************************************************************************** */
 .col-md-9, .col-lg-10 {
     background-color: transparent;
 }

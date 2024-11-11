@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Image;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserProfileController extends Controller
 {
@@ -18,7 +19,7 @@ class UserProfileController extends Controller
             return redirect()->route('login')->with('error', 'Debes estar autenticado para ver tu perfil de comprador.');
         }
         // Obtener el usuario autenticado
-        $user = auth()->user();        
+        $user = Auth::user();        
         // Obtiene las compras del usuario autenticado con Eager Loading. Y filtra de las órdenes completas y las pendientes por separado
         $completedOrders = $user->orders()->where('status', 'completed')->with('items.producto')->get();
         $inProcessOrders = $user->orders()->where('status', 'pending')->with('items.producto')->get();
@@ -26,8 +27,10 @@ class UserProfileController extends Controller
         $message = ($completedOrders->isEmpty() && $inProcessOrders->isEmpty()) ? "No has realizado ninguna compra todavía." : null;
         // Cargar las reseñas recibidas por el comprador
         $reviewsReceived = $user->reviewsReceived;
+         // Define una orden completada para usar en la vista, si es necesario
+        $order = $completedOrders->first();
         // Retorna la vista con las compras
-        return view('/cuenta/comprador', compact('user', 'completedOrders', 'inProcessOrders', 'reviewsReceived', 'message'));
+        return view('/cuenta/comprador', compact('user', 'completedOrders', 'inProcessOrders', 'order', 'reviewsReceived', 'message'));
     }
 
     public function perfilVendedor()

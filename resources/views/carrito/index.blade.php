@@ -8,34 +8,28 @@
         margin-left: 230px;
         background-color: #c1c6ca;
     }
-    
+
     .form-check-input {
         margin-right: 10px;
     }
-    /* Centrando el texto de los encabezados de la tabla */
-    .table th {
+
+    .table th, .table td {
         text-align: center;
     }
-    .table td {
-        text-align: center;
-    }
+
     .producto-img {
-        width: 80px; /* Ancho deseado */
-        height: 100px; /* Alto deseado */
-        object-fit: cover; /* Ajusta la imagen sin distorsionar */
-        border-radius: 5px; /* Bordes redondeados para darle un toque estético */
+        width: 80px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 5px;
     }
-    /* ---------------------------------------------------------------------------------------------------------------- checkboxes al centro */
-    .table td:first-child {
-        text-align: center;
-    }
-    /* ------------------------------------------------------------------------------------------------------- alinea los inputs de cantidad */
+
     .table td .form-control {
-        width: 80px; /* Ajusta el ancho del input */
+        width: 80px;
         text-align: center;
         margin: auto;
     }
-    /* ----------------------------------------------------------- para el total ----------------------------------------------------------- */
+
     .total {
         font-size: 18px;
         font-weight: bold;
@@ -43,18 +37,17 @@
         margin-top: 20px;
         text-align: end;
     }
-    /* -------------------------------------------------------------- botones -------------------------------------------------------------- */
-    /* ------------------------------------------------------------------------------------------------------------------------------- pagar */
-        .btn-pagar {
+
+    .btn-pagar {
         background-color: green !important;
         color: white !important;
     }
-    /* ---------------------------------------------------------------------------------------------------------------------------- eliminar */
+
     .btn-basura {
         background-color: red !important;
         color: white !important;
     }
-    /* ------------------------------------------------------------------------------------------------------- ver los detalles del producto */
+
     .btn-detalles {
         background-color: sienna !important;
         color: white !important;
@@ -85,9 +78,9 @@
             @if($carritos->isEmpty())
                 <h2>¡Agrega algún producto a tu carrito para comprarlo!</h2>
             @else
-                <form id="carritoForm" method="POST" action="">
+            @php $total = 0; @endphp
+                <form action="{{ route('carrito.pagar') }}" method="POST" id="formPagar">
                     @csrf
-                    @php $total = 0; @endphp <!-- Variable para almacenar el total -->
                     <table class="table">
                         <thead>
                             <tr>
@@ -101,130 +94,132 @@
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach($carritos as $producto)
-                            @php 
-                                $subtotal = $producto->precio * $producto->pivot->cantidad;
-                            @endphp
-                            <tr>
-                                <td>
-                                    <input type="checkbox" name="productos_seleccionados[]" value="{{ $producto->id }}" class="form-check-input checkbox-producto" data-subtotal="{{ $subtotal }}" onchange="actualizarTotal()">
-                                </td>
-                                <td>
-                                    <!-- Muestra la primera imagen del producto -->
-                                    @if($producto->images->first())
-                                        <img src="{{ $producto->images->first()->url }}" alt="{{ $producto->nombre }}" class="producto-img">
-                                    @else
-                                        <img src="{{ asset('assets/img/placeholder.png') }}" alt="Sin imagen" class="producto-img">
-                                    @endif
-                                </td>
-                                <td>{{ $producto->nombre }}</td>
-                                <td>${{ number_format($producto->precio, 2) }}</td>
-                                <td>
-                                    <input type="number" min="1" max="{{ $producto->stock }}" name="cantidad_{{ $producto->id }}" value="{{ $producto->pivot->cantidad }}" class="form-control cantidad-producto" onchange="actualizarSubtotal(this, {{ $producto->id }})" />
-                                </td>
-                                <td><span class="subtotal-producto">${{ number_format($subtotal, 2) }}</span></td>
-                                <td>
-                                    <a href="{{ route('productos.show', $producto) }}" class="btn btn-detalles btn-sm"> <i class="fas fa-eye"></i> Ver Detalles</a>
-                                </td>
-                            </tr>
-                            @if(in_array($producto->id, old('productos_seleccionados', [])))
-                                @php $total += $subtotal; @endphp
-                            @endif
-                        @endforeach
+                            @foreach($carritos as $producto)
+                                @php 
+                                    $subtotal = $producto->precio * $producto->pivot->cantidad;
+                                    $total += $subtotal;
+                                @endphp
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" name="productos_seleccionados[]" value="{{ $producto->id }}" class="form-check-input checkbox-producto" data-subtotal="{{ $subtotal }}" onchange="actualizarTotal()">
+                                    </td>
+                                    <td>
+                                        @if($producto->images->first())
+                                            <img src="{{ $producto->images->first()->url }}" alt="{{ $producto->nombre }}" class="producto-img">
+                                        @else
+                                            <img src="{{ asset('assets/img/placeholder.png') }}" alt="Sin imagen" class="producto-img">
+                                        @endif
+                                    </td>
+                                    <td>{{ $producto->nombre }}</td>
+                                    <td>${{ number_format($producto->precio, 2) }}</td>
+                                    <td>
+                                        <input type="number" min="1" max="{{ $producto->stock }}" value="{{ $producto->pivot->cantidad }}" class="form-control cantidad-producto" data-id="{{ $producto->id }}" data-precio="{{ $producto->precio }}" onchange="actualizarSubtotal(this)">
+                                    </td>
+                                    <td><span class="subtotal-producto" id="subtotal-{{ $producto->id }}">${{ number_format($subtotal, 2) }}</span></td>
+                                    <td>
+                                        <a href="{{ route('productos.show', $producto) }}" class="btn btn-detalles btn-sm"> <i class="fas fa-eye"></i> Ver Detalles</a>
+
+                                        <!-- Formulario de eliminación independiente -->
+                                        <form action="{{ route('carrito.eliminar', $producto->id) }}" method="POST" class="d-inline-block form-eliminar-producto">
+                                            @csrf
+                                            <button type="submit" class="btn btn-basura btn-sm"><i class="fas fa-trash"></i> Eliminar</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
-                    <!-- Mostrar el total con ID -->
+
                     <div class="total">Total: $<span id="total">{{ number_format($total, 2) }}</span></div>
-                    
-                    <div class="d-flex justify-content-between mt-4">
-                        <button type="button" class="btn btn-basura btn-sm" data-route="{{ route('carrito.eliminarSeleccionados') }}" data-method="DELETE">
-                            <i class="fas fa-trash-alt"></i> Eliminar seleccionados
-                        </button>
-                        <button type="button" class="btn btn-pagar btn-sm" onclick="setAction('{{ route('carrito.pagar') }}', 'POST')">
-                            <i class="fas fa-money-bill-wave"></i> Pagar
-                        </button>
-                    </div>
+                    <!-- Campo hidden para enviar productos y sus cantidades -->
+                    <input type="hidden" name="productos" id="productos" value="">
+
+                    <!-- Botón para pagar productos seleccionados -->
+                    <button type="submit" id="btnPagar" class="btn btn-pagar btn-sm">
+                        <i class="fas fa-money-bill-wave"></i> Pagar
+                    </button>
                 </form>
-
-                <script>
-                    function setAction(route, method) {
-                        const form = document.getElementById('carritoForm');
-                        form.action = route;
-                        // Remueve cualquier input oculto previo de método
-                        const previousMethodInput = form.querySelector('input[name="_method"]');
-                        if (previousMethodInput) {
-                            previousMethodInput.remove();
-                        }
-                        // Agregar el token CSRF al formulario (si no existe)
-                        if (!form.querySelector('input[name="_token"]')) {
-                            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-                            const csrfInput = document.createElement('input');
-                            csrfInput.type = 'hidden';
-                            csrfInput.name = '_token';
-                            csrfInput.value = csrfToken;
-                            form.appendChild(csrfInput);
-                        }
-                        // Si el método es DELETE, agrega el campo `_method` con valor DELETE
-                        if (method === 'DELETE') {
-                            const deleteMethod = document.createElement('input');
-                            deleteMethod.type = 'hidden';
-                            deleteMethod.name = '_method';
-                            deleteMethod.value = 'DELETE';
-                            form.appendChild(deleteMethod);
-                        }
-                        // Agregar productos seleccionados y sus cantidades
-                        const productosSeleccionados = document.querySelectorAll('.checkbox-producto:checked');
-                        productosSeleccionados.forEach(checkbox => {
-                            const input = document.createElement('input');
-                            input.type = 'hidden';
-                            input.name = 'productos_seleccionados[]';
-                            input.value = checkbox.value;
-                            form.appendChild(input);
-
-                            const cantidadInput = checkbox.closest('tr').querySelector('.cantidad-producto');
-                            const inputCantidad = document.createElement('input');
-                            inputCantidad.type = 'hidden';
-                            inputCantidad.name = `cantidad_${checkbox.value}`;
-                            inputCantidad.value = cantidadInput.value;
-                            form.appendChild(inputCantidad);
-                        });
-                    }
-
-                    // Evento de clic en los botones para definir la acción antes de enviar
-                    document.querySelectorAll('.btn-basura, .btn-pagar').forEach(button => {
-                        button.addEventListener('click', function() {
-                            const route = button.getAttribute('data-route');
-                            const method = button.getAttribute('data-method') || 'POST';
-                            setAction(route, method);
-                            document.getElementById('carritoForm').submit(); // Enviar formulario
-                        });
-                    });
-
-                    function actualizarTotal() {
-                        let total = 0;
-                        document.querySelectorAll('.checkbox-producto').forEach(checkbox => {
-                            if (checkbox.checked) {
-                                let subtotal = parseFloat(checkbox.getAttribute('data-subtotal'));
-                                total += subtotal;
-                            }
-                        });
-                        document.getElementById('total').textContent = total.toFixed(2);
-                    }
-
-                    function actualizarSubtotal(input, productoId) {
-                        let cantidad = parseInt(input.value);
-                        let precio = parseFloat(input.closest('tr').querySelector('td:nth-child(4)').textContent.replace('$', '').trim());
-                        let subtotal = cantidad * precio;
-                        input.closest('tr').querySelector('.subtotal-producto').textContent = `$${subtotal.toFixed(2)}`;
-                        input.closest('tr').querySelector('.checkbox-producto').setAttribute('data-subtotal', subtotal);
-                        actualizarTotal();
-                    }
-
-                    // Actualiza el total en la carga inicial de la página
-                    actualizarTotal();
-                </script>
             @endif
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        actualizarTotal(); // Llamar a actualizarTotal al cargar la página para establecer el total inicial en 0 si no hay seleccionados.
+    });
+
+    function actualizarTotal() {
+        let total = 0;
+        // Obtener todos los checkboxes seleccionados
+        let checkboxes = document.querySelectorAll('.checkbox-producto:checked');
+
+        checkboxes.forEach(function(checkbox) {
+            // Obtener el subtotal guardado en el checkbox
+            let subtotal = parseFloat(checkbox.dataset.subtotal);
+            total += subtotal;
+        });
+        // Si no hay productos seleccionados, el total debe ser 0
+        if (checkboxes.length === 0) {
+            total = 0;
+        }
+        // Actualizar el total en la página
+        document.getElementById('total').innerText = total.toFixed(2);
+        // Actualizar el campo hidden con los productos seleccionados y sus cantidades
+        let productosSeleccionados = [];
+        checkboxes.forEach(function(checkbox) {
+            let cantidad = document.querySelector(`.cantidad-producto[data-id='${checkbox.value}']`).value;
+            productosSeleccionados.push({
+                id: checkbox.value,
+                cantidad: cantidad
+            });
+        });
+        document.getElementById('productos').value = JSON.stringify(productosSeleccionados);
+    }
+    // Actualizar el subtotal de cada producto
+    function actualizarSubtotal(input) {
+        let cantidad = parseFloat(input.value);
+        let precio = parseFloat(input.dataset.precio);
+        let subtotal = cantidad * precio;
+
+        // Actualizar el subtotal en la vista
+        let subtotalElemento = document.getElementById(`subtotal-${input.dataset.id}`);
+        subtotalElemento.innerText = `$${subtotal.toFixed(2)}`;
+
+        // Actualizar el data-subtotal en el checkbox para este producto
+        let checkbox = document.querySelector(`.checkbox-producto[value='${input.dataset.id}']`);
+        checkbox.dataset.subtotal = subtotal;
+
+        // Actualizar el total general
+        actualizarTotal();
+    }
+    // Eliminar el producto con AJAX sin que el checkbox interfiera
+    document.querySelectorAll('.form-eliminar-producto').forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (confirm('¿Estás seguro de que deseas eliminar este producto del carrito?')) {
+                fetch(this.action, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // Remover el producto de la tabla
+                        this.closest('tr').remove();
+                        actualizarTotal(); // Actualizar el total después de eliminar
+                    } else {
+                        alert('No se pudo eliminar el producto. Intenta de nuevo.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            }
+        });
+    });
+</script>
 @endsection

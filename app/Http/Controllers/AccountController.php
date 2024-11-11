@@ -39,10 +39,17 @@ class AccountController extends Controller
     // .................................................................................................................................. editar
     public function edit()
     {
+        $defaultProfileImages = [
+            'alien.jpg', 'angel.jpg', 'bat.jpg', 'blackCat.jpg', 'candyApple.jpg', 'candyCorn.jpg', 'clown.jpg', 'cottonCandy.jpg', 'devil.jpg',
+            'dracula.jpg', 'fairy.jpg', 'frankenstein.jpg', 'ghost.jpg', 'grimReaper.jpg', 'medusa.jpg', 'mothman.jpg', 'mummy.jpg', 
+            'mushroom.jpg', 'pirate.jpg', 'pumpkin.jpg', 'pumpkinPie.jpg', 'scarecrow.jpg', 'skeleton.jpg', 'slime.jpg', 'spider.jpg',
+            'voodoo.jpg', 'werewolf.jpg', 'witch.jpg', 'zombie.jpg'
+        ];
+
         $user = Auth::user()->load('pais');
         $paises = Pais::all();
 
-        return view('cuenta.editar-cuenta', compact('user', 'paises'));
+        return view('cuenta.editar-cuenta', compact('user', 'paises', 'defaultProfileImages'));
     }
     // .............................................................................................................................. actualizar
     public function update(Request $request)
@@ -56,6 +63,7 @@ class AccountController extends Controller
             'fecha_nacimiento' => 'required|date',
             'descripcion' => 'nullable|string',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'profile_image' => 'nullable|string'
         ]);
         // Actualización de datos
         $user = auth()->user();
@@ -68,10 +76,14 @@ class AccountController extends Controller
         $user->fecha_nacimiento = $request->fecha_nacimiento;
         $user->descripcion = $request->descripcion;
         // Manejo de la foto
-        if ($request->hasFile('foto')) {
-            // Guarda la imagen en el almacenamiento
-            $path = $request->file('foto')->store('fotos', 'public'); // Almacena en 'storage/app/public/fotos'
-            $user->foto = $path; // Asigna la ruta al campo 'foto' del usuario
+        // Verifica si se seleccionó una imagen predeterminada
+        if ($request->has('profile_image') && strpos($request->profile_image, 'default') !== false) {
+            // Guarda la ruta de la imagen predeterminada seleccionada
+            $user->foto = '/img/imagenesPerfil/' . $request->profile_image;
+        } else if ($request->hasFile('uploaded_image')) {
+            // Si el usuario subió una imagen, guárdala y actualiza la ruta en el perfil
+            $path = $request->file('foto')->store('fotos', 'public');
+            $user->foto = '/storage/' . $path;
         }
         // Guarda los cambios en la base de datos
         $user->save();
@@ -112,5 +124,16 @@ class AccountController extends Controller
         $user->save();
 
         return redirect()->route('cuenta.cambiar-contrasena')->with('status', 'Contraseña cambiada exitosamente.');
+    }
+    // ------------------------------------------------------------------------------------------------------ imagenes de perfil predeterminadas
+    public function editProfile()
+    {
+        $defaultProfileImages = [
+            'alien.jpg', 'angel.jpg', 'bat.jpg', 'blackCat.jpg', 'candyApple.jpg', 'candyCorn.jpg', 'clown.jpg', 'cottonCandy.jpg', 'devil.jpg',
+            'dracula.jpg', 'fairy.jpg', 'frankenstein.jpg', 'ghost.jpg', 'grimReaper.jpg', 'medusa.jpg', 'mothman.jpg', 'mummy.jpg',
+            'mushroom.jpg', 'pirate.jpg', 'pumpkin.jpg', 'pumpkinPie.jpg', 'scarecrow.jpg', 'skeleton.jpg', 'slime.jpg', 'spider.jpg',
+            'voodoo.jpg', 'werewolf.jpg', 'witch.jpg', 'zombie.jpg',
+        ];
+        return view('mi-cuenta', compact('defaultProfileImages'));
     }
 }

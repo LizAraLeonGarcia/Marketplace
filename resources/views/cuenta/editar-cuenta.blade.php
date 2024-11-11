@@ -31,7 +31,7 @@
                     @csrf
                     <h2 class="mb-4 text-center textos">Información personal</h2>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="nombre" class="textos">Nombre <span class="text-danger">*</span></label>
                                 <input type="text" name="nombre" id="nombre" class="form-control" 
@@ -40,7 +40,7 @@
                                 @error('nombre') <div class="alert alert-danger">{{ $message }}</div> @enderror
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="apellido" class="textos">Apellido <span class="text-danger">*</span></label>
                                 <input type="text" name="apellido" id="apellido" class="form-control" 
@@ -49,9 +49,7 @@
                                 @error('apellido') <div class="alert alert-danger">{{ $message }}</div> @enderror
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="apodo" class="textos">Apodo</label>
                                 <input type="text" name="apodo" id="apodo" class="form-control" 
@@ -60,12 +58,44 @@
                                 @error('apodo') <div class="alert alert-danger">{{ $message }}</div> @enderror
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="foto" class="textos">Foto <span class="text-danger">*</span></label>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="foto" class="textos">Foto <span class="text-danger">*</span></label>
+                            <!-- Carrusel de imágenes de perfil -->
+                            <div id="profileCarousel" class="carousel slide" data-ride="carousel">
+                                <div class="carousel-inner">
+                                    @php
+                                        $imagesPerSlide = 3;  
+                                        $chunks = array_chunk($defaultProfileImages, $imagesPerSlide);
+                                    @endphp
+
+                                    @foreach($chunks as $index => $chunk)
+                                        <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                                            <div class="d-flex justify-content-between">
+                                                @foreach($chunk as $image)
+                                                    <img src="{{ asset('img/imagenesPerfil/' . $image) }}" class="profile-preview" alt="Imagen de perfil" data-image="{{ asset('img/imagenesPerfil/' . $image) }}">
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                                <!-- Controles de navegación -->
+                                <a class="carousel-control-prev" href="#profileCarousel" role="button" data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Anterior</span>
+                                </a>
+                                <a class="carousel-control-next" href="#profileCarousel" role="button" data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Siguiente</span>
+                                </a>
+                            </div>
+                            <!-- Formulario para subir la foto personalizada -->
+                            <div class="form-group mt-3">
                                 <input type="file" name="foto" id="foto" class="form-control" accept="image/*">
                                 @error('foto') <div class="alert alert-danger">{{ $message }}</div> @enderror
-                            </div>
+                            </div> 
+                            <label for="profile_imagen" class="textos">Selecciona una imagen de perfil predeterminada o sube una propia</label> 
                         </div>
                     </div>
                     <h2 class="mb-4 text-center textos">Información Adicional</h2>
@@ -124,4 +154,15 @@
             </div>
         </div>
     </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const carousel = document.querySelector('#profileCarousel');
+        carousel.addEventListener('slid.bs.carousel', function () {
+            const activeItem = carousel.querySelector('.carousel-item.active img');
+            const selectedImage = activeItem.getAttribute('src');
+            document.querySelector('#selectedProfileImage').value = selectedImage;
+        });
+    });
+</script>
 @endsection

@@ -6,6 +6,9 @@ use App\Models\Order;
 use App\Models\Producto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Stripe\Stripe;
+use Stripe\PaymentIntent;
+use Stripe\Customer;
 
 class CarritoController extends Controller
 {
@@ -20,6 +23,13 @@ class CarritoController extends Controller
         });
         
         return view('carrito.index', compact('carritos', 'total')); 
+    }
+    // ------------------------------------------------------------------------------------------------------------- mostrar producto especifico
+    public function mostrar()
+    {
+        $usuario = Auth::user();
+        $productos = $usuario->carritos()->withPivot('cantidad')->get();
+        return view('carrito.index', compact('productos'));
     }
     // --------------------------------------------------------------------------------------------------------------------------------- agregar
     public function agregar(Request $request, $producto_id)
@@ -43,79 +53,66 @@ class CarritoController extends Controller
 
         return redirect()->route('productos.index')->with('success', 'Producto agregado al carrito');
     }
-    // -------------------------------------------------------------------------------------------------------------------------------- eliminar
-    public function eliminar($producto_id)
+    // ------------------------------------------------------------------------------------------------------------ eliminar producto especifico
+    public function eliminar($producto)
     {
-        auth()->user()->carritos()->detach($producto_id);
-        return redirect()->route('carrito.index')->with('success', 'Producto eliminado del carrito');
-    }
-    //
-    public function eliminarSeleccionados(Request $request)
-    {
-        // Validar que los productos seleccionados estén presentes
-        $request->validate([
-            'productos_seleccionados' => 'required|array|min:1',
-            'productos_seleccionados.*' => 'exists:productos,id',
-        ]);
-        // Obtener los productos seleccionados
-        $productosIds = $request->input('productos_seleccionados');
-        // Eliminar los productos seleccionados del carrito del usuario autenticado
-        Auth::user()->carritos()->detach($productosIds);
-        // Redirigir al carrito con un mensaje de éxito
-        return redirect()->route('carrito.index')->with('success', 'Productos eliminados del carrito con éxito.');
-    }
-    // ------------------------------------------------------------------------------------------------------------- mostrar producto especifico
-    public function mostrar()
-    {
-        $usuario = Auth::user();
-        $productos = $usuario->carritos()->withPivot('cantidad')->get();
-        return view('carrito.index', compact('productos'));
+        // Obtener el carrito del usuario autenticado
+        $user = auth()->user();
+        // Eliminar el producto del carrito del usuario
+        $user->carritos()->detach($producto);
+        // Redirigir con un mensaje de éxito
+        return redirect()->route('carrito.index')->with('success', 'Producto eliminado del carrito con éxito.');
     }
     // ---------------------------------------------------------------------------------------------------------------- pagar el o los productos
     public function pagar(Request $request)
     {
-        $user = auth()->user(); // Recuperar el usuario autenticado
-        // Validar que hay productos seleccionados
-        $productosSeleccionados = $request->input('productos_seleccionados', []);
-        if (empty($productosSeleccionados)) {
-            return redirect()->back()->with('error', 'No se seleccionaron productos para comprar.');
+        // Verifica que se han seleccionado productos
+        if (!$request->has('productos_seleccionados') || empty($request->productos_seleccionados)) {
+            return back()->with('error', 'No seleccionaste productos para pagar.');
         }
-        // Validar los productos seleccionados
-        $request->validate([
-            'productos_seleccionados' => 'required|array|min:1',
-            'productos_seleccionados.*' => 'exists:productos,id',
-            'cantidad_*' => 'integer|min:1',
-        ]);
-        // Crear el pedido (order)
-        $order = Order::create([
-            'buyer_id' => $user->id,
-            'status' => 'pending', // Estado de "pendiente"
-        ]);
-        // Asociar los productos seleccionados con el pedido
-        foreach ($productosSeleccionados as $productoId) {
-            $producto = Producto::find($productoId);
-            // Obtener la cantidad del producto desde el carrito
-            $cantidad = $user->carritos()->where('productos.id', $productoId)->first()->pivot->cantidad ?? 1;
-        
-            // Aquí se verifica si el producto ya está en el pedido
-            $existingOrderItem = $order->items()->where('product_id', $producto->id)->first();
-            if ($existingOrderItem) {
-                $existingOrderItem->update([
-                    'cantidad' => $existingOrderItem->cantidad + $cantidad,
-                    'precio' => $producto->precio,
-                ]);
+
+        // Obtén el usuario autenticado
+        $user = auth()->user();
+
+        // Valida los productos seleccionados
+        $productosIds = $request->input('productos_seleccionados');
+        $productos = $user->carritos()->whereIn('productos.id', $productosIds)->withPivot('cantidad')->get();
+
+        if ($productos->isEmpty()) {
+            return back()->with('error', 'No seleccionaste productos para pagar.');
+        }
+
+        // Calcula el total
+        $total = 0;
+        foreach ($productos as $producto) {
+            $total += $producto->precio * $producto->pivot->cantidad;
+        }
+
+        try {
+            // Crear el PaymentIntent con Stripe
+            Stripe::setApiKey(env('STRIPE_SECRET'));
+            $paymentIntent = PaymentIntent::create([
+                'amount' => $total * 100, // Total en centavos
+                'currency' => 'usd',
+                'customer' => $user->stripe_customer_id,
+                'payment_method' => $user->default_payment_method_id,
+                'off_session' => true,
+                'confirm' => true,
+            ]);
+
+            // Verificar si el pago fue exitoso
+            if ($paymentIntent->status == 'succeeded') {
+                // Elimina productos del carrito tras el pago exitoso
+                $user->carritos()->detach($productosIds);
+                return redirect()->route('cuenta.comprador')->with('success', 'Pago realizado con éxito.');
             } else {
-                $order->items()->create([
-                    'product_id' => $producto->id,
-                    'cantidad' => $cantidad,
-                    'precio' => $producto->precio,
-                ]);
+                return back()->with('error', 'Error al procesar el pago.');
             }
+
+        } catch (\Exception $e) {
+            // Capturar cualquier error y mostrarlo al usuario
+            return back()->with('error', 'Error al procesar el pago: ' . $e->getMessage());
         }
-        // Limpiar el carrito después de hacer el pedido
-        $user->carritos()->detach($productosSeleccionados);
-        // Redirigir al usuario a su perfil como comprador
-        return redirect()->route('carrito.index')->with('success', 'Pedido realizado con éxito.');
     }
     // metodo de pago ..........................................................................................................................
     public function checkout(Request $request)
