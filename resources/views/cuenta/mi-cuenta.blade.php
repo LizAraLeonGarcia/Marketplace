@@ -74,7 +74,13 @@
                     <div class="row">
                         <!-- Columna de la imagen -->
                         <div class="col-md-4 d-flex align-items-center justify-content-center">
-                            <img src="{{ asset('storage/' . $user->foto) }}" alt="Foto de perfil" class="img-fluid rounded-circle">
+                            @if(Str::startsWith($user->foto, 'public/imagenes'))
+                                <!-- Mostrar la foto subida por el usuario -->
+                                <img src="{{ Storage::url($user->foto) }}" alt="Foto de perfil personalizada" class="img-fluid rounded-circle" />
+                            @else
+                                <!-- Mostrar la imagen predeterminada -->
+                                <img src="{{ asset($user->foto) }}" alt="Foto de perfil predeterminada" class="img-fluid rounded-circle" />
+                            @endif
                         </div>
                         <!-- Columna de la información -->
                         <div class="col-md-8">

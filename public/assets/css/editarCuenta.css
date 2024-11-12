@@ -14,7 +14,6 @@ body {
     max-width: 960px;
     margin: 0 auto; /* Centra el contenedor */
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     overflow-x: hidden; /* Evita el desbordamiento horizontal */
 }
 
@@ -24,20 +23,19 @@ body {
     border-radius: 5px; /* Bordes redondeados */
     margin: 5px 0; /* Espacio entre elementos */
 }
-
+/* Cambia el color del encabezado */
 h1 {
-    color: #007bff; /* Cambia el color del encabezado */
+    color: #007bff; 
 }
-
+/* Asegura que los elementos ocupen el 100% del ancho */
 .form-group {
-    margin-bottom: 15px;
-    width: 100%; /* Asegúrate de que los elementos ocupen el 100% del ancho */
+    width: 100%; 
 }
 
 .alert {
     margin-top: 10px;
 }
-
+/* ********************************************************* boton para actualizar ********************************************************* */
 button.btn {
     background-color: #007bff;
     border: none;
@@ -46,31 +44,38 @@ button.btn {
     color: #fff;
     cursor: pointer;
 }
-
+/* ----------------------------------------------------------------------------------------------------------------------- al pasar el mouse */
 button.btn:hover {
     background-color: #0056b3;
 }
 /* ******************************************************** imágenes en el carrusel ******************************************************** */
 .profile-preview {
-    width: 120px;  /* Asegura que la imagen ocupe todo el ancho */
-    height: 120px;  /* Ajusta la altura proporcionalmente */
+    width: 120px;  
+    height: 120px; 
     object-fit: cover;  /* Asegura que la imagen cubra el contenedor sin distorsionarse */
+    
 }
-
+/* ---------------------------------------------------------------------------------------------------------------------- ancho del carrusel */
 .carousel {
-    position: relative;
     width: 100%;
 }
-
+.carousel-item {
+    padding: 0 55px; /* Añade espacio a los lados de cada slide */
+}
+/* ---------------------------------------------------------------------------------------- controles de anterior y siguiente en el carrusel */
 .carousel-control-prev,
 .carousel-control-next {
-    color: #fff;  /* Cambia el color de los iconos */
-    font-size: 20px;  /* Ajusta el tamaño del icono */
     background-color: rgba(0, 0, 0, 0.5);  /* Fondo semi-transparente */
+    color: #fff;  /* Cambia el color de los iconos */
+    width: 40px;  /* Define un tamaño para los botones */
+    height: 40px;
     border-radius: 50%;  /* Hace los controles redondeados */
+    top: 50%;  /* Coloca los botones en el centro vertical del carrusel */
+    transform: translateY(-50%);
+    display: flex;
+    z-index: 10;  /* Asegura que estén sobre el carrusel */
 }
-
-/* Cambiar el estilo al pasar el ratón sobre los controles */
+/* ---------------------------------------------------------------------------------- cambia el estilo al pasar el ratón sobre los controles */
 .carousel-control-prev:hover,
 .carousel-control-next:hover {
     background-color: rgba(0, 0, 0, 0.7);  /* Fondo más oscuro al pasar el ratón */

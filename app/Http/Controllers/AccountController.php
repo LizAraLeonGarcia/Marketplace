@@ -30,6 +30,12 @@ class AccountController extends Controller
                 return redirect()->route('cuenta.editar');
             }
         }
+        $defaultProfileImages = [
+            'alien.jpg', 'angel.jpg', 'bat.jpg', 'blackCat.jpg', 'candyApple.jpg', 'candyCorn.jpg', 'clown.jpg', 'cottonCandy.jpg', 'devil.jpg',
+            'dracula.jpg', 'fairy.jpg', 'frankenstein.jpg', 'ghost.jpg', 'grimReaper.jpg', 'medusa.jpg', 'mothman.jpg', 'mummy.jpg', 
+            'mushroom.jpg', 'pirate.jpg', 'pumpkin.jpg', 'pumpkinPie.jpg', 'scarecrow.jpg', 'skeleton.jpg', 'slime.jpg', 'spider.jpg',
+            'voodoo.jpg', 'werewolf.jpg', 'witch.jpg', 'zombie.jpg'
+        ];
         // Convertir fecha_nacimiento a un objeto Carbon si no es nulo
         if ($user->fecha_nacimiento) {
             $user->fecha_nacimiento = Carbon::parse($user->fecha_nacimiento);
@@ -62,8 +68,8 @@ class AccountController extends Controller
             'pais_id' => 'required|exists:paises,id',
             'fecha_nacimiento' => 'required|date',
             'descripcion' => 'nullable|string',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'profile_image' => 'nullable|string'
+            'foto' => 'nullable|string',
+            'foto_personalizada' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
         // Actualización de datos
         $user = auth()->user();
@@ -76,14 +82,14 @@ class AccountController extends Controller
         $user->fecha_nacimiento = $request->fecha_nacimiento;
         $user->descripcion = $request->descripcion;
         // Manejo de la foto
-        // Verifica si se seleccionó una imagen predeterminada
-        if ($request->has('profile_image') && strpos($request->profile_image, 'default') !== false) {
-            // Guarda la ruta de la imagen predeterminada seleccionada
-            $user->foto = '/img/imagenesPerfil/' . $request->profile_image;
-        } else if ($request->hasFile('uploaded_image')) {
-            // Si el usuario subió una imagen, guárdala y actualiza la ruta en el perfil
-            $path = $request->file('foto')->store('fotos', 'public');
-            $user->foto = '/storage/' . $path;
+        // Manejo de la imagen de perfil
+        if ($request->hasFile('foto_personalizada')) {
+            // Si se subió una foto 
+            $path = $request->file('foto_personalizada')->store('public/imagenes');
+            $user->foto = $path; // Guardar la ruta de la imagen subida
+        } else {
+            // Si no se subió foto personalizada, usar la imagen seleccionada en el carrusel
+            $user->foto = $request->input('foto'); // Ruta de la imagen predeterminada
         }
         // Guarda los cambios en la base de datos
         $user->save();

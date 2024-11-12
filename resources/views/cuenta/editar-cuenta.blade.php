@@ -74,7 +74,14 @@
                                         <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
                                             <div class="d-flex justify-content-between">
                                                 @foreach($chunk as $image)
-                                                    <img src="{{ asset('img/imagenesPerfil/' . $image) }}" class="profile-preview" alt="Imagen de perfil" data-image="{{ asset('img/imagenesPerfil/' . $image) }}">
+                                                    <div class="position-relative">
+                                                        <img src="{{ asset('img/imagenesPerfil/' . $image) }}" class="profile-preview" alt="Imagen de perfil">
+                                                        <!-- Checkbox de tipo radio para seleccionar la imagen de perfil -->
+                                                        <div class="position-absolute" style="top: 5px; right: 5px;">
+                                                            <input type="radio" name="foto" value="{{ 'img/imagenesPerfil/' . $image }}" class="form-check-input"
+                                                            {{ old('foto', $user->foto) === 'img/imagenesPerfil/' . $image ? 'checked' : '' }}>
+                                                        </div>
+                                                    </div>
                                                 @endforeach
                                             </div>
                                         </div>
@@ -92,8 +99,8 @@
                             </div>
                             <!-- Formulario para subir la foto personalizada -->
                             <div class="form-group mt-3">
-                                <input type="file" name="foto" id="foto" class="form-control" accept="image/*">
-                                @error('foto') <div class="alert alert-danger">{{ $message }}</div> @enderror
+                                <input type="file" name="foto_personalizada" id="foto_personalizada" class="form-control" accept="image/*">
+                                @error('foto_personalizada') <div class="alert alert-danger">{{ $message }}</div> @enderror
                             </div> 
                             <label for="profile_imagen" class="textos">Selecciona una imagen de perfil predeterminada o sube una propia</label> 
                         </div>
@@ -149,7 +156,7 @@
                             </ul>
                         </div>
                     @endif
-                    <button type="submit" class="btn btn-primary mb-4">Actualizar Cuenta</button>
+                    <button type="submit" class="btn btn-primary mb-4">Actualizar</button>
                 </form>
             </div>
         </div>
@@ -161,6 +168,7 @@
         carousel.addEventListener('slid.bs.carousel', function () {
             const activeItem = carousel.querySelector('.carousel-item.active img');
             const selectedImage = activeItem.getAttribute('src');
+            // Asigna la imagen seleccionada al campo oculto
             document.querySelector('#selectedProfileImage').value = selectedImage;
         });
     });
