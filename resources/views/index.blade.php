@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Marketplace - Liz Ara León García</title>
-    <link href="https://fonts.googleapis.com/css2?family=TimesNewRoman:wght@400;700&display=swap" rel="stylesheet"> <!-- Carga de la fuente -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ asset('css/main.css') }}" rel="stylesheet"> <!-- Ruta de tu CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -23,6 +22,9 @@
                     <img src="{{ asset('img/logo6.gif') }}" alt="Logo vaquita asomandose" />
                     <img src="{{ asset('img/logo7.gif') }}" alt="Logo vaquita con rosa" />
                 </div>
+                <!-- Botón de menú para pantallas pequeñas -->
+                <button class="nav-toggle" aria-label="Toggle navigation"> ☰ </button>
+                <!-- Enlaces de navegación -->
                 <ul class="nav-links">
                     <li><a href="#inicio">Inicio</a></li>
                     <li><a href="#soporte">Soporte</a></li>
@@ -72,8 +74,8 @@
                     <div class="mt-5 text-center">
                         <h5>Muchos productos disponibles y de diversas categorías aguardan. ¡Regístrese ahora y comience a explorar un mundo de productos!</h5>
                         @guest
-                            <a href="{{ route('register') }}" class="btn btn-primary">Regístrate ahora</a>
-                            <a href="{{ route('login') }}" class="btn btn-success">Iniciar sesión</a>
+                            <a href="{{ route('register') }}" class="btn btn-registro">Regístrate ahora</a>
+                            <a href="{{ route('login') }}" class="btn btn-inicioSesion">Iniciar sesión</a>
                         @endguest
                         @auth
                             <a href="{{ route('dashboard') }}" class="btn-custom-dashboard">Ir al Dashboard</a>
@@ -97,7 +99,7 @@
             </div>      
             <!-- Columna para el texto -->
             <div class="col-md-6">
-                <p class="justicado3">Aquí tienes todas las formas en que puedes ponerte en contacto con nosotros para solicitar soporte técnico.</p>
+                <p class="justicado">Aquí tienes todas las formas en que puedes ponerte en contacto con nosotros para solicitar soporte técnico.</p>
                 <ol>
                     <li>
                         <i class="fas fa-envelope" style="margin-right: 10px;"></i> <strong>Correo:</strong> 
@@ -133,17 +135,17 @@
             <div class="row">
                 <!-- Columna para el texto -->
                 <div class="col-md-6">
-                    <p class="justificado2">Es una página intuitiva con una interfaz estétitca y fácil de manejar. Cómo ya te habrás dado cuenta,
+                    <p class="justificado">Es una página intuitiva con una interfaz estétitca y fácil de manejar. Cómo ya te habrás dado cuenta,
                     especialmente si leíste el Inicio, sólo los usuarios registrados pueden acceder aquí, esto se hace para otorgarte una mayor
                     confianza y seguridad, así que, si deseas saber que te aguarda sin registrarte sólo para eso, te contamos; una vez que te
                     registras y haces Login, se te muestra:
                     </p>
                     <ol>
                         <li><i class="fas fa-info-circle"></i> Una sección llamada Dashboard,</li>
-                            <p class="justificado2">donde tú manejarás tus productos al mostrartelos en toda la pantalla, ahí cada producto 
+                            <p class="justificado">donde tú manejarás tus productos al mostrartelos en toda la pantalla, ahí cada producto 
                             tiene las opciones para editarlo, verlo o eliminarlo.</p>
                         <li><i class="fas fa-info-circle"></i> Un menú lateral en tu Dashboard,</li>
-                            <p class="justificado2">con opciones para ir a ver tu cuenta de usuario, tu perfil como vendedor, tu perfil como
+                            <p class="justificado">con opciones para ir a ver tu cuenta de usuario, tu perfil como vendedor, tu perfil como
                             comprador, los productos disponibles, crear un producto, ver tu carrito de compras, la sección de ayuda con preguntas
                             y respuestas a las dudas más comunes, además de un apartado con todas las formas en que puedes contactarnos, y hasta
                             el final una opción para cerrar sesión.</p>
@@ -154,7 +156,7 @@
                 <div class="col-md-6">
                     <img src="{{ asset('img/acerca-de.png') }}" alt="Ilustración de Marketplace">
                     <div class="mt-5">
-                        <a href="{{ route('register') }}" class="btn btn-primary">Regístrate ahora</a>
+                        <a href="{{ route('register') }}" class="btn btn-registro">Regístrate ahora</a>
                     </div>
                 </div>
             </div>
@@ -167,7 +169,17 @@
             <p>&copy; 2024B Lizbeth Araceli León García. Todos los derechos reservados.</p>
         </div>
     </footer>
-
+    <!-- ************************************************************* SCRIPTS ************************************************************* -->
     <script src="{{ asset('js/main.js') }}"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const toggleButton = document.querySelector(".nav-toggle");
+        const navLinks = document.querySelector(".nav-links");
+
+        toggleButton.addEventListener("click", function () {
+            navLinks.classList.toggle("active");
+        });
+    });
+  </script>
 </body>
 </html>

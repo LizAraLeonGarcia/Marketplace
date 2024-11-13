@@ -1,8 +1,10 @@
-/* Asegura que el body no tenga scroll adicional */
 html, body {
   height: 100%; /* Ocupa toda la pantalla */
   margin: 0; /* Elimina márgenes */
-  overflow-x: hidden; /* Evita scroll horizontal */
+}
+/* --------------------------------------------------------------- Ajuste del padding en el body para evitar que la navbar cubra el contenido */
+body {
+  padding-top: 80px; /* Igual al height de la navbar */
 }
 /* ***************************************************************** NAVBAR ***************************************************************** */
 nav {
@@ -23,6 +25,19 @@ nav {
   justify-content: space-between; /* Separa los gifs del menú */
   align-items: center; /* Alinea verticalmente */
   width: 100%;
+}
+/* ------------------------------------------------------------------------------------------------------------------ Contenedor de logotipos */
+.nav-container .logo {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 5px; /* espacio entre imágenes */
+}
+/* --------------------------------------------------------------------------------------------------------------------- Imágenes responsivas */
+.nav-container .logo img {
+  width: 70px; /* Tamaño base */
+  height: auto;
+  max-width: 100%;
 }
 /* ----------------------------------------------------------------------------------------------------------- Ajustes para los gifs de vacas */
 nav .logo {
@@ -59,19 +74,9 @@ nav .logo img {
   background: #16bff3;
   color: #ffffff;
 }
-/* ********************************************** Responsividad: Ajusta para pantallas pequeñas ********************************************** */
-@media (max-width: 768px) {
-  nav {
-    flex-direction: column; /* Cambia el flujo a vertical en pantallas pequeñas */
-    align-items: flex-start; /* Alinea a la izquierda en pantallas pequeñas */
-  }
 
-  .nav-links {
-    flex-direction: column; /* Los enlaces se apilan verticalmente */
-    width: 100%; /* Ocupa todo el ancho */
-    text-align: left; /* Alinea los enlaces a la izquierda */
-    gap: 10px; /* Espacio entre elementos en vertical */
-  }
+.nav-toggle {
+  display: none; /* Oculto por defecto */
 }
 /* ************************************************************** HEADERS , ETC ************************************************************** */
 /* Agrega un margen inferior de 20 píxeles al elemento <h1> dentro del header */
@@ -121,27 +126,6 @@ form button {
 
 form button:hover {
   background: #575757;
-}
-/* ************************************************************* Responsividad ************************************************************* */
-@media (max-width: 768px) {
-  .nav-links {
-    float: none;
-    text-align: center;
-    margin-top: 10px;
-  }
-
-  .nav-links li {
-    display: block;
-    margin: 10px 0;
-  }
-
-  header {
-    padding: 40px 0;
-  }
-
-  header h1 {
-    font-size: 2em;
-  }
 }
 /* ********************************************************** LOGOS REDES SOCIALES ********************************************************** */
 .social-icon {
@@ -235,18 +219,6 @@ ol li {
   align-items: center;
   margin-bottom: 10px;
 }
-/* Justifica el texto de los párrafos de la sección inicio */
-.justificado {
-  text-align: justify; 
-}
-/* Justifica el texto de los párrafos de la sección acerca de */
-.justificado2 {
-  text-align: justify; 
-}
-/* Justifica el texto del párrafo de la sección soporte */
-.justificado3 {
-  text-align: justify; 
-}
 /* ************************************************************* Sección soporte ************************************************************* */
 /* ---------------------------------------------------------------------------------------------------------------------------- estilo del h1 */
 .soporte h1 {
@@ -314,41 +286,47 @@ ol li {
 }
 /* ----------------------------------------------------------------- INICIO ----------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------------------- Color para el botón de Iniciar sesión */
-.inicio .btn-success {
+.inicio .btn-inicioSesion {
   background-color: #000000;
+  color: white;
   border: none;
   padding: 10px 20px;
   font-weight: bold;
   margin: 30px;
 }
 /* ------------------------------------------------------------------------ Color para el botón de Iniciar sesión cuando el cursor está en él */
-.inicio .btn-success:hover {
+.inicio .btn-inicioSesion:hover {
   background-color: #2bff00;
+  color: white;
 }
 /* ------------------------------------------------------------------------------------------------------- Color para el botón de Registrarse */
-.inicio .btn-primary {
+.inicio .btn-registro {
   background-color: #000000;
+  color: white;
   border: none;
   padding: 10px 20px;
   font-weight: bold;
   margin: 30px;
 }
 /* --------------------------------------------------------------------------- Color para el botón de Registrarse cuando el cursor está en él */
-.inicio .btn-primary:hover {
+.inicio .btn-registro:hover {
   background-color: #020061;
+  color: white;
 }
 /* ----------------------------------------------------------------- ABOUT ----------------------------------------------------------------- */
 /* ------------------------------------------------------------------------------------------------------- Color para el botón de Registrarse */
-.about .btn-primary {
+.about .btn-registro {
   background-color: #000000;
+  color: white;
   border: none;
   font-weight: bold;
   display: block; /* Cambia a block para aplicar el margin */
   margin: 0 auto; /* Centra el botón */
 }
 /* --------------------------------------------------------------------------- Color para el botón de Registrarse cuando el cursor está en él */
-.about .btn-primary:hover {
+.about .btn-registro:hover {
   background-color: #020061;
+  color: white;
 }
 /* ****************************************** Ajustes generales de espaciado para todo el contenido ****************************************** */
 body {
@@ -357,11 +335,133 @@ body {
   margin: 0;
   background-color: #f8f9fa;
 }
-/* **************************************************** Mayor espaciado entre los enlaces **************************************************** */
+/* ******************************************************** Espaciado entre enlaces ******************************************************** */
 .nav-links a {
   padding: 10px 20px; 
 }
-/* ************************************************* Ocultar todas las secciones por defecto ************************************************* */
+/* ********************************* Permitir que las imágenes y videos se adapten al ancho del contenedor ********************************* */
+img, video {
+  max-width: 100%;
+  height: auto; 
+}
+/* ************************************************** Justificar el texto de los párrafos ************************************************** */
+.justificado {
+  text-align: justify; 
+}
+/* ************************************************************* Responsividad ************************************************************* */
+/* ---------------------------------------------------------- Pantallas  medianas ---------------------------------------------------------- */
+@media (min-width: 600px) and (max-width: 992px)  {
+  .navbar {
+      padding: 0.5rem 1rem; /* Ajusta el espacio alrededor del navbar */
+      position: relative; /* Evitar que se quede fijo si está con "fixed" */
+      z-index: 10; /* Asegúrate de que el navbar esté en el frente */
+  }
+  /* Ajustar el logo para que no sea tan grande */
+  .nav-container .logo img {
+      max-width: 100px; /* Asegúrate de que las imágenes no sean demasiado grandes */
+      margin: 0 auto; /* Centra las imágenes si es necesario */
+  }
+  .nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;    
+    flex-wrap: wrap; /* Permite que los elementos se muevan a una nueva línea si es necesario */
+    padding: 0 10px; /* Reduce el padding para ganar espacio */
+  }
+  /* Tamaño del logo reducido en pantallas medianas */
+  .nav-container .logo img {
+    width: 47px; /* Reduce el tamaño de los logos */
+    margin-right: 5px; /* Ajusta el espaciado entre logos si es necesario */
+  }
+  /* Ajuste del menú desplegable */
+  .nav-links {
+    display: flex; /* Cambia a disposición en fila */
+    justify-content: space-between; /* Espacia los elementos en fila */
+    width: auto; /* Ajusta el ancho del menú */
+    padding: 0;
+    gap: 16px;
+    position: static; /* Remueve la posición absoluta para mantenerlo en línea */
+  }
+
+  /* Espaciado y alineación de los links dentro del menú */
+  .nav-links a {
+    padding: 8px 16px;
+    font-size: 16px; /* Ajusta el tamaño de fuente para pantallas medianas */
+  }
+}
+/* ---------------------------------------------------------- Pantallas  pequeñas ---------------------------------------------------------- */
+@media (max-width: 600px) {
+  /* ----------------------------------------------------------------------------------------------------------------  Ajustes de navegación */
+  .nav-toggle {
+    display: block; /* Visible solo en pantallas pequeñas */
+    position: absolute; /* Fija la posición para evitar superposición */
+    right: 10px; /* Mueve el toggle a la derecha */
+    top: 15px; /* Ajusta el espacio desde la parte superior */
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #000;
+    z-index: 1000; /* Asegura que esté encima del contenido */
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background-color: #ffffff; /* Fondo sólido para evitar transparencia */
+    position: absolute;
+    top: 50px; /* Justo debajo de la navbar */
+    left: 0;
+    z-index: 999; /* Asegura que esté encima del contenido */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px 0; /* Espaciado para los elementos del menú */
+    gap: 10px;
+  }
+  
+  .nav-links.active {
+    display: flex;
+  }
+   /* Asegura que los links tengan suficiente espacio y sean visibles */
+   .nav-links a {
+    padding: 15px 20px;
+    color: #000; /* Asegura el color negro para visibilidad */
+    width: 100%; /* Ocupa todo el ancho */
+    text-align: center; /* Centra el texto */
+  }
+  /* Otras mejoras generales en la navbar */
+  .nav-container .logo {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap; /* Mantén los logos en una sola línea */
+  }
+
+  .nav-container .logo img {
+    width: 45px; /* Tamaño reducido en pantallas pequeñas */
+  }
+
+  .logo {
+    object-fit: contain;
+  }
+  /* Otros ajustes de secciones y botones */
+  section {
+    padding: 60px 10px;
+  }
+
+  h1, h2 {
+    font-size: 1.5em;
+  }
+
+  p {
+    font-size: 1em;
+  }
+  /* Footer */
+  footer {
+    padding: 20px 10px;
+    font-size: 0.8em;
+  }
+}
+/* ************************************************* Oculta todas las secciones por defecto ************************************************* */
 .section {
   display: none; 
 }

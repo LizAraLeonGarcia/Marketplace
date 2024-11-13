@@ -4,9 +4,10 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>@yield('title', 'Vaquita Marketplace')</title>
-    <!-- Bootstrap CSS -->
+    <!-- --------------------------------------------------------------- CSS --------------------------------------------------------------- -->
+    <!-- ------------------------------------------------------------------------------------------------------------------------- Bootstrap -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <!-- CSS -->
+    <!-- ---------------------------------------------------------------------------------------------------------- para la página de inicio -->
     <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/dashboard.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/productos.css') }}" rel="stylesheet">
@@ -17,13 +18,12 @@
             height: 100%;
             margin: 0;
             padding: 0;
-            overflow-x: hidden;
-            font-family: 'Times New Roman', serif;
+            font-family: 'Times New Roman', Times, serif;
         }
 
         .container-fluid, .content {
-            min-height: 100vh; /* Asegura altura completa */
-            width: 100%;      /* Asegura ancho completo */
+            min-height: 100vh;      /* altura completa */
+            width: 100%;            /* ancho completo */
         }
 
         .row {
