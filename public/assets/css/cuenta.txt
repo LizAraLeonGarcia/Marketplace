@@ -11,7 +11,7 @@ html, body {
 }
 
 .menu-lateral {
-    width: 250px;
+    width: 230px;
     background-color: #f8f9fa;
     padding: 20px;
     border-right: 1px solid #dee2e6;
@@ -23,6 +23,6 @@ html, body {
     flex-grow: 1; /* El contenido principal ocupará el espacio restante */
     padding: 20px;
     overflow-y: auto;
-    background-color: #fff;
+    background-color: #ff0202;
     box-sizing: border-box;
 }

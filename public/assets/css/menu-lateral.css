@@ -1,0 +1,140 @@
+/* Estilo para el botón de menú */
+.btn-menuLateralPantallasPequeñas {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+}
+/* ************************************************************** Menú lateral ************************************************************** */
+.custom-menu {
+    background-color: #000000; /* Color de fondo del menú */
+    color: white; /* Color del texto */
+    width: 230px; /* Ajusta el ancho del menú */
+    height: 100vh; /* Ocupar toda la altura de la ventana */
+    padding: 0; /* Elimina el padding */
+    position: fixed; /* Fija el menú en su posición */
+    top: 0; /* Se alinea al borde superior */
+    bottom: 0; /* Se extiende hasta el borde inferior */
+    left: 0; /* Se alinea al borde izquierdo */
+    overflow-y: auto; /* Permite el desplazamiento vertical si es necesario */
+}
+/* -------------------------------------------------------------------------------------------- Estilos de los elementos de la lista del menú */
+.custom-menu .list-group-item {
+    background-color: transparent; /* Fondo transparente */
+    color: #c1c6ca; /* Color del texto */
+    border: none; /* Sin borde */
+    transition: background-color 0.3s, color 0.3s; /* Transición suave */
+    margin-bottom: 5px; /* Espaciado entre elementos */
+}
+/* ------------------------------------------------------------------------------------------------------------- Efecto hover sobre los ítems */
+.custom-menu .list-group-item:hover {
+    background-color: gold; /* Color al pasar el ratón */
+    color: rgb(0, 0, 0); /* Asegurar que el texto siga siendo visible */
+}
+/* ------------------------------------------------------------------------------------------------------------------------------- texto MENÚ */
+.custom-menu .list-group-item.active {
+    background-color: #ff20c7;
+    color: white; /* Texto blanco para resaltar */
+    text-align: center;  
+}
+/* ------------------------------------------------------------------------------------------------------------------- Botón de cerrar sesión */
+.btn-link-danger {
+    background-color: #a80616; /* Color de fondo personalizado */
+    color: white; /* Color del texto */
+    font-weight: bold; /* Negrita */
+    text-align: center; /* Centra el texto dentro del botón */
+    border-radius: 5px; /* Bordes redondeados */
+    display: block; /* Ocupa todo el ancho disponible */
+    width: 100%; /* Asegura que ocupe todo el ancho del contenedor */
+}
+/* Al pasar el mouse */
+.btn-link-danger:hover {
+    background-color: #ff0019; /* Color de fondo */
+    color: white; /* Mantener el texto en blanco */
+}
+/* --------------------------------------------------------------------------------------------------- Estilo de la imagen en el menú lateral */
+.sidebar-header img {
+    width: 200px; 
+    height: auto;
+    margin-bottom: 10px; /* Espaciado inferior */
+}
+/* ************************************************************* RESPONSIVIDAD ************************************************************* */
+@media (min-width: 768px) {
+    .custom-menu {
+        width: 230px;
+        height: 100vh;
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 1000;
+        text-align: center;
+    }
+}
+/* -------------------------------------------------------------------------------------- Pantallas pequeñas (móviles y tablets en portrait) */
+@media (max-width: 767px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    .custom-menu {
+        width: 167px;
+        height: 100vh;
+        position: fixed;
+        left: -167px; /* Oculta el menú fuera de la pantalla */
+        transition: left 0.3s ease;
+        text-align: center;
+    }
+    /* Muestra el menú cuando tiene la clase .menu-visible */
+    .custom-menu.menu-visible {
+        left: 0;
+    }
+    /* Estilos de los elementos del menú */
+    .custom-menu .list-group-item {
+        font-size: 1rem; 
+        display: flex;
+        align-items: center;
+    }
+    /* Botón de menú solo en pantallas pequeñas */
+    .menu-toggle {
+        display: block;
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        z-index: 1100;
+        background-color: #ff20c7;
+        color: #fff;
+        padding: 10px;
+        cursor: pointer;
+    }
+}
+/* ------------------------------------------------------------------------------------------------------------------ Pantallas muy pequeñas */
+@media (max-width: 480px) {
+    .menu-toggle {
+        display: block;
+    }
+    
+    .custom-menu, .custom-menu.menu-visible {
+        width: 167px;
+        height: 100vh;
+        left: -167px;
+    }
+    /* Cuando el menú está visible */
+    .custom-menu.menu-visible {
+        left: 0; /* Muestra el menú */
+        z-index: 1000;
+    }
+
+    .custom-menu .list-group-item {
+        background-color: transparent; /* Fondo transparente */
+        color: #c1c6ca; /* Color del texto */
+        border: none; /* Sin borde */
+        transition: background-color 0.3s, color 0.3s; /* Transición suave */
+        margin-bottom: 5px; /* Espaciado entre elementos */
+    }
+}

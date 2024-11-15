@@ -3,14 +3,6 @@
 @section('title', 'Vaquita Marketplace')
 
 @section('content')
-<style>
-    .col-md-9, .col-lg-10 {
-        padding: 0; /* eliminar el padding para evitar espacios innecesarios */
-        min-height: 100vh; /* área principal ocupa toda la altura */
-        margin-left: 230px; /* área principal después del menú */
-        background-color: #c1c6ca; /* color de fondo del body */
-    }
-</style>
 
     @if (session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -32,30 +24,21 @@
             @include('partials.menu-lateral') <!-- Menú lateral -->
         </div>
         <!-- Contenido -->
-        <div class="col">
+        <div class="contenidoPrincipal">
             <h2 class="mb-4" class="text-center display-4">Mi cuenta</h2>
             <!-- Contenedor con imágenes y navegación -->
             <div class="d-flex align-items-center justify-content-between mb-4">
                 <!-- Imagen izquierda -->
-                <img src="{{ asset('assets/img/miCuenta1.png') }}" alt="Icono izquierdo" class="img-fluid" style="height: 240px;">
-                <nav>
-                    <ul class="nav nav-pills mb-4">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="{{ route('cuenta.editar') }}">Editar cuenta</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="{{ route('cuenta.cambiar-contrasena.form') }}">Cambiar contraseña</a>    
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="{{ route('metodo-de-pago.show') }}">Metodo de pago</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="{{ route('cuenta.eliminar.form') }}">Eliminar mi cuenta</a>    
-                        </li>
-                    </ul>
-                </nav>    
+                <img src="{{ asset('assets/img/miCuenta1.png') }}" alt="Icono izquierdo" class="img-fluid mx-3" style="max-width: 200px; height: auto;">
+                <!-- botones -->
+                <div class="d-flex align-items-center justify-content-between mb-4 contenedor-botones">
+                    <a href="{{ route('cuenta.editar') }}" class="btn btn-editarCuenta">Editar cuenta</a>
+                    <a href="{{ route('cuenta.cambiar-contrasena.form') }}" class="btn btn-cambiarContraseña">Cambiar contraseña</a>    
+                    <a href="{{ route('metodo-de-pago.show') }}" class="btn btn-metodoPago">Método de pago</a>
+                    <a href="{{ route('cuenta.eliminar.form') }}" class="btn btn-eliminarCuenta" >Eliminar mi cuenta</a>  
+                </div>  
                 <!-- Imagen derecha -->
-                <img src="{{ asset('assets/img/miCuenta2.png') }}" alt="Icono derecho" class="img-fluid" style="height: 200px;">
+                <img src="{{ asset('assets/img/miCuenta2.png') }}" alt="Icono derecho" class="img-fluid mx-3" style="max-width: 200px; height: auto;">
             </div>
             <!-- Verificar si el usuario ha completado los campos obligatorios -->
             @if (empty($user->sexo) || empty($user->pais) || empty($user->fecha_nacimiento) || empty($user->nombre) || empty($user->apellido))
@@ -76,10 +59,10 @@
                         <div class="col-md-4 d-flex align-items-center justify-content-center">
                             @if(Str::startsWith($user->foto, 'public/imagenes'))
                                 <!-- Mostrar la foto subida por el usuario -->
-                                <img src="{{ Storage::url($user->foto) }}" alt="Foto de perfil personalizada" class="img-fluid rounded-circle" />
+                                <img src="{{ Storage::url($user->foto) }}" alt="Foto de perfil personalizada" class="img-fluid rounded-circle border border-3" style="max-width: 350px; height: auto;" />
                             @else
                                 <!-- Mostrar la imagen predeterminada -->
-                                <img src="{{ asset($user->foto) }}" alt="Foto de perfil predeterminada" class="img-fluid rounded-circle" />
+                                <img src="{{ asset($user->foto) }}" alt="Foto de perfil predeterminada" class="img-fluid rounded-circle border border-3" style="max-width: 350px; height: auto;" />
                             @endif
                         </div>
                         <!-- Columna de la información -->

@@ -1,0 +1,124 @@
+/* ***************************************************** Estilos generales para botones ***************************************************** */
+.btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+/* ----------------------------------------------------------------------------------------------------- Estilo para el botón 'Editar cuenta' */
+.btn-editarCuenta {
+    background-color: #0065d1;
+    color: #c1c6ca;
+    border: 2px solid #0065d1;
+}
+.btn-editarCuenta:hover {
+    background-color: white;
+    color: #007bff;
+    border-color: #007bff;
+}
+/* ------------------------------------------------------------------------------------------------ Estilo para el botón 'Cambiar contraseña' */
+.btn-cambiarContraseña {
+    background-color: #e0a800;
+    color: #c1c6ca;
+    border: 2px solid #e0a800;
+}
+.btn-cambiarContraseña:hover {
+    background-color: white;
+    color: #ffc107;
+    border-color: #ffc107;
+}
+/* ---------------------------------------------------------------------------------------------------- Estilo para el botón 'Método de pago' */
+.btn-metodoPago {
+    background-color: #009b24;
+    color: #c1c6ca;
+    border: 2px solid #009b24;
+}
+.btn-metodoPago:hover {
+    background-color: white;
+    color: #01bd2d;
+    border-color: #01bd2d;
+}
+/* --------------------------------------------------------------------------------------------------- Estilo para el botón 'Eliminar cuenta' */
+.btn-eliminarCuenta {
+    background-color: #a50919;
+    color: #c1c6ca;
+    border: 2px solid #a50919;
+}
+.btn-eliminarCuenta:hover {
+    background-color: white;
+    color: #c90014;
+    border-color: #c90014;
+}
+/* ------------------------------------------------------------------------------------- Estilo para los botones en el contenedor de imágenes */
+.contenedor-botones {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+/* IMAGENES */
+img {
+    width: 100%;      /* Esto asegura que la imagen ocupe todo el contenedor */
+    height: 200px;    /* Ajusta la altura según lo necesario */
+    object-fit: cover; /* Hace que la imagen cubra el área del contenedor sin deformarse */
+}
+/* ***************************************************************** ALERTAS ***************************************************************** */
+.alert {
+    border-radius: 10px;
+    padding: 15px;
+    font-size: 16px;
+}
+/* Alerta de éxito */
+.alert-success {
+    background-color: #199737;
+    color: white;
+}
+/* Alerta de advertencia */
+.alert-warning {
+    background-color: #dd6300;
+    color: white;
+}
+/* ************************************************************ RESPONSIVIDAD */
+/* Imágenes en pantallas pequeñas */
+@media (max-width: 768px) {
+    .content {
+        margin-left: 0;
+        padding: 5px;
+    }
+    
+    img {
+        height: 150px; /* Reduce la altura de las imágenes en pantallas más pequeñas */
+    }
+
+    .btn {
+        font-size: 14px; /* Reduce el tamaño de fuente en pantallas más pequeñas */
+        padding: 8px 16px; /* Ajusta el padding */
+    }
+
+    .contenedor-botones {
+        gap: 10px;
+    }
+}
+
+/* Imágenes en pantallas extra pequeñas (móviles) */
+@media (max-width: 480px) {
+    .content {
+        margin-left: 0;
+        padding: 5px;
+    }
+
+    img {
+        height: 120px; /* Aún más pequeñas en pantallas móviles */
+    }
+
+    .btn {
+        font-size: 12px; /* Aún más pequeño en móviles */
+        padding: 6px 12px; /* Ajusta el padding */
+    }
+
+    .btn {
+        width: 100%; /* Los botones ocupan todo el ancho en móviles */
+        margin-bottom: 10px; /* Añade espacio entre los botones */
+    }
+}

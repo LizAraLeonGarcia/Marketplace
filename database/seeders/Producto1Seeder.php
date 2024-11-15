@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Producto;
@@ -7,7 +9,7 @@ use App\Models\Categoria;
 use App\Models\Image;
 use Illuminate\Support\Facades\DB;
 
-class ProductoSeeder extends Seeder
+class Producto1Seeder extends Seeder
 {
     public function run()
     {
