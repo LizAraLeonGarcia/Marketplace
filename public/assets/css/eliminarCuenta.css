@@ -1,0 +1,98 @@
+/* Estilo de la parte izquierda (formulario y texto) */
+.formulario {
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.alert {
+    background-color: #d85600;
+    color: #ffffff;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.parrafoConfirmar {
+    text-align: center;
+}
+
+.eliminar-form button {
+    background-color: #a80011;
+    color: white;
+    font-size: 1.2rem;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+.eliminar-form button:hover {
+    background-color: #ff0019;
+}
+
+.btn-cancelarEliminarCuenta {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 25px;
+    background-color: #00427c !important;
+    color: white;
+    font-size: 1rem;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn-cancelarEliminarCuenta:hover {
+    background-color: #006cbe !important;
+    color: #ffffff !important;
+}
+
+/* Estilo de la parte derecha (imagen) */
+.imagen {
+    flex: 1;
+    max-width: 450px;
+    display: flex;
+    justify-content: center;
+}
+
+.imagen img {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    border-radius: 8px;
+}
+
+/* Responsividad */
+@media screen and (max-width: 768px) {
+    .content {
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+    .formulario {
+        width: 90%;
+    }
+    .imagen {
+        display: none; /* Ocultar la imagen en pantallas pequeñas */
+    }
+}
+
+@media screen and (max-width: 480px) {
+    h2 {
+        font-size: 1.5rem;
+    }
+    .eliminar-form button {
+        font-size: 1rem;
+        padding: 12px 20px;
+    }
+    .btn-cancelar {
+        font-size: 1rem;
+        padding: 8px 20px;
+    }
+}

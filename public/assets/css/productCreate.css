@@ -1,0 +1,156 @@
+/* ********************************************* Contenedor principal ocupando toda la pantalla ********************************************* */
+.productCreate {
+    position: fixed;
+    top: 0;
+    left: 230px;
+    width: calc(100% - 230px); /* ajustar el ancho descontando el ancho del menú */        
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('/img/fondoFormCreate.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: 0;
+    gap: 20px; /* Espaciado entre las imágenes y el formulario */
+    box-sizing: border-box; /* asegurar que el padding no reduzca el tamaño del contenedor */
+}
+/* ------------------------------------------------------- contenedor para formulario ------------------------------------------------------- */
+.contenidoProductCreate {
+    padding: 40px;
+    border-radius: 15px;
+    background: none; /* Elimina el fondo del formulario */
+    width: 100%;
+    max-width: 550px;
+    max-height: 100vh; /* Abarca todo el alto de la pantalla */
+    box-sizing: border-box;
+    overflow-y: auto; /* Permite desplazarse si el contenido excede la altura */
+}
+/* ***************************************************************** Header ***************************************************************** */
+h1 {
+    text-align: center;
+    color: black;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+h3 {
+    text-align: center;
+    color: black;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+/* --------------------------------------------------------------- formulario --------------------------------------------------------------- */
+.form-create {
+    margin-bottom: 20px;
+}
+
+.productCreate form {
+    background-color: transparent; 
+    border-color: transparent;
+    padding: 0; /* Espaciado interno */
+    margin: 0; /* Elimina el margen */
+    width: 100%; 
+    max-width: 600px; /* Máximo ancho del formulario */
+}
+/* ----------------------------------------------------------------------------------------------------------- para los campos del formulario */
+.form-create label {
+    background-color: rgba(255, 255, 255, 0.8);
+    color: #333;
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.form-create input, .form-create textarea, .form-create select {
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%; 
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+/* ------------------------------------------------------------------- para los mensajes de alerta cuando un campo se llena mal o no se llena */
+.alert-danger {
+    color: #b02a37;
+    background-color: rgba(255, 200, 200, 0.8);
+    border: 1px solid #b02a37;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 5px;
+    font-size: 0.9em;
+}
+/* ***************************************************************** Button ***************************************************************** */
+/* ----------------------------------------------------------------------------------------------------------------------------------- editar */
+.btn-crear {
+    background-color: #125800 !important;
+    color: white !important;
+}
+
+.btn-crear:hover {
+    background-color: #13ad27 !important; /* Color al pasar el mouse */
+    color: white !important;
+}
+/* --------------------------------------------------------------------------------------------------------------------------------- cancelar */
+.btn-cancelarCreacion {
+    background-color: #830000;
+    color: white;
+}
+
+.btn-cancelarCreacion:hover {
+    background-color: #b40000; /* Color al pasar el mouse */
+    color: white;
+}
+/* --------------------------------------------------------- imagenes de adorno --------------------------------------------------------- */
+.productCreate .image-container {
+    display: flex;
+    justify-content: center; /* Centra las imágenes horizontalmente */
+    align-items: center; /* Centra las imágenes verticalmente */
+    gap: 10px; /* Espaciado entre imágenes */
+    margin-top: 30px; /* Separación respecto a los botones */
+}
+
+.productCreate .image-container img {
+    width: 150px; /* Ancho fijo para las imágenes */
+    height: auto;
+}
+/* *********************************************************** DISEÑO  RESPONSIVO *********************************************************** */
+/* ------------------------------------------------------------------------------------------------------------ Pantallas medianas (tabletas) */
+@media (max-width: 1024px) {
+    .productCreate {
+        flex-direction: column; /* Cambia a disposición vertical */
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        gap: 15px;
+    }
+
+    .contenidoProductCreate {
+        max-width: 90%; /* Reduce el ancho máximo del formulario */
+        padding: 20px; /* Ajusta el padding */
+    }
+
+    .productCreate .image-container img {
+        width: 90px; /* Ancho fijo para las imágenes */
+        height: auto;
+    }
+}
+/* ------------------------------------------------------------------------------------------------------------- Pantallas pequeñas (móviles) */
+@media (max-width: 768px) {
+    .productCreate {
+        left: 0;
+        width: 100%;
+        flex-direction: column; /* Disposición completamente vertical */
+    }
+
+    .contenidoProductCreate {
+        max-width: 95%; /* Abarca casi todo el ancho disponible */
+        padding: 15px;
+    }
+
+    .productCreate .image-container img {
+        display: none;
+    }
+}

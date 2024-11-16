@@ -1,0 +1,160 @@
+/* ********************************************* Contenedor principal ocupando toda la pantalla ********************************************* */
+.productEdit {
+    position: fixed;
+    top: 0;
+    left: 230px;
+    width: calc(100% - 230px); /* ajustar el ancho descontando el ancho del menú */        
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('/img/fondoFormEdit.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: 0;
+    gap: 20px; /* Espaciado entre las imágenes y el formulario */
+    box-sizing: border-box; /* asegurar que el padding no reduzca el tamaño del contenedor */
+}
+/* ------------------------------------------------------- contenedor para formulario ------------------------------------------------------- */
+.contenidoProductEdit {
+    padding: 40px;
+    border-radius: 15px;
+    background: none; /* Elimina el fondo del formulario */
+    width: 100%;
+    max-width: 550px;
+    max-height: 100vh; /* Abarca todo el alto de la pantalla */
+    box-sizing: border-box;
+    overflow-y: auto; /* Permite desplazarse si el contenido excede la altura */
+}
+/* ***************************************************************** Header ***************************************************************** */
+h2, h4 {
+    margin: 10px 0; 
+    color: #000000;
+    text-align: center;
+}
+
+h4 {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 5px;
+    padding: 5px;
+}
+/* ****************************************************************** Form ****************************************************************** */
+.productEdit form {
+    background-color: transparent; 
+    border-color: transparent;
+    padding: 0; /* Espaciado interno */
+    margin: 0; /* Elimina el margen */
+    width: 100%; 
+    max-width: 600px; /* Máximo ancho del formulario */
+}
+
+.form-Edit {
+    margin-bottom: 15px; 
+}
+
+.form-Edit label {
+    display: inline-block;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 5px;
+    border-radius: 5px;
+    color: #333;
+}
+
+.form-Edit input, .form-Edit textarea, .form-Edit select {
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%; 
+}
+/* ***************************************************************** Button ***************************************************************** */
+.productEdit .btn-container {
+    display: flex;
+    justify-content: space-between; /* Distribuye los botones con espacio uniforme */
+    gap: 10px; /* Espaciado entre botones */
+    margin-top: 20px; /* Separación respecto al formulario */
+}
+/* ----------------------------------------------------------------------------------------------------------------------------------- editar */
+.btn-actualizar {
+    background-color: #5f3400 !important;
+    color: white !important;
+}
+
+.btn-actualizar:hover {
+    background-color: #0164c0 !important; /* Color al pasar el mouse */
+    color: white !important;
+}
+/* --------------------------------------------------------------------------------------------------------------------------------- cancelar */
+.btn-cancelar {
+    background-color: #5f3400;
+    color: white;
+}
+
+.btn-cancelar:hover {
+    background-color: rgb(204, 82, 0); /* Color al pasar el mouse */
+    color: white;
+}
+/* --------------------------------------------------------------------------------------------------------------------------------- eliminar */
+.delete-btn-container {
+    display: flex;
+    justify-content: center;
+    text-align: center;  /* Centra el contenido dentro del contenedor */
+    margin-top: 0;
+    margin-bottom: 0; /* Elimina cualquier margen en la parte inferior */
+    padding: 0;
+}
+/* **************************************************************** Imagenes **************************************************************** */
+.productEdit .image-container {
+    display: flex;
+    justify-content: center; /* Centra las imágenes horizontalmente */
+    align-items: center; /* Centra las imágenes verticalmente */
+    gap: 10px; /* Espaciado entre imágenes */
+    margin-top: 30px; /* Separación respecto a los botones */
+}
+
+.productEdit .image-container img {
+    width: 150px; /* Ancho fijo para las imágenes */
+    height: auto;
+}
+/* *********************************************************** Color de asterisco *********************************************************** */
+.text-danger {
+    color: red; 
+}
+/* *********************************************************** DISEÑO  RESPONSIVO *********************************************************** */
+/* ------------------------------------------------------------------------------------------------------------ Pantallas medianas (tabletas) */
+@media (max-width: 1024px) {
+    .productEdit {
+        flex-direction: column; /* Cambia a disposición vertical */
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        gap: 15px;
+    }
+
+    .contenidoProductEdit {
+        max-width: 90%; /* Reduce el ancho máximo del formulario */
+        padding: 20px; /* Ajusta el padding */
+    }
+
+    .productEdit .image-container img {
+        width: 90px; /* Ancho fijo para las imágenes */
+        height: auto;
+    }
+}
+/* ------------------------------------------------------------------------------------------------------------- Pantallas pequeñas (móviles) */
+@media (max-width: 768px) {
+    .productEdit {
+        left: 0;
+        width: 100%;
+        flex-direction: column; /* Disposición completamente vertical */
+    }
+
+    .contenidoProductEdit {
+        max-width: 95%; /* Abarca casi todo el ancho disponible */
+        padding: 15px;
+    }
+
+    .productEdit .image-container img {
+        display: none;
+    }
+}

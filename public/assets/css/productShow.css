@@ -1,0 +1,165 @@
+/* ********************************************* Contenedor principal ocupando toda la pantalla ********************************************* */
+.productShow {
+    position: fixed;
+    top: 0;
+    left: 230px;
+    width: calc(100% - 230px); /* ajustar el ancho descontando el ancho del menú */        
+    min-height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-image: url('/img/fondoShow.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: 0;
+    gap: 20px; /* Espaciado entre las imágenes y el formulario */
+    box-sizing: border-box; /* asegurar que el padding no reduzca el tamaño del contenedor */
+}
+/* *************************************************** Contenedor formulario para centrar *************************************************** */
+.contenidoProductShow {
+    padding: 40px;
+    border-radius: 15px;
+    background: none; /* Elimina el fondo del formulario */
+    width: 100%;
+    max-width: 550px;
+    max-height: 100vh; /* Abarca todo el alto de la pantalla */
+    box-sizing: border-box;
+    overflow-y: auto; /* Permite desplazarse si el contenido excede la altura */
+}
+
+.product-image {
+    max-width: 100%;
+    height: auto;
+}
+/* Ajuste del texto y botones en el cuerpo del formulario */
+.card-header {
+    background: none;
+    color: black;
+    text-align: center;
+}
+
+.card-body {
+    background: none;
+    text-align: justify;
+}
+/* ****************************************************** Para el carrusel de imágenes ****************************************************** */
+.carousel-inner {
+    max-height: 400px; /* Limita la altura máxima del carrusel */
+    margin-bottom: 20px; /* Agrega un margen inferior para separar el carrusel del texto siguiente */
+}
+
+.carousel-item img {
+    width: 100%; /* Asegura que las imágenes ocupen el ancho completo del contenedor */
+    height: 400px; /* Mantiene la proporción de la imagen */
+    max-height: 100%; /* Limita la altura máxima de las imágenes al 100% del contenedor */
+    object-fit: contain; /* Asegura que la imagen cubra el contenedor sin distorsionarse */
+}
+/* Ajustes para los botones de control del carrusel */
+.carousel-control-prev, .carousel-control-next {
+    width: 50px;
+    height: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+    border-radius: 50%; /* Botones redondos */
+    margin-left: -20px; 
+    margin-right: -20px;
+    }
+/* Iconos de flechas en los botones */
+    .carousel-control-prev-icon, .carousel-control-next-icon {
+    width: 20px;
+    height: 20px;
+    background-size: 100%;
+    }
+/* Espaciado y ajuste visual de los botones de navegación */
+    .carousel-control-prev {
+        left: -60px; /* Se mueve un poco hacia la izquierda */
+    }
+    .carousel-control-next {
+        right: -60px; /* Se mueve un poco hacia la derecha */
+    }
+/* *********************************************************** Para img laterales *********************************************************** */
+.side-image {
+    width: 200px; /* Ajusta el tamaño según sea necesario */
+    height: auto; /* Mantiene la proporción */
+}
+
+.left-image {
+    position: relative; /* Asegura que esté dentro del flujo del flexbox */
+}
+
+.right-image {
+    position: relative; /* Asegura que esté dentro del flujo del flexbox */
+}
+/* ***************************************************************** BUTTON ***************************************************************** */
+.productShow .button-container {
+    display: flex;
+    justify-content: space-between; 
+    gap: 10px; /* Espaciado entre los botones */
+}
+/* ----------------------------------------------------------------------------------------------------------------------------------- editar */
+.btn-editProductShow {
+    background-color: #f06292; /* rosa bajito */
+    border-color: white;
+    color: white;
+}
+
+.btn-editProductShow:hover {
+    background-color: blue; /* Color al pasar el mouse */
+    color: white;
+}
+/* --------------------------------------------------------------------------------------------------------------------------------- eliminar */
+.btn-deleteProductShow {
+    background-color: #f06292 !important; /* rosa bajito */
+    color: white;
+}
+
+.btn-deleteProductShow:hover {
+    background-color: red !important; /* Color al pasar el mouse */
+    color: white;
+}
+/* *********************************************************** DISEÑO  RESPONSIVO *********************************************************** */
+/* ------------------------------------------------------------------------------------------------------------ Pantallas medianas (tabletas) */
+@media (max-width: 1024px) {
+    .productShow {
+        flex-direction: column; /* Cambia a disposición vertical */
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        gap: 15px;
+    }
+
+    .contenidoProductShow {
+        max-width: 90%; /* Reduce el ancho máximo del formulario */
+        padding: 20px; /* Ajusta el padding */
+    }
+
+    .side-image {
+       display: none;
+    }
+}
+/* ------------------------------------------------------------------------------------------------------------- Pantallas pequeñas (móviles) */
+@media (max-width: 768px) {
+    .productShow {
+        left: 0;
+        width: 100%;
+        flex-direction: column; /* Disposición completamente vertical */
+    }
+
+    .contenidoProductShow {
+        max-width: 95%; /* Abarca casi todo el ancho disponible */
+        padding: 15px;
+    }
+
+    .side-image {
+        display: none; /* Oculta las imágenes laterales en móviles */
+    }
+
+    .carousel-inner {
+        max-height: 250px; /* Ajusta la altura del carrusel en pantallas pequeñas */
+    }
+
+    .carousel-item img {
+        height: auto; /* Permite que las imágenes se ajusten proporcionalmente */
+    }    
+}

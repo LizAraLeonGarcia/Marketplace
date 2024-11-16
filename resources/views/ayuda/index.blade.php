@@ -5,7 +5,7 @@
 <div class="container-fluid">
     <div class="row">
         <!-- Menú lateral -->
-        <div class="custom-menu {{ request()->is('productos/create') || request()->is('productos/*/edit') || request()->is('productos/*') ? 'd-none' : '' }}">
+        <div class="custom-menu">
             @include('partials.menu-lateral') <!-- Menú lateral -->
         </div>
         <!-- Contenido -->
@@ -135,7 +135,7 @@
                     <img src="{{ asset('assets/img/ayuda.png') }}" alt="Ilustración de soporte" class="img-fluid" style="width: 100%; max-width: 400px;">
                 </div>
             </div>
-            <h3 class="text-center">¡No tardaremos en ayudarte!, por favor, ¡sé paciente!</h5>
+            <h5 class="text-center">¡No tardaremos en ayudarte!, por favor, ¡sé paciente!</h5>
         </div>
     </div>
 </div>

@@ -1,34 +1,86 @@
-body {
+/* ********************************************* Contenedor principal ocupando toda la pantalla ********************************************* */
+.editarCuenta {
+    position: fixed;
+    top: 0;
+    left: 230px;
+    width: calc(100% - 230px); /* ajustar el ancho descontando el ancho del menú */        
+    min-height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
     background-image: url('/img/fondoEditarCuenta.jpg');
-    background-repeat: no-repeat; /* Evita que la imagen se repita */
     background-size: cover;
     background-position: center;
-    color: #333;
-    font-family: 'Times New Roman', serif;
-    margin: 0; /* Elimina el margen por defecto */
-    padding: 0; /* Elimina el padding por defecto */
-    overflow-x: hidden; /* Oculta la barra de desplazamiento horizontal */
+    padding: 20px;
+    gap: 20px; /* Espaciado entre las imágenes y el formulario */
+    box-sizing: border-box; /* asegurar que el padding no reduzca el tamaño del contenedor */
 }
 
-#main-content {
-    max-width: 960px;
-    margin: 0 auto; /* Centra el contenedor */
-    text-align: center;
-    overflow-x: hidden; /* Evita el desbordamiento horizontal */
-}
-
-.textos {
-    background-color: rgba(252, 0, 0, 0.8); /* Fondo blanco semi-transparente */
-    padding: 10px; /* Espaciado interno */
-    border-radius: 5px; /* Bordes redondeados */
-    margin: 5px 0; /* Espacio entre elementos */
+.formCuenta {
+    padding: 40px;
+    border-radius: 15px;
+    background: none; /* Elimina el fondo del formulario */
+    width: 100%;
+    max-width: 600px;
+    max-height: 100vh; /* Abarca todo el alto de la pantalla */
+    box-sizing: border-box;
+    overflow-y: auto; /* Permite desplazarse si el contenido excede la altura */
 }
 /* Cambia el color del encabezado */
 h1 {
     color: #007bff; 
 }
+/* ********************************************* Imagen al lado izquierdo ********************************************* */
+.image-container {
+    max-width: 300px; /* Limita el ancho de la imagen */
+    flex-shrink: 0; /* Evita que la imagen se reduzca */
+    justify-content: flex-end; /* Alinea la imagen a la derecha */
+    align-items: flex-end; /* Alinea la imagen al fondo */
+}
+
+/* Asegura que las imágenes se ajusten dentro de su contenedor */
+.image-container img {
+    width: 220px; /* Asegura que la imagen ocupe todo el ancho del contenedor */
+    height: auto;
+    object-fit: cover; /* Asegura que la imagen cubra el contenedor sin distorsionarse */
+}
+/* ********************************************* Formulario ********************************************* */
+.editarCuenta form {
+    background-color: transparent; 
+    border-color: transparent;
+    padding: 0; /* Espaciado interno */
+    margin: 0; /* Elimina el margen */
+    width: 100%; 
+    max-width: 600px; /* Máximo ancho del formulario */
+}
+
+.form-cuentaEditar {
+    margin-bottom: 15px; 
+}
+
+.form-cuentaEditar label {
+    display: inline-block;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 5px;
+    border-radius: 5px;
+    color: #333;
+}
+
+.form-cuentaEditar input, .form-cuentaEditar textarea, .form-cuentaEditar select {
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%; 
+}
+.textos {
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco semi-transparente */
+    padding: 10px; /* Espaciado interno */
+    border-radius: 5px; /* Bordes redondeados */
+    margin: 5px 0; /* Espacio entre elementos */
+}
 /* Asegura que los elementos ocupen el 100% del ancho */
-.form-group {
+.form-cuentaEditar {
     width: 100%; 
 }
 
@@ -50,17 +102,16 @@ button.btn:hover {
 }
 /* ******************************************************** imágenes en el carrusel ******************************************************** */
 .profile-preview {
-    width: 120px;  
-    height: 120px; 
+    width: 90px;  
+    height: 90px; 
     object-fit: cover;  /* Asegura que la imagen cubra el contenedor sin distorsionarse */
-    
 }
 /* ---------------------------------------------------------------------------------------------------------------------- ancho del carrusel */
 .carousel {
     width: 100%;
 }
 .carousel-item {
-    padding: 0 55px; /* Añade espacio a los lados de cada slide */
+    padding: 0 35px; /* Añade espacio a los lados de cada slide */
 }
 /* ---------------------------------------------------------------------------------------- controles de anterior y siguiente en el carrusel */
 .carousel-control-prev,
@@ -79,8 +130,4 @@ button.btn:hover {
 .carousel-control-prev:hover,
 .carousel-control-next:hover {
     background-color: rgba(0, 0, 0, 0.7);  /* Fondo más oscuro al pasar el ratón */
-}
-/* ***************************************************************************************************************************************** */
-.col-md-9, .col-lg-10 {
-    background-color: transparent;
 }

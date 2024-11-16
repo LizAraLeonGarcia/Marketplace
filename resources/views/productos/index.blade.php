@@ -253,7 +253,9 @@
                         </tbody>
                     </table>
                 </div>
-                {{ $productos->links() }} <!-- Paginación -->
+                <div class="pagination">
+                    {{ $productos->links() }} <!-- Paginación -->
+                </div>
             @else
                 <h1 class="text-center">Por favor, inicia sesión para ver los productos.</h1>
             @endif
