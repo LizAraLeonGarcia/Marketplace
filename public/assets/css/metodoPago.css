@@ -1,4 +1,4 @@
-/* Ajustes para imágenes */
+/* ------------------------------------------------------------------------------------------------------------------- Ajustes para imágenes */
 .col-md-4 img {
     width: 60%; /* Abarca el ancho completo de su contenedor */
     max-width: 300px; /* Permite que la imagen crezca según el espacio disponible */
@@ -6,8 +6,7 @@
     margin: 0 auto;
     display: block;
 }
-
-/* Formulario */
+/* ------------------------------------------------------------------------------------------------------------------------------ Formulario */
 .col-md-8 form {
     flex-grow: 1; /* Permite que el formulario crezca ocupando todo el espacio disponible */
     width: 100%; /* Asegura que ocupe todo el ancho de su columna */
@@ -18,8 +17,7 @@
     padding: 20px; /* Agrega espacio interior */
     margin-bottom: 30px; /* Asegura que haya un espacio debajo del formulario */
 }
-
-/* Contenedor general de métodos guardados */
+/* ------------------------------------------------------------------------------------------------- Contenedor general de métodos guardados */
 .saved-methods-section {
     display: flex;
     flex-wrap: wrap; /* Disposición responsiva */
@@ -33,8 +31,7 @@
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
     margin-top: 30px; /* Asegura que haya espacio arriba */
 }
-
-/* Estilo para el encabezado de métodos guardados */
+/* ------------------------------------------------------------------------------------------ Estilo para el encabezado de métodos guardados */
 .saved-methods-section h3 {
     font-size: 1.8rem; /* Tamaño de fuente ajustado */
     color: #444; /* Color de texto elegante */
@@ -42,8 +39,7 @@
     margin-bottom: 20px; /* Espacio debajo del título */
     flex-basis: 100%; /* Abarca toda la fila para centrar */
 }
-
-/* Ajuste de la tarjeta de método de pago */
+/* -------------------------------------------------------------------------------------------------- Ajuste de la tarjeta de método de pago */
 .card.payment-card {
     flex: 1; /* Permite que la tarjeta crezca según el espacio disponible */
     min-width: 280px; /* Ancho mínimo */
@@ -61,8 +57,7 @@
     transform: translateY(-5px); /* Pequeño efecto de elevación */
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15); /* Sombra más fuerte */
 }
-
-/* Imagen dentro de la tarjeta */
+/* ------------------------------------------------------------------------------------------------------------- Imagen dentro de la tarjeta */
 .saved-methods-section .col-md-4 img {
     width: 70%; /* Tamaño ajustado para encajar mejor */
     max-width: 200px; /* Máximo ancho */
@@ -70,17 +65,14 @@
     margin: 0 auto; /* Centrado automático */
     display: block;
 }
-
-/* Asegurar que las columnas aprovechen todo el espacio disponible */
+/* --------------------------------------------------------------------------Asegurar que las columnas aprovechen todo el espacio disponible */
 .col-md-4, .col-md-8 {
     flex: 1; /* Crece proporcionalmente dentro del contenedor */
     min-width: 280px; /* Ancho mínimo */
     max-width: 100%; /* Sin límite de ancho */
 }
-
-/* RESPONSIVIDAD */
-
-/* Disposición para pantallas pequeñas */
+/* ************************************************************* RESPONSIVIDAD ************************************************************* */
+/* ---------------------------------------------------------------------------------------------------------------------- pantallas pequeñas */
 @media (max-width: 768px) {
     .col-md-8 form {
         padding: 10px; /* Reduce espacio interior en pantallas pequeñas */
@@ -103,5 +95,51 @@
 
     .col-md-4, .col-md-8 {
         min-width: 100%; /* Cada columna ocupa toda la fila */
+    }
+}
+/* ------------------------------------------------------------------------------------------------------------------- pantallas muy pequeñas*/
+@media (max-width: 480px) {
+    /* Ajustes generales */
+    .col-md-8 form {
+        padding: 5px; /* Reduce aún más el espacio interior */
+        gap: 10px; /* Menor separación entre los elementos del formulario */
+    }
+
+    .saved-methods-section h3 {
+        font-size: 1rem; /* Reduce el tamaño del texto del encabezado */
+        margin-bottom: 10px; /* Reduce el espacio inferior */
+    }
+
+    .saved-methods-section {
+        padding: 5px; /* Reduce el padding interno */
+        gap: 10px; /* Espaciado menor entre las tarjetas */
+    }
+
+    .card.payment-card {
+        padding: 10px; /* Menor espacio interno */
+        font-size: 0.9rem; /* Texto ligeramente más pequeño */
+        min-width: auto; /* Ajusta dinámicamente */
+        max-width: none; /* Sin límite de ancho */
+        box-shadow: none; /* Elimina la sombra para simplificar */
+    }
+    /* Ajuste para las imágenes */
+    .col-md-4 img, 
+    .saved-methods-section .col-md-4 img {
+        width: 80%; /* Más grande para destacar mejor en espacios pequeños */
+        max-width: 150px; /* Asegura que no ocupe demasiado */
+        margin: 0 auto;
+        display: block;
+    }
+    /* Asegura que las columnas ocupen todo el espacio */
+    .col-md-4, .col-md-8 {
+        flex: 1; /* Cada columna toma todo el ancho disponible */
+        min-width: 100%; /* Cada columna ocupa toda la fila */
+        padding: 5px; /* Reduce espacio interno */
+    }
+    /* Botones más compactos */
+    .eliminar-form button, 
+    .btn-cancelarEliminarCuenta {
+        font-size: 0.8rem; /* Reduce el tamaño de fuente */
+        padding: 8px 10px; /* Espaciado compacto */
     }
 }
