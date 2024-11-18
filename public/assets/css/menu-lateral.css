@@ -80,6 +80,14 @@
 @media (max-width: 767px) {
     .menu-toggle {
         display: block;
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        z-index: 1100; /* Aparece por encima del menú */
+        background-color: #ff20c7; /* Color del botón */
+        color: #fff; /* Color del ícono */
+        padding: 10px;
+        cursor: pointer;
     }
 
     .custom-menu {
@@ -100,41 +108,37 @@
         display: flex;
         align-items: center;
     }
-    /* Botón de menú solo en pantallas pequeñas */
-    .menu-toggle {
-        display: block;
-        position: fixed;
-        top: 10px;
-        left: 10px;
-        z-index: 1100;
-        background-color: #ff20c7;
-        color: #fff;
-        padding: 10px;
-        cursor: pointer;
-    }
 }
 /* ------------------------------------------------------------------------------------------------------------------ Pantallas muy pequeñas */
 @media (max-width: 480px) {
     .menu-toggle {
         display: block;
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        z-index: 1100; /* Aparece por encima del menú */
+        background-color: #ff20c7; /* Color del botón */
+        color: #fff; /* Color del ícono */
+        padding: 10px;
+        cursor: pointer;
     }
-    
-    .custom-menu, .custom-menu.menu-visible {
+
+    .custom-menu {
         width: 167px;
         height: 100vh;
-        left: -167px;
+        position: fixed;
+        left: -167px; /* Oculta el menú fuera de la pantalla */
+        transition: left 0.3s ease;
+        text-align: center;
     }
     /* Cuando el menú está visible */
     .custom-menu.menu-visible {
         left: 0; /* Muestra el menú */
-        z-index: 1000;
     }
-
+    /* Estilos de los elementos del menú */
     .custom-menu .list-group-item {
-        background-color: transparent; /* Fondo transparente */
-        color: #c1c6ca; /* Color del texto */
-        border: none; /* Sin borde */
-        transition: background-color 0.3s, color 0.3s; /* Transición suave */
-        margin-bottom: 5px; /* Espaciado entre elementos */
+        font-size: 1rem; 
+        display: flex;
+        align-items: center;
     }
 }

@@ -20,7 +20,7 @@
 <div class="container-fluid">
     <div class="row">
         <!-- Menú lateral -->
-        <div class="custom-menu {{ request()->is('productos/create') || request()->is('productos/*/edit') || request()->is('productos/*') || request()->is('cuenta/mi-cuenta/editar') ? 'd-none' : '' }}">
+        <div class="custom-menu">
             @include('partials.menu-lateral') <!-- Menú lateral -->
         </div>
         <!-- Contenido -->

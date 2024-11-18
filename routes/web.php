@@ -92,7 +92,7 @@ Route::middleware(['auth'])->group(function () {
     // ---------------------------------------------------------------- carrito ----------------------------------------------------------------
     Route::get('/carrito', [CarritoController::class, 'index'])->name('carrito.index');
     Route::post('/carrito/agregar/{producto}', [CarritoController::class, 'agregar'])->name('carrito.agregar'); 
-    Route::post('/carrito/eliminar/{producto}', [CarritoController::class, 'eliminar'])->name('carrito.eliminar');
+    Route::delete('/carrito/eliminar/{producto}', [CarritoController::class, 'eliminar'])->name('carrito.eliminar');
     Route::post('/carrito/pagar', [CarritoController::class, 'pagar'])->name('carrito.pagar');
     Route::get('/checkout', [CarritoController::class, 'checkout'])->name('checkout');
     //Route::get('/productos/{id}/detalles', [ProductoController::class, 'detalles'])->name('productos.show');

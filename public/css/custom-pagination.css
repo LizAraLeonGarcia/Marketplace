@@ -1,0 +1,36 @@
+.custom-pagination {
+    width: 100%; /* O el tamaño del contenedor padre */
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.custom-pagination .page-item {
+    margin: 0 5px;
+}
+
+.custom-pagination .page-link {
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    color: #333;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.custom-pagination .page-link:hover {
+    background-color: #ffffff;
+    color: black;
+    border-color: #000000;
+}
+
+.custom-pagination .page-item.active .page-link {
+    background-color: #000000;
+    color: white;
+    border-color: #ffffff;
+}
+
+.custom-pagination .page-item.disabled .page-link {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

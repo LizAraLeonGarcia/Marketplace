@@ -11,11 +11,11 @@
     background-image: url('/img/fondoEditarCuenta.jpg');
     background-size: cover;
     background-position: center;
-    padding: 20px;
+    padding: 0;
     gap: 20px; /* Espaciado entre las imágenes y el formulario */
     box-sizing: border-box; /* asegurar que el padding no reduzca el tamaño del contenedor */
 }
-
+/* ******************************************************* contenedor para formulario ******************************************************* */
 .formCuenta {
     padding: 40px;
     border-radius: 15px;
@@ -30,8 +30,10 @@
 h1 {
     color: #007bff; 
 }
-/* ********************************************* Imagen al lado izquierdo ********************************************* */
+/* ******************************************************** Imagen al lado izquierdo ******************************************************** */
 .image-container {
+    position: relative;
+    top: 60px; /* Mueve el contenedor hacia abajo */
     max-width: 300px; /* Limita el ancho de la imagen */
     flex-shrink: 0; /* Evita que la imagen se reduzca */
     justify-content: flex-end; /* Alinea la imagen a la derecha */
@@ -40,11 +42,11 @@ h1 {
 
 /* Asegura que las imágenes se ajusten dentro de su contenedor */
 .image-container img {
-    width: 220px; /* Asegura que la imagen ocupe todo el ancho del contenedor */
+    width: 200px; /* Asegura que la imagen ocupe todo el ancho del contenedor */
     height: auto;
     object-fit: cover; /* Asegura que la imagen cubra el contenedor sin distorsionarse */
 }
-/* ********************************************* Formulario ********************************************* */
+/* *************************************************************** Formulario *************************************************************** */
 .editarCuenta form {
     background-color: transparent; 
     border-color: transparent;
@@ -73,6 +75,7 @@ h1 {
     padding: 10px;
     width: 100%; 
 }
+
 .textos {
     background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco semi-transparente */
     padding: 10px; /* Espaciado interno */
@@ -88,31 +91,38 @@ h1 {
     margin-top: 10px;
 }
 /* ********************************************************* boton para actualizar ********************************************************* */
-button.btn {
-    background-color: #007bff;
-    border: none;
+.btn-actualizarCuenta {
+    background-color: green;
     border-radius: 5px;
     padding: 10px 20px;
-    color: #fff;
+    color: white;
+    display: block; /* Cambia el comportamiento de inline a bloque */
+    margin: 0 auto; /* Centra horizontalmente */
     cursor: pointer;
 }
 /* ----------------------------------------------------------------------------------------------------------------------- al pasar el mouse */
-button.btn:hover {
-    background-color: #0056b3;
+.btn-actualizarCuenta:hover {
+    background-color: rgb(0, 202, 0);
+    color: white;
 }
-/* ******************************************************** imágenes en el carrusel ******************************************************** */
-.profile-preview {
-    width: 90px;  
-    height: 90px; 
-    object-fit: cover;  /* Asegura que la imagen cubra el contenedor sin distorsionarse */
-}
-/* ---------------------------------------------------------------------------------------------------------------------- ancho del carrusel */
+/* **************************************************************** CARRUSEL **************************************************************** */
+/* ----------------------------------------------------------------------------------------------------------------------- ancho del carrusel */
 .carousel {
     width: 100%;
+    display: flex; /* Asegura que los elementos del carrusel se alineen correctamente */
+    align-items: center; /* Centra verticalmente los elementos dentro del carrusel */
 }
+/* -------------------------------------------------------------------------------------------------- Añade espacio a los lados de cada slide */
 .carousel-item {
-    padding: 0 35px; /* Añade espacio a los lados de cada slide */
+    padding: 0 35px; 
 }
+/* --------------------------------------------------------------------------------------------------------------------------------- imagenes */
+.profile-preview {
+    width: 60px;  
+    height: 60px; 
+    object-fit: cover;  /* Asegura que la imagen cubra el contenedor sin distorsionarse */
+}
+/* ---------------------------------------------------------------- botones ---------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------- controles de anterior y siguiente en el carrusel */
 .carousel-control-prev,
 .carousel-control-next {

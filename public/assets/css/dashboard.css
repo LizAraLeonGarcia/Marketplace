@@ -15,32 +15,6 @@
     height: 100px; /* Alto deseado */
     object-fit: cover; /* Ajusta la imagen sin distorsionar */
 }
-/* ******************************************************* Estilo de paginación */
-.pagination {
-    display: flex;
-    justify-content: center; /* Centra la paginación */
-    align-items: center;
-    padding: 10px 0;
-    background-color: none;
-    border-top: 1px solid #fd00be; /* Línea opcional para separar visualmente */
-    z-index: 1;
-}
-
-.page-link {
-    font-size: 1rem;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-}
-
-.pagination li {
-    margin: 0 5px; /* Elimina márgenes adicionales en los elementos */
-}
-
-.page-item.active .page-link {
-    background-color: #000000;
-    color: white;
-    border-color: #000000;
-}
 /* Para tamaños de pantalla pequeños */
 @media (max-width: 768px) {
     .pagination a, .pagination span {

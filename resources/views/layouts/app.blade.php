@@ -31,9 +31,14 @@
     <link href="{{ asset('assets/css/productCreate.css') }}" rel="stylesheet">
     <!-- ---------------------------------------------------------------------------------------------------------------- editar un producto -->
     <link href="{{ asset('assets/css/productEdit.css') }}" rel="stylesheet">
-
+    <!-- ------------------------------------------------------------------------------------------------------ index de todos los productos -->
+    <link href="{{ asset('assets/css/productIndex.css') }}" rel="stylesheet">
+    <!-- ******************************************************************************************************* para la sección del carrito -->
+    <link href="{{ asset('assets/css/carritoIndex.css') }}" rel="stylesheet">
     <!-- ********************************************************************************************************** para la sección de ayuda -->
     <link href="{{ asset('assets/css/ayuda.css') }}" rel="stylesheet">
+    <!-- ************************************************************************************************************************ paginación -->
+    <link href="{{ asset('css/custom-pagination.css') }}" rel="stylesheet">
     <!-- *********************************************************************************************************************************** -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -75,9 +80,12 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('js/main.js') }}"></script>
     <!-- reemplazo del menu lateral en pantallas pequeñas -->
     <script src="{{ asset('assets/js/menuToggle.js') }}"></script>
+
+    <script src="{{ asset('assets/js/carritoIndex.js') }}"></script>
     <script src="https://js.stripe.com/v3/"></script>
 </body>
 </html>

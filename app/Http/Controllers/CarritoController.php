@@ -65,55 +65,47 @@ class CarritoController extends Controller
     }
     // ---------------------------------------------------------------------------------------------------------------- pagar el o los productos
     public function pagar(Request $request)
-    {
-        // Verifica que se han seleccionado productos
-        if (!$request->has('productos_seleccionados') || empty($request->productos_seleccionados)) {
-            return back()->with('error', 'No seleccionaste productos para pagar.');
-        }
-
-        // Obtén el usuario autenticado
-        $user = auth()->user();
-
-        // Valida los productos seleccionados
-        $productosIds = $request->input('productos_seleccionados');
-        $productos = $user->carritos()->whereIn('productos.id', $productosIds)->withPivot('cantidad')->get();
-
-        if ($productos->isEmpty()) {
-            return back()->with('error', 'No seleccionaste productos para pagar.');
-        }
-
-        // Calcula el total
-        $total = 0;
-        foreach ($productos as $producto) {
-            $total += $producto->precio * $producto->pivot->cantidad;
-        }
-
-        try {
-            // Crear el PaymentIntent con Stripe
-            Stripe::setApiKey(env('STRIPE_SECRET'));
-            $paymentIntent = PaymentIntent::create([
-                'amount' => $total * 100, // Total en centavos
-                'currency' => 'usd',
-                'customer' => $user->stripe_customer_id,
-                'payment_method' => $user->default_payment_method_id,
-                'off_session' => true,
-                'confirm' => true,
-            ]);
-
-            // Verificar si el pago fue exitoso
-            if ($paymentIntent->status == 'succeeded') {
-                // Elimina productos del carrito tras el pago exitoso
-                $user->carritos()->detach($productosIds);
-                return redirect()->route('cuenta.comprador')->with('success', 'Pago realizado con éxito.');
-            } else {
-                return back()->with('error', 'Error al procesar el pago.');
-            }
-
-        } catch (\Exception $e) {
-            // Capturar cualquier error y mostrarlo al usuario
-            return back()->with('error', 'Error al procesar el pago: ' . $e->getMessage());
-        }
+{
+    // Verifica que se han seleccionado productos
+    if (!$request->has('productos_seleccionados') || empty($request->input('productos_seleccionados'))) {
+        return back()->with('error', 'Debes seleccionar al menos un producto para pagar.');
     }
+
+    // Obtén los productos seleccionados
+    $productosIds = $request->input('productos_seleccionados');
+    $user = auth()->user();
+
+    // Verifica que los productos seleccionados pertenecen al carrito del usuario
+    $productos = $user->carritos()->whereIn('productos.id', $productosIds)->withPivot('cantidad')->get();
+
+    if ($productos->isEmpty()) {
+        return back()->with('error', 'Algunos productos seleccionados no están disponibles en tu carrito.');
+    }
+
+    // Calcula el total
+    $total = $productos->sum(function ($producto) {
+        return $producto->precio * $producto->pivot->cantidad;
+    });
+
+    // (Aquí se puede realizar el proceso de pago usando Stripe u otro método)
+    // Ejemplo de procesamiento:
+    try {
+        Stripe::setApiKey(env('STRIPE_SECRET'));
+        $paymentIntent = PaymentIntent::create([
+            'amount' => $total * 100, // Total en centavos
+            'currency' => 'usd',
+        ]);
+
+        if ($paymentIntent->status === 'succeeded') {
+            // Eliminar los productos pagados del carrito
+            $user->carritos()->detach($productosIds);
+            return redirect()->route('carrito.index')->with('success', 'Pago realizado con éxito.');
+        }
+    } catch (\Exception $e) {
+        return back()->with('error', 'Error al procesar el pago: ' . $e->getMessage());
+    }
+}
+
     // metodo de pago ..........................................................................................................................
     public function checkout(Request $request)
     {

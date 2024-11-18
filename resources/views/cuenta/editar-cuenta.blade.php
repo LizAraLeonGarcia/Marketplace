@@ -74,10 +74,10 @@
                                     <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
                                         <div class="d-flex justify-content-between">
                                             @foreach($chunk as $image)
-                                                <div class="position-relative">
+                                                <div class="position-relative text-center mx-2">
                                                     <img src="{{ asset('img/imagenesPerfil/' . $image) }}" class="profile-preview" alt="Imagen de perfil">
                                                     <!-- Checkbox de tipo radio para seleccionar la imagen de perfil -->
-                                                    <div class="position-absolute" style="top: 5px; right: 5px;">
+                                                    <div class="form-check mt-2">
                                                         <input type="radio" name="foto" value="{{ 'img/imagenesPerfil/' . $image }}" class="form-check-input"
                                                         {{ old('foto', $user->foto) === 'img/imagenesPerfil/' . $image ? 'checked' : '' }}>
                                                     </div>
@@ -155,7 +155,7 @@
                             </ul>
                         </div>
                     @endif
-                    <button type="submit" class="btn btn-primary mb-4">Actualizar</button>
+                    <button type="submit" class="btn btn-actualizarCuenta mb-4">Actualizar</button>
             </form>
         </div>
     </div>

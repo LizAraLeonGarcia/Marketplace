@@ -1,19 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<style>
-    .col-md-9, .col-lg-10 {
-        padding: 0; /* Elimina el padding para evitar espacios innecesarios */
-        min-height: 100vh; /* Asegúrate de que el área principal ocupe toda la altura */
-        margin-left: 230px; /* Asegúrate de que el área principal comience después del menú */
-        background-color: #c1c6ca; /* Color de fondo del body */
-    }
-</style>
 
 <div class="container">
     <div class="container-fluid"> 
         <!-- -------------------------------------------------------- Menú  lateral -------------------------------------------------------- -->
-        <div class="custom-menu {{ request()->is('productos/create') || request()->is('productos/*/edit') || request()->is('productos/*') ? 'd-none' : '' }}">
+        <div class="custom-menu">
             @include('partials.menu-lateral')
         </div>
         <!-- ---------------------------------------------------------- Contenido ---------------------------------------------------------- -->
@@ -43,7 +35,13 @@
                     </p>
                 </div>
                 <div class="col-md-4 text-center">
-                    <img src="{{ asset('storage/' . $user->foto) }}" alt="Foto de perfil" class="img-fluid rounded-circle">
+                    @if(Str::startsWith($user->foto, 'public/imagenes'))
+                        <!-- Mostrar la foto subida por el usuario -->
+                        <img src="{{ Storage::url($user->foto) }}" alt="Foto de perfil personalizada" class="img-fluid rounded-circle border border-3" style="max-width: 350px; height: auto;" />
+                    @else
+                        <!-- Mostrar la imagen predeterminada -->
+                        <img src="{{ asset($user->foto) }}" alt="Foto de perfil predeterminada" class="img-fluid rounded-circle border border-3" style="max-width: 350px; height: auto;" />
+                    @endif
                 </div>
             </div>
             <!-- ------------------------------------------------------------------------------------------------------ historial de compras -->

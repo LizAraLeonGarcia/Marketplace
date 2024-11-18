@@ -98,7 +98,7 @@
         </div>
         <!-- Paginación -->
         <div class="pagination">
-            {{ $productos->links('pagination::bootstrap-4') }}
+            {{ $productos->links('pagination::custom') }}
         </div>
     </div>
 </div>
