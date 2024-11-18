@@ -1,4 +1,4 @@
-/* Estilo de la parte izquierda (formulario y texto) */
+/* -------------------------------------------- Estilo de la parte izquierda (formulario y texto)---------------------------------------------*/
 .formulario {
     width: 100%;
     max-width: 600px;
@@ -8,9 +8,9 @@
     margin-bottom: 20px;
 }
 
-.alert {
-    background-color: #d85600;
-    color: #ffffff;
+.alertaEliminarCuenta {
+    background-color: pink;
+    color: #000000;
     padding: 15px;
     border-radius: 5px;
     margin-bottom: 20px;
@@ -18,9 +18,12 @@
 }
 
 .parrafoConfirmar {
+    background-color: #7a4900;
+    color: #ffffff;
+    padding: 15px;
     text-align: center;
 }
-
+/* ---------------------------------------------------------------------------------------------------------------------- boton para eliminar*/
 .eliminar-form button {
     background-color: #a80011;
     color: white;
@@ -35,6 +38,10 @@
 
 .eliminar-form button:hover {
     background-color: #ff0019;
+}
+/* --------------------------------------------------------------------------------------------------------------------- boton para cancelar */
+.contenedorEliminarCuentaBoton {
+    background-color: transparent;
 }
 
 .btn-cancelarEliminarCuenta {
@@ -53,8 +60,7 @@
     background-color: #006cbe !important;
     color: #ffffff !important;
 }
-
-/* Estilo de la parte derecha (imagen) */
+/* -------------------------------------------------- Estilo de la parte derecha (imagen) -------------------------------------------------- */
 .imagen {
     flex: 1;
     max-width: 450px;
@@ -69,30 +75,44 @@
     border-radius: 8px;
 }
 
-/* Responsividad */
-@media screen and (max-width: 768px) {
-    .content {
-        flex-direction: column;
-        justify-content: flex-start;
+/* ************************************************************* Responsividad ************************************************************* */
+/* ---------------------------------------------------------------------------------------------------------------------- pantallas medianas */
+@media (max-width: 768px) {
+    .contenedor-eliminarCuenta {
+        flex-direction: column; /* Cambia a disposición vertical */
+        align-items: center;
     }
+
     .formulario {
-        width: 90%;
+        max-width: 100%; /* Asegura que el formulario ocupe todo el ancho */
     }
+
     .imagen {
-        display: none; /* Ocultar la imagen en pantallas pequeñas */
+        max-width: 80%; /* Reduce el tamaño de la imagen */
     }
 }
+/* ---------------------------------------------------------------------------------------------------------------------- pantallas pequeñas */
+@media (max-width: 480px) {
+    .contenedor-eliminarCuenta {
+        padding: 10px; /* Reduce los márgenes y padding */
+    }
 
-@media screen and (max-width: 480px) {
-    h2 {
-        font-size: 1.5rem;
+    .formulario {
+        padding: 10px; /* Ajusta el padding */
+        font-size: 14px; /* Reduce el tamaño de texto */
     }
+
     .eliminar-form button {
-        font-size: 1rem;
-        padding: 12px 20px;
+        font-size: 1rem; /* Reduce tamaño del texto */
+        padding: 10px 20px; /* Ajusta el padding */
     }
-    .btn-cancelar {
-        font-size: 1rem;
+
+    .btn-cancelarEliminarCuenta {
+        font-size: 0.9rem; /* Reduce tamaño del botón */
         padding: 8px 20px;
+    }
+
+    .imagen {
+        max-width: 100%; /* La imagen ocupa el ancho completo */
     }
 }
