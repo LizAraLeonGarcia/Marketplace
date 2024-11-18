@@ -111,16 +111,41 @@ h1 {
     width: 100%;
     display: flex; /* Asegura que los elementos del carrusel se alineen correctamente */
     align-items: center; /* Centra verticalmente los elementos dentro del carrusel */
+    gap: 10px; /* Espacio uniforme entre elementos */
+    
+
 }
 /* -------------------------------------------------------------------------------------------------- Añade espacio a los lados de cada slide */
 .carousel-item {
-    padding: 0 35px; 
+    padding: 0 35px;
 }
 /* --------------------------------------------------------------------------------------------------------------------------------- imagenes */
 .profile-preview {
-    width: 60px;  
-    height: 60px; 
+    max-width: 120px;  
+    max-height: 120px; 
     object-fit: cover;  /* Asegura que la imagen cubra el contenedor sin distorsionarse */
+}
+/* --------------------------------------------------------------------------------------------------- check para escoger imagen del carrusel */
+.profile-radio {
+    position: absolute;
+    top: 10px; /* Ajusta según el diseño deseado */
+    right: 10px; /* Ajusta según el diseño deseado */
+    width: 20px; /* Hace el botón cuadrado */
+    height: 20px; /* Hace el botón cuadrado */
+    background-color: white;
+    border: 2px solid #704000; /* Azul como borde */
+    border-radius: 0; /* Sin bordes redondeados */
+    appearance: none; /* Elimina el estilo por defecto */
+    cursor: pointer;
+}
+
+.profile-radio:checked {
+    background-color: #00c22a; /* Azul si está seleccionado */
+    border: 2px solid #208135; /* Un borde más oscuro si está seleccionado */
+}
+
+.profile-radio:hover {
+    background-color: #946c00; /* Color de hover */
 }
 /* ---------------------------------------------------------------- botones ---------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------- controles de anterior y siguiente en el carrusel */

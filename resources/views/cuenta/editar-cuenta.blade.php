@@ -77,10 +77,8 @@
                                                 <div class="position-relative text-center mx-2">
                                                     <img src="{{ asset('img/imagenesPerfil/' . $image) }}" class="profile-preview" alt="Imagen de perfil">
                                                     <!-- Checkbox de tipo radio para seleccionar la imagen de perfil -->
-                                                    <div class="form-check mt-2">
-                                                        <input type="radio" name="foto" value="{{ 'img/imagenesPerfil/' . $image }}" class="form-check-input"
-                                                        {{ old('foto', $user->foto) === 'img/imagenesPerfil/' . $image ? 'checked' : '' }}>
-                                                    </div>
+                                                    <input type="radio" name="foto" value="{{ 'img/imagenesPerfil/' . $image }}" class="form-check-input profile-radio"
+                                                    {{ old('foto', $user->foto) === 'img/imagenesPerfil/' . $image ? 'checked' : '' }}>
                                                 </div>
                                             @endforeach
                                         </div>

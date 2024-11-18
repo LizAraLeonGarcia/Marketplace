@@ -27,18 +27,18 @@
         <div class="contenidoPrincipal">
             <h2 class="mb-4" class="text-center display-4">Mi cuenta</h2>
             <!-- Contenedor con imágenes y navegación -->
-            <div class="d-flex align-items-center justify-content-between mb-4">
+            <div class="d-flex align-items-center justify-content-between mb-4 opciones-cuenta-wrapper">
                 <!-- Imagen izquierda -->
-                <img src="{{ asset('assets/img/miCuenta1.png') }}" alt="Icono izquierdo" class="img-fluid mx-3" style="max-width: 200px; height: auto;">
+                <img src="{{ asset('assets/img/miCuenta1.png') }}" alt="Icono izquierdo" class="img-fluid imagen-cuenta">
                 <!-- botones -->
-                <div class="d-flex align-items-center justify-content-between mb-4 contenedor-botones">
+                <div class="contenedor-opcionesCuenta d-flex justify-content-center flex-wrap gap-2">
                     <a href="{{ route('cuenta.editar') }}" class="btn btn-editarCuenta">Editar cuenta</a>
                     <a href="{{ route('cuenta.cambiar-contrasena.form') }}" class="btn btn-cambiarContraseña">Cambiar contraseña</a>    
                     <a href="{{ route('metodo-de-pago.show') }}" class="btn btn-metodoPago">Método de pago</a>
                     <a href="{{ route('cuenta.eliminar.form') }}" class="btn btn-eliminarCuenta" >Eliminar mi cuenta</a>  
                 </div>  
                 <!-- Imagen derecha -->
-                <img src="{{ asset('assets/img/miCuenta2.png') }}" alt="Icono derecho" class="img-fluid mx-3" style="max-width: 200px; height: auto;">
+                <img src="{{ asset('assets/img/miCuenta2.png') }}" alt="Icono derecho" class="img-fluid imagen-cuenta">
             </div>
             <!-- Verificar si el usuario ha completado los campos obligatorios -->
             @if (empty($user->sexo) || empty($user->pais) || empty($user->fecha_nacimiento) || empty($user->nombre) || empty($user->apellido))
@@ -48,7 +48,7 @@
                     </div>
                     <div class="card-body">
                         <p>Por favor, completa la información obligatoria de tu perfil.</p>
-                        <a href="{{ route('cuenta.editar') }}" class="btn btn-primary">Completar perfil</a>
+                        <a href="{{ route('cuenta.editar') }}" class="btn btn-actualizarCuenta">Completar perfil</a>
                     </div>
                 </div>
             @else
