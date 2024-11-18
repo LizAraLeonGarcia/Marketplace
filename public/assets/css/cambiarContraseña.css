@@ -1,17 +1,15 @@
-/* Contenedor principal para cambiar contraseña */
+/* ********************************************************** Contenedor principal ********************************************************** */
 .contenidoCambiarContraseña {
     background-color: transparent;
     border-radius: 8px;
 }
-
-/* Alineación de la imagen y formulario con flexbox */
+/* ---------------------------------------------------------------------------------------- Alineación de la imagen y formulario con flexbox */
 .contenidoCambiarContraseña .row {
     display: flex;
     align-items: center; /* Alinea verticalmente los elementos */
     gap: 20px; /* Espacio entre imagen y formulario */
 }
-
-/* Estilo para la imagen */
+/* ------------------------------------------------------------------------------------------------------------------- Estilo para la imagen */
 .contenidoCambiarContraseña .col-md-4 img {
     width: 100%; /* Asegura que la imagen no se desborde */
     max-width: 300px; /* Limita el tamaño máximo de la imagen */
@@ -19,16 +17,14 @@
     display: block;
     margin: 0 auto; /* Centra la imagen */
 }
-
-/* Estilo para el formulario */
+/* --------------------------------------------------------------------------------------------------------------- Estilo para el formulario */
 .contenidoCambiarContraseña .col-md-8 form {
     padding: 20px;
     background-color: #ffffff;
     border-radius: 12px;
     box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
 }
-
-/* Estilo del botón */
+/* ------------------------------------------------------------------------------------------------------------------------ Estilo del botón */
 .btn-cambiarContrasena {
     background-color: #6d156d !important; /* Azul principal */
     color: #fff; /* Texto blanco */
@@ -45,7 +41,8 @@
     color: white !important;
 }
 
-/* Responsividad - En pantallas más pequeñas, la imagen y el formulario se apilan */
+/* ************************************************************* Responsividad ************************************************************* */
+/* ---------------------------------------------------------------------------------------------------------------------- pantallas pequeñas */
 @media (max-width: 768px) {
     .contenidoCambiarContraseña .row {
         flex-direction: column; /* Los elementos se apilan */
@@ -60,5 +57,34 @@
     .contenidoCambiarContraseña .col-md-4 img {
         max-width: 80%; /* Ajusta el tamaño de la imagen */
         margin-bottom: 20px; /* Agrega espacio debajo de la imagen */
+    }
+}
+/* ------------------------------------------------------------------------------------------------------------------ pantallas muy pequeñas */
+@media (max-width: 480px) {
+    /* Apilado de elementos */
+    .contenidoCambiarContraseña .row {
+        flex-direction: column; /* Apila imagen y formulario verticalmente */
+        gap: 15px; /* Reduce el espacio entre los elementos */
+    }
+    /* Imagen */
+    .contenidoCambiarContraseña .col-md-4 img {
+        width: 100%; /* Ocupa todo el ancho disponible */
+        max-width: 150px; /* Reduce el tamaño máximo de la imagen */
+        margin: 0 auto; /* Centrado */
+    }
+    /* Formulario */
+    .contenidoCambiarContraseña .col-md-8 form {
+        padding: 10px; /* Reduce el padding interno */
+        box-shadow: none; /* Elimina la sombra para simplificar */
+    }
+    /* Botón */
+    .btn-cambiarContrasena {
+        padding: 8px 12px; /* Compacta el botón */
+        font-size: 0.9rem; /* Reduce el tamaño del texto */
+    }
+    /* Asegura que las columnas ocupen todo el espacio */
+    .contenidoCambiarContraseña .col-md-4, .contenidoCambiarContraseña .col-md-8 {
+        width: 100%; /* Cada columna ocupa toda la fila */
+        max-width: none; /* Sin límite de ancho */
     }
 }
