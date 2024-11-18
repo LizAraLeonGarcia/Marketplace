@@ -26,10 +26,6 @@
     box-sizing: border-box;
     overflow-y: auto; /* Permite desplazarse si el contenido excede la altura */
 }
-/* Cambia el color del encabezado */
-h1 {
-    color: #007bff; 
-}
 /* ******************************************************** Imagen al lado izquierdo ******************************************************** */
 .image-container {
     position: relative;
@@ -39,8 +35,7 @@ h1 {
     justify-content: flex-end; /* Alinea la imagen a la derecha */
     align-items: flex-end; /* Alinea la imagen al fondo */
 }
-
-/* Asegura que las imágenes se ajusten dentro de su contenedor */
+/* Asegura que la imágen se ajusten dentro de su contenedor */
 .image-container img {
     width: 200px; /* Asegura que la imagen ocupe todo el ancho del contenedor */
     height: auto;
@@ -112,8 +107,6 @@ h1 {
     display: flex; /* Asegura que los elementos del carrusel se alineen correctamente */
     align-items: center; /* Centra verticalmente los elementos dentro del carrusel */
     gap: 10px; /* Espacio uniforme entre elementos */
-    
-
 }
 /* -------------------------------------------------------------------------------------------------- Añade espacio a los lados de cada slide */
 .carousel-item {
@@ -165,4 +158,65 @@ h1 {
 .carousel-control-prev:hover,
 .carousel-control-next:hover {
     background-color: rgba(0, 0, 0, 0.7);  /* Fondo más oscuro al pasar el ratón */
+}
+/* ************************************************************* RESPONSIVIDAD ************************************************************* */
+/* ---------------------------------------------------------------------------------------------------------------------- pantallas pequeñas */
+@media (max-width: 768px) {
+    .editarCuenta {
+        position: fixed;
+        left: 0;
+        width: 100%; /* Ocupa todo el ancho disponible */
+        padding: 20px; /* Añade espacio interno */
+        gap: 15px; /* Reduce el espacio entre elementos */
+        flex-direction: column; /* Apila los elementos verticalmente */
+        align-items: center; /* Centra los elementos */
+    }
+    /* Formulario centrado y más compacto */
+    .formCuenta {
+        max-width: 90%; /* Reduce el ancho máximo */
+        max-height: 90vh; /* Evita que el formulario exceda el alto visible */
+        box-shadow: none; /* Opcional: elimina sombra para simplificar */
+    }
+
+    .image-container {
+        display: none;
+    }
+    /* Carrusel adaptado */
+    .carousel {
+        flex-direction: column; /* Apila las imágenes del carrusel */
+        gap: 5px; /* Reduce el espacio entre elementos */
+    }
+    .carousel-item {
+        padding: 0 15px; /* Ajusta el espacio lateral */
+    }
+}
+
+@media (max-width: 480px) {
+    .editarCuenta {
+        position: fixed;
+        left: 0;
+        width: 100%; /* Ocupa todo el ancho disponible */
+        padding: 10px; /* Añade espacio interno */
+        gap: 10px; /* Reduce el espacio entre elementos */
+        flex-direction: column; /* Apila los elementos verticalmente */
+        align-items: center; /* Centra los elementos */
+    }
+    /* Formulario centrado y más compacto */
+    .formCuenta {
+        max-width: 90%; /* Reduce el ancho máximo */
+        max-height: 90vh; /* Evita que el formulario exceda el alto visible */
+        box-shadow: none; /* Opcional: elimina sombra para simplificar */
+    }
+
+    .image-container {
+        display: none;
+    }
+    /* Carrusel adaptado */
+    .carousel {
+        flex-direction: column; /* Apila las imágenes del carrusel */
+        gap: 5px; /* Reduce el espacio entre elementos */
+    }
+    .carousel-item {
+        padding: 0 15px; /* Ajusta el espacio lateral */
+    }
 }

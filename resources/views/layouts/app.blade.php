@@ -62,7 +62,7 @@
 <body>
     <div class="container-fluid">
         <!-- ------------------------------------------------------------------------------------------ botón de toggle para el menú lateral -->
-        <button id="menu-toggle" class="menu-toggle"> <i class="fas fa-bars"></i> Menú </button>
+        <button id="menu-toggle" class="menu-toggle"> <i class="fas fa-bars"></i> </button>
         <div class="row no-gutters">
             <!-- ------------------------------------------------------------------------------------------------------------------ Menú lateral -->
             <div class="col-md-3 col-lg-2 custom-menu">
