@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -42,6 +43,12 @@ class User extends Authenticatable implements MustVerifyEmail
     public function pais()
     {
         return $this->belongsTo(Pais::class, 'pais_id'); 
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class, 'reviewable_id')
+                    ->where('reviewable_type', self::class);
     }
     // -------------------------------------------------------------------------------------------------------------------- Relación con reseñas
     public function reviewsReceived()

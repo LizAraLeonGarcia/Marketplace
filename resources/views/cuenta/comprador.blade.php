@@ -2,14 +2,13 @@
 
 @section('content')
 
-<div class="container">
     <div class="container-fluid"> 
         <!-- -------------------------------------------------------- Menú  lateral -------------------------------------------------------- -->
         <div class="custom-menu">
             @include('partials.menu-lateral')
         </div>
         <!-- ---------------------------------------------------------- Contenido ---------------------------------------------------------- -->
-        <div class="col">
+        <div class="contenidoPrincipal">
             <div class="row d-flex align-items-center mb-4">
                 <div class="col-md-8">
                     <h2 class="display-4 mb-0">Perfil como Comprador</h2>
@@ -21,8 +20,8 @@
             <!-- ---------------------------------------------------------------------------------------------------------- datos del perfil -->
             <div class="row  align-items-center">
                 <div class="col-md-8">
-                    <h4 class="fw-bold"><strong>ID de usuario:</strong> {{ Auth::user()->id }} </h4>
-                    <h4 class="fw-bold"><strong>Nombre:</strong> {{ $user->nombre }} {{ $user->apellido }}</h4>
+                    <h5 class="fw-bold"><strong>ID de usuario:</strong> {{ Auth::user()->id }} </h5>
+                    <h5 class="fw-bold"><strong>Nombre:</strong> {{ $user->nombre }} {{ $user->apellido }}</h5>
                     <h5><strong>Apodo:</strong> {{ $user->apodo ?? 'No especificado' }}</h5>
                     <p><strong>País:</strong> {{ $user->pais->nombre ?? 'No especificado' }}</p>
                     <p><strong>Descripción:</strong> {{ $user->descripcion ?? 'No especificada' }}</p>
@@ -155,5 +154,4 @@
             @endif
         </div>
     </div>
-</div>
 @endsection
