@@ -17,6 +17,9 @@ class DatabaseSeeder extends Seeder
             CategoriaSeeder::class,
             PaisSeeder::class,
             Producto1Seeder::class,
+            Producto2Seeder::class,
+            Producto3Seeder::class,
+            Producto4Seeder::class,
         ]);
     }
 }

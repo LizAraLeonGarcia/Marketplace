@@ -28,7 +28,7 @@ class ProductoController extends Controller
                 ->where('categoria_id', $request->categoria_id)
                 ->paginate(10)
             : Producto::with(['categoria', 'images']) // eager loading
-                ->paginate(10);     
+                ->paginate(12);     
                 
         return view('productos.index', compact('productos', 'categorias'));
     }

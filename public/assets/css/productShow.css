@@ -156,7 +156,7 @@
     }
 
     .carousel-inner {
-        max-height: 250px; /* Ajusta la altura del carrusel en pantallas pequeñas */
+        max-height: 400px; /* Ajusta la altura del carrusel en pantallas pequeñas */
     }
 
     .carousel-item img {

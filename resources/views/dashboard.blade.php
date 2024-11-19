@@ -27,14 +27,14 @@
             <h2 class="mb-4" class="text-center display-4">¡Hola, {{ Auth::user()->name }}!</h2>
             <div class="d-flex align-items-center justify-content-between mb-4">
                 <!-- Imagen izquierda -->
-                <img src="{{ asset('assets/img/dashboard2.png') }}" alt="Ilustración" class="img-fluid">
+                <img src="{{ asset('assets/img/dashboard2.png') }}" alt="Imagen izquierda" class="img-fluid imagen-izquierda">
                 @if (Auth::user()->is_vendedor)
                     <h2 class="mb-4">A continuación, verás tus productos publicados como vendedor.</h2>
                 @else
                     <h2 class="mb-4">No tienes productos publicados como vendedor.</h2>
                 @endif
                 <!-- Imagen derecha -->
-                <img src="{{ asset('assets/img/dashboard.png') }}" alt="Ilustración" class="img-fluid">
+                <img src="{{ asset('assets/img/dashboard.png') }}" alt="Imagen derecha" class="img-fluid imagen-derecha">
             </div>
             <!-- Mostrar sección de productos solo si es vendedor -->            
             @if (Auth::user()->is_vendedor)
@@ -74,7 +74,7 @@
                                             <a href="{{ route('productos.edit', $producto->id) }}" class="btn btn-warning btn-sm" title="Editar producto">
                                                 <i class="fas fa-edit"></i> Editar
                                             </a>
-                                            <form action="{{ route('productos.destroy', $producto->id) }}" method="POST" class="d-inline-block">
+                                            <form action="{{ route('productos.destroy', $producto->id) }}" method="POST" class="botonEliminarProducto d-inline-block">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger btn-sm" title="Eliminar producto" onclick="return confirm('¿Estás seguro de que quieres eliminar este producto?');">
@@ -96,10 +96,10 @@
                 <h2>Si deseas empezar a vender, ¡crea tu primer producto!</h2>
             @endif
         </div>
-        <!-- Paginación -->
-        <div class="pagination">
-            {{ $productos->links('pagination::custom') }}
-        </div>
+    </div>
+    <!-- Paginación -->
+    <div class="pagination">
+        {{ $productos->links('pagination::custom') }}
     </div>
 </div>
 @endsection
