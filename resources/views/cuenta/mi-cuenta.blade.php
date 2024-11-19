@@ -29,7 +29,7 @@
             <!-- Contenedor con imágenes y navegación -->
             <div class="d-flex align-items-center justify-content-between mb-4 opciones-cuenta-wrapper">
                 <!-- Imagen izquierda -->
-                <img src="{{ asset('assets/img/miCuenta1.png') }}" alt="Icono izquierdo" class="img-fluid imagen-cuenta">
+                <img src="{{ asset('assets/img/miCuenta1.png') }}" alt="Icono izquierdo" class="imagen-cuenta">
                 <!-- botones -->
                 <div class="contenedor-opcionesCuenta d-flex justify-content-center flex-wrap gap-2">
                     <a href="{{ route('cuenta.editar') }}" class="btn btn-editarCuenta">Editar cuenta</a>
@@ -38,7 +38,7 @@
                     <a href="{{ route('cuenta.eliminar.form') }}" class="btn btn-eliminarCuenta" >Eliminar mi cuenta</a>  
                 </div>  
                 <!-- Imagen derecha -->
-                <img src="{{ asset('assets/img/miCuenta2.png') }}" alt="Icono derecho" class="img-fluid imagen-cuenta">
+                <img src="{{ asset('assets/img/miCuenta2.png') }}" alt="Icono derecho" class="imagen-cuenta">
             </div>
             <!-- Verificar si el usuario ha completado los campos obligatorios -->
             @if (empty($user->sexo) || empty($user->pais) || empty($user->fecha_nacimiento) || empty($user->nombre) || empty($user->apellido))

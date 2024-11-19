@@ -6,7 +6,7 @@
     <div class="row">
         <!-- Menú lateral -->
         <div class="custom-menu">
-            @include('partials.menu-lateral') <!-- Menú lateral -->
+            @include('partials.menu-lateral')
         </div>
         <!-- Contenido -->
         <div class="contenidoPrincipal">

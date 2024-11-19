@@ -84,8 +84,8 @@
     <script src="{{ asset('js/main.js') }}"></script>
     <!-- reemplazo del menu lateral en pantallas pequeñas -->
     <script src="{{ asset('assets/js/menuToggle.js') }}"></script>
-
-    <script src="{{ asset('assets/js/carritoIndex.js') }}"></script>
+    <!-- para el carrito -->
+    <script src="{{ asset('assets/js/carrito.js') }}"></script>
     <script src="https://js.stripe.com/v3/"></script>
 </body>
 </html>

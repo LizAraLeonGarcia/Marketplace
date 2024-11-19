@@ -39,6 +39,13 @@
     margin: 0.5rem 0;
     font-weight: bolder;
 }
+/* --------------------------------------------------------------------------------------------------------------- imagen previa del producto */
+.producto-img {
+    width: 100%; /* Ancho deseado */
+    height: auto; /* Alto deseado */
+    object-fit: cover; /* Ajusta la imagen sin distorsionar */
+    border-radius: 5px; /* Bordes redondeados para darle un toque estético */
+}
 /* --------------------------------------------------------------------------------------------------------------------------------- Acciones */
 .acciones {
     display: flex;
@@ -176,13 +183,6 @@
     border-color: green !important; /* Color del borde al pasar el mouse */
     color: white !important; 
 }
-/* ------------------------------------------------------ imagen previa del producto ------------------------------------------------------ */
-.producto-img {
-    width: 100%; /* Ancho deseado */
-    height: auto; /* Alto deseado */
-    object-fit: cover; /* Ajusta la imagen sin distorsionar */
-    border-radius: 5px; /* Bordes redondeados para darle un toque estético */
-}
 /* ************************************************* para las imágenes izquierda y derecha ************************************************* */
 .imagen-izquierda {
     width: 180px; /* Se asegura de que ocupen el ancho completo del contenedor */
@@ -257,6 +257,11 @@
     .contenedorBarraBusqueda .form-buscar {
         margin-right: 0; /* Elimina margen lateral */
         margin-bottom: 10px; /* Añade margen inferior */
+    }
+    
+    .pagination a, .pagination span {
+        padding: 6px 8px;
+        font-size: 14px;
     }
     /* ocultar en pantallas más pequeñas */
     .imagen-izquierda, .imagen-derecha {

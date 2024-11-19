@@ -27,14 +27,14 @@
             <h2 class="mb-4" class="text-center display-4">¡Hola, {{ Auth::user()->name }}!</h2>
             <div class="d-flex align-items-center justify-content-between mb-4">
                 <!-- Imagen izquierda -->
-                <img src="{{ asset('assets/img/dashboard2.png') }}" alt="Imagen izquierda" class="img-fluid imagen-izquierda">
+                <img src="{{ asset('assets/img/dashboard2.png') }}" alt="Imagen izquierda" class="imagen-izquierdaDashboard">
                 @if (Auth::user()->is_vendedor)
                     <h2 class="mb-4">A continuación, verás tus productos publicados como vendedor.</h2>
                 @else
                     <h2 class="mb-4">No tienes productos publicados como vendedor.</h2>
                 @endif
                 <!-- Imagen derecha -->
-                <img src="{{ asset('assets/img/dashboard.png') }}" alt="Imagen derecha" class="img-fluid imagen-derecha">
+                <img src="{{ asset('assets/img/dashboard.png') }}" alt="Imagen derecha" class="imagen-derechaDashboard">
             </div>
             <!-- Mostrar sección de productos solo si es vendedor -->            
             @if (Auth::user()->is_vendedor)
@@ -42,7 +42,7 @@
                 @if(isset($productos) && $productos->isNotEmpty())
                     <div class="table-responsive">
                         <table class="table table-striped table-hover">
-                            <thead>
+                            <thead class="thead-dark">
                                 <tr>
                                     <th scope="col">ID</th>
                                     <th scope="col">Vista previa</th>
@@ -59,9 +59,9 @@
                                         <td>
                                             <!-- Muestra la primera imagen del producto -->
                                             @if($producto->images->first())
-                                                <img src="{{ $producto->images->first()->url }}" alt="{{ $producto->nombre }}" class="producto-img">
+                                                <img src="{{ $producto->images->first()->url }}" alt="{{ $producto->nombre }}" class="producto-imgDashboard">
                                             @else
-                                                <img src="{{ asset('assets/img/placeholder.png') }}" alt="Sin imagen" class="producto-img">
+                                                <img src="{{ asset('assets/img/placeholder.png') }}" alt="Sin imagen" class="producto-imgDashboard">
                                             @endif
                                         </td>
                                         <td>{{ $producto->nombre }}</td>

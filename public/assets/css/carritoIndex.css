@@ -1,92 +1,94 @@
-.carrito-contenedor {
-    display: flex;              /* Habilitar Flexbox */
-    flex-direction: column;     /* Apilar los elementos verticalmente */
-    gap: 1rem;                  /* Espaciado entre secciones */
-}
-
-.productos-en-carrito {
-    display: grid;              /* Usar Grid para los productos */
-    grid-template-columns: 1fr; /* Una sola columna, todo el ancho */
-    gap: 1rem;                  /* Espaciado entre productos */
-}
-/* Contenedor principal de los productos */
-.productos-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-    margin: 2rem 0;
+/* ***************************************************************** tabla ***************************************************************** */
+/* Tabla completa */
+.table-responsive {
     width: 100%; /* Ocupa todo el ancho disponible */
+    margin-top: 20px;
 }
 
-/* Estilo de las tarjetas */
-.producto-card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 1rem;
-    display: flex;              /* Flexbox para cada producto */
-    align-items: center;        /* Alinear elementos verticalmente */
-    gap: 1rem;                  /* Espaciado entre elementos */
-    padding: 1rem;
+.table th , .table td {
     text-align: center;
-    background-color: #f9f9f9;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 100%; /* Asegúrate de que no tengan un ancho fijo */
+    padding: 8px;
 }
-
-/* Imagen dentro de la tarjeta */
-.imagen-producto img {
-    width: 100%;
-    max-height: 150px;
-    object-fit: cover;
-    margin-bottom: 1rem;
-    border-radius: 8px;
+/* -------------------------------------------------------------------------------------------------------------- imagen previa del producto */
+.producto-imgCarrito {
+    width: 80px; /* Ancho deseado */
+    height: 100px; /* Alto deseado */
+    object-fit: cover; /* Ajusta la imagen sin distorsionar */
 }
-
-/* Estilo del texto */
-.nombre-producto {
-    font-size: 1.1rem;
-    margin: 0.5rem 0;
-    font-weight: bold;
-}
-
-.precio-producto {
-    color: #28a745;
-    font-size: 1rem;
-    margin-bottom: 1rem;
-}
-
-/* Cantidad */
-.cantidad-container {
-    margin-bottom: 1rem;
-}
-
-/* Botones */
-.acciones {
-    display: flex;
-    justify-content: center;
-    gap: 0.5rem;
-}
-
-/* Total */
-.total-pagar {
-    margin-top: 2rem;
-    text-align: center;
-    font-size: 1.2rem;
-    font-weight: bold;
-}
-
-/* ***************************************************************** BUTTON ***************************************************************** */
+/* **************************************************************** BOTONES ***************************************************************** */
+/* ------------------------------------------------------------------------------------------------------------------------------ para pagar */
 .btn-pagar {
     background-color: green !important;
     color: white !important;
+    margin-bottom: 20px;
 }
 
+.formPagar {
+    background-color: transparent;
+    border-color: transparent;
+}
+/* --------------------------------------------------------------------------------------------------------------------------- para eliminar */
 .btn-basura {
     background-color: red !important;
     color: white !important;
 }
 
+.botonEliminarProductoDelCarrito {
+    background-color: transparent;
+    border-color: transparent;
+}
+/* ----------------------------------------------------------------------------------------------------------------------- para ver detalles */
 .btn-detalles {
     background-color: sienna !important;
     color: white !important;
+}
+/* total a pagar --------------------------------------------------------------------------------------------------------------------------- */
+.totalAPagar {
+    color: green;
+    font-size: 20px;
+}
+/* ************************************************* para las imágenes izquierda y derecha ************************************************* */
+.imagen-izquierdaCarrito, .imagen-derechaCarrito {
+    width: 180px; /* Se asegura de que ocupen el ancho completo del contenedor */
+    max-width: 210px; /* Limita el tamaño máximo de las imágenes */
+    height: auto; /* Mantiene la proporción de las imágenes */
+    object-fit: cover; /* Hace que las imágenes se ajusten dentro del área sin distorsión */
+}
+/* ************************************************************* RESPONSIVIDAD ************************************************************* */
+@media (min-width: 769px) {
+    .content {
+        margin-left: 230px;
+    }
+    /* ocultar en pantallas más pequeñas */
+    .imagen-izquierdaCarrito, .imagen-derechaCarrito {
+        width: 150px;
+        height: auto;
+    }
+}
+/* ---------------------------------------------------------------------------------------------------------------------- pantallas pequeñas */
+@media (max-width: 768px) {
+    .contenidoPrincipal {
+        margin-left: 0;
+        padding: 10px; 
+    } 
+
+    .imagen-izquierdaDashboard, .imagen-derechaDashboard {
+        display: none;   
+    }
+
+    .pagination a, .pagination span {
+        padding: 6px 8px;
+        font-size: 14px;
+    }
+}
+/* ------------------------------------------------------------------------------------------------------------------ pantallas muy pequeñas */
+@media (max-width: 480px) {
+    .contenidoPrincipal {
+        margin-left: 0;
+        padding: 5px; 
+    } 
+    /* Ocultar las imágenes de ilustración */
+    .imagen-izquierdaCarrito, .imagen-derechaCarrito {
+        display: none; 
+    }
 }

@@ -73,10 +73,10 @@
 }
 /* IMAGENES */
 .imagen-cuenta {
-    width: 100%; /* Ancho máximo */
-    max-width: 200px;
-    height: auto;     /* Proporción automática */
-    object-fit: contain; /* Hace que la imagen cubra el área del contenedor sin deformarse */
+    width: 180px; /* Se asegura de que ocupen el ancho completo del contenedor */
+    max-width: 210px; /* Limita el tamaño máximo de las imágenes */
+    height: auto; /* Mantiene la proporción de las imágenes */
+    object-fit: cover; /* Hace que las imágenes se ajusten dentro del área sin distorsión */
 }
 /* ***************************************************************** ALERT ***************************************************************** */
 .alert {

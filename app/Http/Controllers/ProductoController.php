@@ -26,7 +26,7 @@ class ProductoController extends Controller
         $productos = $request->has('categoria_id') && $request->categoria_id != null
             ? Producto::with(['categoria', 'images']) // eager loading
                 ->where('categoria_id', $request->categoria_id)
-                ->paginate(10)
+                ->paginate(12)
             : Producto::with(['categoria', 'images']) // eager loading
                 ->paginate(12);     
                 
