@@ -26,14 +26,6 @@
     transform: translateY(-5px);
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
 }
-/* ----------------------------------------------------------------------------------------------------------------------- Imagen de producto */
-.imagen-producto img {
-    width: 100%;
-    max-height: 150px;
-    object-fit: cover;
-    margin-bottom: 1rem;
-    border-radius: 8px;
-}
 /* ---------------------------------------------------------------------------------------------------------------------- Nombre del producto */
 .nombre-producto {
     font-size: 1.1rem;
@@ -47,7 +39,7 @@
     margin: 0.5rem 0;
     font-weight: bolder;
 }
-/* Acciones */
+/* --------------------------------------------------------------------------------------------------------------------------------- Acciones */
 .acciones {
     display: flex;
     flex-wrap: wrap;
@@ -55,7 +47,7 @@
     justify-content: center;
     margin-top: 1rem;
 }
-/* Botón de acciones */
+/* ------------------------------------------------------------------------------------------------------------- contenedor botón de acciones */
 .acciones .btn {
     flex: 1;
     max-width: 120px;
@@ -117,7 +109,6 @@
     margin-right: 10px; /* Espacio entre el input y el botón */
 }
 /* ----------------------------------------------------------------------------------------------------------------------------------- buscar */
-
 .contenedorBarraBusqueda .btn-buscarProduct {
     background-color: black;
     color: white;
@@ -168,6 +159,11 @@
     border-color: red !important; /* Color del borde al pasar el mouse */
     color: white !important; 
 }
+
+.botonEliminarProductoIndex {
+    background-color: transparent;
+    border-color: transparent;
+}
 /* ---------------------------------------------------------------------------------------------------------------------------------- carrito */
 .btn-carrito {
     background-color: #1b5e20 !important; /* Cambia a tu color deseado */
@@ -180,35 +176,122 @@
     border-color: green !important; /* Color del borde al pasar el mouse */
     color: white !important; 
 }
-/* ------------------------------------------------------ imagen previa del producto */
+/* ------------------------------------------------------ imagen previa del producto ------------------------------------------------------ */
 .producto-img {
-    width: 90px; /* Ancho deseado */
-    height: 100px; /* Alto deseado */
+    width: 100%; /* Ancho deseado */
+    height: auto; /* Alto deseado */
     object-fit: cover; /* Ajusta la imagen sin distorsionar */
     border-radius: 5px; /* Bordes redondeados para darle un toque estético */
 }
 /* ************************************************* para las imágenes izquierda y derecha ************************************************* */
-.imagen-izquierda,
+.imagen-izquierda {
+    width: 180px; /* Se asegura de que ocupen el ancho completo del contenedor */
+    max-width: 210px; /* Limita el tamaño máximo de las imágenes */
+    height: auto; /* Mantiene la proporción de las imágenes */
+    object-fit: cover; /* Hace que las imágenes se ajusten dentro del área sin distorsión */
+}
+
 .imagen-derecha {
-    width: 100%; /* Se asegura de que ocupen el ancho completo del contenedor */
-    max-width: 200px; /* Limita el tamaño máximo de las imágenes */
+    width: 230px; /* Se asegura de que ocupen el ancho completo del contenedor */
+    max-width: 260px; /* Limita el tamaño máximo de las imágenes */
     height: auto; /* Mantiene la proporción de las imágenes */
     object-fit: cover; /* Hace que las imágenes se ajusten dentro del área sin distorsión */
 }
 /* Aseguramos que haya un espacio adecuado entre las imágenes y el contenido */
 .d-flex.align-items-center.justify-content-between {
-    gap: 20px; /* Añade espacio entre los elementos */
+    gap: 10px; /* Añade espacio entre los elementos */
 }
 /* ************************************************************* RESPONSIVIDAD ************************************************************* */
-/* ----------------------------------------------------------------------------------------------------------------------- pantallas pequeñas */
-@media (max-width: 768px) {
-    .imagen-izquierda, .imagen-derecha {
-        max-width: 120px; /* Reducir el tamaño en pantallas más pequeñas */
+/* ---------------------------------------------------------------------------------------------------------------------- pantallas medianas */
+@media (max-width: 992px) {
+    /* Reduce los márgenes y fuentes */
+    .producto-card {
+        padding: 0.8rem;
     }
 
-    .d-flex.align-items-center.justify-content-between {
-        flex-direction: column; /* Alinear las imágenes y el contenido en una columna */
-        gap: 10px; /* Reducir el espacio entre los elementos */
+    .nombre-producto {
+        font-size: 1rem;
+    }
+
+    .precio-producto {
+        font-size: 0.9rem;
+    }
+    /* Ajustar tamaño del menú lateral */
+    .custom-menu {
+        max-width: 200px; /* Limita el tamaño del menú lateral */
+    }
+    /* Tabla responsiva */
+    .table-responsive {
+        font-size: 0.9rem;
+    }
+    /* Reducir el tamaño en pantallas más pequeñas */
+    .imagen-izquierda, .imagen-derecha {
+        display: none; 
     }
 }
-/* pantallas muy pequeñas */
+/* ---------------------------------------------------------------------------------------------------------------------- pantallas pequeñas */
+@media (max-width: 768px) {
+    /* Tarjetas de productos */
+    .productos-grid {
+        grid-template-columns: 1fr; /* Columna única */
+    }
+
+    .producto-card {
+        padding: 0.5rem;
+    }
+
+    .producto-img {
+        width: 70px;
+        height: 80px;
+    }
+    /* Ajustar espaciado del contenido principal */
+    .contenidoPrincipal {
+        padding: 1rem;
+    }
+    /* Ajustar la barra de búsqueda */
+    .contenedorBarraBusqueda {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .contenedorBarraBusqueda .form-buscar {
+        margin-right: 0; /* Elimina margen lateral */
+        margin-bottom: 10px; /* Añade margen inferior */
+    }
+    /* ocultar en pantallas más pequeñas */
+    .imagen-izquierda, .imagen-derecha {
+        display: none; 
+    }
+}
+/* ------------------------------------------------------------------------------------------------------------------ pantallas muy pequeñas */
+@media (max-width: 480px) {
+    .productos-grid {
+        gap: 0.5rem;
+    }
+
+    .producto-card {
+        padding: 0.4rem;
+    }
+
+    .nombre-producto {
+        font-size: 0.9rem;
+    }
+
+    .precio-producto {
+        font-size: 0.8rem;
+    }
+    /* Botones de acciones */
+    .acciones .btn {
+        max-width: 90px; /* Reduce el ancho máximo */
+        padding: 0.2rem 0.4rem; /* Reduce el espacio interno */
+        font-size: 0.75rem; /* Reduce el tamaño de la fuente */
+    }
+    /* Ajustar tabla */
+    .table-responsive {
+        font-size: 0.8rem;
+    }
+    /* Ocultar las imágenes de ilustración */
+    .imagen-izquierda, .imagen-derecha {
+        display: none; 
+    }
+}

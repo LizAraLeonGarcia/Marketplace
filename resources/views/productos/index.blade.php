@@ -14,7 +14,7 @@
             <!-- Contenedor con imágenes y navegación -->
             <div class="d-flex align-items-center justify-content-between mb-4">
                 <!-- Imagen izquierda -->
-                <img src="{{ asset('img/menuProductos1.png') }}" alt="Imagen Izquierda" class="img-fluid imagen-izquierda">
+                <img src="{{ asset('img/menuProductos1.png') }}" alt="Imagen Izquierda" class="imagen-izquierda">
                 <!-- Navegación específica de productos -->
                     <ul class="nav-productosIndex">
                         <li class="nav-item">
@@ -60,7 +60,7 @@
                         <button type="submit" class="btn btn-buscarProduct"><strong>Buscar</strong></button>
                     </form>
                 <!-- Imagen derecha -->
-                <img src="{{ asset('img/menuProductos2.png') }}" alt="Imagen Derecha" class="img-fluid imagen-derecha">
+                <img src="{{ asset('img/menuProductos2.png') }}" alt="Imagen Derecha" class="imagen-derecha">
             </div>    
             <!-- Mensaje de éxito -->
             @if (session('success'))
@@ -84,7 +84,7 @@
                 <div class="productos-grid">
                     @foreach ($productos as $producto)
                         <div class="producto-card">
-                            <div class="imagen-producto">
+                            <div>
                                 <!-- Muestra la primera imagen del producto -->
                                 @if($producto->images->first())
                                     <img src="{{ $producto->images->first()->url }}" alt="{{ $producto->nombre }}" class="producto-img">
@@ -104,7 +104,7 @@
                                     </a>
                                 @endif
                                 @if (Auth::user()->can('delete', $producto))
-                                    <form action="{{ route('productos.destroy', $producto->id) }}" method="POST" class="d-inline-block">
+                                    <form action="{{ route('productos.destroy', $producto->id) }}" method="POST" class="d-inline-block botonEliminarProductoIndex">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-eliminarProductIndex btn-sm mx-1" onclick="return confirm('¿Estás seguro de que deseas eliminar este producto?');">
