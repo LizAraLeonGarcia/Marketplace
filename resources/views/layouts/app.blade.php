@@ -63,7 +63,6 @@
     <div class="container-fluid">
         <!-- ------------------------------------------------------------------------------------------ botón de toggle para el menú lateral -->
         <div class="row no-gutters">
-        <button id="btn-toggle" class="btn-toggle"> <i class="fas fa-bars"></i> </button>
             <!-- ------------------------------------------------------------------------------------------------------------------ Menú lateral -->
             <div id="menu-lateral" class="col-md-3 col-lg-2 custom-menu">
                 @include('partials.menu-lateral')
@@ -82,8 +81,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('js/main.js') }}"></script>
-    <!-- reemplazo del menu lateral en pantallas pequeñas -->
-    <script src="{{ asset('assets/js/menuToggle.js') }}"></script>
     <!-- para el carrito -->
     <script src="{{ asset('assets/js/carrito.js') }}"></script>
     <script src="https://js.stripe.com/v3/"></script>

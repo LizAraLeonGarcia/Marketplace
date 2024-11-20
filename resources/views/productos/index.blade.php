@@ -34,19 +34,19 @@
                             </form>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('productos.nuevos') }}">
+                            <a class="nav-link" href="#">
                             <i class="fas fa-star"></i>Nuevos productos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('productos.recomendaciones') }}">
+                            <a class="nav-link" href="#">
                             <i class="fas fa-heart"></i> Recomendaciones</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('productos.ofertas') }}">
+                            <a class="nav-link" href="#">
                             <i class="fas fa-tags"></i>Ofertas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('productos.mas-vendidos') }}">
+                            <a class="nav-link" href="#">
                             <i class="fas fa-chart-line"></i>Más vendidos</a>
                         </li>
                         <li class="nav-item">
@@ -59,16 +59,16 @@
                         <input type="text" name="query" class="form-buscar me-2" placeholder="Buscar producto" aria-label="Buscar">
                         <button type="submit" class="btn btn-buscarProduct"><strong>Buscar</strong></button>
                     </form>
-                <!-- Imagen derecha -->
+                 <!-- Imagen derecha -->
                 <img src="{{ asset('img/menuProductos2.png') }}" alt="Imagen Derecha" class="imagen-derecha">
-            </div>    
-            <!-- Mensaje de éxito -->
-            @if (session('success'))
+            </div>   
+             <!-- Mensajes de error y éxito -->
+             @if (session('success'))
                 <div class="alert alert-success">
                     {{ session('success') }}
                 </div>
-            @endif
-            <!-- Mensajes de error -->
+            @endif 
+            
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -78,8 +78,14 @@
                     </ul>
                 </div>
             @endif
-
-            @if(auth()->check())        
+            <!-- para la barra de busqueda -->
+            @if(isset($query))
+                <p class="alert alert-info">Resultados para: <strong>{{ $query }}</strong></p>
+            @endif
+            <!-- productos -->
+            @if($productos->isEmpty())
+                <p class="alert alert-warning">No se encontraron productos que coincidan con tu búsqueda.</p>
+            @else       
                 <!-- Muestra la lista de productos aquí -->
                 <div class="productos-grid">
                     @foreach ($productos as $producto)
@@ -125,19 +131,17 @@
                         </div>
                     @endforeach
                 </div>
-            @else
-                <h1 class="text-center">Por favor, inicia sesión para ver los productos.</h1>
-            @endif
 
-            @foreach($producto->reviews as $review)
-                <p>{{ $review->review }}</p>
-                <p>Calificación: {{ $review->rating }}</p>
-                <p>Por: {{ $review->user->name }}</p>
-            @endforeach
+                @foreach($producto->reviews as $review)
+                    <p>{{ $review->review }}</p>
+                    <p>Calificación: {{ $review->rating }}</p>
+                    <p>Por: {{ $review->user->name }}</p>
+                @endforeach
+                <div class="pagination">
+                    {{ $productos->links('pagination::custom') }}
+                </div>
+            @endif
         </div>
-    </div>
-    <div class="pagination">
-        {{ $productos->links('pagination::custom') }}
     </div>
 </div>
 @endsection

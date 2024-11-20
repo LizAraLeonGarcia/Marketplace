@@ -23,14 +23,17 @@ class ProductoController extends Controller
     public function index(Request $request)
     {
         $categorias = Categoria::all();
-        $productos = $request->has('categoria_id') && $request->categoria_id != null
-            ? Producto::with(['categoria', 'images']) // eager loading
-                ->where('categoria_id', $request->categoria_id)
-                ->paginate(12)
-            : Producto::with(['categoria', 'images']) // eager loading
-                ->paginate(12);     
-                
-        return view('productos.index', compact('productos', 'categorias'));
+        // Obtener el filtro de categoría si existe
+        $categoriaId = $request->get('categoria_id');
+        // Consultar los productos, aplicando el filtro si corresponde
+        $productos = Producto::with(['categoria', 'images']) // eager loading
+            ->when($categoriaId, function ($query) use ($categoriaId) {
+                return $query->where('categoria_id', $categoriaId);
+            })
+            ->paginate(12)
+            ->appends($request->all()); // Agregar parámetros a la paginación
+
+        return view('productos.index', compact('productos', 'categorias', 'categoriaId'));
     }
     // ***************************************************************** crear *****************************************************************
     public function create()
@@ -171,8 +174,19 @@ class ProductoController extends Controller
     // .......................................................................................................................... por categoria
     public function porCategoria($id)
     {
-        $productos = Producto::where('categoria_id', $id)->get();
-        return view('productos.index', compact('productos'));
+        // Obtener el filtro de categoría desde el request
+        $categoria_id = $request->input('categoria_id');
+        // Obtener los productos, aplicando el filtro si corresponde
+        $query = Producto::query();
+        if ($categoria_id) {
+            $query->where('categoria_id', $categoria_id);
+        }
+        // Paginación
+        $productos = $query->paginate(12)->appends($request->all());
+        // Obtener todas las categorías para el select
+        $categorias = Categoria::all();
+
+        return view('productos.index', compact('productos', 'categorias', 'categoria_id'));
     }
     // ................................................................................................................................ ofertas
     public function ofertas()
@@ -205,10 +219,28 @@ class ProductoController extends Controller
     // ................................................................................................................................. buscar
     public function buscar(Request $request)
     {
+        // Verifica el parámetro de búsqueda
         $query = $request->input('query');
-        $productos = Producto::where('nombre', 'LIKE', "%{$query}%")->paginate(10);
-
-        return view('productos.index', compact('productos'));
+        if (!$query) {
+            // Si no hay consulta, puedes devolver un error o redirigir
+            return redirect()->route('productos.index')->with('error', 'No se proporcionó un término de búsqueda.');
+        }
+        // Intentamos hacer la consulta en la base de datos
+        try {
+            // Recuperamos los productos basados en la búsqueda
+            $productos = Producto::where('nombre', 'like', "%$query%")
+                ->orWhere('descripcion', 'like', "%$query%")
+                ->paginate(12)
+                ->appends(['query' => $query]);  // Agregar el parámetro 'query' a la paginación
+            
+            // Recuperamos las categorías disponibles para pasar a la vista
+            $categorias = Categoria::all();  // Suponiendo que tienes un modelo Categoria
+        } catch (\Exception $e) {
+            // Capturamos cualquier error que ocurra durante la consulta
+            return response()->json(['error' => 'Hubo un problema al procesar la búsqueda.'], 500);
+        }
+        // Retornamos los productos y las categorías encontradas a la vista
+        return view('productos.index', compact('productos', 'query', 'categorias'));
     }
     // -------------------------------------------------------------- categorias --------------------------------------------------------------
     public function categoria($categoria)

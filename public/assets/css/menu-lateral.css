@@ -7,14 +7,9 @@
     position: fixed; /* Fijo en la pantalla */
     top: 0; /* Al borde superior */
     left: 0; /* Al borde izquierdo */
-    transform: translateX(-100%); /* Oculto por defecto */
     transition: transform 0.3s ease-in-out; /* Suave animación */
     overflow-y: auto; /* Desplazamiento vertical */
     z-index: 1000; /* Detrás del botón toggle */
-}
-/* Mostrar el menú cuando tiene la clase activa */
-.custom-menu.menu-visible {
-    transform: translateX(0); /* Mostrar menú */
 }
 /* -------------------------------------------------------------------------------------------- Estilos de los elementos de la lista del menú */
 .custom-menu .list-group-item {
@@ -56,19 +51,6 @@
     height: auto;
     margin-bottom: 10px; /* Espaciado inferior */
 }
-/* *********************************************************** Botón de toggle *********************************************************** */
-.btn-toggle {
-    position: fixed;
-    top: 10px;
-    left: 10px;
-    z-index: 1100; /* Por encima del menú lateral */
-    background-color: transparent;
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 5px;
-}
 /* ************************************************************* RESPONSIVIDAD ************************************************************* */
 @media (min-width: 768px) {
     /* Ocultar botón en pantallas grandes */
@@ -82,29 +64,21 @@
 }
 /* -------------------------------------------------------------------------------------- Pantallas pequeñas (móviles y tablets en portrait) */
 @media (max-width: 767px) {
-    /* Menú lateral está oculto por defecto en pantallas pequeñas */
-    #menu-lateral {
-        transform: translateX(-100%); /* El menú está fuera de la vista */
-        transition: transform 0.3s ease-in-out; /* Suaviza la transición */
-    }
-
-    /* Cuando el menú está visible */
-    #menu-lateral.menu-visible {
-        transform: translateX(0); /* Muestra el menú */
-        z-index: 1000;
+    .custom-menu {
+        width: 167px; /* Ancho del menú */
+        height: 100vh; /* Altura completa */
+        position: fixed; /* Fijo en la pantalla */
+        top: 0; /* Al borde superior */
+        left: 0; /* Al borde izquierdo */
     }
 }
 /* ------------------------------------------------------------------------------------------------------------------ Pantallas muy pequeñas */
 @media (max-width: 480px) {
-    /* Menú lateral está oculto por defecto en pantallas pequeñas */
     .custom-menu {
-        transform: translateX(-100%); /* El menú está fuera de la vista */
-        transition: transform 0.3s ease-in-out; /* Suaviza la transición */
-    }
-
-    /* Cuando el menú está visible */
-    .custom-menu.menu-visible {
-        transform: translateX(0); /* Muestra el menú */
-        z-index: 1000;
+        width: 120px; /* Ancho del menú */
+        height: 100vh; /* Altura completa */
+        position: fixed; /* Fijo en la pantalla */
+        top: 0; /* Al borde superior */
+        left: 0; /* Al borde izquierdo */
     }
 }
