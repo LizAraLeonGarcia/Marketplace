@@ -230,9 +230,8 @@ class ProductoController extends Controller
             // Recuperamos los productos basados en la búsqueda
             $productos = Producto::where('nombre', 'like', "%$query%")
                 ->orWhere('descripcion', 'like', "%$query%")
-                ->paginate(12)
+                ->paginate(12) // 12 productos máximo por página
                 ->appends(['query' => $query]);  // Agregar el parámetro 'query' a la paginación
-            
             // Recuperamos las categorías disponibles para pasar a la vista
             $categorias = Categoria::all();  // Suponiendo que tienes un modelo Categoria
         } catch (\Exception $e) {
