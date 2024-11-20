@@ -1,28 +1,20 @@
-/* Estilo para el botón de menú */
-.btn-menuLateralPantallasPequeñas {
-    position: fixed;
-    top: 10px;
-    left: 10px;
-    background-color: #333;
-    color: #fff;
-    padding: 10px;
-    font-size: 24px;
-    cursor: pointer;
-    border: none;
-    border-radius: 4px;
-}
 /* ************************************************************** Menú lateral ************************************************************** */
 .custom-menu {
-    background-color: #000000; /* Color de fondo del menú */
+    background-color: #000000; /* Fondo del menú */
     color: white; /* Color del texto */
-    width: 230px; /* Ajusta el ancho del menú */
-    height: 100vh; /* Ocupar toda la altura de la ventana */
-    padding: 0; /* Elimina el padding */
-    position: fixed; /* Fija el menú en su posición */
-    top: 0; /* Se alinea al borde superior */
-    bottom: 0; /* Se extiende hasta el borde inferior */
-    left: 0; /* Se alinea al borde izquierdo */
-    overflow-y: auto; /* Permite el desplazamiento vertical si es necesario */
+    width: 230px; /* Ancho del menú */
+    height: 100vh; /* Altura completa */
+    position: fixed; /* Fijo en la pantalla */
+    top: 0; /* Al borde superior */
+    left: 0; /* Al borde izquierdo */
+    transform: translateX(-100%); /* Oculto por defecto */
+    transition: transform 0.3s ease-in-out; /* Suave animación */
+    overflow-y: auto; /* Desplazamiento vertical */
+    z-index: 1000; /* Detrás del botón toggle */
+}
+/* Mostrar el menú cuando tiene la clase activa */
+.custom-menu.menu-visible {
+    transform: translateX(0); /* Mostrar menú */
 }
 /* -------------------------------------------------------------------------------------------- Estilos de los elementos de la lista del menú */
 .custom-menu .list-group-item {
@@ -64,81 +56,55 @@
     height: auto;
     margin-bottom: 10px; /* Espaciado inferior */
 }
+/* *********************************************************** Botón de toggle *********************************************************** */
+.btn-toggle {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1100; /* Por encima del menú lateral */
+    background-color: transparent;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
 /* ************************************************************* RESPONSIVIDAD ************************************************************* */
 @media (min-width: 768px) {
+    /* Ocultar botón en pantallas grandes */
+    .btn-toggle {
+        display: none; 
+    }
+    /* Siempre visible en pantallas grandes */
     .custom-menu {
-        width: 230px;
-        height: 100vh;
-        position: fixed;
-        left: 0;
-        top: 0;
-        z-index: 1000;
-        text-align: center;
+        transform: translateX(0); 
     }
 }
 /* -------------------------------------------------------------------------------------- Pantallas pequeñas (móviles y tablets en portrait) */
 @media (max-width: 767px) {
-    .menu-toggle {
-        display: block;
-        position: fixed;
-        top: 10px;
-        left: 10px;
-        z-index: 1100; /* Aparece por encima del menú */
-        background-color: #ff20c7; /* Color del botón */
-        color: #fff; /* Color del ícono */
-        padding: 10px;
-        cursor: pointer;
+    /* Menú lateral está oculto por defecto en pantallas pequeñas */
+    #menu-lateral {
+        transform: translateX(-100%); /* El menú está fuera de la vista */
+        transition: transform 0.3s ease-in-out; /* Suaviza la transición */
     }
 
-    .custom-menu {
-        width: 167px;
-        height: 100vh;
-        position: fixed;
-        left: -167px; /* Oculta el menú fuera de la pantalla */
-        transition: left 0.3s ease;
-        text-align: center;
-    }
-    /* Muestra el menú cuando tiene la clase .menu-visible */
-    .custom-menu.menu-visible {
-        left: 0;
-    }
-    /* Estilos de los elementos del menú */
-    .custom-menu .list-group-item {
-        font-size: 1rem; 
-        display: flex;
-        align-items: center;
+    /* Cuando el menú está visible */
+    #menu-lateral.menu-visible {
+        transform: translateX(0); /* Muestra el menú */
+        z-index: 1000;
     }
 }
 /* ------------------------------------------------------------------------------------------------------------------ Pantallas muy pequeñas */
 @media (max-width: 480px) {
-    .menu-toggle {
-        display: block;
-        position: fixed;
-        top: 10px;
-        left: 10px;
-        z-index: 1100; /* Aparece por encima del menú */
-        background-color: #ff20c7; /* Color del botón */
-        color: #fff; /* Color del ícono */
-        padding: 10px;
-        cursor: pointer;
+    /* Menú lateral está oculto por defecto en pantallas pequeñas */
+    .custom-menu {
+        transform: translateX(-100%); /* El menú está fuera de la vista */
+        transition: transform 0.3s ease-in-out; /* Suaviza la transición */
     }
 
-    .custom-menu {
-        width: 167px;
-        height: 100vh;
-        position: fixed;
-        left: -167px; /* Oculta el menú fuera de la pantalla */
-        transition: left 0.3s ease;
-        text-align: center;
-    }
     /* Cuando el menú está visible */
     .custom-menu.menu-visible {
-        left: 0; /* Muestra el menú */
-    }
-    /* Estilos de los elementos del menú */
-    .custom-menu .list-group-item {
-        font-size: 1rem; 
-        display: flex;
-        align-items: center;
+        transform: translateX(0); /* Muestra el menú */
+        z-index: 1000;
     }
 }

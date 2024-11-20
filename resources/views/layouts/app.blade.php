@@ -62,14 +62,14 @@
 <body>
     <div class="container-fluid">
         <!-- ------------------------------------------------------------------------------------------ botón de toggle para el menú lateral -->
-        <button id="menu-toggle" class="menu-toggle"> <i class="fas fa-bars"></i> </button>
         <div class="row no-gutters">
+        <button id="btn-toggle" class="btn-toggle"> <i class="fas fa-bars"></i> </button>
             <!-- ------------------------------------------------------------------------------------------------------------------ Menú lateral -->
-            <div class="col-md-3 col-lg-2 custom-menu">
+            <div id="menu-lateral" class="col-md-3 col-lg-2 custom-menu">
                 @include('partials.menu-lateral')
             </div>
             <!-- ----------------------------------------------------------------------------------------------------------- Contenido principal -->
-            <main class="col contenidoPrincipal">
+            <main id="contenido" class="col contenidoPrincipal">
                 <div class="content">
                     @yield('content')
                 </div>

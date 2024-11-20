@@ -65,47 +65,54 @@ class CarritoController extends Controller
     }
     // ---------------------------------------------------------------------------------------------------------------- pagar el o los productos
     public function pagar(Request $request)
-{
-    // Verifica que se han seleccionado productos
-    if (!$request->has('productos_seleccionados') || empty($request->input('productos_seleccionados'))) {
-        return back()->with('error', 'Debes seleccionar al menos un producto para pagar.');
-    }
-
-    // Obtén los productos seleccionados
-    $productosIds = $request->input('productos_seleccionados');
-    $user = auth()->user();
-
-    // Verifica que los productos seleccionados pertenecen al carrito del usuario
-    $productos = $user->carritos()->whereIn('productos.id', $productosIds)->withPivot('cantidad')->get();
-
-    if ($productos->isEmpty()) {
-        return back()->with('error', 'Algunos productos seleccionados no están disponibles en tu carrito.');
-    }
-
-    // Calcula el total
-    $total = $productos->sum(function ($producto) {
-        return $producto->precio * $producto->pivot->cantidad;
-    });
-
-    // (Aquí se puede realizar el proceso de pago usando Stripe u otro método)
-    // Ejemplo de procesamiento:
-    try {
-        Stripe::setApiKey(env('STRIPE_SECRET'));
-        $paymentIntent = PaymentIntent::create([
-            'amount' => $total * 100, // Total en centavos
-            'currency' => 'usd',
-        ]);
-
-        if ($paymentIntent->status === 'succeeded') {
-            // Eliminar los productos pagados del carrito
-            $user->carritos()->detach($productosIds);
-            return redirect()->route('carrito.index')->with('success', 'Pago realizado con éxito.');
+    {
+        // Verifica que se han seleccionado productos
+        if (!$request->has('productos_seleccionados') || empty($request->input('productos_seleccionados'))) {
+            return back()->with('error', 'Debes seleccionar al menos un producto para pagar.');
         }
-    } catch (\Exception $e) {
-        return back()->with('error', 'Error al procesar el pago: ' . $e->getMessage());
-    }
-}
 
+        // Decodifica el JSON de los productos seleccionados
+        $productosSeleccionados = json_decode($request->input('productos_seleccionados'), true);
+
+        if (!is_array($productosSeleccionados) || empty($productosSeleccionados)) {
+            return back()->with('error', 'El formato de los productos seleccionados es inválido.');
+        }
+
+        // Extrae los IDs de los productos
+        $productosIds = array_column($productosSeleccionados, 'id');
+        $user = auth()->user();
+
+        // Verifica que los productos seleccionados pertenecen al carrito del usuario
+        $productos = $user->carritos()->whereIn('productos.id', $productosIds)->withPivot('cantidad')->get();
+
+        if ($productos->isEmpty()) {
+            return back()->with('error', 'Algunos productos seleccionados no están disponibles en tu carrito.');
+        }
+
+        // Calcula el total
+        $total = $productos->sum(function ($producto) use ($productosSeleccionados) {
+            $cantidadSeleccionada = collect($productosSeleccionados)
+                ->firstWhere('id', $producto->id)['cantidad'] ?? 0;
+            return $producto->precio * $cantidadSeleccionada;
+        });
+
+        // (Aquí se puede realizar el proceso de pago usando Stripe u otro método)
+        try {
+            Stripe::setApiKey(env('STRIPE_SECRET'));
+            $paymentIntent = PaymentIntent::create([
+                'amount' => $total * 100, // Total en centavos
+                'currency' => 'usd',
+            ]);
+
+            if ($paymentIntent->status === 'succeeded') {
+                // Eliminar los productos pagados del carrito
+                $user->carritos()->detach($productosIds);
+                return redirect()->route('carrito.index')->with('success', 'Pago realizado con éxito.');
+            }
+        } catch (\Exception $e) {
+            return redirect()->route('carrito.index')->with('error', 'Error al procesar el pago: ' . $e->getMessage());
+        }
+    }
     // metodo de pago ..........................................................................................................................
     public function checkout(Request $request)
     {

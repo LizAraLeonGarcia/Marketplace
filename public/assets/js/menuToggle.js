@@ -1,12 +1,14 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const toggleButton = document.querySelector(".menu-toggle");
-    const menu = document.querySelector(".custom-menu");
+document.addEventListener('DOMContentLoaded', () => {
+    const toggleButton = document.getElementById('btn-toggle'); // Asegúrate de que este ID esté en tu HTML
+    const menuLateral = document.getElementById('menu-lateral'); // Este ID debe coincidir con el del menú lateral
 
-    if (toggleButton) {
-        toggleButton.addEventListener("click", function() {
-            console.log("Botón clickeado");
-            menu.classList.toggle("menu-visible");
-            console.log(menu.classList); // Verifica si la clase 'menu-visible' está correctamente aplicada
+    // Validar existencia de elementos
+    if (toggleButton && menuLateral) {
+        toggleButton.addEventListener('click', () => {
+            console.log('Botón toggle presionado');
+            menuLateral.classList.toggle('menu-visible'); // Alterna la visibilidad del menú
         });
+    } else {
+        console.error('El menú lateral o el botón toggle no se encontraron. Revisa los IDs.');
     }
 });
