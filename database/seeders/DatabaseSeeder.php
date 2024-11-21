@@ -11,12 +11,12 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            // cargar las categorias
-            CategoriaSeeder::class,
-            // cargar los paises
-            PaisSeeder::class,
             // para los usuarios
             RegistrarUsuariosSeeder::class,
+            // cargar los paises
+            PaisSeeder::class,
+            // cargar las categorias
+            CategoriaSeeder::class,
             // para los productos
             Producto1Seeder::class,
             Producto2Seeder::class,
