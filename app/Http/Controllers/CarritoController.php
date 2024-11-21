@@ -7,7 +7,7 @@ use App\Models\Producto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Stripe\Stripe;
-use Stripe\PaymentIntent;
+use Stripe\Charge;
 use Stripe\Customer;
 
 class CarritoController extends Controller
@@ -17,12 +17,16 @@ class CarritoController extends Controller
     {
         // Obtiene los productos en el carrito del usuario autenticado
         $carritos = auth()->user()->carritos()->with(['categoria'])->withPivot('cantidad')->get();
-        // Calcula el total para productos seleccionados (usualmente manejado en la vista al seleccionar los productos)
+        // Calcula el total para productos seleccionados
         $total = $carritos->sum(function ($producto) {
             return $producto->precio * $producto->pivot->cantidad;
         });
-        
-        return view('carrito.index', compact('carritos', 'total')); 
+
+        // Obtener los métodos de pago del usuario autenticado
+        $user = auth()->user();
+        $paymentMethods = $user->paymentMethods(); // Ajusta según tu implementación de Stripe o tu modelo User
+
+        return view('carrito.index', compact('carritos', 'total', 'paymentMethods'));        
     }
     // ------------------------------------------------------------------------------------------------------------- mostrar producto especifico
     public function mostrar()
@@ -66,75 +70,59 @@ class CarritoController extends Controller
     // ---------------------------------------------------------------------------------------------------------------- pagar el o los productos
     public function pagar(Request $request)
     {
-        // Verifica que se han seleccionado productos
-        if (!$request->has('productos_seleccionados') || empty($request->input('productos_seleccionados'))) {
-            return back()->with('error', 'Debes seleccionar al menos un producto para pagar.');
+        if (!$user->hasStripeId()) {
+            $user->createAsStripeCustomer();
+        }        
+
+        $user->createAsStripeCustomer();
+
+        $productosSeleccionados = $request->input('productos_seleccionados'); // IDs de productos seleccionados
+        $paymentMethodId = $request->input('payment_method_id'); // ID del método de pago seleccionado
+
+        if (!$paymentMethodId) {
+            return back()->withErrors(['error' => 'Debes seleccionar un método de pago.']);
         }
 
-        // Decodifica el JSON de los productos seleccionados
-        $productosSeleccionados = json_decode($request->input('productos_seleccionados'), true);
-
-        if (!is_array($productosSeleccionados) || empty($productosSeleccionados)) {
-            return back()->with('error', 'El formato de los productos seleccionados es inválido.');
-        }
-
-        // Extrae los IDs de los productos
-        $productosIds = array_column($productosSeleccionados, 'id');
-        $user = auth()->user();
-
-        // Verifica que los productos seleccionados pertenecen al carrito del usuario
-        $productos = $user->carritos()->whereIn('productos.id', $productosIds)->withPivot('cantidad')->get();
-
-        if ($productos->isEmpty()) {
-            return back()->with('error', 'Algunos productos seleccionados no están disponibles en tu carrito.');
-        }
-
-        // Calcula el total
-        $total = $productos->sum(function ($producto) use ($productosSeleccionados) {
-            $cantidadSeleccionada = collect($productosSeleccionados)
-                ->firstWhere('id', $producto->id)['cantidad'] ?? 0;
-            return $producto->precio * $cantidadSeleccionada;
-        });
-
-        // (Aquí se puede realizar el proceso de pago usando Stripe u otro método)
         try {
-            Stripe::setApiKey(env('STRIPE_SECRET'));
-            $paymentIntent = PaymentIntent::create([
-                'amount' => $total * 100, // Total en centavos
-                'currency' => 'usd',
+            $total = 0;
+
+            foreach ($productosSeleccionados as $productoId) {
+                $producto = Producto::findOrFail($productoId);
+                $total += $producto->precio; // Ajustar según cantidad si aplica
+            }
+
+            $user = auth()->user();
+            $paymentMethods = $user->paymentMethods();
+            $stripeCustomerId = $user->stripe_customer_id;
+
+            if (!$stripeCustomerId) {
+                // Si no tiene un cliente en Stripe, créalo
+                $stripeCustomer = \Stripe\Customer::create([
+                    'email' => $user->email,
+                    'name' => $user->name,
+                ]);
+                $stripeCustomerId = $stripeCustomer->id;
+                $user->stripe_customer_id = $stripeCustomerId;
+                $user->save();
+            }
+
+            \Stripe\PaymentIntent::create([
+                'amount' => $total * 100, // En centavos
+                'currency' => 'mxn',
+                'customer' => $stripeCustomerId,
+                'payment_method' => $paymentMethodId,
+                'off_session' => true,
+                'confirm' => true,
             ]);
 
-            if ($paymentIntent->status === 'succeeded') {
-                // Eliminar los productos pagados del carrito
-                $user->carritos()->detach($productosIds);
-                return redirect()->route('carrito.index')->with('success', 'Pago realizado con éxito.');
-            }
+            return redirect()->route('carrito.exitoso')->with('success', 'Pago realizado con éxito.');
         } catch (\Exception $e) {
-            return redirect()->route('carrito.index')->with('error', 'Error al procesar el pago: ' . $e->getMessage());
+            return back()->withErrors(['error' => 'Error al procesar el pago: ' . $e->getMessage()]);
         }
     }
-    // metodo de pago ..........................................................................................................................
-    public function checkout(Request $request)
+
+    public function pagoExitoso()
     {
-        $user = $request->user();
-        
-        if (!$user->stripe_customer_id) {
-            return redirect()->route('metodo-de-pago.show')->withErrors(['error' => 'Agrega un método de pago antes de continuar.']);
-        }
-        // Resumen de productos en el carrito
-        $productos = $user->carritos()->with(['product'])->get();
-        // Calcula el total del pedido
-        $total = $productos->sum(function ($producto) {
-            return $producto->precio * $producto->pivot->cantidad;
-        });
-        // Realiza el pago a través de Stripe
-        $paymentIntent = $this->realizarPago($user, $total);
-        // Si el pago es exitoso, marca el pedido como pagado
-        if ($paymentIntent->status == 'succeeded') {
-            // Aquí se crea el pedido y los productos se asocian con sus vendedores
-            return redirect()->route('comprador.perfil')->with('success', 'Pedido realizado con éxito y pagado.');
-        } else {
-            return redirect()->back()->with('error', 'Error en el pago.');
-        }
+        return view('pago-exitoso')->with('message', '¡Tu pago fue exitoso!');
     }
 }

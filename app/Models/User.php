@@ -13,6 +13,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use App\Notifications\CustomVerifyEmail;
+use Laravel\Cashier\Billable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -22,6 +23,7 @@ class User extends Authenticatable implements MustVerifyEmail
     use TwoFactorAuthenticatable;
     use Notifiable;
     use SoftDeletes;
+    use Billable;
     // ------------------------------------------------------------------------------------------------------------------ Relacion con productos
     public function productos()
     {
@@ -34,6 +36,8 @@ class User extends Authenticatable implements MustVerifyEmail
                     ->withPivot('cantidad') 
                     ->withTimestamps();
     }
+    
+
     // -------------------------------------------------------------------------------------------------------------------- Relacion con compras
     public function compras()
     {

@@ -92,13 +92,30 @@
                     <div class="total-container mt-3">
                         <p class="totalAPagar"><strong>Total: $<span id="total-precio">0.00</span></strong></p>
                     </div>
+                    <!-- Selección de método de pago -->
+                    <h3>Método de Pago</h3>
+                    @if(count($paymentMethods) > 0)
+                        <label for="payment-method">Selecciona un método de pago:</label>
+                        <select id="payment-method" name="payment_method_id" class="form-control">
+                            @foreach($paymentMethods as $method)
+                                <option value="{{ $method->id }}">
+                                    **** {{ $method->card->last4 }} ({{ $method->card->brand }})
+                                </option>
+                            @endforeach
+                        </select>
+                    @else
+                        <p>No tienes métodos de pago guardados. Agrega uno en la sección "Mi cuenta".</p>
+                    @endif
 
-                    <form id="form-pago" action="{{ route('carrito.pagar') }}" method="POST" class="formPagar">
-                        @csrf
-                        <!-- Aquí se insertarán dinámicamente los productos seleccionados -->
-                        <input type="hidden" name="productos_seleccionados" id="productos_seleccionados">
-                        <button type="submit" class="btn btn-pagar mt-3">Pagar</button>
-                    </form>
+                    <!-- Formulario para proceder con el pago -->
+                    @if(count($paymentMethods) > 0)
+                        <form id="form-pago" action="{{ route('carrito.pagar') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="productos_seleccionados" value="{{ json_encode($productosSeleccionados) }}">
+                            <input type="hidden" name="payment_method_id" id="payment-method-id" value="{{ $paymentMethods[0]->id }}">
+                            <button type="submit" class="btn btn-primary mt-3">Pagar</button>
+                        </form>
+                    @endif
                 @else
                     <h2 class="text-center">Por favor, inicia sesión para ver los productos en tu carrito.</h1>
                 @endif
