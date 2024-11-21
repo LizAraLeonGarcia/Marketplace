@@ -36,8 +36,6 @@ class User extends Authenticatable implements MustVerifyEmail
                     ->withPivot('cantidad') 
                     ->withTimestamps();
     }
-    
-
     // -------------------------------------------------------------------------------------------------------------------- Relacion con compras
     public function compras()
     {

@@ -9,7 +9,7 @@ use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\CarritoController;
-use App\Http\Controllers\MetodoDePagoController;
+use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\AyudaController;
 use App\Http\Controllers\FileController;
@@ -94,8 +94,11 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/carrito/agregar/{producto}', [CarritoController::class, 'agregar'])->name('carrito.agregar'); 
     Route::delete('/carrito/eliminar/{producto}', [CarritoController::class, 'eliminar'])->name('carrito.eliminar');
     Route::post('/carrito/pagar', [CarritoController::class, 'pagar'])->name('carrito.pagar');
-    Route::get('/pago-exitoso', [CarritoController::class, 'pagoExitoso'])->name('carrito.pago-exitoso');
-    Route::get('/checkout', [CarritoController::class, 'checkout'])->name('checkout');
+    //Route::get('/pago-exitoso', [CarritoController::class, 'pagoExitoso'])->name('carrito.pago-exitoso');
+    Route::get('/cuenta/metodo-de-pago', [PaymentMethodController::class, 'showMetodoDePagoForm'])->name('metodo-de-pago.show');
+    Route::post('/cuenta/metodo-de-pago', [PaymentMethodController::class, 'storeMetodoDePago'])->name('metodo-de-pago.store');
+    Route::get('metodo-de-pago', [PaymentMethodController::class, 'create'])->name('metodo-de-pago.create');
+    Route::post('metodo-de-pago', [PaymentMethodController::class, 'store'])->name('metodo-de-pago.store');
     //Route::get('/productos/{id}/detalles', [ProductoController::class, 'detalles'])->name('productos.show');
     // ------------------------------------------------------------- sección ayuda -------------------------------------------------------------
     Route::get('/ayuda', [AyudaController::class, 'index'])->name('ayuda.index');

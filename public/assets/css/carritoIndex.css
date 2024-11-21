@@ -23,7 +23,7 @@
     margin-bottom: 20px;
 }
 
-.formPagar {
+.formPagar, .formParaBotonPagar {
     background-color: transparent;
     border-color: transparent;
 }

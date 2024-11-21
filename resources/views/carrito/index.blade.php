@@ -109,11 +109,12 @@
 
                     <!-- Formulario para proceder con el pago -->
                     @if(count($paymentMethods) > 0)
-                        <form id="form-pago" action="{{ route('carrito.pagar') }}" method="POST">
+                        <form id="form-pago" action="{{ route('carrito.pagar') }}" method="POST" class="formParaBotonPagar">
                             @csrf
                             <input type="hidden" name="productos_seleccionados" value="{{ json_encode($productosSeleccionados) }}">
                             <input type="hidden" name="payment_method_id" id="payment-method-id" value="{{ $paymentMethods[0]->id }}">
-                            <button type="submit" class="btn btn-primary mt-3">Pagar</button>
+                            <input type="hidden" id="productos_seleccionados" name="productos_seleccionados" value="">
+                            <button type="submit" class="btn btn-pagar mt-3">Pagar</button>
                         </form>
                     @endif
                 @else

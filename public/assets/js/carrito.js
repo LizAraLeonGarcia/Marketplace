@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function () {
             alert('Por favor, selecciona al menos un producto para pagar.');
             return;
         }
-
+         // Rellenar el input 'productos_seleccionados' con los productos seleccionados
         const productosSeleccionados = Array.from(checkboxes).map(checkbox => {
             const fila = checkbox.closest('tr');
             const cantidad = parseInt(fila.querySelector('.cantidad-producto').value);
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
             };
         });
 
-        productosSeleccionadosInput.value = JSON.stringify(productosSeleccionados);
+        productosSeleccionadosInput.value = JSON.stringify(productosSeleccionados); // Guardar datos en el campo oculto
     });
 
     actualizarTotal();

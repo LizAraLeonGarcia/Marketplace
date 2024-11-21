@@ -60,55 +60,43 @@
         </div>
 </div>
 
+<script src="https://js.stripe.com/v3/"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const stripe = Stripe('{{ env('STRIPE_KEY') }}');
-        const elements = stripe.elements();
-        const cardElement = elements.create('card');
-        cardElement.mount('#card-element');
+    // Configura Stripe con clave pública
+    var stripe = Stripe('pk_test_51QHCEnEOSd6PZ2Eh0p78RV4cpb9OBorZRxUkdUUkOMbmmHsDGdUPenYmnSZLOhECTe8ttUF2bI3vg0qeuNDjJCrd00M6gG3EBF'); 
 
-        const form = document.getElementById('metodo-de-pago-form');
-        const paymentMethodSelect = document.getElementById('payment-method');
-        const cardContainer = document.getElementById('card-element');
+    var elements = stripe.elements();
+    var card = elements.create('card');
+    card.mount('#card-element'); // Monta el campo de la tarjeta
 
-        paymentMethodSelect.addEventListener('change', () => {
-            if (paymentMethodSelect.value === 'card') {
-                cardContainer.style.display = 'block';
+    var paymentForm = document.getElementById('metodo-de-pago-form');
+    paymentForm.addEventListener('submit', async (event) => {
+        event.preventDefault(); // Prevenir envío del formulario
+
+        // Obtén el client_secret de SetupIntent desde el backend (pasado a la vista)
+        var clientSecret = "{{ $setupIntent->client_secret }}"; // Este es el valor que se pasa desde el controlador
+        // Crea el método de pago
+        const { paymentMethod, error } = await stripe.createPaymentMethod('card', card);
+
+        if (error) {
+            console.error(error.message);
+            alert('Error al crear el método de pago: ' + error.message);
+            return;
+        }
+
+        // Ahora confirma el SetupIntent con el método de pago creado
+        stripe.confirmSetupIntent(clientSecret, {
+            payment_method: paymentMethod.id
+        }).then(function(result) {
+            if (result.error) {
+                // Si hay un error, lo mostramos
+                console.error(result.error.message);
+                alert('Hubo un problema al guardar el método de pago: ' + result.error.message);
             } else {
-                cardContainer.style.display = 'none';
-            }
-        });
-
-        form.addEventListener('submit', async (event) => {
-            event.preventDefault();
-            const selectedMethod = paymentMethodSelect.value;
-
-            if (selectedMethod === 'card') {
-                const { setupIntent, error } = await stripe.confirmCardSetup(
-                    '{{ $intent->client_secret }}',
-                    {
-                        payment_method: {
-                            card: cardElement,
-                            billing_details: { name: '{{ auth()->user()->name }}' }
-                        },
-                    }
-                );
-
-                if (error) {
-                    document.getElementById('card-errors').textContent = error.message;
-                } else {
-                    document.getElementById('paymentMethodId').value = setupIntent.payment_method;
-                    form.submit();
-                }
-            } else if (selectedMethod === 'bank_transfer') {
-                alert("Para completar la transferencia bancaria, sigue las instrucciones enviadas a tu correo.");
-                form.submit();
-            } else if (selectedMethod === 'google_pay') {
-                alert("Redirigiendo a Google Pay...");
-                form.submit();
-            } else if (selectedMethod === 'apple_pay') {
-                alert("Redirigiendo a Apple Pay...");
-                form.submit();
+                // Si la confirmación es exitosa, redirigimos o mostramos un mensaje
+                console.log('Método de pago guardado exitosamente.');
+                alert('Método de pago guardado correctamente');
+                // Redirigir o hacer algo más
             }
         });
     });
