@@ -188,33 +188,37 @@ class ProductoController extends Controller
 
         return view('productos.index', compact('productos', 'categorias', 'categoria_id'));
     }
-    // ................................................................................................................................ ofertas
-    public function ofertas()
-    {
-
-    }
-    // ........................................................................................................................ recomendaciones
-    public function recomendaciones()
-    {
-
-    }
-    // ............................................................................................................................. por precio
-    public function porPrecio()
-    {
-        $productos = Producto::orderBy('precio')->get();
-        return view('productos.index', compact('productos'));
-    }
     // ............................................................................................................................mas vendidos
-    public function masVendidos()
-    {
-        $productos = Producto::orderBy('ventas', 'desc')->take(10)->get();
-        return view('productos.index', compact('productos'));
-    }
+    // ........................................................................................................................ recomendaciones
+    // ................................................................................................................................ ofertas
     // ....................................................................................................................... nuevos productos
     public function nuevosProductos()
     {
         $productos = Producto::where('created_at', '>=', now()->subMonth())->get();
         return view('productos.index', compact('productos'));
+    }
+    // ............................................................................................................................. por precio
+    // Filtrar por rango de precios
+    public function porPrecio(Request $request)
+    {
+        // Obtener los valores de precio desde la solicitud
+        $minPrecio = $request->input('min_precio');
+        $maxPrecio = $request->input('max_precio');
+
+        // Filtrar productos según el rango de precio
+        $productos = Producto::when($minPrecio, function ($query) use ($minPrecio) {
+                return $query->where('precio', '>=', $minPrecio);  // Filtra el precio mínimo
+            })
+            ->when($maxPrecio, function ($query) use ($maxPrecio) {
+                return $query->where('precio', '<=', $maxPrecio);  // Filtra el precio máximo
+            })
+            ->paginate(12)
+            ->appends($request->all());  // Asegura que los parámetros se mantengan en la paginación
+
+        // Obtener todas las categorías para pasarlas a la vista
+        $categorias = Categoria::all();
+
+        return view('productos.index', compact('productos', 'categorias', 'minPrecio', 'maxPrecio'));
     }
     // ................................................................................................................................. buscar
     public function buscar(Request $request)

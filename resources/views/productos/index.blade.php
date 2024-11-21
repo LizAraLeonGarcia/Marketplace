@@ -16,50 +16,66 @@
                 <!-- Imagen izquierda -->
                 <img src="{{ asset('img/menuProductos1.png') }}" alt="Imagen Izquierda" class="imagen-izquierda">
                 <!-- Navegación específica de productos -->
-                    <ul class="nav-productosIndex">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="{{ route('productos.index') }}">
-                            <i class="fas fa-th"></i>Todos los Productos</a>
-                        </li>
-                        <li class="nav-item dropdown contenedor-categorias">
-                            <form method="GET" action="{{ route('productos.index') }}">
-                                <select name="categoria_id" id="categoria_id" class="form-control" onchange="this.form.submit()">
-                                    <option value="">Todas las categorías</option>
-                                    @foreach($categorias as $categoria)
-                                        <option value="{{ $categoria->id }}" {{ request('categoria_id') == $categoria->id ? 'selected' : '' }}>
-                                            {{ $categoria->nombre }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </form>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                            <i class="fas fa-star"></i>Nuevos productos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                            <i class="fas fa-heart"></i> Recomendaciones</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                            <i class="fas fa-tags"></i>Ofertas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                            <i class="fas fa-chart-line"></i>Más vendidos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('productos.precio') }}">
-                            <i class="fas fa-dollar-sign"></i>Por precio</a>
-                        </li>
-                    </ul>
-                    <!-- Barra de búsqueda -->
-                    <form action="{{ route('productos.buscar') }}" method="GET" class="contenedorBarraBusqueda">
-                        <input type="text" name="query" class="form-buscar me-2" placeholder="Buscar producto" aria-label="Buscar">
-                        <button type="submit" class="btn btn-buscarProduct"><strong>Buscar</strong></button>
-                    </form>
-                 <!-- Imagen derecha -->
+                <div class="contenido-central">
+                    <div class="columna-navegacion">
+                        <ul>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="{{ route('productos.index') }}">
+                                <i class="fas fa-th"></i>Todos los Productos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                <i class="fas fa-heart"></i> Recomendaciones</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                <i class="fas fa-tags"></i>Ofertas</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                <i class="fas fa-chart-line"></i>Más vendidos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                <i class="fas fa-star"></i>Nuevos productos</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="columna-formularios">
+                        <!-- Por categorias -->
+                        <form method="GET" action="{{ route('productos.index') }}" class="nav-item dropdown contenedor-categorias">
+                            <select name="categoria_id" id="categoria_id" class="form-control" onchange="this.form.submit()">
+                                <option value="">Todas las categorías</option>
+                                @foreach($categorias as $categoria)
+                                    <option value="{{ $categoria->id }}" {{ request('categoria_id') == $categoria->id ? 'selected' : '' }}>
+                                        {{ $categoria->nombre }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </form>
+                        <!-- precio -->
+                        <div class="textoPorPrecio"><i class="fas fa-dollar-sign"></i>Por precio</div>
+                        <form action="{{ route('productos.precio') }}" method="GET" class="contenedor-precio">
+                            <div class="form-row">
+                                <div class="col-5">
+                                    <input type="number" class="form-control" name="min_precio" placeholder="Precio mínimo" value="{{ request('min_precio') }}">
+                                </div>
+                                <div class="col-5">
+                                    <input type="number" class="form-control" name="max_precio" placeholder="Precio máximo" value="{{ request('max_precio') }}">
+                                </div>
+                                <div class="col-2">
+                                    <button type="submit" class="btn btn-porPrecio">Ok</button>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- Barra de búsqueda -->
+                        <form action="{{ route('productos.buscar') }}" method="GET" class="contenedor-barraBusqueda">
+                            <input type="text" name="query" class="form-buscar me-2" placeholder="Buscar producto" aria-label="Buscar">
+                            <button type="submit" class="btn btn-buscarProduct"><strong>Buscar</strong></button>
+                        </form>
+                    </div>
+                </div>
+                <!-- Imagen derecha -->
                 <img src="{{ asset('img/menuProductos2.png') }}" alt="Imagen Derecha" class="imagen-derecha">
             </div>   
              <!-- Mensajes de error y éxito -->
