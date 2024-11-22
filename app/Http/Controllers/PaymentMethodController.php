@@ -75,6 +75,7 @@ class PaymentMethodController extends Controller
         // Obtener métodos de pago guardados del usuario autenticado
         $user = auth()->user();
         $paymentMethods = $user->paymentMethods() ?? []; // Asegúrate de tener implementado este método o ajusta la lógica.
+        dd($paymentMethods);
 
         // Pasar datos a la vista
         return view('cuenta.metodo-de-pago', [

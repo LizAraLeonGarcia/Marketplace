@@ -35,7 +35,7 @@ Este **Vaquita Marketplace** es un proyecto desarrollado con Laravel, diseñado 
 **Importante**
 Hay opciones no implementadas en el backend, solamente en el frontend. Las opciones **funcionales** en orden de sección son:
 1. Dashboard = todo funcional.
-2. Mi cuenta = las secciones de Editar cuenta, Cambiar contraseña y Eliminar mi cuenta funcionales. La sección del Método de pago solamente tiene implementado para tarjeta de débito/crédito.
+2. Mi cuenta = las secciones de Editar cuenta, Cambiar contraseña y Eliminar mi cuenta son funcionales. La sección del Método de pago solamente tiene implementado para tarjeta de débito/crédito.
 3. Perfil como comprador = funcional, además sólo es visual.
 4. Perfil como vendedor = funcional, además sólo es visual.
 5. Crear producto = todo funcional.
