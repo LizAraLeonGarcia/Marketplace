@@ -33,11 +33,21 @@
 }
 /* ------------------------------------------------------------------------------------------ Estilo para el encabezado de métodos guardados */
 .saved-methods-section h3 {
-    font-size: 1.8rem; /* Tamaño de fuente ajustado */
+    font-size: 1.5rem; /* Tamaño de fuente ajustado */
     color: #444; /* Color de texto elegante */
     text-align: center; /* Centrado horizontal */
     margin-bottom: 20px; /* Espacio debajo del título */
     flex-basis: 100%; /* Abarca toda la fila para centrar */
+}
+
+.saved-methods-section .list-group-item {
+    border-radius: 8px;
+    margin-bottom: 10px;
+    background-color: #f8f9fa;
+}
+
+.saved-methods-section .list-group-item:hover {
+    background-color: #f1f3f5;
 }
 /* -------------------------------------------------------------------------------------------------- Ajuste de la tarjeta de método de pago */
 .card.payment-card {

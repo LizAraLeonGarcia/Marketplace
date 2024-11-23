@@ -40,17 +40,21 @@
             </div>
             <div class="row align-items-center">
                 <div class="col-md-8 saved-methods-section">
-                    <h3><strong>Métodos de pago guardados</strong></h3>
+                    <h3 class="mb-4"><strong>Métodos de pago guardados</strong></h3>
                     @if (count($paymentMethods) > 0)
-                        @foreach ($paymentMethods as $method)
-                            <div class="card payment-card">
-                                <p><strong>Tarjeta:</strong> **** **** **** {{ $method->card->last4 }}</p>
-                                <p><strong>Expira:</strong> {{ $method->card->exp_month }}/{{ $method->card->exp_year }}</p>
-                                <p><strong>Marca:</strong> {{ $method->card->brand }}</p>
-                            </div>
-                        @endforeach
+                        <div class="list-group">
+                            @foreach ($paymentMethods as $method)
+                                <div class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <strong>Marca:</strong> {{ $method['brand'] ?? 'Desconocida' }}<br>
+                                        <strong>Últimos 4 dígitos:</strong> ****{{ $method['last4'] ?? '****' }}<br>
+                                        <strong>Expiración:</strong> {{ $method['exp_month'] ?? '??' }}/{{ $method['exp_year'] ?? '??' }}
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
                     @else
-                        <p>No tienes ningún método de pago guardado.</p>
+                        <p class="alert alert-warning mt-3">No tienes métodos de pago registrados.</p>
                     @endif
                 </div>
                 <div class="col-md-4 d-flex align-items-center justify-content-center">
@@ -75,6 +79,7 @@
 
         // Obtén el client_secret de SetupIntent desde el backend (pasado a la vista)
         var clientSecret = "{{ $setupIntent->client_secret }}"; // Este es el valor que se pasa desde el controlador
+        
         // Crea el método de pago
         const { paymentMethod, error } = await stripe.createPaymentMethod('card', card);
 
@@ -84,7 +89,7 @@
             return;
         }
 
-        // Ahora confirma el SetupIntent con el método de pago creado
+        // Ahora confirmamos el SetupIntent con el método de pago creado
         stripe.confirmSetupIntent(clientSecret, {
             payment_method: paymentMethod.id
         }).then(function(result) {
@@ -93,10 +98,11 @@
                 console.error(result.error.message);
                 alert('Hubo un problema al guardar el método de pago: ' + result.error.message);
             } else {
-                // Si la confirmación es exitosa, redirigimos o mostramos un mensaje
-                console.log('Método de pago guardado exitosamente.');
-                alert('Método de pago guardado correctamente');
-                // Redirigir o hacer algo más
+                // Si la confirmación es exitosa, asignamos el paymentMethodId al campo oculto
+                document.getElementById('paymentMethodId').value = paymentMethod.id;
+
+                // Ahora podemos enviar el formulario
+                paymentForm.submit();  // Se envía el formulario
             }
         });
     });

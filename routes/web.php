@@ -79,8 +79,8 @@ Route::middleware(['auth'])->group(function () {
     // manejar el cambio de contraseña
     Route::post('/cuenta/cambiar-contrasena', [AccountController::class, 'cambiarContrasena'])->name('cuenta.cambiar-contrasena.update');
     // metodo pago .............................................................................................................................
-    Route::get('/cuenta/metodo-de-pago', [MetodoDePagoController::class, 'showMetodoDePagoForm'])->name('metodo-de-pago.show');
     Route::post('/cuenta/metodo-de-pago', [MetodoDePagoController::class, 'storeMetodoDePago'])->name('metodo-de-pago.store');
+    Route::get('/cuenta/metodo-de-pago', [PaymentMethodController::class, 'showMetodoDePagoForm'])->name('metodo-de-pago.show');
     // ----------------------------------------------------------- perfil comprador -----------------------------------------------------------
     Route::get('/cuenta/comprador', [UserProfileController::class, 'perfilComprador'])->name('comprador.perfil');
     // ------------------------------------------------------------ perfil vendedor ------------------------------------------------------------
