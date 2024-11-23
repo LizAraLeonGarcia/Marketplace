@@ -42,6 +42,11 @@ return [
             'visibility' => 'public',
         ],
 
+        'test' => [
+            'driver' => 'local',
+            'root' => storage_path('app/test'), // El directorio donde se almacenarán los archivos en el disco 'test'
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

@@ -165,9 +165,8 @@ class ProductoController extends Controller
             Storage::disk('public')->delete($image->path); 
             $image->delete();
         }
-
         $producto->delete();
-
+        
         return redirect()->route('dashboard')->with('success', 'Producto eliminado exitosamente.');
     }
     // ********************************************************* filtrar los productos *********************************************************
