@@ -90,6 +90,10 @@ Sigue estos pasos para configurar el proyecto:
     ```bash
     php artisan serve
 
+**Extra**
+
+Hay 4 tests preparados, éstos los tengo ubicados en la carpeta \laragon\www\Marketplace\tests\Feature y el archivo es MarketplaceTest.
+
 ---
 
 ## Uso
