@@ -71,57 +71,25 @@ class CarritoController extends Controller
     // ---------------------------------------------------------------------------------------------------------------- pagar el o los productos
     public function pagar(Request $request)
 {
-    try {
-        $productosSeleccionados = json_decode($request->input('productos_seleccionados'));
-        $paymentMethodId = $request->input('payment_method_id');
+    $productosSeleccionados = json_decode($request->input('productos_seleccionados'), true);
 
-        // Obtener el usuario autenticado
-        $user = auth()->user();
-
-        if (!$user->hasStripeId()) {
-            $user->createAsStripeCustomer();
+    if ($productosSeleccionados) {
+        // Elimina los productos seleccionados del carrito usando la relación del usuario
+        foreach ($productosSeleccionados as $productoId) {
+            auth()->user()->carritos()->detach($productoId);
         }
 
-        $total = 0;
-        foreach ($productosSeleccionados as $producto) {
-            $productoDB = Producto::findOrFail($producto->id);
-            $total += $productoDB->precio * $producto->cantidad;
-        }
-
-        // Verificar si ya tiene un cliente de Stripe
-        $stripeCustomerId = $user->stripe_customer_id;
-        if (!$stripeCustomerId) {
-            $stripeCustomer = \Stripe\Customer::create([
-                'email' => $user->email,
-                'name' => $user->name,
-            ]);
-            $stripeCustomerId = $stripeCustomer->id;
-            $user->stripe_customer_id = $stripeCustomerId;
-            $user->save();
-        }
-
-        // Crear PaymentIntent
-        $paymentIntent = \Stripe\PaymentIntent::create([
-            'amount' => $total * 100, // Monto en centavos
-            'currency' => 'mxn',
-            'customer' => $stripeCustomerId,
-            'payment_method' => $paymentMethodId,
-            'off_session' => true,
-            'confirm' => true,
-        ]);
-
-        return redirect()->route('carrito.exitoso')->with('success', 'Pago realizado con éxito.');
-    } catch (\Stripe\Exception\ApiErrorException $e) {
-        // Capturar errores específicos de Stripe
-        return back()->withErrors(['error' => 'Error con Stripe: ' . $e->getMessage()]);
-    } catch (\Exception $e) {
-        // Capturar otros errores generales
-        return back()->withErrors(['error' => 'Error al procesar el pago: ' . $e->getMessage()]);
+        // Redirige a la vista de pago exitoso
+        return redirect()->route('carrito.pago-exitoso')->with('success', 'Pago procesado con éxito. Los productos han sido removidos del carrito.');
     }
+
+    // Manejar casos en los que no se seleccionaron productos
+    return back()->with('error', 'No se seleccionaron productos para pagar.');
 }
 
-    public function pagoExitoso()
+
+    public function pagoExitoso(Request $request)
     {
-        return view('pago-exitoso')->with('message', '¡Tu pago fue exitoso!');
+        return view('carrito.pago-exitoso');
     }
 }

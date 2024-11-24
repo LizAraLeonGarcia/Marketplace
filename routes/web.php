@@ -94,7 +94,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/carrito/agregar/{producto}', [CarritoController::class, 'agregar'])->name('carrito.agregar'); 
     Route::delete('/carrito/eliminar/{producto}', [CarritoController::class, 'eliminar'])->name('carrito.eliminar');
     Route::post('/carrito/pagar', [CarritoController::class, 'pagar'])->name('carrito.pagar');
-    //Route::get('/pago-exitoso', [CarritoController::class, 'pagoExitoso'])->name('carrito.pago-exitoso');
+    Route::get('/carrito/pago-exitoso', [CarritoController::class, 'pagoExitoso'])->name('carrito.pago-exitoso');
     Route::get('/cuenta/metodo-de-pago', [PaymentMethodController::class, 'showMetodoDePagoForm'])->name('metodo-de-pago.show');
     Route::post('/cuenta/metodo-de-pago', [PaymentMethodController::class, 'storeMetodoDePago'])->name('metodo-de-pago.store');
     Route::get('metodo-de-pago', [PaymentMethodController::class, 'create'])->name('metodo-de-pago.create');

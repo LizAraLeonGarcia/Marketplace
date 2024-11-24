@@ -22,19 +22,26 @@ class PaymentMethodController extends Controller
     public function create(Request $request)
     {
         $user = Auth::user();
-
         // Si el usuario no tiene un Stripe ID, lo creamos
-        if (!$user->hasStripeId()) {
+        
+        if (!$user->stripe_id) {
             $user->createAsStripeCustomer();
+            if (!$user->stripe_id) {
+                throw new \Exception('No se pudo crear un cliente de Stripe para este usuario.');
+            }
+        }        
+        // Configuramos la API de Stripe y creamos el SetupIntent Stripe::setApiKey(env('STRIPE_SECRET'));
+        // Genera un nuevo SetupIntent
+
+        try {
+            $setupIntent = SetupIntent::create([
+                'customer' => $user->stripe_id,
+            ]);
+        } catch (\Stripe\Exception\ApiErrorException $e) {
+            // Manejar el error aquí
+            return back()->withErrors(['error' => 'Error al crear el SetupIntent: ' . $e->getMessage()]);
         }
-
-        // Configuramos la API de Stripe y creamos el SetupIntent
-        Stripe::setApiKey(env('STRIPE_SECRET'));
-        // Crear un SetupIntent para este cliente
-        $setupIntent = SetupIntent::create([
-            'customer' => $user->stripe_id,
-        ]);
-
+        
         // Pasar el client_secret al frontend
         return view('cuenta.metodo-de-pago', [
             'setupIntent' => $setupIntent
@@ -43,8 +50,12 @@ class PaymentMethodController extends Controller
 
     public function store(Request $request)
     {
-        $user = auth()->user();
         $paymentMethodId = $request->paymentMethodId;
+        $user = auth()->user();
+        // Verifica que el ID de PaymentMethod esté presente
+        if (!$paymentMethodId) {
+            return back()->withErrors(['error' => 'No se proporcionó un método de pago válido.']);
+        }
 
         // Configurar Stripe
         Stripe::setApiKey(env('STRIPE_SECRET'));
@@ -64,9 +75,10 @@ class PaymentMethodController extends Controller
                 'last4' => $stripePaymentMethod->card->last4,
                 'exp_month' => $stripePaymentMethod->card->exp_month,
                 'exp_year' => $stripePaymentMethod->card->exp_year,
-                'is_default' => true, // Marcarlo como predeterminado (puedes personalizar esto)
+                'is_default' => true, // Marcarlo como predeterminado
             ]);
-    
+             // Guardar el método de pago en Stripe
+            $user->addPaymentMethod($request->paymentMethodId);
             session()->flash('success', 'Método de pago guardado correctamente.');
             return redirect()->route('metodo-de-pago.show');
     

@@ -35,6 +35,8 @@
     <link href="{{ asset('assets/css/productIndex.css') }}" rel="stylesheet">
     <!-- ******************************************************************************************************* para la sección del carrito -->
     <link href="{{ asset('assets/css/carritoIndex.css') }}" rel="stylesheet">
+    <!-- ************************************************************************************************** para la sección del pago exitoso -->
+    <link href="{{ asset('assets/css/pagoExitoso.css') }}" rel="stylesheet">
     <!-- ********************************************************************************************************** para la sección de ayuda -->
     <link href="{{ asset('assets/css/ayuda.css') }}" rel="stylesheet">
     <!-- ************************************************************************************************************************ paginación -->
@@ -84,5 +86,6 @@
     <!-- para el carrito -->
     <script src="{{ asset('assets/js/carrito.js') }}"></script>
     <script src="https://js.stripe.com/v3/"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 </body>
 </html>

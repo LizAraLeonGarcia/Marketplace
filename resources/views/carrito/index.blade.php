@@ -109,7 +109,7 @@
                             <button type="submit" class="btn btn-pagar mt-3">Pagar</button>
                         </form>
                     @else
-                        <p class="alert alert-warning mt-3">No tienes métodos de pago guardados. Agrega uno en la sección "Mi cuenta".</p>
+                        <p class="alert alert-warning mt-3">No tienes métodos de pago guardados. Agrega uno en la sección "Mi cuenta" para proceder con el pago.</p>
                     @endif
 
                 @else

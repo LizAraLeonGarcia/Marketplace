@@ -1,0 +1,65 @@
+.compra-titulo {
+    font-size: 22px; /* Tamaño predeterminado */
+    font-weight: bold;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.compra-detalle {
+    font-size: 18px; /* Tamaño predeterminado */
+    color: #ffffff;
+    margin-top: 5px;
+    text-align: center;
+}
+
+.imgPagoExitoso {
+    display: block;
+    margin: 0 auto; /* Centra horizontalmente */
+    max-width: 90%; /* Limita el ancho de la imagen para pantallas pequeñas */
+    height: auto; /* Mantiene la proporción de la imagen */
+}
+
+/* responsividad */
+/* Dispositivos pequeños (teléfonos) */
+@media (max-width: 576px) {
+    .compra-titulo {
+        font-size: 18px; /* Reduce el tamaño de la fuente */
+    }
+
+    .compra-detalle {
+        font-size: 14px; /* Reduce el tamaño de la fuente */
+    }
+
+    .imgPagoExitoso {
+        max-width: 80%; /* Reduce un poco más el tamaño de la imagen */
+    }
+}
+/* Dispositivos medianos (tabletas) */
+@media (min-width: 577px) and (max-width: 768px) {
+    .compra-titulo {
+        font-size: 20px; /* Tamaño intermedio */
+    }
+
+    .compra-detalle {
+        font-size: 15px; /* Tamaño intermedio */
+    }
+
+    .imgPagoExitoso {
+        max-width: 85%; /* Ajuste moderado del tamaño de la imagen */
+    }
+}
+/* Dispositivos grandes (escritorios) */
+@media (min-width: 769px) {
+    .compra-titulo {
+        font-size: 22px; /* Tamaño predeterminado */
+    }
+
+    .compra-detalle {
+        font-size: 18px; /* Tamaño predeterminado */
+    }
+
+    .imgPagoExitoso {
+        max-width: 50%; /* Imagen más grande en pantallas amplias */
+    }
+}
