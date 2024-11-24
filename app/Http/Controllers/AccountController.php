@@ -81,8 +81,7 @@ class AccountController extends Controller
         $user->pais_id = $request->input('pais_id');
         $user->fecha_nacimiento = $request->fecha_nacimiento;
         $user->descripcion = $request->descripcion;
-        // Manejo de la foto
-        // Manejo de la imagen de perfil
+        // Manejo de la foto - imagen de perfil
         if ($request->hasFile('foto_personalizada')) {
             // Si se subió una foto 
             $path = $request->file('foto_personalizada')->store('public/imagenes');

@@ -17,14 +17,12 @@ class CarritoController extends Controller
     {
         // Obtiene los productos en el carrito del usuario autenticado
         $carritos = auth()->user()->carritos()->with(['categoria'])->withPivot('cantidad')->get();
-        
         // Obtener los métodos de pago del usuario autenticado
         $user = auth()->user();
-        $paymentMethods = $user->paymentMethods(); // Ajusta según tu implementación de Stripe o tu modelo User
-
+        $paymentMethods = $user->paymentMethods();
         // Obtén los productos seleccionados (esto puede ser adaptado según tu lógica)
         $productosSeleccionados = $carritos->map(function ($producto) {
-            return $producto->id; // Aquí puedes personalizar el arreglo de productos seleccionados
+            return $producto->id;
         });
 
         return view('carrito.index', compact('carritos', 'paymentMethods', 'productosSeleccionados'));
@@ -70,24 +68,21 @@ class CarritoController extends Controller
     }
     // ---------------------------------------------------------------------------------------------------------------- pagar el o los productos
     public function pagar(Request $request)
-{
-    $productosSeleccionados = json_decode($request->input('productos_seleccionados'), true);
+    {
+        $productosSeleccionados = json_decode($request->input('productos_seleccionados'), true);
 
-    if ($productosSeleccionados) {
-        // Elimina los productos seleccionados del carrito usando la relación del usuario
-        foreach ($productosSeleccionados as $productoId) {
-            auth()->user()->carritos()->detach($productoId);
+        if ($productosSeleccionados) {
+            // Elimina los productos seleccionados del carrito usando la relación del usuario
+            foreach ($productosSeleccionados as $productoId) {
+                auth()->user()->carritos()->detach($productoId);
+            }
+            // Redirige a la vista de pago exitoso
+            return redirect()->route('carrito.pago-exitoso')->with('success', 'Pago procesado con éxito. Los productos han sido removidos del carrito.');
         }
-
-        // Redirige a la vista de pago exitoso
-        return redirect()->route('carrito.pago-exitoso')->with('success', 'Pago procesado con éxito. Los productos han sido removidos del carrito.');
+        // Manejar casos en los que no se seleccionaron productos
+        return back()->with('error', 'No se seleccionaron productos para pagar.');
     }
-
-    // Manejar casos en los que no se seleccionaron productos
-    return back()->with('error', 'No se seleccionaron productos para pagar.');
-}
-
-
+    // ----------------------------------------------------------------------------------------------- manda a otra vista si el pago fue exitoso
     public function pagoExitoso(Request $request)
     {
         return view('carrito.pago-exitoso');

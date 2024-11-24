@@ -14,7 +14,6 @@ class UserProfileController extends Controller
 {
     public function perfilComprador()
     {
-        // Obtiene el usuario autenticado
         if (!auth()->check()) {
             return redirect()->route('login')->with('error', 'Debes estar autenticado para ver tu perfil de comprador.');
         }

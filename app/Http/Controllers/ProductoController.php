@@ -203,7 +203,6 @@ class ProductoController extends Controller
         // Obtener los valores de precio desde la solicitud
         $minPrecio = $request->input('min_precio');
         $maxPrecio = $request->input('max_precio');
-
         // Filtrar productos según el rango de precio
         $productos = Producto::when($minPrecio, function ($query) use ($minPrecio) {
                 return $query->where('precio', '>=', $minPrecio);  // Filtra el precio mínimo
@@ -213,7 +212,6 @@ class ProductoController extends Controller
             })
             ->paginate(12)
             ->appends($request->all());  // Asegura que los parámetros se mantengan en la paginación
-
         // Obtener todas las categorías para pasarlas a la vista
         $categorias = Categoria::all();
 
