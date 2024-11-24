@@ -26,7 +26,7 @@
 }
 /* ------------------------------------------------------------------------------------------------------------------------ Estilo del botón */
 .btn-cambiarContrasena {
-    background-color: #6d156d !important; /* Azul principal */
+    background-color: #6d156d !important; 
     color: #fff; /* Texto blanco */
     border: none;
     border-radius: 8px;
@@ -40,7 +40,6 @@
     background-color: #aa00cc !important;
     color: white !important;
 }
-
 /* ************************************************************* Responsividad ************************************************************* */
 /* ---------------------------------------------------------------------------------------------------------------------- pantallas pequeñas */
 @media (max-width: 768px) {

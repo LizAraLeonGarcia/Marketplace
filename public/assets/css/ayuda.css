@@ -16,15 +16,15 @@ img.img-fluid {
     margin-top: 10px;
     text-align: center;
 }
-/* Botones del carrusel */
+/* --------------------------------------------------------------------------------------------------------------------- Botones del carrusel */
 .carousel-control-prev, .carousel-control-next {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     width: 40px;
     height: 40px;
-    background-color: black; /* Fondo semi-transparente */
-    color: white; /* Color del icono */
+    background-color: black; 
+    color: white;
     border: none;
     border-radius: 50%;
     display: flex;
@@ -32,9 +32,9 @@ img.img-fluid {
     justify-content: center;
     font-size: 1.5rem;
 }
-
+/* ---------------------------------------------------------------------------------------------- Reduce el margen para dispositivos móviles */
 .carousel-control-prev {
-    left: 10px; /* Reduce el margen para dispositivos móviles */
+    left: 10px; 
 }
 
 .carousel-control-next {
@@ -42,9 +42,9 @@ img.img-fluid {
 }
 
 .carousel-controls button span[aria-hidden="true"] {
-    font-size: 24px; /* Ajusta el tamaño según prefieras */
+    font-size: 24px; 
     font-weight: bold;
-    color: #ffffff; /* Cambia el color si es necesario */
+    color: #ffffff; 
 }
 /* ----------------------------------------------------------------------------------------------------------------------- lista de contacto */
 .contact-list {
@@ -59,12 +59,12 @@ img.img-fluid {
 }
 
 .contact-info {
-    display: flex; /* Usa flexbox para alinear íconos, textos y enlaces */
-    align-items: center; /* Alinea verticalmente al centro */
+    display: flex; /* flexbox para alinear íconos, textos y enlaces */
+    align-items: center; /* alinea verticalmente al centro */
 }
-
+/* Espacio entre ícono y texto */
 .contact-icon {
-    margin-right: 15px; /* Espacio entre ícono y texto */
+    margin-right: 15px; 
 }
 
 .contact-text {
@@ -95,7 +95,7 @@ img.img-fluid {
         height: auto;
     }
 }
-/* Ajuste general para pantallas medianas y pequeñas */
+/* ----------------------------------------------------------------------------------------------------------- pantallas medianas y pequeñas */
 @media (max-width: 768px) {
     .carousel-control-prev, .carousel-control-next {
         width: 30px; /* Ajuste de tamaño en pantallas pequeñas */
@@ -113,7 +113,7 @@ img.img-fluid {
         height: auto;
     }
 }
-/* Ajustes para pantallas muy pequeñas */
+/* ------------------------------------------------------------------------------------------------------------------ pantallas muy pequeñas */
 @media (max-width: 480px) {
     .carousel-control-prev, .carousel-control-next {
         width: 25px;

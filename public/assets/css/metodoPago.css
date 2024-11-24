@@ -55,7 +55,7 @@
     min-width: 280px; /* Ancho mínimo */
     max-width: 350px; /* Ancho máximo */
     padding: 20px; /* Espaciado interno */
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra elegante */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra */
     border: 1px solid #ddd; /* Borde sutil */
     border-radius: 12px; /* Esquinas redondeadas */
     background-color: #ffffff; /* Fondo limpio */

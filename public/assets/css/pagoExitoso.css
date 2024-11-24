@@ -19,9 +19,8 @@
     max-width: 90%; /* Limita el ancho de la imagen para pantallas pequeñas */
     height: auto; /* Mantiene la proporción de la imagen */
 }
-
-/* responsividad */
-/* Dispositivos pequeños (teléfonos) */
+/* ************************************************************* RESPONSIVIDAD ************************************************************* */
+/* ---------------------------------------------------------------------------------------------------------------------- pantallas pequeñas */
 @media (max-width: 576px) {
     .compra-titulo {
         font-size: 18px; /* Reduce el tamaño de la fuente */
@@ -35,7 +34,7 @@
         max-width: 80%; /* Reduce un poco más el tamaño de la imagen */
     }
 }
-/* Dispositivos medianos (tabletas) */
+/* ---------------------------------------------------------------------------------------------------------------------- pantallas medianas */
 @media (min-width: 577px) and (max-width: 768px) {
     .compra-titulo {
         font-size: 20px; /* Tamaño intermedio */
@@ -49,7 +48,7 @@
         max-width: 85%; /* Ajuste moderado del tamaño de la imagen */
     }
 }
-/* Dispositivos grandes (escritorios) */
+/* ----------------------------------------------------------------------------------------------------------------------- pantallas grandes */
 @media (min-width: 769px) {
     .compra-titulo {
         font-size: 22px; /* Tamaño predeterminado */

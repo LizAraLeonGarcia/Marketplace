@@ -91,7 +91,7 @@
     border-radius: 5px;
     padding: 10px 20px;
     color: white;
-    display: block; /* Cambia el comportamiento de inline a bloque */
+    display: block; 
     margin: 0 auto; /* Centra horizontalmente */
     cursor: pointer;
 }
@@ -126,14 +126,14 @@
     width: 20px; /* Hace el botón cuadrado */
     height: 20px; /* Hace el botón cuadrado */
     background-color: white;
-    border: 2px solid #704000; /* Azul como borde */
+    border: 2px solid #704000; 
     border-radius: 0; /* Sin bordes redondeados */
     appearance: none; /* Elimina el estilo por defecto */
     cursor: pointer;
 }
 
 .profile-radio:checked {
-    background-color: #00c22a; /* Azul si está seleccionado */
+    background-color: #00c22a; 
     border: 2px solid #208135; /* Un borde más oscuro si está seleccionado */
 }
 
@@ -175,7 +175,7 @@
     .formCuenta {
         max-width: 90%; /* Reduce el ancho máximo */
         max-height: 90vh; /* Evita que el formulario exceda el alto visible */
-        box-shadow: none; /* Opcional: elimina sombra para simplificar */
+        box-shadow: none; 
     }
 
     .image-container {
@@ -205,7 +205,7 @@
     .formCuenta {
         max-width: 90%; /* Reduce el ancho máximo */
         max-height: 90vh; /* Evita que el formulario exceda el alto visible */
-        box-shadow: none; /* Opcional: elimina sombra para simplificar */
+        box-shadow: none; 
     }
 
     .image-container {
