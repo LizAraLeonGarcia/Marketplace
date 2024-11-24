@@ -18,7 +18,7 @@ class PaymentMethod extends Model
         'exp_year',
         'is_default',
     ];
-
+    // ---------------------------------------------------------------------------------------------------------------------- Relación con User
     public function user()
     {
         return $this->belongsTo(User::class);

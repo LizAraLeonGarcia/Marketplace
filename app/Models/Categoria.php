@@ -12,7 +12,7 @@ class Categoria extends Model
     use SoftDeletes; 
     
     protected $fillable = ['nombre']; 
-    // ------------------------------------------------------------------------------------------------------------------ Relacion con productos
+    // ----------------------------------------------------------------------------------------------------------------- Relacion con productos
     public function productos()
     {
         return $this->hasMany(Producto::class);

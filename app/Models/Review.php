@@ -12,14 +12,12 @@ class Review extends Model
     protected $fillable = [
         'review', 'rating', 'user_id', 'reviewable_id', 'reviewable_type'
     ];
-
-    // Relación polimórfica
+    // ------------------------------------------------------------------------------------------------------------------- Relación polimórfica
     public function reviewable()
     {
         return $this->morphTo();
     }
-
-    // Relación con el usuario que realiza la reseña
+    // ------------------------------------------------------------------------------------------ Relación con el usuario que realiza la reseña
     public function user()
     {
         return $this->belongsTo(User::class);

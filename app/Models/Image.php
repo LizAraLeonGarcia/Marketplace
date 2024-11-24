@@ -10,12 +10,12 @@ class Image extends Model
     use HasFactory;
 
     protected $fillable = ['producto_id', 'path'];
-    // ------------------------------------------------------------------------------------------------------------------ Relacion con productos
+    // ----------------------------------------------------------------------------------------------------------------- Relacion con productos
     public function producto()
     {
         return $this->belongsTo(Producto::class);
     }
-    // Accesor para obtener la URL completa de la imagen
+    // -------------------------------------------------------------------------------------- Accesor para obtener la URL completa de la imagen
     public function getUrlAttribute()
     {
         return asset('storage/' . $this->path);

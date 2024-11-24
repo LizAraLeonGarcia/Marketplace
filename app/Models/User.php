@@ -46,18 +46,18 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsTo(Pais::class, 'pais_id'); 
     }
-
+    // -------------------------------------------------------------------------------------------------------- Relación con los metodos de pago
     public function paymentMethods()
     {
         return $this->hasMany(PaymentMethod::class, 'user_id');
     }
-
+    // ---------------------------------------------------------------------------------------------------------------- Relación con las reseñas
     public function reviews()
     {
         return $this->hasMany(Review::class, 'reviewable_id')
                     ->where('reviewable_type', self::class);
     }
-    // -------------------------------------------------------------------------------------------------------------------- Relación con reseñas
+
     public function reviewsReceived()
     {
         return $this->hasMany(Review::class, 'reviewable_id')
