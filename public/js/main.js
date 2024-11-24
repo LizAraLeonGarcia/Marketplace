@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-  const submenu = document.querySelector('.submenu'); // Asegúrate de que este elemento existe en tu HTML
+  const submenu = document.querySelector('.submenu'); 
   const links = document.querySelectorAll('.nav-links a');
   const sections = document.querySelectorAll('section');
 

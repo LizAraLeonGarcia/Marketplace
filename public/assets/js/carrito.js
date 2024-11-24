@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
     const formPago = document.getElementById('form-pago');
-    
     // Solo continua si el formulario existe
     if (!formPago) return;
 

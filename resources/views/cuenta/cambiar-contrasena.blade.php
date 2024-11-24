@@ -8,18 +8,15 @@
             {{ session('status') }}
         </div>
     @endif
-
     <!-- Contenido Principal -->
     <div class="contenidoCambiarContraseña">
         <h2 class="text-center">Cambiar Contraseña</h2>
-        
         <!-- Contenedor para la imagen y el formulario -->
         <div class="row">
             <!-- Columna de la imagen -->
             <div class="col-md-4">
                 <img src="{{ asset('assets/img/cambiarContrasena.png') }}" alt="Descripción de la imagen" class="img-fluid">
             </div>
-
             <!-- Columna del formulario -->
             <div class="col-md-8">
                 <form action="{{ route('cuenta.cambiar-contrasena.form') }}" method="POST">

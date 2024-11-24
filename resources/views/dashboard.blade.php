@@ -20,7 +20,7 @@
     <div class="row">
         <!-- Menú lateral -->
         <div class="custom-menu">
-            @include('partials.menu-lateral') <!-- Menú lateral -->
+            @include('partials.menu-lateral') 
         </div> 
         <!-- Contenido -->
         <div class="contenidoPrincipal">
@@ -89,7 +89,7 @@
                     </div>
                     
                 @else
-                    <p>No hay productos publicados.</p>
+                    <h2>No hay productos publicados.</h2>
                 @endif
             @else
                 <!-- Mostrar mensaje si no es vendedor -->

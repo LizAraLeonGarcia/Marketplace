@@ -12,6 +12,7 @@
 4. [Instalación](#instalación)
 5. [Uso](#uso)
 6. [Estructura del Proyecto](#estructura-del-proyecto)
+7. [Notas] (#notas)
 
 ---
 
@@ -40,8 +41,8 @@ Hay opciones no implementadas en el backend, solamente en el frontend. Las opcio
 4. Perfil como vendedor = funcional, además sólo es visual.
 5. Crear producto = todo funcional.
 6. Ver productos = los productos se muestran sin filtros por defecto, pero para filtrarlos sólo es funcional hacerlo por alguna de las categorías, por precio o buscando en la barra de búsqueda; el resto de opciones no fue implementado.
-7. Carrito = puede tener productos añadidos el usuario, pero el pago no se procesa, aunque sí se eliminan productos.
-8. Ayuda = todo funcional.
+7. Carrito = todo funcional.
+8. Ayuda = todo funcional, además sólo es visual.
 
 ---
 
@@ -92,7 +93,7 @@ Sigue estos pasos para configurar el proyecto:
 
 **Extra**
 
-Hay 4 tests preparados, éstos los tengo ubicados en la carpeta \laragon\www\Marketplace\tests\Feature y el archivo es MarketplaceTest.
+Hay 4 tests preparados ubicados en la carpeta \laragon\www\Marketplace\tests\Feature y el archivo es MarketplaceTest.
 
 ---
 
@@ -107,8 +108,10 @@ Ver el dashboard con las opciones de gestión
 
 **Datos iniciales**
 Al ejecutar los seeders, se crean:
-1. Categorías predeterminadas: Accesorios, Calzado, Cocina, Coleccionables, Escolar, Hogar, Oficina, Ropa, Videojuegos.
-2. 2 usuarios iniciales.
+1. Una lista de países para usar en la edición de la cuenta.
+2. Categorías predeterminadas: Accesorios, Calzado, Cocina, Coleccionables, Escolar, Hogar, Oficina, Ropa, Videojuegos.
+3. 2 usuarios iniciales.
+4. Productos para los dos usuarios creados.
 
 ---
 
@@ -135,3 +138,10 @@ Al ejecutar los seeders, se crean:
 - ProductosRopaSeeder,
 - ProductosVideojuegosSeeder.
 
+## Notas
+
+Algunas consideraciones para tener en cuenta son:
+
+- Si se desea iniciar sesión con alguna de las cuentas del RegistrarUsuariosSeeder, en el apartado del dashboard no se cargan en automático los productos del usuario en cuestión, se debe crear un producto manualmente, e inmediatamente después ya se cargarán los productos de los seeders en el dashboard. Nota: en el apartado de Ver productos, todos los productos se cargan sin problema.
+- Si se desean ejecutar los 4 tests de prueba ubicados en \laragon\www\Marketplace\tests\Feature\MarketplaceTest.php, ejecutarlos antes de poblar la base de datos con los seeders o, ejecutarlos al final cuando ya no se quiera usar a Vaquita Marketplace pues, a pesar de que los tests usan una base de datos de prueba; parece interferir con la base de datos original (Marketplace), por lo que al ejecutar el MarketplaceTest se borra la información de la base de datos original.
+- El menú lateral se mantiene fijo aún en pantallas muy pequeñas, pero el tamaño se adapta según el tamaño de la pantalla en uso.
