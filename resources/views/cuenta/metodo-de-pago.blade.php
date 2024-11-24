@@ -79,42 +79,59 @@
     paymentForm.addEventListener('submit', async (event) => {
         event.preventDefault(); // Evita el envío del formulario por defecto
 
-        // Obtén el client_secret desde tu backend (pasado a la vista Blade)
-        var clientSecret = "{{ $setupIntent->client_secret }}";
+        // Deshabilitar el botón de envío para evitar envíos múltiples
+        const submitButton = document.querySelector('button[type="submit"]');
+        submitButton.disabled = true;
 
-        // Crear método de pago
-        const { paymentMethod, error: paymentMethodError } = await stripe.createPaymentMethod({
-            type: 'card',
-            card: card,
-        });
+        try {
+            // Obtén el client_secret desde tu backend (pasado a la vista Blade)
+            var clientSecret = "{{ $setupIntent->client_secret }}";
 
-        // Manejar error en creación de método de pago
-        if (paymentMethodError) {
-            console.error('Error al crear el método de pago:', paymentMethodError.message);
-            alert('Error al crear el método de pago: ' + paymentMethodError.message);
-            return;
+            // Crear método de pago
+            const { paymentMethod, error: paymentMethodError } = await stripe.createPaymentMethod({
+                type: 'card',
+                card: card,
+            });
+
+            // Manejar error en creación de método de pago
+            if (paymentMethodError) {
+                console.error('Error al crear el método de pago:', paymentMethodError.message);
+                alert('Error al crear el método de pago: ' + paymentMethodError.message);
+                submitButton.disabled = false; // Rehabilitar el botón
+                return;
+            }
+
+            // Confirmar el SetupIntent con el método de pago creado
+            const { setupIntent, error: confirmError } = await stripe.confirmCardSetup(clientSecret, {
+                payment_method: paymentMethod.id,
+            });
+
+            // Manejar error al confirmar el SetupIntent
+            if (confirmError) {
+                console.error('Error al confirmar el SetupIntent:', confirmError.message);
+                alert('Hubo un problema al guardar el método de pago: ' + confirmError.message);
+                submitButton.disabled = false; // Rehabilitar el botón
+                return;
+            }
+
+            // SetupIntent confirmado exitosamente
+            console.log('SetupIntent confirmado:', setupIntent);
+
+            // Agregar el paymentMethodId al formulario para enviarlo al backend
+            document.getElementById('paymentMethodId').value = paymentMethod.id;
+
+            // Enviar el formulario al backend
+            paymentForm.submit();
+        } catch (error) {
+            if (error.message.includes('SetupIntent has already succeeded')) {
+                alert('Este SetupIntent ya fue procesado. Recarga la página para crear uno nuevo.');
+            } else {
+                alert('Error inesperado: ' + error.message);
+            }
+            console.error('Error:', error);
+            // Rehabilitar el botón
+            submitButton.disabled = false; 
         }
-
-        // Confirmar el SetupIntent con el método de pago creado
-        const { setupIntent, error: confirmError } = await stripe.confirmCardSetup(clientSecret, {
-            payment_method: paymentMethod.id,
-        });
-
-        // Manejar error al confirmar el SetupIntent
-        if (confirmError) {
-            console.error('Error al confirmar el SetupIntent:', confirmError.message);
-            alert('Hubo un problema al guardar el método de pago: ' + confirmError.message);
-            return;
-        }
-
-        // SetupIntent confirmado exitosamente
-        console.log('SetupIntent confirmado:', setupIntent);
-
-        // Agregar el paymentMethodId al formulario para enviarlo al backend
-        document.getElementById('paymentMethodId').value = paymentMethod.id;
-
-        // Enviar el formulario al backend
-        paymentForm.submit();
     });
 </script>
 @endsection
